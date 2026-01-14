@@ -3,6 +3,9 @@ project:
   resources:
     - "icons/"
 
+execute:
+  freeze: auto
+
 website:
   title: "DATA2"
   navbar:
