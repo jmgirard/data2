@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jmgirard.github.io/data2/Unit_A/Week_02/index.html</loc>
+    <lastmod>2026-01-14T17:16:56.665Z</lastmod>
+  </url>
+  <url>
     <loc>https://jmgirard.github.io/data2/index.html</loc>
     <lastmod>2026-01-14T17:01:13.552Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/Unit_A/Week_02/02a_Slides.html</loc>
+    <lastmod>2026-01-14T17:19:21.293Z</lastmod>
   </url>
 </urlset>
