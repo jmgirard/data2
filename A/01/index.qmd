@@ -1,0 +1,19 @@
+---
+title: "Week 01: Orient"
+---
+
+## [01a] No Class
+
+
+## [01b] Syllabus / Website
+
+### Topics
+- Review the course content, learning outcomes, and policies on the syllabus
+- Tour the course Canvas page (assignments) and the course website (materials)
+
+## [01c] No Class
+
+
+::: {.text-center}
+<a href="../02/index.html" class="btn btn-primary mt-5" role="button" >Continue to Week 02: Start&nbsp;&nbsp;&raquo;</a>
+:::
