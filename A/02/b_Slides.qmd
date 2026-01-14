@@ -1,0 +1,214 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Foundations of Data Science"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "Data 2 (399)"
+    lecture: "02b"
+execute:
+  echo: true
+  eval: true
+  collapse: false
+---
+
+::: {.my-title}
+# [Foundations of]{.my-subtitle}<br />[Data Science]{.blue}
+
+::: {.my-grey}
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. Write Scripts and Comments to store and explain R code
+
+2. Create and use RStudio Projects to organize all your files
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Scripts
+
+## Communicating with R {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   The [Console]{.b .blue} is like a [chat window]{.b .green} with R
+    -   You send a command to R and get a response
+    -   Neither side of the conversation is saved
+
+::: {.fragment .mt1}
+-   An [R Script]{.b .blue} is like an [email thread]{.b .green} with R
+    -   You send many commands to R all at once
+    -   Only your side of the conversation is saved
+:::
+
+::: {.fragment .mt1}
+-   A [Quarto Document]{.b .blue} is like a [scrapbook]{.b .green} with R
+    -   You can combine code and formatted text
+    -   Both sides of the conversation are saved
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/converse.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Scripts Live Coding
+
+```{r}
+#| echo: true
+#| eval: false
+#| error: true
+#| code-line-numbers: false
+
+# Creating a new script
+
+## Option 1: File > New File > R Script
+## Option 2: Top bar: white square with green plus icon
+## Option 3: Ctrl+Shift+N (Win) Cmd+Shift+N (Mac)
+## A new pane will be added to the RStudio window called the Source Editor
+
+
+# Entering commands into script
+
+## In the Source Editor, we can add many lines of code to a script
+## This allows for longer and more complex operations
+## Think of it like drafting an email with many instructions
+(1.4 + 2.8 + 9.3) / 3
+30.1 - 24.7
+
+
+# Running one line of code
+
+## Hitting Enter (Win) or Return (Mac) does not run the code
+## We can run one line of code at a time to see its results in console
+## Option 1: With cursor on a line, click the Run button (top-right)
+## Option 2: With cursor on a line, Ctrl+Enter (Win) or Cmd+Return (Mac)
+
+
+# Running many lines of code
+
+## We can run multiple lines of code at once to see results in console
+## Option 1: Highlight lines with mouse, click the Run button (top-right)
+## Option 2: Highlight lines with mouse, Ctrl+Enter (Win) or Cmd+Return (Mac)
+## We can even run all lines of code in a script at once
+## Option 1: Click the Source button (top-right)
+## Option 2: Ctrl+Shift+Enter (Win) or Cmd+Shift+Return (Mac)
+
+
+# Adding comments to scripts
+
+## To help communicate the purpose of our code, we can add comments
+## Comments will be ignored by R and are only there for human readers
+## We always start a comment in an R script with a hash symbol: #
+## I have been using comments in this very section you are reading!
+
+# Calculate the average score on the quiz
+(1.4 + 2.8 + 9.3) / 3
+
+# Calculate the difference between exam 1 and exam 2
+30.1 - 24.7
+
+100 / 9 # we can even have comments at the end of line (start will still run)
+
+
+# Saving the script file
+
+## Option 1: File > Save
+## Option 2: Source bar: blue and white disk icon
+## Option 3: Ctrl+S (Win) Cmd+S (Mac)
+## For now, save it wherever; we'll learn about Projects in [02b]
+## You will now have a .R file that you can keep and/or transfer
+## Only the code/input is saved in the script, not the results/output
+```
+
+# Projects
+
+## File Management {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   [Projects]{.b .blue} are [special folders]{.b .green} on your computer
+    -   They contain all files related to a task
+    -   They keep everything together and organized
+
+::: {.fragment .mt1}
+-   Projects make it easy to [find and use your files]{.b .green}
+    -   No need to specify long, annoying file paths
+    -   No need to worry about working directories
+:::
+
+::: {.fragment .mt1}
+-   Projects make it easy to [switch between tasks]{.b .green}
+    -   They will remember exactly where you left off
+    -   You can even open multiple projects at once
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/box.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+::: {.aside}
+*Note.* Save your project in a cloud service folder (e.g., Box, Dropbox, Google Drive, OneDrive) to backup and sync it.
+:::
+
+
+## Create a new Project
+
+- Open the "File" menu in RStudio
+- Select the "New Project..." option
+- Select the "New Directory" option
+- Select the "New Project" option
+- Name the directory "PSYC 399" or "Data2" (or whatever)
+- Browse to where to create your Project folder
+
+## Create a new File
+
+- Explore the Files tab in the Extras pane
+- Create a New File (e.g., a script) as an example
+- RStudio will automatically create it in your project folder
+- Add some text to the example file (e.g., "# Hello World")
+- Save the file and note that it defaults to your project folder
+- Close the script with the "x" icon
+- Reopen the script from the Files tab
+
+## Close and Open Projects
+
+- Open the "File" menu in RStudio
+- Select the "Close Project" option
+- Notice that your work is now gone
+- Open the "File" menu in RStudio
+- Select the "Open Project" option
+- Browse to your project folder
+- Open the .Rproj file (e.g., PSYC 399.Rproj)
+- Notice that your work is now back!

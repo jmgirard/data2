@@ -14,6 +14,7 @@ format:
     code-link: false
     code-copy: true
     code-line-numbers: false
+    controls: true
     pagetitle: "Foundations of Data Science"
     author-meta: "Jeffrey Girard"
     semester: "Spring 2026"
@@ -36,7 +37,7 @@ execute:
 ![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
 :::
 
-## Roadmap: Meeting R
+## Roadmap
 
 ::: {.columns .pv4}
 
@@ -47,7 +48,7 @@ execute:
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/map.json" trigger=hover delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::
@@ -70,7 +71,7 @@ execute:
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/muscle.json" trigger=hover delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/muscle.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::
@@ -125,7 +126,7 @@ execute:
 :::
 
 ::: {.column .tc .pv5 .relative width="40%"}
-{{< lif "../../icons/car.json" trigger=hover delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/car.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
@@ -231,7 +232,7 @@ execute:
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/genie.json" trigger=hover delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/genie.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
@@ -258,7 +259,7 @@ execute:
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/converse.json" trigger=hover delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/converse.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 

@@ -8,16 +8,63 @@ title: "Week 02: Start"
 - Install R and RStudio on your laptop computer
 - Learn to use the R Console as a scientific calculator
 
-### Materials
-- [Slides](a_Slides.qmd){target="_blank"}
-- [Practice](a_Practice.qmd){target="_blank"}
-
 ### Readings
 - R4DS (2E) Chapter 0: [Introduction](https://r4ds.hadley.nz/intro.html){target="_blank"}
 - R4DS (2E) Section 1.1: [Coding basics](https://r4ds.hadley.nz/workflow-basics.html#coding-basics){target="_blank"}
 
+### Slides
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[02a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
 ### Recording
-- [Canvas](https://canvas.ku.edu/courses/185369/pages/02a-rstudio-slash-console?module_item_id=4272944){target="_blank"}
+- To be added...
+
+### Practice
+#### 1) RStudio
+
+There are many ways to customize the RStudio interface. To explore the possibilities, go to **Tools** > **Global Options**. The most noticeable things you can change are aspects of RStudio's appearance. If you click on the *Appearance* section, you can select a different zoom level, editor font, font size, and editor theme. I usually teach with the default settings and you can keep everything the same if you want your computer to match the one I teach from, but for my own work I use the "Tomorrow Night 80s" theme and a custom font called [Fira Code](https://affcom.ku.edu/posts/firacode/). I also make slight changes to the *Pane Layout* section that I'd be happy to describe to you in class if you're interested.
+
+All of this stuff is optional, but a few changes that I'd recommend making are to go to the *General* section and make sure that "Restore .RData into workspace at startup" is unchecked and that "Save workspace to .RData on exit" is set to "Never". Finally, under the *Code* section and the Display tab, I like to check the box for "Allow scroll past end of document".
+
+#### 2) Console
+
+Read what the user wanted to do and look at the command they sent to R. Fix the errors in the commands and calculate the answers.
+
+a)  I want to add 20 and 0.2 and divide that sum by 4.1. But I get an error when I try:<br />`[20 + .2] \ 4.1`
+b)  I want to multiply 6 by the sum of 2 and 1,300. But I get an error when I try:<br />`6 x (2 + 1,300)`
+
+{{< dstart summary="Answer key" >}}
+
+**Answer (a)**
+
+Change the brackets `[]` to parentheses `()` because parentheses `()` are the order-of-operations operator in R. Also, change the backslash `\` to a forward slash `/` because forward slash `/` is the division operator in R.
+
+```{r}
+#| comment: "#>"
+#| collapse: true
+
+(20 + .2) / 4.1
+```
+
+**Answer (b)**
+
+Change the `x` to an asterisk `*` because asterisk `*` is the multiplication operator in R. Also, remove the comma `,` from `1,300` because R doesn't use commas to delimit digits in large numbers.
+
+```{r}
+#| comment: "#>"
+#| collapse: true
+
+6 * (2 + 1300)
+```
+
+{{< dstop >}}
+
 
 ## [02b] Scripts / Projects
 
@@ -25,27 +72,57 @@ title: "Week 02: Start"
 - Write Scripts and Comments to store and explain R code
 - Create and use RStudio Projects to organize all your files
 
-### Materials
-- [Slides](b_Slides.qmd){target="_blank"}
-- [Practice](b_Practice.qmd){target="_blank"}
-
 ### Readings
 - R4DS (2E) Section 6.1: [Scripts](https://r4ds.hadley.nz/workflow-scripts.html#scripts){target="_blank"}
 - R4DS (2E) Section 2.2: [Comments](https://r4ds.hadley.nz/workflow-basics.html#comments){target="_blank"}
 - R4DS (2E) Section 6.2: [Projects](https://r4ds.hadley.nz/workflow-scripts.html#projects){target="_blank"}
 
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
 ### Recording
-- [Canvas](https://canvas.ku.edu/courses/185369/pages/02b-scripts-slash-projects?module_item_id=4272945){target="_blank"}
+- To be added...
+
+### Practice
+
+#### 1) Scripts
+
+Create a new R script file and copy your answers to Question 2 into it. Add some comments to explain which line of code corresponds to 2a and 2b. I'll talk about this more later on, but it is a good idea to get into the practice of keeping your code organized and commented. Organized code will also make grading easier, and a happy grader is associated with a happy student. 😉
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| eval: false
+
+## File > New File > R Script (or equivalent shortcuts)
+
+# Question 2a
+(20 + .2) / 4.1
+
+# Question 2b
+6 * (2 + 1300)
+
+## File > Save (or equivalent shortcuts)
+```
+{{< dstop >}}
+
+#### 2) Projects
+
+If you haven't already, create an RStudio Project for this entire course. Name it whatever makes sense to you (e.g., `PSYC 399` or `Data2`) and save it somewhere convenient on your computer (e.g., in a OneDrive/Dropbox/Box folder or on your desktop). Think about how you will organize and name your files in this project folder. Will you save your notes in one Quarto document per day or per week or something else? Will you have a consistent naming system for the files based on lecture numbers (e.g., `02b Notes.qmd` and `02 Homework.qmd`) or dates (e.g., `01-25 Notes.qmd`) or something else?
+
 
 ## [02c] Quarto / Markdown
 
 ### Topics
 - Create self-contained data science reports using Quarto documents
 - Include Markdown commands to format your Quarto documents
-
-### Materials
-- [Slides](c_Slides.qmd){target="_blank"}
-- [Practice](c_Practice.qmd){target="_blank"}
 
 ### Readings
 - R4DS (2E) Section 28.1: [Introduction](https://r4ds.hadley.nz/quarto.html#introduction){target="_blank"}
@@ -54,5 +131,69 @@ title: "Week 02: Start"
 - R4DS (2E) Section 28.4: [Source Editor](https://r4ds.hadley.nz/quarto.html#sec-source-editor){target="_blank"}
 - R4DS (2E) Section 28.10.1: [Self-contained](https://r4ds.hadley.nz/quarto.html#self-contained){target="_blank"}
 
+### Slides
+```{=html}
+<iframe class="slide-deck" src="c_Slides.html" title="[02c] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
 ### Recording
-- [Canvas](https://canvas.ku.edu/courses/185369/pages/02c-quarto-slash-markdown?module_item_id=4272946){target="_blank"}
+- To be added...
+
+### Practice
+
+#### 1) Quarto
+Create a new Quarto document for this activity and save it in your new project folder with the naming convention you decided on in Question 1. Clear out the boilerplate text and create a new R code chunk. Inside this code chunk, use R as a calculator to answer the following question: If it costs \$100 for each professor and \$25 for each student to register for a conference, how much would it cost in total for a department of 8 professors and 20 students to register? Check that the code is working by running the chunk. Once it is giving the correct answer, render the Quarto document to an HTML file and preview it in the Viewer.
+
+{{< dstart summary="Answer key" >}}
+
+Your .qmd file should look something like this (the header is optional):
+
+```` markdown
+---
+title: "Conference Costs"
+format: html
+---
+
+```{{r}}
+100 * 8 + 25 * 20
+```
+
+````
+Your R output should tell you that the total cost would be $1300.
+
+{{< dstop >}}
+
+#### 2) Markdown
+
+Use markdown to add some formatted text before and after the code chunk in your Quarto document. Before the chunk, describe in text what your code chunk is doing and why. Format some of the text using italics, bold, etc. Add an image below the chunk showing people at a conference (e.g., <https://i.imgur.com/houkSmT.jpeg>)
+
+{{< dstart summary="Answer key" >}}
+
+Your .qmd file should look something like this (the header is optional):
+
+```` markdown
+---
+title: "Conference Costs"
+format: html
+---
+
+**How much will it cost** to register our *whole department* to attend the conference? With 8 professors and 20 students, at a price of \$100 per professor and \$25 per student, the total cost will be:
+
+```{{r}}
+100 * 8 + 25 * 20
+```
+
+![](https://i.imgur.com/houkSmT.jpeg)
+
+````
+
+{{< dstop >}}
+
+::: {.text-center}
+<a href="../03/index.html" class="btn btn-primary mt-5" role="button" >Continue to Week 03: Program&nbsp;&nbsp;&raquo;</a>
+:::

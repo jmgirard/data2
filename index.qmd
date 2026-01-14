@@ -1,11 +1,26 @@
 ---
-title: "data2"
+title: "Foundations of Data Science"
+toc: false
 ---
 
-This is a Quarto website.
+Data science empowers its users to provide data-drive solutions to problems and questions in the world. This course provides foundational skill and knowledge behind this power. This knowledge and skill includes learning to formulate effective questions to answer with data, computer programming, data management and wrangling, exploratory data analysis and visualization, statistical inference and prediction, data-driven decision making, and communication.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+### Learning Outcomes
 
-```{r}
-1 + 1
-```
+At the conclusion of this course, students will be able to:
+
+- Explain the pros and cons of R as a platform for data science
+- Implement a data science workflow using RStudio Projects and Quarto
+- Accomplish basic and intermediate programming tasks using R and tidyverse
+- Accomplish basic and intermediate data wrangling tasks using dplyr and tidyr
+- Accomplish basic and intermediate data visualization tasks using ggplot2
+- Customize Quarto reports and ggplots to enhance communication
+- Collaborate with a group to plan and execute a data science project
+
+### Instructor
+
+- [Dr. Jeffrey Girard](mailto:jmgirard@ku.edu), Department of Psychology, University of Kansas
+
+### Class Time and Location
+
+- MWF 10:00 AM - 10:50 AM in FR 547
