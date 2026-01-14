@@ -5,7 +5,6 @@ format:
     slide-number: true
     show-slide-number: all
     preview-links: false
-    embed-resources: true
     progress: true
     history: true
     hash-type: number
