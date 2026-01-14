@@ -148,6 +148,7 @@ Your .qmd file should look something like this (the header is optional):
 ---
 title: "Conference Costs"
 format: html
+embed-resources: true
 ---
 
 ```{{r}}
@@ -171,6 +172,7 @@ Your .qmd file should look something like this (the header is optional):
 ---
 title: "Conference Costs"
 format: html
+embed-resources: true
 ---
 
 **How much will it cost** to register our *whole department* to attend the conference? With 8 professors and 20 students, at a price of \$100 per professor and \$25 per student, the total cost will be:

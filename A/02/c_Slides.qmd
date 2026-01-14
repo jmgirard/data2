@@ -128,8 +128,8 @@ execute:
   - The top part of the document is called the "Header"
   - You can change the title but keep it in quotes
   - Highlight and delete everything below the header
-  - You can delete the header too, but I find it useful
   - In the future, you can click "Create Empty Document"
+  - Add `embed-resources: true` to the Header for assignments!
     
 ## Add an R Chunk {.smaller}
   - Option 1: Click the green box with C and a plus sign icon (top-right)

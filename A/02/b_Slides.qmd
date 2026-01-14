@@ -183,7 +183,7 @@ execute:
 :::
 
 
-## Create a new Project
+## Create a new Project {.fsmaller}
 
 - Open the "File" menu in RStudio
 - Select the "New Project..." option
@@ -192,7 +192,7 @@ execute:
 - Name the directory "PSYC 399" or "Data2" (or whatever)
 - Browse to where to create your Project folder
 
-## Create a new File
+## Create a new File {.fsmaller}
 
 - Explore the Files tab in the Extras pane
 - Create a New File (e.g., a script) as an example
@@ -202,7 +202,7 @@ execute:
 - Close the script with the "x" icon
 - Reopen the script from the Files tab
 
-## Close and Open Projects
+## Close and Open Projects {.fsmaller}
 
 - Open the "File" menu in RStudio
 - Select the "Close Project" option
