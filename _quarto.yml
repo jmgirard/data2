@@ -17,51 +17,54 @@ website:
         menu:
           - icon: compass
             text: "Week 01: Orient"
-            href: Unit_A/Week_01/index.html
+            href: A/01/index.html
           - icon: rocket-takeoff
             text: "Week 02: Start"
-            href: Unit_A/Week_02/index.html
+            href: A/02/index.html
           - icon: code-square
             text: "Week 03: Program"
-            href: Unit_A/Week_03/index.html
+            href: A/03/index.html
           - icon: table
             text: "Week 04: Wrangle"
-            href: Unit_A/Week_04/index.html
+            href: A/04/index.html
           - icon: graph-up-arrow
             text: "Week 05: Visualize"
-            href: Unit_A/Week_05/index.html
+            href: A/05/index.html
           - icon: chat-quote
             text: "Week 06: Communicate"
-            href: Unit_A/Week_06/index.html
+            href: A/06/index.html
           - icon: people
             text: "Week 07: Collaborate"
-            href: Unit_A/Week_07/index.html
+            href: A/07/index.html
           - icon: easel2
             text: "Week 08: Present"
-            href: Unit_A/Week_08/index.html
+            href: A/08/index.html
       - text: Unit B
         menu:
+          - icon: balloon
+            text: "Week 09: Rest"
+            href: B/10/index.html
           - icon: calculator
             text: "Week 10: Infer"
-            href: Unit_B/Week_10/index.html
+            href: B/10/index.html
           - icon: shuffle
             text: "Week 11: Reshape"
-            href: Unit_B/Week_11/index.html
+            href: B/11/index.html
           - icon: body-text
             text: "Week 12: Wrangle"
-            href: Unit_B/Week_12/index.html
+            href: B/12/index.html
           - icon: brush
             text: "Week 13: Visualize"
-            href: Unit_B/Week_13/index.html
+            href: B/13/index.html
           - icon: arrow-repeat
             text: "Week 14: Program"
-            href: Unit_B/Week_14/index.html
+            href: B/14/index.html
           - icon: people
             text: "Week 15: Collaborate"
-            href: Unit_B/Week_15/index.html
+            href: B/15/index.html
           - icon: easel2
             text: "Week 16: Present"
-            href: Unit_B/Week_16/index.html
+            href: B/16/index.html
 
 format:
   html:

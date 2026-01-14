@@ -1,0 +1,58 @@
+---
+title: "Week 02: Start"
+---
+
+## [02a] RStudio / Console
+
+### Topics
+- Install R and RStudio on your laptop computer
+- Learn to use the R Console as a scientific calculator
+
+### Materials
+- [Slides](a_Slides.qmd){target="_blank"}
+- [Practice](a_Practice.qmd){target="_blank"}
+
+### Readings
+- R4DS (2E) Chapter 0: [Introduction](https://r4ds.hadley.nz/intro.html){target="_blank"}
+- R4DS (2E) Section 1.1: [Coding basics](https://r4ds.hadley.nz/workflow-basics.html#coding-basics){target="_blank"}
+
+### Recording
+- [Canvas](https://canvas.ku.edu/courses/185369/pages/02a-rstudio-slash-console?module_item_id=4272944){target="_blank"}
+
+## [02b] Scripts / Projects
+
+### Topics
+- Write Scripts and Comments to store and explain R code
+- Create and use RStudio Projects to organize all your files
+
+### Materials
+- [Slides](b_Slides.qmd){target="_blank"}
+- [Practice](b_Practice.qmd){target="_blank"}
+
+### Readings
+- R4DS (2E) Section 6.1: [Scripts](https://r4ds.hadley.nz/workflow-scripts.html#scripts){target="_blank"}
+- R4DS (2E) Section 2.2: [Comments](https://r4ds.hadley.nz/workflow-basics.html#comments){target="_blank"}
+- R4DS (2E) Section 6.2: [Projects](https://r4ds.hadley.nz/workflow-scripts.html#projects){target="_blank"}
+
+### Recording
+- [Canvas](https://canvas.ku.edu/courses/185369/pages/02b-scripts-slash-projects?module_item_id=4272945){target="_blank"}
+
+## [02c] Quarto / Markdown
+
+### Topics
+- Create self-contained data science reports using Quarto documents
+- Include Markdown commands to format your Quarto documents
+
+### Materials
+- [Slides](c_Slides.qmd){target="_blank"}
+- [Practice](c_Practice.qmd){target="_blank"}
+
+### Readings
+- R4DS (2E) Section 28.1: [Introduction](https://r4ds.hadley.nz/quarto.html#introduction){target="_blank"}
+- R4DS (2E) Section 28.2: [Basics](https://r4ds.hadley.nz/quarto.html#quarto-basics){target="_blank"}
+- R4DS (2E) Section 28.3: [Visual Editor](https://r4ds.hadley.nz/quarto.html#visual-editor){target="_blank"}
+- R4DS (2E) Section 28.4: [Source Editor](https://r4ds.hadley.nz/quarto.html#sec-source-editor){target="_blank"}
+- R4DS (2E) Section 28.10.1: [Self-contained](https://r4ds.hadley.nz/quarto.html#self-contained){target="_blank"}
+
+### Recording
+- [Canvas](https://canvas.ku.edu/courses/185369/pages/02c-quarto-slash-markdown?module_item_id=4272946){target="_blank"}
