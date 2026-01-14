@@ -11,6 +11,11 @@ title: "Week 01: Orient"
 - Review the course content, learning outcomes, and policies on the syllabus
 - Tour the course Canvas page (assignments) and the course website (materials)
 
+### Links
+- Syllabus: [link](https://ku.simplesyllabus.com/api2/doc-pdf/we1q6q8u0/Spring-2026-ECON-399-50843-Data-2%3A-Foundations-of-Data-Science.pdf?locale=en-US)
+- Canvas: [link](https://canvas.ku.edu/courses/185369)
+- Website: [link](https://jmgirard.github.io/data2)
+
 ## [01c] No Class
 
 
