@@ -1,23 +1,37 @@
 [
   {
-    "objectID": "Unit_A/Week_02/index.html",
-    "href": "Unit_A/Week_02/index.html",
-    "title": "Week 02: Start",
-    "section": "",
-    "text": "Install R and RStudio on your laptop computer\nLearn to use the R Console as a scientific calculator\n\n\n\n\n\nSlides\nActivity\n\n\n\n\n\nR4DS (2E) Chapter 0: Introduction\nR4DS (2E) Section 1.1: Coding basics\n\n\n\n\n\nCanvas"
-  },
-  {
-    "objectID": "Unit_A/Week_02/index.html#a-rstudio-console",
-    "href": "Unit_A/Week_02/index.html#a-rstudio-console",
-    "title": "Week 02: Start",
-    "section": "",
-    "text": "Install R and RStudio on your laptop computer\nLearn to use the R Console as a scientific calculator\n\n\n\n\n\nSlides\nActivity\n\n\n\n\n\nR4DS (2E) Chapter 0: Introduction\nR4DS (2E) Section 1.1: Coding basics\n\n\n\n\n\nCanvas"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "data2",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "A/02/index.html",
+    "href": "A/02/index.html",
+    "title": "Week 02: Start",
+    "section": "",
+    "text": "Install R and RStudio on your laptop computer\nLearn to use the R Console as a scientific calculator\n\n\n\n\n\nSlides\nPractice\n\n\n\n\n\nR4DS (2E) Chapter 0: Introduction\nR4DS (2E) Section 1.1: Coding basics\n\n\n\n\n\nCanvas"
+  },
+  {
+    "objectID": "A/02/index.html#a-rstudio-console",
+    "href": "A/02/index.html#a-rstudio-console",
+    "title": "Week 02: Start",
+    "section": "",
+    "text": "Install R and RStudio on your laptop computer\nLearn to use the R Console as a scientific calculator\n\n\n\n\n\nSlides\nPractice\n\n\n\n\n\nR4DS (2E) Chapter 0: Introduction\nR4DS (2E) Section 1.1: Coding basics\n\n\n\n\n\nCanvas"
+  },
+  {
+    "objectID": "A/02/index.html#b-scripts-projects",
+    "href": "A/02/index.html#b-scripts-projects",
+    "title": "Week 02: Start",
+    "section": "[02b] Scripts / Projects",
+    "text": "[02b] Scripts / Projects\n\nTopics\n\nWrite Scripts and Comments to store and explain R code\nCreate and use RStudio Projects to organize all your files\n\n\n\nMaterials\n\nSlides\nPractice\n\n\n\nReadings\n\nR4DS (2E) Section 6.1: Scripts\nR4DS (2E) Section 2.2: Comments\nR4DS (2E) Section 6.2: Projects\n\n\n\nRecording\n\nCanvas"
+  },
+  {
+    "objectID": "A/02/index.html#c-quarto-markdown",
+    "href": "A/02/index.html#c-quarto-markdown",
+    "title": "Week 02: Start",
+    "section": "[02c] Quarto / Markdown",
+    "text": "[02c] Quarto / Markdown\n\nTopics\n\nCreate self-contained data science reports using Quarto documents\nInclude Markdown commands to format your Quarto documents\n\n\n\nMaterials\n\nSlides\nPractice\n\n\n\nReadings\n\nR4DS (2E) Section 28.1: Introduction\nR4DS (2E) Section 28.2: Basics\nR4DS (2E) Section 28.3: Visual Editor\nR4DS (2E) Section 28.4: Source Editor\nR4DS (2E) Section 28.10.1: Self-contained\n\n\n\nRecording\n\nCanvas"
   }
 ]
