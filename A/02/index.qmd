@@ -22,9 +22,6 @@ title: "Week 02: Start"
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
 :::
 
-### Recording
-- To be added...
-
 ### Practice
 #### 1) RStudio
 
@@ -87,9 +84,6 @@ Change the `x` to an asterisk `*` because asterisk `*` is the multiplication ope
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
 :::
 
-### Recording
-- To be added...
-
 ### Practice
 
 #### 1) Scripts
@@ -140,9 +134,6 @@ If you haven't already, create an RStudio Project for this entire course. Name i
 ::: {.fsmaller}
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
 :::
-
-### Recording
-- To be added...
 
 ### Practice
 
