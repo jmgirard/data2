@@ -1,0 +1,20 @@
+---
+title: "Week 02: Start"
+---
+
+## [02a] RStudio / Console
+
+### Topics
+- Install R and RStudio on your laptop computer
+- Learn to use the R Console as a scientific calculator
+
+### Materials
+- [Slides](02a_Slides.qmd)
+- Activity
+
+### Readings
+- R4DS (2E) Chapter 0: [Introduction](https://r4ds.hadley.nz/intro.html)
+- R4DS (2E) Section 1.1: [Coding basics](https://r4ds.hadley.nz/workflow-basics.html#coding-basics)
+
+### Recording
+- [Canvas](https://canvas.ku.edu/courses/185369/pages/02a-rstudio-slash-console?module_item_id=4272944)
