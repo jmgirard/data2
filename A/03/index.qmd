@@ -1,0 +1,234 @@
+---
+title: "Week 03: Program"
+---
+
+## [03a] Assignment / Functions
+
+### Topics
+- Store reusable data in named objects using assignment (`<-`)
+- Transform data and objects using one or more functions
+
+### Readings
+- R4DS (2E) Section 2.3: [What's in a name?](https://r4ds.hadley.nz/workflow-basics.html#sec-whats-in-a-name)
+- R4DS (2E) Section 2.1: [Coding basics](https://r4ds.hadley.nz/workflow-basics.html#coding-basics){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[02a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
+### Practice
+#### 1) Assignment
+Which of the following commands do you think will create an error in R? Why?
+
+a) `score@T1 <- 3.2`
+b) `score_at_T1 <- 3.2`
+c) `score at T1 <- 3.2`
+d) `1_score <- 3.2`
+e) `ScoreAtTime1 <- 3.2`
+
+Make your best guesses just by looking at the commands and then check your guesses by running the commands in R. *Bonus:* Can you come up with a better name for this variable?
+
+{{< dstart summary="Answer key" >}}
+
+| Code | Result (reason) |
+|------|-----------------|
+|`score@T1 <- 3.2`|🛑 Error (`@` not allowed in name)|
+|`score_at_T1 <- 3.2`|✅ No Error|
+|`score at T1 <- 3.2`|🛑 Error (spaces not allowed in name)|
+|`1_score <- 3.2`|🛑 Error (name can't start with a number)|
+|`ScoreAtTime1 <- 3.2`|✅ No Error|
+
+{{< dstop >}}
+
+#### 2) Functions
+
+What do you expect the result to be for the following commands?
+
+a) `sqrt(4 + 5)`
+b) `sqrt(4) + 5`
+c) `sqrt(1 + sqrt(9))`
+
+Make your best guesses just by looking at the commands and then check your guesses by running the commands in R.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| collapse: true
+
+# Part (a): Add then root, same as sqrt(9)
+sqrt(4 + 5)
+
+# Part (b): Root then add, same as 2 + 5
+sqrt(4) + 5 
+
+# Part (c): Inner root then add then outer root, same as sqrt(1 + 3)
+sqrt(1 + sqrt(9))
+```
+
+{{< dstop >}}
+
+
+## [03b] Arguments / Vectors
+
+### Topics
+- Customize the behavior of functions by modifying their arguments
+- Collect multiple objects into vectors using the `c()` function
+
+### Readings
+- R4DS (2E) Section 2.1: [Coding basics](https://r4ds.hadley.nz/workflow-basics.html#coding-basics){target="_blank"}
+- R4DS (2E) Section 2.4: [Calling functions](https://r4ds.hadley.nz/workflow-basics.html#calling-functions){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
+### Practice
+
+#### 1) Arguments
+
+a) Use the `cos()` function to calculate the cosine of 3 and assign it to a variable called `y`. Print the value of `y` to the console. 
+b) Use a function to round `y` to the nearest whole number.
+c) Use a function to round `y` to two decimal places.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| collapse: true
+
+# Part (a)
+y <- cos(3)
+y
+
+# Part (b)
+round(y)
+
+# Part (c)
+round(y, digits = 2)
+```
+
+{{< dstop >}}
+
+#### 2) Vectors 
+
+Imagine that you ran a stand selling bananas for three days. On the first day, you sold \$30 worth of bananas and spent \$15 on supplies. On the second day, you sold \$50 worth of bananas and spent \$15 on supplies. On the third day, you sold $40 worth of bananas and spent \$100 on repairs to the stand (due to an unfortunate fire).
+
+a) Create two vectors named `sales` and `costs` to store how much you sold and how much you spent on each day, respectively.
+
+b) Subtract the `costs` object from the `sales` object and save the result to a new object named `profits`. Print this to see your profits per day.
+
+c) Use the `sum()` function to calculate your total profits over all three days. Was your effort *fruitful*, i.e., did you make money overall?
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| collapse: true
+
+# Part (a)
+sales <- c(30, 50, 40)
+costs <- c(15, 15, 100)
+
+# Part (b)
+profits <- sales - costs
+profits
+
+# Part (c): No, I lost money!
+sum(profits)
+```
+
+{{< dstop >}}
+
+## [03c] Strings / Packages
+
+### Topics
+- Store text/character data in strings and character vectors
+- Install, load, and use data and functions from R packages
+
+### Readings
+- R4DS (2E) Section 14.2: [Creating a string](https://r4ds.hadley.nz/strings.html#creating-a-string){target="_blank"}
+- R4DS (2E) Section 1.2: [Prerequisites](https://r4ds.hadley.nz/data-visualize.html#prerequisites){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="c_Slides.html" title="[02c] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
+### Practice
+
+#### 1) Strings
+
+a) Create a character vector named `flavors` that contains the following strings and print it to the console: 
+- Cookies & Cream
+- Americone Dream (R)
+- Bob Marley's 1 Love
+b) Use a function to calculate the number of strings in `flavors`.
+c) Use another function to calculate the number of characters in each string in `flavors`.
+d) Let R know how you feel about ice cream by using a function to either make all the characters in `flavors` uppercase (you LOVE ice cream) or lowercase (you don't love ice cream).
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| collapse: true
+
+# Part (a)
+flavors <- c("Cookies & Cream", "Americone Dream (R)", "Bob Marley's 1 Love")
+flavors
+
+# Part (b)
+length(flavors)
+
+# Part (c)
+nchar(flavors)
+
+# Part (d)
+toupper(flavors)
+tolower(flavors)
+```
+
+{{< dstop >}}
+
+#### 2) Packages
+
+a) Install the `tidyverse` package. It may take several minutes to install because it contains several sub-packages that we will use in this class.
+b) Use a function we discussed in lecture to view the vignettes included in the `tidyverse` package (hint: be careful about uppercase and lowercase letters in the name of the function).
+c) In the new window that opens, click the link that says "HTML" next to "Welcome to the tidyverse" and read that vignette (it is relatively brief and will prepare you for next week).
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| collapse: true
+#| eval: false
+
+# Part (a)
+install.packages("tidyverse") # in console not in Quarto
+# or RStudio > Packages tab > Install button
+
+# Part (b)
+browseVignettes("tidyverse") # in console not in Quarto
+
+# Part (c)
+```
+
+<https://tidyverse.tidyverse.org/articles/paper.html>
+
+{{< dstop >}}
+
+::: {.text-center}
+<a href="../04/index.html" class="btn btn-primary mt-5" role="button" >Continue to Week 04: Wrangle&nbsp;&nbsp;&raquo;</a>
+:::

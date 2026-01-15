@@ -200,7 +200,7 @@ execute:
 
 ## RStudio Window {.smaller}
 
-![](../../img/rstudio_labels.jpg)
+![](../../img/rstudio.png)
 
 
 ::: aside
