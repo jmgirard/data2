@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jmgirard.github.io/data2/index.html</loc>
-    <lastmod>2026-01-25T21:19:31.824Z</lastmod>
+    <loc>https://jmgirard.github.io/data2/schedule.html</loc>
+    <lastmod>2026-01-25T21:43:05.568Z</lastmod>
   </url>
   <url>
-    <loc>https://jmgirard.github.io/data2/A/03/c_Slides.html</loc>
-    <lastmod>2026-01-15T19:06:15.080Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/03/a_Slides.html</loc>
-    <lastmod>2026-01-15T19:27:33.555Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/02/index.html</loc>
-    <lastmod>2026-01-14T22:08:54.595Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/02/b_Slides.html</loc>
-    <lastmod>2026-01-14T21:40:19.165Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/02/assignment.html</loc>
-    <lastmod>2026-01-14T22:07:44.284Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/01/index.html</loc>
-    <lastmod>2026-01-14T21:53:18.467Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/02/a_Slides.html</loc>
-    <lastmod>2026-01-15T17:52:34.151Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/02/c_Slides.html</loc>
-    <lastmod>2026-01-14T21:42:12.559Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jmgirard.github.io/data2/A/03/assignment.html</loc>
-    <lastmod>2026-01-15T19:37:53.488Z</lastmod>
+    <loc>https://jmgirard.github.io/data2/A/03/index.html</loc>
+    <lastmod>2026-01-15T19:07:35.408Z</lastmod>
   </url>
   <url>
     <loc>https://jmgirard.github.io/data2/A/03/b_Slides.html</loc>
     <lastmod>2026-01-15T17:12:39.918Z</lastmod>
   </url>
   <url>
-    <loc>https://jmgirard.github.io/data2/A/03/index.html</loc>
-    <lastmod>2026-01-15T19:07:35.408Z</lastmod>
+    <loc>https://jmgirard.github.io/data2/A/03/assignment.html</loc>
+    <lastmod>2026-01-15T19:37:53.488Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/02/c_Slides.html</loc>
+    <lastmod>2026-01-14T21:42:12.559Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/02/a_Slides.html</loc>
+    <lastmod>2026-01-15T17:52:34.151Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/01/index.html</loc>
+    <lastmod>2026-01-14T21:53:18.467Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/02/assignment.html</loc>
+    <lastmod>2026-01-14T22:07:44.284Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/02/b_Slides.html</loc>
+    <lastmod>2026-01-14T21:40:19.165Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/02/index.html</loc>
+    <lastmod>2026-01-14T22:08:54.595Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/03/a_Slides.html</loc>
+    <lastmod>2026-01-15T19:27:33.555Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/A/03/c_Slides.html</loc>
+    <lastmod>2026-01-15T19:06:15.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/index.html</loc>
+    <lastmod>2026-01-25T21:19:31.824Z</lastmod>
   </url>
 </urlset>
