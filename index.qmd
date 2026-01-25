@@ -4,6 +4,26 @@ toc: false
 email-obfuscation: javascript
 ---
 
+```{=html}
+<style>
+/* Center the main page title */
+.title {
+  text-align: center;
+}
+
+/* Center all images on the page */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+```
+
+![](./img/proud_coder_357EDD.svg){width="400"}
+
+### Course Description
+
 Data science empowers its users to provide data-drive solutions to problems and questions in the world. This course provides foundational skill and knowledge behind this power. This knowledge and skill includes learning to formulate effective questions to answer with data, computer programming, data management and wrangling, exploratory data analysis and visualization, statistical inference and prediction, data-driven decision making, and communication.
 
 ### Learning Outcomes
@@ -27,29 +47,10 @@ At the conclusion of this course, students will be able to:
 
 - MWF 10:00 AM - 10:50 AM in FR 547
 
-### Update Progress
+### Office Hours
 
-Below, I will track my progress updating this website week-by-week.
-
-:::{.columns}
-:::{.column width="50%"}
-- [x] Week 01
-- [x] Week 02
-- [x] Week 03
-- [ ] Week 04
-- [ ] Week 05
-- [ ] Week 06
-- [ ] Week 07
-- [ ] Week 08
-:::
-:::{.column width="50%"}
-- [ ] Week 09
-- [ ] Week 10
-- [ ] Week 11
-- [ ] Week 12
-- [ ] Week 13
-- [ ] Week 14
-- [ ] Week 15
-- [ ] Week 16
-:::
-:::
+- T 11:00AM - 12:00PM (Dasha, FR 528)
+- T 03:00PM - 04:00PM (Jeff, FR 454)
+- R 10:00AM - 11:00AM (Dasha, FR 528)
+- F 12:00PM - 01:00PM (Jeff, FR 454, odd weeks)
+- F 01:00PM - 02:00PM (Jeff, FR 454, even weeks)
