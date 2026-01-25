@@ -1,0 +1,73 @@
+---
+title: "Course Schedule"
+toc: false
+---
+
+## Unit A
+- Week 01: Orient
+    a. No Class
+    b. Syllabus / Website
+    c. No Class
+- Week 02: Start
+    a. RStudio / Console
+    b. Scripts / Projects
+    c. Quarto / Markdown
+- Week 03: Program
+    a. Assignment / Functions
+    b. Arguments / Vectors
+    c. Strings / Packages
+- Week 04: Wrangle
+    a. Tidy Data / Data Files
+    b. Rows / Columns
+    c. Pipes / Pipelines
+- Week 05: Visualize
+    a. Graphics / Scatterplots
+    b. Distributions / Relationships
+    c.  Aesthetics / Geometrics
+- Week 06: Communicate
+    a. Code Style / Chunks
+    b. Quarto Figures / Tables
+    c. Plot Labels / Scales
+- Week 07: Collaborate
+    a. Group Work
+    b. Group Work
+    c. Group Work
+- Week 08: Present
+    a. Presentations
+    b. Presentations
+    c. No Class
+    
+## Unit B
+- Week 09: Rest
+    a. No Class
+    b. No Class
+    c. No Class
+- Week 10: Infer
+    a. Compare Groups
+    b. Test Associations
+    c. No Class
+- Week 11: Reshape
+    a. Summarize / Group
+    b. Lengthen / Widen
+    c. Link / Join Data
+- Week 12: Wrangle
+    a. Explicit / Implicit NAs
+    b. Strings / Factors
+    c. Glue / Separate
+- Week 13: Visualize
+    a. Facets / Positions
+    b. Statistics / Coordinates
+    c. Themes / Layout
+- Week 14: Program
+    a. Logicals / Conditionals
+    b. Custom Functions / Across
+    c. Many Reads / Many Writes
+- Week 15: Collaborate
+    a. Group Work
+    b. Group Work
+    c. Group Work
+- Week 16: Present
+    a. Presentations
+    b. Presentations
+    c. No Class
+    

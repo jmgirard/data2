@@ -18,6 +18,9 @@ website:
       - href: https://ku.simplesyllabus.com/api2/doc-pdf/we1q6q8u0/Spring-2026-ECON-399-50843-Data-2%3A-Foundations-of-Data-Science.pdf?locale=en-US
         icon: file-text
         text: "Syllabus"
+      - href: schedule.qmd
+        icon: calendar
+        text: "Schedule"
       - text: Unit A
         menu:
           - icon: compass
