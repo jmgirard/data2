@@ -4,6 +4,7 @@ title: "Week 01: Orient"
 
 ## [01a] No Class
 
+No Class due to MLK Day
 
 ## [01b] Syllabus / Website
 
@@ -17,6 +18,8 @@ title: "Week 01: Orient"
 - Website: [link](https://jmgirard.github.io/data2)
 
 ## [01c] No Class
+
+No Class due to PhD Admissions
 
 <!-- Bottom Nav -->
 
