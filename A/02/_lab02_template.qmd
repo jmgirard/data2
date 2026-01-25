@@ -1,0 +1,92 @@
+---
+title: "Week 02 Assignment"
+author: "YOUR NAME HERE"
+format: html
+embed-resources: true
+---
+
+## Instructions
+
+1.  **Set up:** Change "YOUR NAME HERE" in the header above to your actual name.
+2.  **Answer:** For text questions, replace the `ANSWER` text inside the block quotes with your own response. For coding questions, write your code in the empty chunks provided.
+3.  **Render:** When you are finished, click the **Render** button.
+4.  **Submit:** Upload the resulting HTML file to Canvas.
+
+> **Warning:** If any of your R code chunks contain errors, the document will **fail to render**. 
+>
+> * Test your code in the Console first to ensure it runs without error.
+> * Remove any failed code attempts from the document before rendering.
+
+## Question 1 (RStudio)
+
+**a) Why are we using R in this course and not some other programming language?**
+
+> ANSWER: (Write your 2-4 sentence answer here)
+
+**b) What are R and RStudio? How are they related and how are they different?**
+*Please explain in your own words (i.e., don't just repeat the example from lecture).*
+
+> ANSWER: 
+
+## Question 2 (Console)
+
+**a) Use R as a calculator to answer the following question: what is negative one plus two-thirds?**
+
+```{r}
+# Write your code below this line
+
+```
+
+**b) Use R as a calculator to answer the following question: what is the product of 1.234 and five-raised-to-the-sixth-power?**
+
+```{r}
+# Write your code below this line
+
+```
+
+## Question 3 (Scripts)
+
+**a) What are the differences between running code in the console, in a script, and in a Quarto document? When might an R user want to use each of these approaches?**
+
+> ANSWER: 
+
+**b) What are code comments and when might they be useful? How are code comments in a script different from markdown in a Quarto document?**
+
+> ANSWER: 
+
+## Question 4 (Projects)
+
+**a) What is the purpose of a Project in RStudio? Why do I recommend creating a project rather than simply saving all your course stuff in a normal computer folder?**
+
+> ANSWER: 
+
+**b) What are some benefits of having a consistent naming convention for the files in your project? What kinds of tasks might be easier if you stick with a convention?**
+
+> ANSWER: 
+
+## Question 5 (Quarto)
+
+**a) What is the difference between a .qmd file and a .html file created by Quarto? When would you send the .qmd file to a collaborator and when would you send the .html file?**
+
+> ANSWER: 
+
+**b) Quarto lets you include many code chunks in the same document. When would you want to put all your code in a single chunk and when would you want to break it up across multiple chunks?**
+
+> ANSWER: 
+
+## Question 6 (Markdown)
+
+**a) Markdown Headers**
+*The instructions originally asked you to use headers to divide the document. Since this file already has headers, practice by creating a Level 3 header below this line that says "My Verbatim Code".*
+
+**b) Verbatim Code**
+*The verbatim code format in markdown is really useful when we want to talk about code in text without actually running that code. For instance, I can say that division in R is accomplished using the `/` symbol as in `1 / 2`.*
+
+*Practice using verbatim code by re-writing your code from Question 2a in the block quote below (do not use a code chunk).*
+
+> ANSWER: 
+
+---
+
+✅ **Done!**
+Please save and render your document to an HTML file. Check it over to make sure it is complete and uploaded to Canvas.
