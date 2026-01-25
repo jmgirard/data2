@@ -229,6 +229,12 @@ browseVignettes("tidyverse") # in console not in Quarto
 
 {{< dstop >}}
 
-::: {.text-center}
-<a href="../04/index.html" class="btn btn-primary mt-5" role="button" >Continue to Week 04: Wrangle&nbsp;&nbsp;&raquo;</a>
-:::
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../../index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 02</a>
+
+  <a href="../04/index.html" class="btn btn-primary" role="button">Week 04&nbsp;&nbsp;&raquo;</a>
+</div>
+```

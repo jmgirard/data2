@@ -187,6 +187,12 @@ embed-resources: true
 
 {{< dstop >}}
 
-::: {.text-center}
-<a href="../03/index.html" class="btn btn-primary mt-5" role="button" >Continue to Week 03: Program&nbsp;&nbsp;&raquo;</a>
-:::
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../01/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 01</a>
+
+  <a href="../03/index.html" class="btn btn-primary" role="button">Week 03&nbsp;&nbsp;&raquo;</a>
+</div>
+```
