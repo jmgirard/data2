@@ -45,6 +45,7 @@ Version with one observation for the season five parts
 
 ```{r}
 #| message: false
+#| collapse: true
 
 library(tidyverse)
 season <- c(1, 2, 3, 4, 5)
@@ -60,6 +61,8 @@ breaking_bad
 Version with two separate observations for the season five parts
 
 ```{r}
+#| collapse: true
+
 library(tidyverse)
 season <- c(1, 2, 3, 4, 5.1, 5.2)
 episodes <- c(7, 13, 13, 13, 8, 8)
@@ -105,6 +108,7 @@ cereal
 ```{r}
 #| message: false
 #| echo: false
+#| collapse: true
 
 cereal <- read_csv("../../data/cereal.csv", na = "missing")
 cereal
@@ -113,6 +117,8 @@ cereal
 **Part (c)**
 
 ```{r}
+#| collapse: true
+
 dim(cereal)
 ```
 77 observations (rows) and 8 variables (columns)
@@ -209,7 +215,7 @@ A
 
 ```{=html}
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
-  <a href="../../index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 03</a>
+  <a href="../03/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 03</a>
 
   <a href="../04/index.html" class="btn btn-primary" role="button">Week 04&nbsp;&nbsp;&raquo;</a>
 </div>
