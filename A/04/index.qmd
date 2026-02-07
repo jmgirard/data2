@@ -92,7 +92,7 @@ write_csv(breaking_bad, "breaking_bad.csv")
 
 a) Click the link to download the [cereal.csv](../../data/cereal.csv){download="cereal.csv"} file and save it to your class Project folder.
 
-b) Use \{tidyverse\} to import this file into R as a tibble named `cereal`, using an argument to make the missing values (coded as `"missing"`) into `NA`s. Then print it.
+b) Use \{tidyverse\} to import this file into R as a tibble named `cereal`. Then print it.
 
 c) Use an R command to preview the data "at a glance." How many variables and observations are in this tibble?
 
@@ -104,7 +104,7 @@ c) Use an R command to preview the data "at a glance." How many variables and ob
 #| echo: true
 #| eval: false
 
-cereal <- read_csv("cereal.csv", na = "missing")
+cereal <- read_csv("cereal.csv")
 cereal
 ```
 
@@ -113,7 +113,7 @@ cereal
 #| echo: false
 #| collapse: true
 
-cereal <- read_csv("../../data/cereal.csv", na = "missing")
+cereal <- read_csv("../../data/cereal.csv")
 cereal
 ```
 

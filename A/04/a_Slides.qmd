@@ -37,6 +37,19 @@ execute:
 ![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
 :::
 
+```{r}
+#| include: false
+
+old_source_hook <- knitr::knit_hooks$get("source")
+
+knitr::knit_hooks$set(source = function(x, options) {
+  if (!is.null(options$replace_path)) {
+    x <- gsub(options$replace_path[1], options$replace_path[2], x, fixed = TRUE)
+  }
+  old_source_hook(x, options)
+})
+```
+
 ## Roadmap
 
 ::: {.columns .pv4}
@@ -652,19 +665,6 @@ execute:
 ## Reading a CSV file into R
 
 ```{r}
-#| include: false
-
-old_source_hook <- knitr::knit_hooks$get("source")
-
-knitr::knit_hooks$set(source = function(x, options) {
-  if (!is.null(options$replace_path)) {
-    x <- gsub(options$replace_path[1], options$replace_path[2], x, fixed = TRUE)
-  }
-  old_source_hook(x, options)
-})
-```
-
-```{r}
 #| echo: true
 #| eval: true
 #| message: false
@@ -700,24 +700,17 @@ View(pdata)
 data("msleep", package = "ggplot2")
 ```
 
+:::{.fragment}
 ```{r}
 # Let's glimpse the tibble to learn about it
 glimpse(msleep)
 ```
+:::
 
 ## Writing data from R to a CSV file
 
 ```{r}
-#| echo: true
-#| eval: false
-
-# Let's export this data so we can email it to someone without R
-write_csv(msleep, file = "mammal_sleep_data.csv")
-```
-
-```{r}
-#| echo: false
-#| eval: true
+#| replace_path: ["../../data/", ""]
 
 # Let's export this data so we can email it to someone without R
 write_csv(msleep, file = "../../data/mammal_sleep_data.csv")
