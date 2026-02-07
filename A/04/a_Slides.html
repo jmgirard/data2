@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -148,9 +212,1055 @@
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Principles</h1>
 
 </section>
+<section class="slide level2 smaller">
+<h2>Tidy Data Principles</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>There are many ways to store data</li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>We will be learning the <span class="b blue">tidy data</span> format
+<ul>
+<li>Data should be <em>rectangular</em></li>
+<li>Each <span class="green">variable</span> has its own column</li>
+<li>Each <span class="green">observation</span> has its own row</li>
+<li>Each <span class="green">value</span> has its own cell</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<p><img data-src="../../img/tidydata.png"></p>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/spreadsheet.json" colors="secondary:#2a76dd" trigger="loop" delay="5000" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Other Data Advice</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><span class="b blue">Name all variables</span> in the first row
+<ul>
+<li>This is called a <span class="b green">header row</span></li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li><span class="b blue">Avoid merged cells</span> for data storage
+<ul>
+<li>These are okay for communication</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><span class="b blue">Avoid empty cells</span> whenever possible
+<ul>
+<li>Mark <span class="b green">missing data</span> as <code>NA</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><span class="b blue">Avoid formatting-as-data</span> for storage
+<ul>
+<li>e.g., non-redundant color-coding</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/light_bulb.json" colors="secondary:#2a76dd" trigger="loop" delay="5000" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Tidying Example 1</h2>
+<div class="columns pv4">
+<div class="column" style="width:45%;">
+<h4>Not Tidy</h4>
+<table class="table-bad" width="100%">
+<tbody>
+<tr>
+<td>
+Name
+</td>
+<td>
+Ann
+</td>
+<td>
+Bob
+</td>
+<td>
+Cat
+</td>
+<td>
+Dom
+</td>
+</tr>
+<tr>
+<td>
+Age
+</td>
+<td>
+13
+</td>
+<td>
+10
+</td>
+<td>
+11
+</td>
+<td>
+11
+</td>
+</tr>
+<tr>
+<td>
+Weight
+</td>
+<td>
+56.4
+</td>
+<td>
+46.8
+</td>
+<td>
+41.3
+</td>
+<td>
+43.3
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment mt1 pv4">
+<p>❌ Here, each row is a variable and each column is an observation.</p>
+</div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<h4>Tidy</h4>
+<table class="table-good" width="100%">
+<tbody>
+<tr>
+<td>
+Name
+</td>
+<td>
+Age
+</td>
+<td>
+Weight
+</td>
+</tr>
+<tr>
+<td>
+Ann
+</td>
+<td>
+13
+</td>
+<td>
+56.4
+</td>
+</tr>
+<tr>
+<td>
+Bob
+</td>
+<td>
+10
+</td>
+<td>
+46.8
+</td>
+</tr>
+<tr>
+<td>
+Cat
+</td>
+<td>
+11
+</td>
+<td>
+41.3
+</td>
+</tr>
+<tr>
+<td>
+Dom
+</td>
+<td>
+11
+</td>
+<td>
+43.3
+</td>
+</tr>
+</tbody>
+</table>
+<div class="pv4">
+<p>✔️ Here, each column is a variable and each row is an observation.</p>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Tidying Example 2</h2>
+<div class="columns pv4">
+<div class="column" style="width:45%;">
+<h4>Not Tidy</h4>
+<table class="table-bad" width="100%">
+<tbody>
+<tr>
+<td>
+Names:
+</td>
+<td>
+Ann
+</td>
+<td>
+Bob
+</td>
+<td>
+Cat
+</td>
+<td>
+Dom
+</td>
+</tr>
+<tr>
+<td>
+Age
+</td>
+<td>
+Weight
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+13
+</td>
+<td>
+56.4
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+10
+</td>
+<td>
+46.8
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+11
+</td>
+<td>
+41.3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+11
+</td>
+<td>
+43.3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment mt1 pv4">
+<p>❌ Here, we have data that is not rectangular because the Names variable has its own row.</p>
+</div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<h4>Tidy</h4>
+<table class="table-good" width="100%">
+<tbody>
+<tr>
+<td>
+Name
+</td>
+<td>
+Age
+</td>
+<td>
+Weight
+</td>
+</tr>
+<tr>
+<td>
+Ann
+</td>
+<td>
+13
+</td>
+<td>
+56.4
+</td>
+</tr>
+<tr>
+<td>
+Bob
+</td>
+<td>
+10
+</td>
+<td>
+46.8
+</td>
+</tr>
+<tr>
+<td>
+Cat
+</td>
+<td>
+11
+</td>
+<td>
+41.3
+</td>
+</tr>
+<tr>
+<td>
+Dom
+</td>
+<td>
+11
+</td>
+<td>
+43.3
+</td>
+</tr>
+</tbody>
+</table>
+<div class="pv4">
+<p>✔️ Here, we have made the data rectangular by moving the Names variable to its own column.</p>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Tidying Example 3</h2>
+<div class="columns pv4">
+<div class="column" style="width:45%;">
+<h4>Not Tidy</h4>
+<table class="table-bad table-small" width="100%">
+<tbody>
+<tr>
+<td>
+country
+</td>
+<td>
+year
+</td>
+<td>
+cases / population
+</td>
+</tr>
+<tr>
+<td rowspan="2">
+Afghanistan
+</td>
+<td>
+1999
+</td>
+<td>
+NA / 19987071
+</td>
+</tr>
+<tr>
+<td>
+2000
+</td>
+<td>
+2666 / 20595360
+</td>
+</tr>
+<tr>
+<td rowspan="2">
+Brazil
+</td>
+<td>
+1999
+</td>
+<td>
+37737 / 172006362
+</td>
+</tr>
+<tr>
+<td>
+2000
+</td>
+<td>
+80488 / 174504898
+</td>
+</tr>
+<tr>
+<td rowspan="2">
+China
+</td>
+<td>
+1999
+</td>
+<td>
+212258 / 1272915272
+</td>
+</tr>
+<tr>
+<td>
+2000
+</td>
+<td>
+213766 / 1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment mt1 pv4">
+<p>❌ Here, we have merged cells and two values stored in a single cell.</p>
+</div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<h4>Tidy</h4>
+<table class="table-good table-small" width="100%">
+<tbody>
+<tr>
+<td>
+country
+</td>
+<td>
+year
+</td>
+<td>
+cases
+</td>
+<td>
+population
+</td>
+</tr>
+<tr>
+<td>
+Afghanistan
+</td>
+<td>
+1999
+</td>
+<td>
+NA
+</td>
+<td>
+19987071
+</td>
+</tr>
+<tr>
+<td>
+Afghanistan
+</td>
+<td>
+2000
+</td>
+<td>
+2666
+</td>
+<td>
+20595360
+</td>
+</tr>
+<tr>
+<td>
+Brazil
+</td>
+<td>
+1999
+</td>
+<td>
+37737
+</td>
+<td>
+172006362
+</td>
+</tr>
+<tr>
+<td>
+Brazil
+</td>
+<td>
+2000
+</td>
+<td>
+80488
+</td>
+<td>
+174504898
+</td>
+</tr>
+<tr>
+<td>
+China
+</td>
+<td>
+1999
+</td>
+<td>
+212258
+</td>
+<td>
+1272915272
+</td>
+</tr>
+<tr>
+<td>
+China
+</td>
+<td>
+2000
+</td>
+<td>
+213766
+</td>
+<td>
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<div class="pv4">
+<p>✔️ Here, we have un-merged the countries and separated the cases and populations variables into columns.</p>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Tidying Example 4</h2>
+<div class="columns pv4">
+<div class="column" style="width:45%;">
+<h4>Not Tidy</h4>
+<table class="table-bad" width="100%">
+<tbody>
+<tr>
+<td>
+student
+</td>
+<td>
+grade
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="bg-yellow">Amber</span>
+</td>
+<td>
+91.5
+</td>
+<td>
+A-
+</td>
+</tr>
+<tr>
+<td>
+<span class="bg-teal">Bristol</span>
+</td>
+<td>
+86.2
+</td>
+<td>
+B
+</td>
+</tr>
+<tr>
+<td>
+<span class="bg-yellow">Charlene</span>
+</td>
+<td>
+94.0
+</td>
+<td>
+A
+</td>
+</tr>
+<tr>
+<td>
+Diego
+</td>
+<td>
+89.3
+</td>
+<td>
+B+
+</td>
+</tr>
+<tr>
+<td colspan="3">
+Legend: <span class="bg-yellow">Psych. Major</span>, <span class="bg-teal">Psych. Minor</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment mt1 pv4">
+<p>❌ Here, we have a missing variable name and formatting-as-data.</p>
+</div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<h4>Tidy</h4>
+<table class="table-good" width="100%">
+<tbody>
+<tr>
+<td>
+student
+</td>
+<td>
+psych
+</td>
+<td>
+grade
+</td>
+<td>
+letter
+</td>
+</tr>
+<tr>
+<td>
+Amber
+</td>
+<td>
+major
+</td>
+<td>
+91.5
+</td>
+<td>
+A-
+</td>
+</tr>
+<tr>
+<td>
+Bristol
+</td>
+<td>
+minor
+</td>
+<td>
+86.2
+</td>
+<td>
+B
+</td>
+</tr>
+<tr>
+<td>
+Charlene
+</td>
+<td>
+major
+</td>
+<td>
+94.0
+</td>
+<td>
+A
+</td>
+</tr>
+<tr>
+<td>
+Diego
+</td>
+<td>
+NA
+</td>
+<td>
+89.3
+</td>
+<td>
+B+
+</td>
+</tr>
+</tbody>
+</table>
+<div class="pv4">
+<p>✔️ Here, we have added a column for the psych variable, removed the legend, and named the letter variable.</p>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Tidying Example 5</h2>
+<div class="columns pv4">
+<div class="column" style="width:45%;">
+<h4>Not Tidy</h4>
+<table class="table-bad" width="100%">
+<tbody>
+<tr>
+<td>
+student
+</td>
+<td>
+grade
+</td>
+<td>
+letter
+</td>
+</tr>
+<tr>
+<td>
+Amber
+</td>
+<td>
+91.5
+</td>
+<td>
+A-
+</td>
+</tr>
+<tr>
+<td>
+Bristol*
+</td>
+<td>
+94.2
+</td>
+<td>
+A
+</td>
+</tr>
+<tr>
+<td colspan="3">
+Class Summary
+</td>
+</tr>
+<tr>
+<td>
+As
+</td>
+<td>
+2
+</td>
+<td>
+Yay!
+</td>
+</tr>
+<tr>
+<td>
+Bs
+</td>
+<td>
+0
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" class="tr">
+*Grade was revised.
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment mt1 pv4">
+<p>❌ Here, we have two types of data in one file and a footnote as data.</p>
+</div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<h4>Tidy</h4>
+<table class="table-good" width="100%">
+<tbody>
+<tr>
+<td>
+student
+</td>
+<td>
+grade
+</td>
+<td>
+letter
+</td>
+<td>
+revised
+</td>
+</tr>
+<tr>
+<td>
+Amber
+</td>
+<td>
+91.5
+</td>
+<td>
+A-
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td>
+Bristol
+</td>
+<td>
+94.2
+</td>
+<td>
+A
+</td>
+<td>
+TRUE
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table-good" width="100%" style="margin-top: 1em;">
+<tbody>
+<tr>
+<td>
+letter
+</td>
+<td>
+count
+</td>
+<td>
+notes
+</td>
+</tr>
+<tr>
+<td>
+A
+</td>
+<td>
+2
+</td>
+<td>
+Yay!
+</td>
+</tr>
+<tr>
+<td>
+B
+</td>
+<td>
+0
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="pv4">
+<p>✔️ Here, we have split the data into two separate tables and added the revised and notes variables.</p>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Data Files</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Data Files</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>Data is usually stored in <span class="b green">data files</span>
+<ul>
+<li>Importing files into R is called <span class="b blue">reading</span></li>
+<li>Exporting files from R is called <span class="b blue">writing</span></li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>A convenient data file type is a CSV
+<ul>
+<li>This stands for <span class="b green">comma-separated values</span></li>
+<li>A CSV file is easy to share with other people</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>The <span class="b green">tidyverse</span> package can read/write CSVs
+<ul>
+<li>The data will be stored in R as a <span class="b blue">tibble</span> object</li>
+<li>Other packages can read/write other file types</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/freight_ship.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Tibbles</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>R works particularly well with <span class="b green">tidy data</span></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>We store tidy data in <span class="b green">data frames</span> or <span class="b blue">tibbles</span>
+<ul>
+<li>Tibbles are just fancier data frames<br> (i.e., they have a few extra features)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>To use tibbles, we need the <span class="b blue">tidyverse</span> package</li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>Tibbles are constructed from one or more vectors
+<ul>
+<li>The vectors must have the <span class="b green">same length</span></li>
+<li>They can contain <span class="b green">different types</span> of data</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/new_train.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Reading a CSV file into R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Download the CSV file to your project folder</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"penguindata.csv"</span>)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>dat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_len bill_dep flipper_len body_mass sex     year
+   &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+ 1 Adelie  Torgersen     39.1     18.7         181      3750 male    2007
+ 2 Adelie  Torgersen     39.5     17.4         186      3800 female  2007
+ 3 Adelie  Torgersen     40.3     18           195      3250 female  2007
+ 4 Adelie  Torgersen     NA       NA            NA        NA &lt;NA&gt;    2007
+ 5 Adelie  Torgersen     36.7     19.3         193      3450 female  2007
+ 6 Adelie  Torgersen     39.3     20.6         190      3650 male    2007
+ 7 Adelie  Torgersen     38.9     17.8         181      3625 female  2007
+ 8 Adelie  Torgersen     39.2     19.6         195      4675 male    2007
+ 9 Adelie  Torgersen     34.1     18.1         193      3475 &lt;NA&gt;    2007
+10 Adelie  Torgersen     42       20.2         190      4250 &lt;NA&gt;    2007
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Get the gist of the data with glimpse</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This shows the first few values in each column (chr=strings, dbl=numbers)</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species     &lt;chr&gt; "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "Adelie"…
+$ island      &lt;chr&gt; "Torgersen", "Torgersen", "Torgersen", "Torgersen", "Torge…
+$ bill_len    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, …
+$ bill_dep    &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, …
+$ flipper_len &lt;dbl&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180,…
+$ body_mass   &lt;dbl&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, …
+$ sex         &lt;chr&gt; "male", "female", "female", NA, "female", "male", "female"…
+$ year        &lt;dbl&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Dig deeper into the data with View</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This display is read-only. Data editing should be done by code, not by hand!</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(pdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<img data-src="../../img/view.png" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Accessing data from a package</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let's open the msleep data from the ggplot2 package</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"msleep"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let's glimpse the tibble to learn about it</span></span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(msleep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 83
+Columns: 11
+$ name         &lt;chr&gt; "Cheetah", "Owl monkey", "Mountain beaver", "Greater shor…
+$ genus        &lt;chr&gt; "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Bra…
+$ vore         &lt;chr&gt; "carni", "omni", "herbi", "omni", "herbi", "herbi", "carn…
+$ order        &lt;chr&gt; "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Art…
+$ conservation &lt;chr&gt; "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dome…
+$ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5…
+$ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, …
+$ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, N…
+$ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 1…
+$ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0…
+$ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.04…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Writing data from R to a CSV file</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let's export this data so we can email it to someone without R</span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(msleep, <span class="at">file =</span> <span class="st">"mammal_sleep_data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+
+<img data-src="../../img/csv.png" class="r-stretch"></section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -366,6 +1476,82 @@
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
