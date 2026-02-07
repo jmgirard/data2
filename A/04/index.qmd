@@ -6,6 +6,14 @@ title: "Week 04: Wrangle"
 This page is still under development.
 :::
 
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+```
+
 ## [03a] Tidy Data / Data Files
 
 ### Topics
@@ -86,6 +94,7 @@ breaking_bad
 
 write_csv(breaking_bad, "breaking_bad.csv")
 ```
+
 {{< dstop >}}
 
 #### 2) Data Files
@@ -101,17 +110,9 @@ c) Use an R command to preview the data "at a glance." How many variables and ob
 **Part (b)**
 
 ```{r}
-#| echo: true
-#| eval: false
-
-cereal <- read_csv("cereal.csv")
-cereal
-```
-
-```{r}
 #| message: false
-#| echo: false
 #| collapse: true
+#| replace_path: ["../../data/", ""]
 
 cereal <- read_csv("../../data/cereal.csv")
 cereal
