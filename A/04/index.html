@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 03: Program – DATA2</title>
+<title>Week 04: Wrangle – DATA2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -250,21 +250,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-assignment-functions" id="toc-a-assignment-functions" class="nav-link active" data-scroll-target="#a-assignment-functions">[03a] Assignment / Functions</a>
+  <li><a href="#a-tidy-data-data-files" id="toc-a-tidy-data-data-files" class="nav-link active" data-scroll-target="#a-tidy-data-data-files">[03a] Tidy Data / Data Files</a>
   <ul class="collapse">
   <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
   </ul></li>
-  <li><a href="#b-arguments-vectors" id="toc-b-arguments-vectors" class="nav-link" data-scroll-target="#b-arguments-vectors">[03b] Arguments / Vectors</a>
+  <li><a href="#b-rows-columns" id="toc-b-rows-columns" class="nav-link" data-scroll-target="#b-rows-columns">[03b] Rows / Columns</a>
   <ul class="collapse">
   <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
   <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
   <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
   <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
   </ul></li>
-  <li><a href="#c-strings-packages" id="toc-c-strings-packages" class="nav-link" data-scroll-target="#c-strings-packages">[03c] Strings / Packages</a>
+  <li><a href="#c-pipes-pipelines" id="toc-c-pipes-pipelines" class="nav-link" data-scroll-target="#c-pipes-pipelines">[03c] Pipes / Pipelines</a>
   <ul class="collapse">
   <li><a href="#topics-2" id="toc-topics-2" class="nav-link" data-scroll-target="#topics-2">Topics</a></li>
   <li><a href="#readings-2" id="toc-readings-2" class="nav-link" data-scroll-target="#readings-2">Readings</a></li>
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 03: Program</h1>
+<h1 class="title">Week 04: Wrangle</h1>
 </div>
 
 
@@ -296,20 +296,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="a-assignment-functions" class="level2">
-<h2 class="anchored" data-anchor-id="a-assignment-functions">[03a] Assignment / Functions</h2>
+<div class="callout callout-style-default callout-caution callout-titled" title="Work in Progress">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Work in Progress
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page is still under development.</p>
+</div>
+</div>
+<section id="a-tidy-data-data-files" class="level2">
+<h2 class="anchored" data-anchor-id="a-tidy-data-data-files">[03a] Tidy Data / Data Files</h2>
 <section id="topics" class="level3">
 <h3 class="anchored" data-anchor-id="topics">Topics</h3>
 <ul>
-<li>Store reusable data in named objects using assignment (<code>&lt;-</code>)</li>
-<li>Transform data and objects using one or more functions</li>
+<li>Learn the principles of data storage and the tidy data format</li>
+<li>Read data from and write data to comma-separated values files</li>
 </ul>
 </section>
 <section id="readings" class="level3">
 <h3 class="anchored" data-anchor-id="readings">Readings</h3>
 <ul>
-<li>R4DS (2E) Section 2.3: <a href="https://r4ds.hadley.nz/workflow-basics.html#sec-whats-in-a-name">What’s in a name?</a></li>
-<li>R4DS (2E) Section 2.1: <a href="https://r4ds.hadley.nz/workflow-basics.html#coding-basics" target="_blank">Coding basics</a></li>
+<li>R4DS (2E) Section 1.2.1: <a href="https://r4ds.hadley.nz/data-visualize.html#the-penguins-data-frame" target="_blank">The penguins data frame</a></li>
+<li>R4DS (2E) Section 5.1: <a href="https://r4ds.hadley.nz/data-tidy.html#introduction" target="_blank">Data tidying - Introduction</a></li>
+<li>R4DS (2E) Section 5.2: <a href="https://r4ds.hadley.nz/data-tidy.html#sec-tidy-data" target="_blank">Tidy data</a></li>
+<li>R4DS (2E) Section 7.2: <a href="https://r4ds.hadley.nz/data-import.html#reading-data-from-a-file" target="_blank">Reading data from a file</a></li>
+<li>R4DS (2E) Section 7.5: <a href="https://r4ds.hadley.nz/data-import.html#sec-writing-to-a-file" target="_blank">Writing to a file</a></li>
 </ul>
 </section>
 <section id="slides" class="level3">
@@ -322,91 +338,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice" class="level3">
 <h3 class="anchored" data-anchor-id="practice">Practice</h3>
-<section id="assignment" class="level4">
-<h4 class="anchored" data-anchor-id="assignment">1) Assignment</h4>
-<p>Which of the following commands do you think will create an error in R? Why?</p>
+<section id="tidy-data" class="level4">
+<h4 class="anchored" data-anchor-id="tidy-data">1) Tidy Data</h4>
+<p>The following table summarizes the season information for the eight seasons of AMC’s <em>Breaking Bad</em> show.</p>
 <ol type="a">
-<li><code>score@T1 &lt;- 3.2</code></li>
-<li><code>score_at_T1 &lt;- 3.2</code></li>
-<li><code>score at T1 &lt;- 3.2</code></li>
-<li><code>1_score &lt;- 3.2</code></li>
-<li><code>ScoreAtTime1 &lt;- 3.2</code></li>
+<li><p>Tidy up this data and save it to a tibble. Decide for yourself how to handle season 5 (should it be a single observation or two?). For the first and last aired dates, just store the year as a number.</p></li>
+<li><p>Save the tibble you created to a CSV file in your Project folder named “breaking_bad.csv”.</p></li>
 </ol>
-<p>Make your best guesses just by looking at the commands and then check your guesses by running the commands in R. <em>Bonus:</em> Can you come up with a better name for this variable?</p>
-<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Code</th>
-<th>Result (reason)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>score@T1 &lt;- 3.2</code></td>
-<td>🛑 Error (<code>@</code> not allowed in name)</td>
-</tr>
-<tr class="even">
-<td><code>score_at_T1 &lt;- 3.2</code></td>
-<td>✅ No Error</td>
-</tr>
-<tr class="odd">
-<td><code>score at T1 &lt;- 3.2</code></td>
-<td>🛑 Error (spaces not allowed in name)</td>
-</tr>
-<tr class="even">
-<td><code>1_score &lt;- 3.2</code></td>
-<td>🛑 Error (name can’t start with a number)</td>
-</tr>
-<tr class="odd">
-<td><code>ScoreAtTime1 &lt;- 3.2</code></td>
-<td>✅ No Error</td>
-</tr>
-</tbody>
-</table>
-<p></p></blockquote></details><p></p><p></p>
-</section>
-<section id="functions" class="level4">
-<h4 class="anchored" data-anchor-id="functions">2) Functions</h4>
-<p>What do you expect the result to be for the following commands?</p>
-<ol type="a">
-<li><code>sqrt(4 + 5)</code></li>
-<li><code>sqrt(4) + 5</code></li>
-<li><code>sqrt(1 + sqrt(9))</code></li>
-</ol>
-<p>Make your best guesses just by looking at the commands and then check your guesses by running the commands in R.</p>
-<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<p><img src="../../img/breaking_bad_wikipedia.png" class="img-fluid"></p>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"> Version with one observation for the season five parts<p></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (a): Add then root, same as sqrt(9)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">4</span> <span class="sc">+</span> <span class="dv">5</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (b): Root then add, same as 2 + 5</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">4</span>) <span class="sc">+</span> <span class="dv">5</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (c): Inner root then add then outer root, same as sqrt(1 + 3)</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">sqrt</span>(<span class="dv">9</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>season <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>episodes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">16</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>first_air <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2008</span>, <span class="dv">2009</span>, <span class="dv">2010</span>, <span class="dv">2011</span>, <span class="dv">2012</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>last_air <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2008</span>, <span class="dv">2009</span>, <span class="dv">2010</span>, <span class="dv">2011</span>, <span class="dv">2013</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>network <span class="ot">&lt;-</span> <span class="st">"AMC"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>breaking_bad <span class="ot">&lt;-</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(season, episodes, first_air, last_air, network)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>breaking_bad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  season episodes first_air last_air network
+   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  
+1      1        7      2008     2008 AMC    
+2      2       13      2009     2009 AMC    
+3      3       13      2010     2010 AMC    
+4      4       13      2011     2011 AMC    
+5      5       16      2012     2013 AMC    </code></pre>
+</div>
+</div>
+<p>Version with two separate observations for the season five parts</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>season <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="fl">5.1</span>, <span class="fl">5.2</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>episodes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">8</span>, <span class="dv">8</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>first_air <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2008</span>, <span class="dv">2009</span>, <span class="dv">2010</span>, <span class="dv">2011</span>, <span class="dv">2012</span>, <span class="dv">2013</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>last_air <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2008</span>, <span class="dv">2009</span>, <span class="dv">2010</span>, <span class="dv">2011</span>, <span class="dv">2012</span>, <span class="dv">2013</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>network <span class="ot">&lt;-</span> <span class="st">"AMC"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>breaking_bad <span class="ot">&lt;-</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(season, episodes, first_air, last_air, network)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>breaking_bad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  season episodes first_air last_air network
+   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  
+1    1          7      2008     2008 AMC    
+2    2         13      2009     2009 AMC    
+3    3         13      2010     2010 AMC    
+4    4         13      2011     2011 AMC    
+5    5.1        8      2012     2012 AMC    
+6    5.2        8      2013     2013 AMC    </code></pre>
+</div>
+</div>
+<p><strong>Part (b)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(breaking_bad, <span class="st">"breaking_bad.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p></p></blockquote></details><p></p><p></p>
 </section>
+<section id="data-files" class="level4">
+<h4 class="anchored" data-anchor-id="data-files">2) Data Files</h4>
+<ol type="a">
+<li><p>Click the button below to download the “cereal.csv” file and save it to your class Project folder.</p>
+<ul>
+<li><a href="../../data/cereal.csv" class="btn btn-primary" download="cereal.csv">Download Cereal Data</a></li>
+</ul></li>
+<li><p>Use {tidyverse} to import this file into R as a tibble named <code>cereal</code>, using an argument to make the missing values (coded as <code>"missing"</code>) into <code>NA</code>s. Then print it.</p></li>
+<li><p>Use an R command to calculate how many variables and observations are in this tibble.</p></li>
+</ol>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<p><strong>Part (b)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cereal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"cereal.csv"</span>, <span class="at">na =</span> <span class="st">"missing"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cereal</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 77 × 8
+   name                      mfr       type  calories sodium carbo sugars rating
+   &lt;chr&gt;                     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 100% Bran                 Nabisco   cold        70    130   5        6   68.4
+ 2 100% Natural Bran         Quaker O… cold       120     15   8        8   34.0
+ 3 All-Bran                  Kelloggs  cold        70    260   7        5   59.4
+ 4 All-Bran with Extra Fiber Kelloggs  cold        50    140   8        0   93.7
+ 5 Almond Delight            Ralston … cold       110    200  14        8   34.4
+ 6 Apple Cinnamon Cheerios   General … cold       110    180  10.5     10   29.5
+ 7 Apple Jacks               Kelloggs  cold       110    125  11       14   33.2
+ 8 Basic 4                   General … cold       130    210  18        8   37.0
+ 9 Bran Chex                 Ralston … cold        90    200  15        6   49.1
+10 Bran Flakes               Post      cold        90    210  13        5   53.3
+# ℹ 67 more rows</code></pre>
+</div>
+</div>
+<p><strong>Part (c)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(cereal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 77  8</code></pre>
+</div>
+</div>
+<p>77 observations (rows) and 8 variables (columns)</p>
+<p></p></blockquote></details><p></p><p></p>
 </section>
 </section>
-<section id="b-arguments-vectors" class="level2">
-<h2 class="anchored" data-anchor-id="b-arguments-vectors">[03b] Arguments / Vectors</h2>
+</section>
+<section id="b-rows-columns" class="level2">
+<h2 class="anchored" data-anchor-id="b-rows-columns">[03b] Rows / Columns</h2>
 <section id="topics-1" class="level3">
 <h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
 <ul>
-<li>Customize the behavior of functions by modifying their arguments</li>
-<li>Collect multiple objects into vectors using the <code>c()</code> function</li>
+<li>Transform data by row using <code>arrange()</code>, <code>filter()</code>, and <code>distinct()</code></li>
+<li>Transform data by column using <code>mutate()</code>, <code>select()</code>, <code>rename()</code>, and <code>relocate()</code></li>
 </ul>
 </section>
 <section id="readings-1" class="level3">
 <h3 class="anchored" data-anchor-id="readings-1">Readings</h3>
 <ul>
-<li>R4DS (2E) Section 2.1: <a href="https://r4ds.hadley.nz/workflow-basics.html#coding-basics" target="_blank">Coding basics</a></li>
-<li>R4DS (2E) Section 2.4: <a href="https://r4ds.hadley.nz/workflow-basics.html#calling-functions" target="_blank">Calling functions</a></li>
+<li>R4DS (2E) Section 3.1: <a href="https://r4ds.hadley.nz/data-transform.html#introduction" target="_blank">Data Transformation - Introduction</a></li>
+<li>R4DS (2E) Section 3.2: <a href="https://r4ds.hadley.nz/data-transform.html#rows" target="_blank">Data Transformation - Rows</a></li>
+<li>R4DS (2E) Section 3.3: <a href="https://r4ds.hadley.nz/data-transform.html#columns" target="_blank">Data Transformation - Columns</a></li>
 </ul>
 </section>
 <section id="slides-1" class="level3">
@@ -419,71 +470,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-1" class="level3">
 <h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
-<section id="arguments" class="level4">
-<h4 class="anchored" data-anchor-id="arguments">1) Arguments</h4>
-<ol type="a">
-<li>Use the <code>cos()</code> function to calculate the cosine of 3 and assign it to a variable called <code>y</code>. Print the value of <code>y</code> to the console.</li>
-<li>Use a function to round <code>y</code> to the nearest whole number.</li>
-<li>Use a function to round <code>y</code> to two decimal places.</li>
-</ol>
+<section id="rows" class="level4">
+<h4 class="anchored" data-anchor-id="rows">1) Rows</h4>
+<p>Q</p>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (a)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">cos</span>(<span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.9899925</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (b)</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(y)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -1</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (c)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(y, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.99</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>A</p>
 <p></p></blockquote></details><p></p><p></p>
 </section>
-<section id="vectors" class="level4">
-<h4 class="anchored" data-anchor-id="vectors">2) Vectors</h4>
-<p>Imagine that you ran a stand selling bananas for three days. On the first day, you sold $30 worth of bananas and spent $15 on supplies. On the second day, you sold $50 worth of bananas and spent $15 on supplies. On the third day, you sold $40 worth of bananas and spent $100 on repairs to the stand (due to an unfortunate fire).</p>
-<ol type="a">
-<li><p>Create two vectors named <code>sales</code> and <code>costs</code> to store how much you sold and how much you spent on each day, respectively.</p></li>
-<li><p>Subtract the <code>costs</code> object from the <code>sales</code> object and save the result to a new object named <code>profits</code>. Print this to see your profits per day.</p></li>
-<li><p>Use the <code>sum()</code> function to calculate your total profits over all three days. Was your effort <em>fruitful</em>, i.e., did you make money overall?</p></li>
-</ol>
+<section id="columns" class="level4">
+<h4 class="anchored" data-anchor-id="columns">2) Columns</h4>
+<p>Q</p>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (a)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">40</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>costs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">100</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (b)</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>profits <span class="ot">&lt;-</span> sales <span class="sc">-</span> costs</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>profits</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  15  35 -60</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (c): No, I lost money!</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(profits)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>A</p>
 <p></p></blockquote></details><p></p><p></p>
 </section>
 </section>
 </section>
-<section id="c-strings-packages" class="level2">
-<h2 class="anchored" data-anchor-id="c-strings-packages">[03c] Strings / Packages</h2>
+<section id="c-pipes-pipelines" class="level2">
+<h2 class="anchored" data-anchor-id="c-pipes-pipelines">[03c] Pipes / Pipelines</h2>
 <section id="topics-2" class="level3">
 <h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
 <ul>
-<li>Store text/character data in strings and character vectors</li>
-<li>Install, load, and use data and functions from R packages</li>
+<li>Use the pipe (<code>|&gt;</code>) to efficiently pass an object to a function</li>
+<li>Build a pipeline by connecting multiple pipes together</li>
 </ul>
 </section>
 <section id="readings-2" class="level3">
 <h3 class="anchored" data-anchor-id="readings-2">Readings</h3>
 <ul>
-<li>R4DS (2E) Section 14.2: <a href="https://r4ds.hadley.nz/strings.html#creating-a-string" target="_blank">Creating a string</a></li>
-<li>R4DS (2E) Section 1.2: <a href="https://r4ds.hadley.nz/data-visualize.html#prerequisites" target="_blank">Prerequisites</a></li>
+<li>R4DS (2E) Section 3.1.3: <a href="https://r4ds.hadley.nz/data-transform.html#dplyr-basics" target="_blank">dplyr basics</a></li>
+<li>R4DS (2E) Section 3.4: <a href="https://r4ds.hadley.nz/data-transform.html#sec-the-pipe" target="_blank">The pipe</a></li>
 </ul>
 </section>
 <section id="slides-2" class="level3">
@@ -496,67 +512,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-2" class="level3">
 <h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
-<section id="strings" class="level4">
-<h4 class="anchored" data-anchor-id="strings">1) Strings</h4>
-<ol type="a">
-<li>Create a character vector named <code>flavors</code> that contains the following strings and print it to the console:</li>
-</ol>
-<ul>
-<li>Cookies &amp; Cream</li>
-<li>Americone Dream (R)</li>
-<li>Bob Marley’s 1 Love</li>
-</ul>
-<ol start="2" type="a">
-<li>Use a function to calculate the number of strings in <code>flavors</code>.</li>
-<li>Use another function to calculate the number of characters in each string in <code>flavors</code>.</li>
-<li>Let R know how you feel about ice cream by using a function to either make all the characters in <code>flavors</code> uppercase (you LOVE ice cream) or lowercase (you don’t love ice cream).</li>
-</ol>
+<section id="pipes" class="level4">
+<h4 class="anchored" data-anchor-id="pipes">1) Pipes</h4>
+<p>Q</p>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (a)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>flavors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cookies &amp; Cream"</span>, <span class="st">"Americone Dream (R)"</span>, <span class="st">"Bob Marley's 1 Love"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>flavors</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Cookies &amp; Cream"     "Americone Dream (R)" "Bob Marley's 1 Love"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (b)</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(flavors)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (c)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(flavors)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 15 19 19</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (d)</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">toupper</span>(flavors)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "COOKIES &amp; CREAM"     "AMERICONE DREAM (R)" "BOB MARLEY'S 1 LOVE"</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tolower</span>(flavors)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "cookies &amp; cream"     "americone dream (r)" "bob marley's 1 love"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>A</p>
 <p></p></blockquote></details><p></p><p></p>
 </section>
-<section id="packages" class="level4">
-<h4 class="anchored" data-anchor-id="packages">2) Packages</h4>
-<ol type="a">
-<li>Install the <code>tidyverse</code> package. It may take several minutes to install because it contains several sub-packages that we will use in this class.</li>
-<li>Use a function we discussed in lecture to view the vignettes included in the <code>tidyverse</code> package (hint: be careful about uppercase and lowercase letters in the name of the function).</li>
-<li>In the new window that opens, click the link that says “HTML” next to “Welcome to the tidyverse” and read that vignette (it is relatively brief and will prepare you for next week).</li>
-</ol>
+<section id="pipelines" class="level4">
+<h4 class="anchored" data-anchor-id="pipelines">2) Pipelines</h4>
+<p>Q</p>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (a)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># in console not in Quarto</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or RStudio &gt; Packages tab &gt; Install button</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (b)</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">browseVignettes</span>(<span class="st">"tidyverse"</span>) <span class="co"># in console not in Quarto</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Part (c)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><a href="https://tidyverse.tidyverse.org/articles/paper.html" class="uri">https://tidyverse.tidyverse.org/articles/paper.html</a></p>
+<p>A</p>
 <p></p></blockquote></details><p></p><p></p>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
-  <a href="../02/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 02</a>
+  <a href="../../index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 03</a>
 
   <a href="../04/index.html" class="btn btn-primary" role="button">Week 04&nbsp;&nbsp;»</a>
 </div>
