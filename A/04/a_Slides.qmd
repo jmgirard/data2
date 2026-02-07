@@ -652,24 +652,27 @@ execute:
 ## Reading a CSV file into R
 
 ```{r}
-#| echo: true
-#| eval: false
+#| include: false
 
-# Download the CSV file to your project folder
-library(tidyverse)
-dat <- read_csv("penguindata.csv")
-dat
+old_source_hook <- knitr::knit_hooks$get("source")
+
+knitr::knit_hooks$set(source = function(x, options) {
+  if (!is.null(options$replace_path)) {
+    x <- gsub(options$replace_path[1], options$replace_path[2], x, fixed = TRUE)
+  }
+  old_source_hook(x, options)
+})
 ```
 
 ```{r}
-#| echo: false
-#| message: false
+#| echo: true
 #| eval: true
+#| message: false
+#| replace_path: ["../../data/", ""]
 
 library(tidyverse)
-
-pdata <- read_csv("../../data/penguindata.csv")
-print(pdata)
+pdata <- read_csv("../../data/penguindata.csv") # Available on website
+pdata
 ```
 
 ## Get the gist of the data with glimpse
@@ -695,7 +698,9 @@ View(pdata)
 ```{r}
 # Let's open the msleep data from the ggplot2 package
 data("msleep", package = "ggplot2")
+```
 
+```{r}
 # Let's glimpse the tibble to learn about it
 glimpse(msleep)
 ```

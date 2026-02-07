@@ -12,6 +12,10 @@ This page is still under development.
 - Learn the principles of data storage and the tidy data format
 - Read data from and write data to comma-separated values files
 
+### File Downloads
+- [penguindata.csv](../../data/penguindata.csv){download="penguindata.csv"}
+- [cereal.csv](../../data/cereal.csv){download="cereal.csv"}
+
 ### Readings
 - R4DS (2E) Section 1.2.1: [The penguins data frame](https://r4ds.hadley.nz/data-visualize.html#the-penguins-data-frame){target="_blank"}
 - R4DS (2E) Section 5.1: [Data tidying - Introduction](https://r4ds.hadley.nz/data-tidy.html#introduction){target="_blank"}
@@ -86,12 +90,11 @@ write_csv(breaking_bad, "breaking_bad.csv")
 
 #### 2) Data Files
 
-a) Click the button below to download the "cereal.csv" file and save it to your class Project folder.
-    - [Download Cereal Data](../../data/cereal.csv){.btn .btn-primary download="cereal.csv"}
+a) Click the link to download the [cereal.csv](../../data/cereal.csv){download="cereal.csv"} file and save it to your class Project folder.
 
 b) Use \{tidyverse\} to import this file into R as a tibble named `cereal`, using an argument to make the missing values (coded as `"missing"`) into `NA`s. Then print it.
 
-c) Use an R command to calculate how many variables and observations are in this tibble.
+c) Use an R command to preview the data "at a glance." How many variables and observations are in this tibble?
 
 {{< dstart summary="Answer key" >}}
 
@@ -119,7 +122,7 @@ cereal
 ```{r}
 #| collapse: true
 
-dim(cereal)
+glimpse(cereal)
 ```
 77 observations (rows) and 8 variables (columns)
 
