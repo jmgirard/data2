@@ -1,0 +1,216 @@
+---
+title: "Week 04: Wrangle"
+---
+
+::: {.callout-caution title="Work in Progress"}
+This page is still under development.
+:::
+
+## [03a] Tidy Data / Data Files
+
+### Topics
+- Learn the principles of data storage and the tidy data format
+- Read data from and write data to comma-separated values files
+
+### Readings
+- R4DS (2E) Section 1.2.1: [The penguins data frame](https://r4ds.hadley.nz/data-visualize.html#the-penguins-data-frame){target="_blank"}
+- R4DS (2E) Section 5.1: [Data tidying - Introduction](https://r4ds.hadley.nz/data-tidy.html#introduction){target="_blank"}
+- R4DS (2E) Section 5.2: [Tidy data](https://r4ds.hadley.nz/data-tidy.html#sec-tidy-data){target="_blank"}
+- R4DS (2E) Section 7.2: [Reading data from a file](https://r4ds.hadley.nz/data-import.html#reading-data-from-a-file){target="_blank"}
+- R4DS (2E) Section 7.5: [Writing to a file](https://r4ds.hadley.nz/data-import.html#sec-writing-to-a-file){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[02a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
+### Practice
+#### 1) Tidy Data
+
+The following table summarizes the season information for the eight seasons of AMC's *Breaking Bad* show. 
+
+a) Tidy up this data and save it to a tibble. Decide for yourself how to handle season 5 (should it be a single observation or two?). For the first and last aired dates, just store the year as a number.
+
+b) Save the tibble you created to a CSV file in your Project folder named "breaking_bad.csv".
+
+![](../../img/breaking_bad_wikipedia.png)
+
+{{< dstart summary="Answer key" >}}
+Version with one observation for the season five parts
+
+```{r}
+#| message: false
+
+library(tidyverse)
+season <- c(1, 2, 3, 4, 5)
+episodes <- c(7, 13, 13, 13, 16)
+first_air <- c(2008, 2009, 2010, 2011, 2012)
+last_air <- c(2008, 2009, 2010, 2011, 2013)
+network <- "AMC"
+breaking_bad <- 
+  tibble(season, episodes, first_air, last_air, network)
+breaking_bad
+```
+
+Version with two separate observations for the season five parts
+
+```{r}
+library(tidyverse)
+season <- c(1, 2, 3, 4, 5.1, 5.2)
+episodes <- c(7, 13, 13, 13, 8, 8)
+first_air <- c(2008, 2009, 2010, 2011, 2012, 2013)
+last_air <- c(2008, 2009, 2010, 2011, 2012, 2013)
+network <- "AMC"
+breaking_bad <- 
+  tibble(season, episodes, first_air, last_air, network)
+breaking_bad
+```
+
+**Part (b)**
+
+```{r}
+#| message: false
+#| eval: false
+
+write_csv(breaking_bad, "breaking_bad.csv")
+```
+{{< dstop >}}
+
+#### 2) Data Files
+
+a) Click the button below to download the "cereal.csv" file and save it to your class Project folder.
+    - [Download Cereal Data](../../data/cereal.csv){.btn .btn-primary download="cereal.csv"}
+
+b) Use \{tidyverse\} to import this file into R as a tibble named `cereal`, using an argument to make the missing values (coded as `"missing"`) into `NA`s. Then print it.
+
+c) Use an R command to calculate how many variables and observations are in this tibble.
+
+{{< dstart summary="Answer key" >}}
+
+**Part (b)**
+
+```{r}
+#| echo: true
+#| eval: false
+
+cereal <- read_csv("cereal.csv", na = "missing")
+cereal
+```
+
+```{r}
+#| message: false
+#| echo: false
+
+cereal <- read_csv("../../data/cereal.csv", na = "missing")
+cereal
+```
+
+**Part (c)**
+
+```{r}
+dim(cereal)
+```
+77 observations (rows) and 8 variables (columns)
+
+{{< dstop >}}
+
+
+## [03b] Rows / Columns
+
+### Topics
+- Transform data by row using `arrange()`, `filter()`, and `distinct()`
+- Transform data by column using `mutate()`, `select()`, `rename()`, and `relocate()`
+
+### Readings
+- R4DS (2E) Section 3.1: [Data Transformation - Introduction](https://r4ds.hadley.nz/data-transform.html#introduction){target="_blank"}
+- R4DS (2E) Section 3.2: [Data Transformation - Rows](https://r4ds.hadley.nz/data-transform.html#rows){target="_blank"}
+- R4DS (2E) Section 3.3: [Data Transformation - Columns](https://r4ds.hadley.nz/data-transform.html#columns){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
+### Practice
+
+#### 1) Rows
+
+Q
+
+{{< dstart summary="Answer key" >}}
+
+A
+
+{{< dstop >}}
+
+#### 2) Columns 
+
+Q
+
+{{< dstart summary="Answer key" >}}
+
+A
+
+{{< dstop >}}
+
+## [03c] Pipes / Pipelines
+
+### Topics
+- Use the pipe (`|>`) to efficiently pass an object to a function
+- Build a pipeline by connecting multiple pipes together
+
+### Readings
+- R4DS (2E) Section 3.1.3: [dplyr basics](https://r4ds.hadley.nz/data-transform.html#dplyr-basics){target="_blank"}
+- R4DS (2E) Section 3.4: [The pipe](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="c_Slides.html" title="[02c] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
+### Practice
+
+#### 1) Pipes
+
+Q
+
+{{< dstart summary="Answer key" >}}
+
+A
+
+{{< dstop >}}
+
+#### 2) Pipelines
+
+Q
+
+{{< dstart summary="Answer key" >}}
+
+A
+
+{{< dstop >}}
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../../index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 03</a>
+
+  <a href="../04/index.html" class="btn btn-primary" role="button">Week 04&nbsp;&nbsp;&raquo;</a>
+</div>
+```

@@ -1,0 +1,55 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Foundations of Data Science"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "Data 2 (399)"
+    lecture: "04a"
+execute:
+  echo: true
+  eval: true
+  collapse: false
+---
+
+::: {.my-title}
+# [Foundations of]{.my-subtitle}<br />[Data Science]{.blue}
+
+::: {.my-grey}
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Learn the principles of data storage and the tidy data format
+
+- Read data from and write data to comma-separated values files
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
