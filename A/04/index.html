@@ -253,6 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#a-tidy-data-data-files" id="toc-a-tidy-data-data-files" class="nav-link active" data-scroll-target="#a-tidy-data-data-files">[03a] Tidy Data / Data Files</a>
   <ul class="collapse">
   <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#file-downloads" id="toc-file-downloads" class="nav-link" data-scroll-target="#file-downloads">File Downloads</a></li>
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
@@ -316,6 +317,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Learn the principles of data storage and the tidy data format</li>
 <li>Read data from and write data to comma-separated values files</li>
+</ul>
+</section>
+<section id="file-downloads" class="level3">
+<h3 class="anchored" data-anchor-id="file-downloads">File Downloads</h3>
+<ul>
+<li><a href="../../data/penguindata.csv" download="penguindata.csv">penguindata.csv</a></li>
+<li><a href="../../data/cereal.csv" download="cereal.csv">cereal.csv</a></li>
 </ul>
 </section>
 <section id="readings" class="level3">
@@ -396,12 +404,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-files" class="level4">
 <h4 class="anchored" data-anchor-id="data-files">2) Data Files</h4>
 <ol type="a">
-<li><p>Click the button below to download the “cereal.csv” file and save it to your class Project folder.</p>
-<ul>
-<li><a href="../../data/cereal.csv" class="btn btn-primary" download="cereal.csv">Download Cereal Data</a></li>
-</ul></li>
+<li><p>Click the link to download the <a href="../../data/cereal.csv" download="cereal.csv">cereal.csv</a> file and save it to your class Project folder.</p></li>
 <li><p>Use {tidyverse} to import this file into R as a tibble named <code>cereal</code>, using an argument to make the missing values (coded as <code>"missing"</code>) into <code>NA</code>s. Then print it.</p></li>
-<li><p>Use an R command to calculate how many variables and observations are in this tibble.</p></li>
+<li><p>Use an R command to preview the data “at a glance.” How many variables and observations are in this tibble?</p></li>
 </ol>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
 <p><strong>Part (b)</strong></p>
@@ -427,8 +432,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Part (c)</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(cereal)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 77  8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(cereal)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 77</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Columns: 8</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## $ name     &lt;chr&gt; "100% Bran", "100% Natural Bran", "All-Bran", "All-Bran with …</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## $ mfr      &lt;chr&gt; "Nabisco", "Quaker Oats", "Kelloggs", "Kelloggs", "Ralston Pu…</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $ type     &lt;chr&gt; "cold", "cold", "cold", "cold", "cold", "cold", "cold", "cold…</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## $ calories &lt;dbl&gt; 70, 120, 70, 50, 110, 110, 110, 130, 90, 90, 120, 110, 120, 1…</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## $ sodium   &lt;dbl&gt; 130, 15, 260, 140, 200, 180, 125, 210, 200, 210, 220, 290, 21…</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## $ carbo    &lt;dbl&gt; 5.0, 8.0, 7.0, 8.0, 14.0, 10.5, 11.0, 18.0, 15.0, 13.0, 12.0,…</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## $ sugars   &lt;dbl&gt; 6, 8, 5, 0, 8, 10, 14, 8, 6, 5, 12, 1, 9, 7, 13, 3, 2, 12, 13…</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## $ rating   &lt;dbl&gt; 68.40297, 33.98368, 59.42551, 93.70491, 34.38484, 29.50954, 3…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>77 observations (rows) and 8 variables (columns)</p>
 <p></p></blockquote></details><p></p><p></p>
