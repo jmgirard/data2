@@ -405,29 +405,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="data-files">2) Data Files</h4>
 <ol type="a">
 <li><p>Click the link to download the <a href="../../data/cereal.csv" download="cereal.csv">cereal.csv</a> file and save it to your class Project folder.</p></li>
-<li><p>Use {tidyverse} to import this file into R as a tibble named <code>cereal</code>, using an argument to make the missing values (coded as <code>"missing"</code>) into <code>NA</code>s. Then print it.</p></li>
+<li><p>Use {tidyverse} to import this file into R as a tibble named <code>cereal</code>. Then print it.</p></li>
 <li><p>Use an R command to preview the data “at a glance.” How many variables and observations are in this tibble?</p></li>
 </ol>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
 <p><strong>Part (b)</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cereal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"cereal.csv"</span>, <span class="at">na =</span> <span class="st">"missing"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cereal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"cereal.csv"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cereal</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <pre><code>## # A tibble: 77 × 8
 ##    name                      mfr       type  calories sodium carbo sugars rating
-##    &lt;chr&gt;                     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-##  1 100% Bran                 Nabisco   cold        70    130   5        6   68.4
-##  2 100% Natural Bran         Quaker O… cold       120     15   8        8   34.0
-##  3 All-Bran                  Kelloggs  cold        70    260   7        5   59.4
-##  4 All-Bran with Extra Fiber Kelloggs  cold        50    140   8        0   93.7
-##  5 Almond Delight            Ralston … cold       110    200  14        8   34.4
-##  6 Apple Cinnamon Cheerios   General … cold       110    180  10.5     10   29.5
-##  7 Apple Jacks               Kelloggs  cold       110    125  11       14   33.2
-##  8 Basic 4                   General … cold       130    210  18        8   37.0
-##  9 Bran Chex                 Ralston … cold        90    200  15        6   49.1
-## 10 Bran Flakes               Post      cold        90    210  13        5   53.3
+##    &lt;chr&gt;                     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; 
+##  1 100% Bran                 Nabisco   cold        70    130   5        6 68.40…
+##  2 100% Natural Bran         Quaker O… cold       120     15   8        8 33.98…
+##  3 All-Bran                  Kelloggs  cold        70    260   7        5 59.42…
+##  4 All-Bran with Extra Fiber Kelloggs  cold        50    140   8        0 93.70…
+##  5 Almond Delight            Ralston … cold       110    200  14        8 34.38…
+##  6 Apple Cinnamon Cheerios   General … cold       110    180  10.5     10 29.50…
+##  7 Apple Jacks               Kelloggs  cold       110    125  11       14 33.17…
+##  8 Basic 4                   General … cold       130    210  18        8 37.03…
+##  9 Bran Chex                 Ralston … cold        90    200  15        6 49.12…
+## 10 Bran Flakes               Post      cold        90    210  13        5 53.31…
 ## # ℹ 67 more rows</code></pre>
 </div>
 <p><strong>Part (c)</strong></p>
@@ -442,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## $ sodium   &lt;dbl&gt; 130, 15, 260, 140, 200, 180, 125, 210, 200, 210, 220, 290, 21…</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## $ carbo    &lt;dbl&gt; 5.0, 8.0, 7.0, 8.0, 14.0, 10.5, 11.0, 18.0, 15.0, 13.0, 12.0,…</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## $ sugars   &lt;dbl&gt; 6, 8, 5, 0, 8, 10, 14, 8, 6, 5, 12, 1, 9, 7, 13, 3, 2, 12, 13…</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## $ rating   &lt;dbl&gt; 68.40297, 33.98368, 59.42551, 93.70491, 34.38484, 29.50954, 3…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## $ rating   &lt;chr&gt; "68.402973", "33.983679", "59.425505", "93.704912", "34.38484…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>77 observations (rows) and 8 variables (columns)</p>
 <p></p></blockquote></details><p></p><p></p>
