@@ -266,3 +266,7 @@ iframe.slide-deck {
   display: block;
   margin-bottom: 1rem;
 }
+
+kbd {
+  font-size: 0.8em;
+}

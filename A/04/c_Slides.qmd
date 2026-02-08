@@ -37,6 +37,31 @@ execute:
 ![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
 :::
 
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+options(
+  tibble.print_min = 5,
+  tibble.print_max = 5
+)
+```
+
+## Setup
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("starwars", package = "dplyr")
+```
+
+```{r}
+glimpse(starwars)
+```
+
 ## Roadmap
 
 ::: {.columns .pv4}
@@ -53,3 +78,248 @@ execute:
 
 :::
 
+# The Pipe
+
+## The Pipe Operator {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   The pipe passes the object on the **left** to the<br>first argument of the function on the **right**
+    -   Think of it as reading **"and then..."**
+    -   e.g., take `x` **and then** square root it
+
+::: {.fragment .mt1}
+-   **Why use it?**
+    1.  **Readability:** Code reads left-to-right (like English), not inside-out (like math functions).
+    2.  **Cleanliness:** Avoids creating temporary variables for every single step.
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/arrow.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## RStudio Setup & Shortcuts {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+1. **Configure RStudio**
+    -   Go to **Tools** > **Global Options**
+    -   Click **Code** (on the left)
+    -   Check box: ["Use native pipe operator"]{.b .blue}
+    -   Click **Apply** / **OK**
+    
+2. **Keyboard Shortcut**
+    -   Let RStudio insert `|>` for you
+    -   Win: {{< kbd Ctrl+Shift+M >}}
+    -   Mac: {{< kbd Cmd+Shift+M >}}
+    -   Without the setting above, you get `%>%` which is similar but requires **tidyverse** to be loaded
+    
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/keyboard.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Piping to a simple function
+
+```{r}
+# Traditional way
+sqrt(100)
+```
+
+::: {.fragment}
+```{r}
+# Piped way
+100 |> sqrt()
+```
+:::
+
+::: {.fragment}
+```{r}
+# Saving the output
+x <- 100 |> sqrt()
+x
+```
+:::
+
+## Piping with extra arguments
+
+```{r}
+# Traditional way
+round(3.14159, digits = 2)
+```
+
+::: {.fragment}
+```{r}
+# Piped way
+3.14159 |> round(digits = 2)
+```
+:::
+
+::: {.fragment}
+```{r}
+#| error: true
+
+# Be careful not to give x twice
+x <- 3.14159 
+x |> round(x, digits = 2)
+```
+:::
+
+## Piping to other arguments
+
+```{r}
+seq(from = 1, to = 10)
+```
+
+:::{.fragment}
+```{r}
+# The pipe defaults to filling in the *first* argument of the function
+1 |> 
+  seq(to = 10)
+```
+:::
+
+::: {.fragment}
+```{r}
+# But, if needed, we can use the _ placeholder to pipe to a different argument
+10 |> 
+  seq(from = 1, to = _)
+```
+:::
+
+## Bridging to dplyr
+
+```{r}
+# Traditional way (hard to read)
+x <- select(starwars, name, species, homeworld)
+```
+
+::: {.fragment}
+```{r}
+# Piped way ("Take starwars AND THEN select...")
+x <- 
+  starwars |> 
+  select(name, species, homeworld)
+x
+```
+:::
+
+# Pipelines
+
+## Building Pipelines {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   We rarely do just one thing to data
+    -   We usually want to filter, *and then* select, *and then* arrange...
+-   We can chain multiple pipes together
+    -   This is called building a [pipeline]{.b .blue}
+    -   The result of each line becomes the input for the next line, creating a kind of "assembly line"
+
+::: {.fragment .mt1}
+**Formatting Tip:**
+
+Add a line break after each pipe `|>` and then indent the next line. RStudio will do this automatically.
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/flow.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Traditional Approaches
+
+**Intermediate Assignment**
+
+```{r}
+# Error-prone: easy to use wrong variable name or overwrite data
+x <- 100
+y <- sqrt(x)
+z <- log(y, base = 2)
+z
+```
+
+:::{.fragment}
+**Nested Functions**
+
+```{r}
+# Difficult to read and add on to, especially as this gets longer
+z <- log(sqrt(100), base = 2)
+z
+```
+:::
+
+## Compare: The Pipeline
+
+```{r}
+# Clean, linear, and easy to read and add on to
+z <- 
+  100 |> 
+  sqrt() |> 
+  log(base = 2)
+z
+```
+
+:::{.fragment}
+```{r}
+# We can even add print to the end to save and print
+z <- 
+  100 |> 
+  sqrt() |> 
+  log(base = 2) |> 
+  print()
+```
+:::
+
+## Data Pipeline 1
+
+```{r}
+# What are the names and genders of all the Droids?
+out <- 
+  starwars |> 
+  filter(species == "Droid") |> 
+  select(name, gender) |> 
+  print()
+```
+
+## Data Pipeline 2
+
+```{r}
+# Which characters have a BMI (Body Mass Index) greater than 30?
+out <- 
+  starwars |> 
+  mutate(bmi = mass / ((height / 100)^2)) |> 
+  filter(bmi > 30) |> 
+  arrange(desc(bmi)) |> 
+  select(name, bmi, mass, height) |> 
+  print()
+```
+
+## Data Pipeline 3
+
+```{r}
+# What unique homeworlds are represented by the Human characters?
+out <-
+  starwars |>
+  filter(species == "Human") |>
+  distinct(homeworld) |>
+  arrange(homeworld) |>
+  print()
+```
+
+## Data Pipeline 4
+
+```{r}
+# Which non-humans are shorter than 100cm? (Rename height for clarity)
+out <-
+  starwars |>
+  filter(species != "Human", height < 100) |>
+  rename(height_cm = height) |> 
+  select(name, species, height_cm) |>
+  print()
+```

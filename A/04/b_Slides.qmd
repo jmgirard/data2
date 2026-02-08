@@ -121,7 +121,7 @@ data("starwars", package = "dplyr")
 ```
 
 ```{r}
-starwars
+glimpse(starwars)
 ```
 
 # Rows

@@ -236,23 +236,72 @@ storms_mph
 
 ### Practice
 
-#### 1) Pipes
+#### 1) The Pipe
 
-Q
+Rewrite the following "traditional" code using the native pipe operator.
+
+a) Nested Math: Rewrite this calculation to find the square root of 250, and then round the result to the nearest whole number (0 digits).
+
+```{r}
+# Traditional approach
+round(sqrt(250), digits = 1)
+```
+
+b) The Placeholder: Rewrite this repetition command. We want to repeat the word "Beetlejuice" exactly 3 times. Use the pipe to pass the number **3** into the **times** argument of the `rep()` function.
+
+```{r}
+# Traditional approach
+rep("Beetlejuice", times = 3)
+```
+
 
 {{< dstart summary="Answer key" >}}
 
-A
+**Part (a)**
+
+```{r}
+250 |> 
+  sqrt() |> 
+  round(digits = 0)
+```
+
+**Part (b)**
+
+```{r}
+3 |> 
+  rep("Beetlejuice", times = _)
+```
+
 
 {{< dstop >}}
 
 #### 2) Pipelines
 
-Q
+Write a single pipeline to answer the following question about breakfast cereals.
+
+**Question:** Which cereals made by "General Mills" have high sugar content (greater than 10 grams)?
+
+**Requirements:**
+
+1. Start by importing the data from the [cereal.csv](../../data/cereal.csv){download="cereal.csv"} file
+1. Filter for the manufacturer (**mfr**) "General Mills" AND **sugars** greater than 10.
+1. Select only the **name** and **sugars** columns.
+1. Sort the results by **sugars** to place highest sugar at the top.
 
 {{< dstart summary="Answer key" >}}
 
-A
+```{r}
+#| message: false
+#| replace_path: ["../../data/", ""]
+
+# Note: Ensure cereal.csv is in your project folder
+library(tidyverse)
+read_csv("../../data/cereal.csv") |> 
+  filter(mfr == "General Mills", sugars > 10) |> 
+  select(name, sugars) |> 
+  arrange(desc(sugars))
+```
+
 
 {{< dstop >}}
 
