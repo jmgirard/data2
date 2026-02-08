@@ -1,5 +1,8 @@
 ---
 title: "Week 04: Wrangle"
+execute:
+  echo: true
+  eval: true
 ---
 
 ::: {.callout-caution title="Work in Progress"}
@@ -12,6 +15,8 @@ This page is still under development.
 
 library(here)
 source(here("_common.R"))
+
+knitr::opts_chunk$set(collapse = TRUE)
 ```
 
 ## [03a] Tidy Data / Data Files
@@ -57,7 +62,6 @@ Version with one observation for the season five parts
 
 ```{r}
 #| message: false
-#| collapse: true
 
 library(tidyverse)
 season <- c(1, 2, 3, 4, 5)
@@ -74,8 +78,6 @@ breaking_bad
 Version with two separate observations for the season five parts
 
 ```{r}
-#| collapse: true
-
 library(tidyverse)
 season <- c(1, 2, 3, 4, 5.1, 5.2)
 episodes <- c(7, 13, 13, 13, 8, 8)
@@ -91,7 +93,6 @@ breaking_bad
 **Part (b)**
 
 ```{r}
-#| message: false
 #| eval: false
 
 write_csv(breaking_bad, "breaking_bad.csv")
@@ -113,7 +114,6 @@ c) Use an R command to preview the data "at a glance." How many variables and ob
 
 ```{r}
 #| message: false
-#| collapse: true
 #| replace_path: ["../../data/", ""]
 
 cereal <- read_csv("../../data/cereal.csv")
@@ -155,23 +155,62 @@ glimpse(cereal)
 
 ### Practice
 
+For both sets of questions, load and use the `storms` dataset from the dplyr package. Because changes are only saved when using assignment, be sure to use the `<-` in each line. Then print the final result.
+
 #### 1) Rows
 
-Q
+a) Filter the `storms` dataset to show only the observations from the year **2005**. Sort the result by **pressure** from lowest to highest (ascending) to see the most intense observations first.
+
+b) Use `distinct()` to find the unique **names** of all storms in the dataset that have ever reached **category 5**.
 
 {{< dstart summary="Answer key" >}}
 
-A
+**Part (a)**
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("storms", package = "dplyr")
+
+storms_2005 <- filter(storms, year == 2005)
+storms_2005 <- arrange(storms_2005, pressure)
+storms_2005
+```
+
+**Part (b)**
+
+```{r}
+storms_cat5 <- filter(storms, category == 5)
+storms_cat5 <- distinct(storms_cat5, name)
+storms_cat5
+```
 
 {{< dstop >}}
 
 #### 2) Columns 
 
-Q
+a) Create a subset of the `storms` dataset that contains only the **name**, **year**, and **wind** variables. Then, rename the **wind** column to **max_wind_knots**.
+
+b) Create a new column called **wind_mph** (wind \* 1.15). Then, relocate this new column to appear immediately before the **pressure** column.
 
 {{< dstart summary="Answer key" >}}
 
-A
+**Part (a)**
+
+```{r}
+storms_knots <- select(storms, name, year, wind)
+storms_knots <- rename(storms_knots, max_wind_knots = wind)
+storms_knots
+```
+
+**Part (b)**
+
+```{r}
+storms_mph <- mutate(storms, wind_mph = wind * 1.15)
+storms_mph <- relocate(storms_mph, wind_mph, .before = pressure)
+storms_mph
+```
 
 {{< dstop >}}
 

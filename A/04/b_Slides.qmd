@@ -37,6 +37,19 @@ execute:
 ![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
 :::
 
+```{r}
+#| label: setup
+#| include: false
+
+options(
+  tibble.print_min = 8, 
+  tibble.print_max = 8
+)
+library(here)
+source(here("_common.R"))
+```
+
+
 ## Roadmap
 
 ::: {.columns .pv4}
@@ -53,3 +66,236 @@ execute:
 
 :::
 
+## Basic wrangling verbs {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   [tidyverse]{.b .blue} provides tools for wrangling tibbles
+    -   These functions are named after *verbs*
+    -   So if you name your objects after *nouns*...
+    -   ...your code becomes easier to read
+
+::: {.fragment .mt1}
+| Noun(noun) ❌        |  Verb(noun)  ✔️  | 
+|:----------------------|:----------------|
+| `blender(fruit)`      | `blend(fruit)`  |
+| `screwdriver(screw)`  | `drive(screw)`  |
+| `boxcutter(box)`      | `cut(box)`      |
+
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/wrench.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Setup
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("starwars", package = "dplyr")
+```
+
+```{r}
+starwars
+```
+
+# Rows
+
+## Row-focused verbs {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   [Arrange]{.b .blue}
+    -   Reorders the rows according to the values in specified columns
+
+::: {.fragment .mt1}
+-   [Filter]{.b .blue}
+    -   Retains only the rows that satisfy your specified conditions
+:::
+
+::: {.fragment .mt1}
+-   [Distinct]{.b .blue}
+    -   Removes duplicate rows to retain only unique combinations of values
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/rowing.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+# Arrange
+
+## Arrange alphabetically from A to Z
+
+```{r}
+# Sort the rows by the name variable (ascending)
+arrange(starwars, name)
+```
+
+## Arrange alphabetically from Z to A
+
+```{r}
+# Sort the rows by the name variable (descending)
+arrange(starwars, desc(name))
+```
+
+## Arrange numerically
+
+```{r}
+# Sort the rows by height from shortest to tallest
+arrange(starwars, height)
+```
+
+## Arrange by multiple variables
+
+```{r}
+# Sort by multiple variables to break ties
+arrange(starwars, hair_color, mass)
+```
+
+# Filter
+
+## Filter by exact match
+
+```{r}
+# Retain only rows where the species is exactly "Droid"
+filter(starwars, species == "Droid")
+```
+
+## Filter by numeric condition
+
+```{r}
+# Retain only characters with a body mass greater than or equal to 100
+filter(starwars, mass >= 100)
+```
+
+## Filter by multiple conditions (AND)
+
+```{r}
+# Retain "Droid" characters AND those with mass < 50
+filter(starwars, species == "Droid", mass < 50)
+```
+
+## Filter by multiple conditions (OR)
+
+```{r}
+# Retain characters that have sex equal to male OR none
+filter(starwars, sex == "male" | sex == "none")
+```
+
+# Distinct
+
+## Find distinct values
+
+```{r}
+# Find the unique homeworlds listed in the dataset
+distinct(starwars, homeworld)
+```
+
+## Find distinct combinations
+
+```{r}
+# Find unique combinations of species and sex
+distinct(starwars, species, sex)
+```
+
+# Columns
+
+## Column-focused verbs {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   [Select]{.b .blue}
+    -   Retains specific columns and drops the rest
+
+::: {.fragment .mt1}
+-   [Mutate]{.b .blue}
+    -   Creates new columns or modifies existing ones
+:::
+
+::: {.fragment .mt1}
+-   [Rename]{.b .blue}
+    -   Changes the names of specific columns
+:::
+
+::: {.fragment .mt1}
+-   [Relocate]{.b .blue}
+    -   Changes the positions of specific columns
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/pillar.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+# Select
+
+## Select specific columns
+
+```{r}
+# Retain only the name, height, and mass columns
+select(starwars, name, height, mass)
+```
+
+## Drop specific columns
+
+```{r}
+# Retain all columns EXCEPT films, vehicles, and starships
+select(starwars, -films, -vehicles, -starships)
+```
+
+## Select all between two columns
+
+```{r}
+# Retain all columns between height and gender
+select(starwars, height:gender)
+```
+
+## Select using helpers
+
+```{r}
+# Retain only columns that end with the phrase "color"
+select(starwars, ends_with("color"))
+```
+
+:::{.fsmaller}
+See also: `starts_with()`, `contains()`, `matches()`, and `where()`
+:::
+
+# Mutate
+
+## Mutate new columns
+
+```{r}
+# Create a new column and add all the way to the right
+mutate(starwars, height_m = height / 100)
+```
+
+## Mutate existing columns
+
+```{r}
+# Modify the height variable "in place"
+mutate(starwars, height = height * 10)
+```
+
+# Rename and Relocate
+
+## Rename columns
+
+```{r}
+# Change the name of 'homeworld' to 'planet'
+rename(starwars, planet = homeworld)
+```
+
+## Relocate columns
+
+```{r}
+# Move the 'species' column to the very first position
+relocate(starwars, species, .before = name)
+```
