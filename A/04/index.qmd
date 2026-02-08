@@ -155,7 +155,7 @@ glimpse(cereal)
 
 ### Practice
 
-For both sets of questions, load and use the `storms` dataset from the dplyr package. Because changes are only saved when using assignment, be sure to use the `<-` in each line. Then print the final result.
+For both sets of questions, load and use the `storms` dataset from the **dplyr** package. Because changes are only saved when using assignment, be sure to use the `<-` in each line. Then print the final result.
 
 #### 1) Rows
 

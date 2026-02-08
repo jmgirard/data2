@@ -90,6 +90,27 @@ source(here("_common.R"))
 :::
 :::
 
+## Important: Saving changes {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   `dplyr` functions **do not** modify the original
+    -   Running a command returns a *copy* of the result
+    -   It does not change the original object!
+    -   This is useful in *teaching* but less so in practice
+
+::: {.fragment .mt1}
+-   To **save** changes, you must use assignment [`<-`]{.b .blue}
+    -   Print only: `arrange(data, var)`
+    -   Save/update: `data <- arrange(data, var)`
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/caution.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
 ## Setup
 
 ```{r}
@@ -289,7 +310,7 @@ mutate(starwars, height = height * 10)
 ## Rename columns
 
 ```{r}
-# Change the name of 'homeworld' to 'planet'
+# Change the name of 'homeworld' to 'planet' (new = old)
 rename(starwars, planet = homeworld)
 ```
 
@@ -299,3 +320,7 @@ rename(starwars, planet = homeworld)
 # Move the 'species' column to the very first position
 relocate(starwars, species, .before = name)
 ```
+
+:::{.fsmaller}
+Can also use `.after` and position numbers, e.g., `.after = 1`
+:::
