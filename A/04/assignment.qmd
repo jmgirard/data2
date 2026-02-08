@@ -1,0 +1,101 @@
+---
+title: "Week 04 Assignment"
+format: 
+  html:
+    css: ../../styles.css
+    embed-resources: true
+    toc: false
+---
+
+![](../../img/programming_2780E3.svg){width="200"}
+
+## Instructions
+
+*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2--4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.*
+
+```markdown
+---
+title: "Week 04 Assignment"
+author: "Your Name"
+embed-resources: true
+---
+```
+
+*Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any "scratch work" or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).*
+
+## Question 1 (Tidy Data)
+
+**Background:** Consider the following table regarding two hit songs.
+
+| Field | Song 1 | Song 2 |
+| :--- | :--- | :--- |
+| **Track** | "Anti-Hero" | "Flowers" |
+| **Artist** | Taylor Swift | Miley Cyrus |
+| **Release_Year** | 2022 | 2023 |
+| **Streams_Millions** | 120 | 95 |
+
+a) **Identify the violation:** Which specific principle of Tidy Data does this table violate? Briefly explain how.
+
+b) **Propose a fix:** Describe how you would restructure this data to make it tidy. What should the columns be? What should the rows be? (You do not need to write code for this, just describe the new structure).
+
+## Question 2 (Data Files)
+
+*For the remaining questions, ensure the file "chocolate.csv" is saved in your project's folder.*
+
+a) **Reading Data:** Use the appropriate **tidyverse** function to read the "chocolate.csv" file into R and save it as an object named `chocolate`. Then, use a command to preview the dataset "at a glance."
+
+b) **Writing Data:** Imagine you want to send a backup copy of this data to a colleague. Use an R function to write the `chocolate` object you created in part (a) to a new file named "chocolate_YYYY-MM-DD.csv" where YYYY-MM-DD is the date in the year-month-day format, which is preferred for data storage.
+
+## Question 3 (Rows)
+
+*Note: For these questions, do not save over the original `chocolate` object. You can just print the result.*
+
+a) **Filtering:** We want to find the highest-rated chocolates from France. Filter the `chocolate` dataset to retain only observations where the `company_location` is "France" AND the `rating` is greater than or equal to 4.0.
+
+b) **Distinct values:** We are interested in the variety of bean origins. Use `distinct()` to find all the unique values in the `country_of_bean_origin` column.
+
+## Question 4 (Columns)
+
+*Note: For these questions, do not save over the original `chocolate` object. You can just print the result.*
+
+a) **Select:** Create a subset of the data that contains only the `company_manufacturer`, `review_date`, and `rating` columns.
+
+b) **Mutate:** The `cocoa_percent` column is currently stored as a decimal (e.g., 0.75). Use `mutate()` to overwrite this column by multiplying the existing values by 100 (so 0.75 becomes 75).
+
+## Question 5 (The Pipe)
+
+a) **Math with Pipes:** Rewrite the following "traditional" code using the pipe operator (`|>`). The goal is to find the mean of the numbers 10, 20, and 30, and then round that average to 0 decimal places.
+
+```r
+# Traditional code
+round(mean(c(10, 20, 30)), digits = 0)
+```
+
+b) **Data with Pipes:** Rewrite the following code using the pipe operator. The output should remain exactly the same.
+
+```r
+# Traditional code
+filter(chocolate, review_date == 2021)
+```
+
+## Question 6 (Pipelines)
+
+*For these questions, construct a single pipeline (chaining multiple pipes) to achieve the goal.*
+
+a) **Finding the Best:** Which companies in Canada produced highly-rated chocolate in 2021?
+   1. Start with the `chocolate` data.
+   2. Filter for observations where `company_location` is "Canada" AND `review_date` is 2021.
+   3. Filter for `rating` greater than or equal to 3.75.
+   4. Select only the `company_manufacturer`, `specific_bean_origin_or_bar_name`, and `rating` columns.
+   5. Arrange the result by `rating` in descending order.
+
+b) **Dark Chocolate Analysis:** We want to explore the darkest chocolates in the dataset.
+   1. Start with the `chocolate` data.
+   2. Filter for observations where `cocoa_percent` is exactly 1.0 (100% cocoa).
+   3. Select the `company_manufacturer`, `company_location`, and `rating` columns.
+   4. Arrange the results alphabetically by `company_location`.
+
+
+---
+
+✅ Done! *Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking "Render" about a missing file, this actually means that there is an error in one of your chunks.*
