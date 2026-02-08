@@ -184,6 +184,17 @@ iframe.slide-deck {
 .f3 { font-size: 20px !important; }
 .fsmaller { font-size: 80%; }
 
+.reveal .slide-number {
+  position: absolute;
+  top: 15px !important;
+  right: 15px !important;
+  bottom: auto !important;
+  left: auto !important;
+  background: transparent;
+  color: inherit !important;
+  pointer-events: none !important;
+}
+
 /* Format code output */
 
 .reveal div.sourceCode pre code {
