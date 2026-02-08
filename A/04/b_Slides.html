@@ -253,6 +253,31 @@
 <p><lord-icon src="../../icons/wrench.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
+<section class="slide level2 smaller">
+<h2>Important: Saving changes</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><code>dplyr</code> functions <strong>do not</strong> modify the original
+<ul>
+<li>Running a command returns a <em>copy</em> of the result</li>
+<li>It does not change the original object!</li>
+<li>This is useful in <em>teaching</em> but less so in practice</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>To <strong>save</strong> changes, you must use assignment <span class="b blue"><code>&lt;-</code></span>
+<ul>
+<li>Print only: <code>arrange(data, var)</code></li>
+<li>Save/update: <code>data &lt;- arrange(data, var)</code></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/caution.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
 <section class="slide level2">
 <h2>Setup</h2>
 <div class="cell">
@@ -740,7 +765,7 @@
 <section class="slide level2">
 <h2>Rename columns</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Change the name of 'homeworld' to 'planet'</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Change the name of 'homeworld' to 'planet' (new = old)</span></span>
 <span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(starwars, <span class="at">planet =</span> homeworld)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 × 14
@@ -781,6 +806,9 @@
 # ℹ 5 more variables: gender &lt;chr&gt;, homeworld &lt;chr&gt;, films &lt;list&gt;,
 #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
+</div>
+<div class="fsmaller">
+<p>Can also use <code>.after</code> and position numbers, e.g., <code>.after = 1</code></p>
 </div>
 
 
