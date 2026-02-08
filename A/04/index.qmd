@@ -19,7 +19,7 @@ source(here("_common.R"))
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
-## [03a] Tidy Data / Data Files
+## [04a] Tidy Data / Data Files
 
 ### Topics
 - Learn the principles of data storage and the tidy data format
@@ -132,7 +132,7 @@ glimpse(cereal)
 {{< dstop >}}
 
 
-## [03b] Rows / Columns
+## [04b] Rows / Columns
 
 ### Topics
 - Transform data by row using `arrange()`, `filter()`, and `distinct()`
@@ -214,7 +214,7 @@ storms_mph
 
 {{< dstop >}}
 
-## [03c] Pipes / Pipelines
+## [04c] Pipes / Pipelines
 
 ### Topics
 - Use the pipe (`|>`) to efficiently pass an object to a function
