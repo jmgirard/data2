@@ -297,19 +297,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled" title="Work in Progress">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Work in Progress
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This page is still under development.</p>
-</div>
-</div>
 <section id="a-tidy-data-data-files" class="level2">
 <h2 class="anchored" data-anchor-id="a-tidy-data-data-files">[04a] Tidy Data / Data Files</h2>
 <section id="topics" class="level3">
@@ -610,18 +597,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-2" class="level3">
 <h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
-<section id="pipes" class="level4">
-<h4 class="anchored" data-anchor-id="pipes">1) Pipes</h4>
-<p>Q</p>
+<section id="the-pipe" class="level4">
+<h4 class="anchored" data-anchor-id="the-pipe">1) The Pipe</h4>
+<p>Rewrite the following “traditional” code using the native pipe operator.</p>
+<ol type="a">
+<li>Nested Math: Rewrite this calculation to find the square root of 250, and then round the result to the nearest whole number (0 digits).</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional approach</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sqrt</span>(<span class="dv">250</span>), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 15.8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="a">
+<li>The Placeholder: Rewrite this repetition command. We want to repeat the word “Beetlejuice” exactly 3 times. Use the pipe to pass the number <strong>3</strong> into the <strong>times</strong> argument of the <code>rep()</code> function.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional approach</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="st">"Beetlejuice"</span>, <span class="at">times =</span> <span class="dv">3</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Beetlejuice" "Beetlejuice" "Beetlejuice"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<p>A</p>
+<p><strong>Part (a)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">250</span> <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">0</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Part (b)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">"Beetlejuice"</span>, <span class="at">times =</span> _)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Beetlejuice" "Beetlejuice" "Beetlejuice"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p></p></blockquote></details><p></p><p></p>
 </section>
 <section id="pipelines" class="level4">
 <h4 class="anchored" data-anchor-id="pipelines">2) Pipelines</h4>
-<p>Q</p>
+<p>Write a single pipeline to answer the following question about breakfast cereals.</p>
+<p><strong>Question:</strong> Which cereals made by “General Mills” have high sugar content (greater than 10 grams)?</p>
+<p><strong>Requirements:</strong></p>
+<ol type="1">
+<li>Start by importing the data from the <a href="../../data/cereal.csv" download="cereal.csv">cereal.csv</a> file</li>
+<li>Filter for the manufacturer (<strong>mfr</strong>) “General Mills” AND <strong>sugars</strong> greater than 10.</li>
+<li>Select only the <strong>name</strong> and <strong>sugars</strong> columns.</li>
+<li>Sort the results by <strong>sugars</strong> to place highest sugar at the top.</li>
+</ol>
 <p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<p>A</p>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: Ensure cereal.csv is in your project folder</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"cereal.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mfr <span class="sc">==</span> <span class="st">"General Mills"</span>, sugars <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, sugars) <span class="sc">|&gt;</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(sugars))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 2</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   name              sugars</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;              &lt;dbl&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Total Raisin Bran     14</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Cocoa Puffs           13</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Count Chocula         13</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Lucky Charms          12</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Trix                  12</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p></p></blockquote></details><p></p><p></p>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">

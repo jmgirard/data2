@@ -7,7 +7,9 @@
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-cda0bb3ae8bf36564267672919c60290.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
+<script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script>
+<script src="../../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Jeffrey Girard">
@@ -29,6 +31,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -138,6 +204,34 @@
 </section>
 
 <section class="slide level2">
+<h2>Setup</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"starwars"</span>, <span class="at">package =</span> <span class="st">"dplyr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(starwars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 87
+Columns: 14
+$ name       &lt;chr&gt; "Luke Skywalker", "C-3PO", "R2-D2", "Darth Vader", "Leia Or…
+$ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188, 180, 2…
+$ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, 32.0, 84.0, 77.…
+$ hair_color &lt;chr&gt; "blond", NA, NA, "none", "brown", "brown, grey", "brown", N…
+$ skin_color &lt;chr&gt; "fair", "gold", "white, blue", "white", "light", "light", "…
+$ eye_color  &lt;chr&gt; "blue", "yellow", "red", "yellow", "brown", "blue", "blue",…
+$ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, NA, 24.0, 57.0, …
+$ sex        &lt;chr&gt; "male", "none", "none", "male", "female", "male", "female",…
+$ gender     &lt;chr&gt; "masculine", "masculine", "masculine", "masculine", "femini…
+$ homeworld  &lt;chr&gt; "Tatooine", "Tatooine", "Naboo", "Tatooine", "Alderaan", "T…
+$ species    &lt;chr&gt; "Human", "Droid", "Droid", "Human", "Human", "Human", "Huma…
+$ films      &lt;list&gt; &lt;"A New Hope", "The Empire Strikes Back", "Return of the J…
+$ vehicles   &lt;list&gt; &lt;"Snowspeeder", "Imperial Speeder Bike"&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, "Imp…
+$ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&gt;, "TIE Advanced x1",…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
 <h2>Roadmap</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -148,9 +242,349 @@
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>The Pipe</h1>
 
 </section>
+<section class="slide level2 smaller">
+<h2>The Pipe Operator</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>The pipe passes the object on the <strong>left</strong> to the<br>first argument of the function on the <strong>right</strong>
+<ul>
+<li>Think of it as reading <strong>“and then…”</strong></li>
+<li>e.g., take <code>x</code> <strong>and then</strong> square root it</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li><strong>Why use it?</strong>
+<ol type="1">
+<li><strong>Readability:</strong> Code reads left-to-right (like English), not inside-out (like math functions).</li>
+<li><strong>Cleanliness:</strong> Avoids creating temporary variables for every single step.</li>
+</ol></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/arrow.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>RStudio Setup &amp; Shortcuts</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ol type="1">
+<li><strong>Configure RStudio</strong>
+<ul>
+<li>Go to <strong>Tools</strong> &gt; <strong>Global Options</strong></li>
+<li>Click <strong>Code</strong> (on the left)</li>
+<li>Check box: <span class="b blue">“Use native pipe operator”</span></li>
+<li>Click <strong>Apply</strong> / <strong>OK</strong></li>
+</ul></li>
+<li><strong>Keyboard Shortcut</strong>
+<ul>
+<li>Let RStudio insert <code>|&gt;</code> for you</li>
+<li>Win: <kbd title="Ctrl+Shift+M" aria-hidden="true">Ctrl+Shift+M</kbd><span class="visually-hidden">Ctrl+Shift+M</span></li>
+<li>Mac: <kbd title="Cmd+Shift+M" aria-hidden="true">Cmd+Shift+M</kbd><span class="visually-hidden">Cmd+Shift+M</span></li>
+<li>Without the setting above, you get <code>%&gt;%</code> which is similar but requires <strong>tidyverse</strong> to be loaded</li>
+</ul></li>
+</ol>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/keyboard.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Piping to a simple function</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional way</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Piped way</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">|&gt;</span> <span class="fu">sqrt</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Saving the output</span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">|&gt;</span> <span class="fu">sqrt</span>()</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Piping with extra arguments</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional way</span></span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.14159</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.14</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Piped way</span></span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a><span class="fl">3.14159</span> <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.14</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Be careful not to give x twice</span></span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fl">3.14159</span> </span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>x <span class="sc">|&gt;</span> <span class="fu">round</span>(x, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `round()`:
+! unused argument (3.14159)</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Piping to other arguments</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The pipe defaults to filling in the *first* argument of the function</span></span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">seq</span>(<span class="at">to =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># But, if needed, we can use the _ placeholder to pipe to a different argument</span></span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> _)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Bridging to dplyr</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional way (hard to read)</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">select</span>(starwars, name, species, homeworld)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Piped way ("Take starwars AND THEN select...")</span></span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> </span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  starwars <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, species, homeworld)</span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+  name           species homeworld
+  &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;    
+1 Luke Skywalker Human   Tatooine 
+2 C-3PO          Droid   Tatooine 
+3 R2-D2          Droid   Naboo    
+4 Darth Vader    Human   Tatooine 
+5 Leia Organa    Human   Alderaan 
+# ℹ 82 more rows</code></pre>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Pipelines</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Building Pipelines</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>We rarely do just one thing to data
+<ul>
+<li>We usually want to filter, <em>and then</em> select, <em>and then</em> arrange…</li>
+</ul></li>
+<li>We can chain multiple pipes together
+<ul>
+<li>This is called building a <span class="b blue">pipeline</span></li>
+<li>The result of each line becomes the input for the next line, creating a kind of “assembly line”</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<p><strong>Formatting Tip:</strong></p>
+<p>Add a line break after each pipe <code>|&gt;</code> and then indent the next line. RStudio will do this automatically.</p>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/flow.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Traditional Approaches</h2>
+<p><strong>Intermediate Assignment</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Error-prone: easy to use wrong variable name or overwrite data</span></span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(x)</span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">log</span>(y, <span class="at">base =</span> <span class="dv">2</span>)</span>
+<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.321928</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Nested Functions</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Difficult to read and add on to, especially as this gets longer</span></span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">sqrt</span>(<span class="dv">100</span>), <span class="at">base =</span> <span class="dv">2</span>)</span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.321928</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Compare: The Pipeline</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Clean, linear, and easy to read and add on to</span></span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> </span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="dv">100</span> <span class="sc">|&gt;</span> </span>
+<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(<span class="at">base =</span> <span class="dv">2</span>)</span>
+<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.321928</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We can even add print to the end to save and print</span></span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> </span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="dv">100</span> <span class="sc">|&gt;</span> </span>
+<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb31-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(<span class="at">base =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb31-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.321928</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Data Pipeline 1</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># What are the names and genders of all the Droids?</span></span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> </span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>  starwars <span class="sc">|&gt;</span> </span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Droid"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, gender) <span class="sc">|&gt;</span> </span>
+<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  name   gender   
+  &lt;chr&gt;  &lt;chr&gt;    
+1 C-3PO  masculine
+2 R2-D2  masculine
+3 R5-D4  masculine
+4 IG-88  masculine
+5 R4-P17 feminine 
+# ℹ 1 more row</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Data Pipeline 2</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Which characters have a BMI (Body Mass Index) greater than 30?</span></span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> </span>
+<span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a>  starwars <span class="sc">|&gt;</span> </span>
+<span id="cb35-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi =</span> mass <span class="sc">/</span> ((height <span class="sc">/</span> <span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb35-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bmi <span class="sc">&gt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb35-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(bmi)) <span class="sc">|&gt;</span> </span>
+<span id="cb35-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, bmi, mass, height) <span class="sc">|&gt;</span> </span>
+<span id="cb35-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+  name                    bmi  mass height
+  &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt;  &lt;int&gt;
+1 Jabba Desilijic Tiure 443.   1358    175
+2 Dud Bolt               50.9    45     94
+3 Yoda                   39.0    17     66
+4 Owen Lars              37.9   120    178
+5 IG-88                  35     140    200
+# ℹ 7 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Data Pipeline 3</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># What unique homeworlds are represented by the Human characters?</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span></span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>  starwars <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Human"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(homeworld) <span class="sc">|&gt;</span></span>
+<span id="cb37-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(homeworld) <span class="sc">|&gt;</span></span>
+<span id="cb37-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 1
+  homeworld   
+  &lt;chr&gt;       
+1 Alderaan    
+2 Bespin      
+3 Chandrila   
+4 Concord Dawn
+5 Corellia    
+# ℹ 10 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Data Pipeline 4</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Which non-humans are shorter than 100cm? (Rename height for clarity)</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span></span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>  starwars <span class="sc">|&gt;</span></span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"Human"</span>, height <span class="sc">&lt;</span> <span class="dv">100</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">height_cm =</span> height) <span class="sc">|&gt;</span> </span>
+<span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, species, height_cm) <span class="sc">|&gt;</span></span>
+<span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  name                  species        height_cm
+  &lt;chr&gt;                 &lt;chr&gt;              &lt;int&gt;
+1 R2-D2                 Droid                 96
+2 R5-D4                 Droid                 97
+3 Yoda                  Yoda's species        66
+4 Wicket Systri Warrick Ewok                  88
+5 Ratts Tyerel          Aleena                79
+# ℹ 2 more rows</code></pre>
+</div>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -366,6 +800,82 @@
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
