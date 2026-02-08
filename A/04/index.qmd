@@ -5,10 +5,6 @@ execute:
   eval: true
 ---
 
-::: {.callout-caution title="Work in Progress"}
-This page is still under development.
-:::
-
 ```{r}
 #| include: false
 #| label: setup
