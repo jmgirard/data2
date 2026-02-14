@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -130,9 +194,9 @@
 
 
 <section class="title-slide slide level1 my-title center">
-<h1><span class="my-subtitle">Foundations of</span><br><span class="blue">Data Science</span></h1>
+<h1><span class="my-subtitle">Foundations of</span> <br><span class="blue">Data Science</span></h1>
 <div class="my-grey">
-<p><span>Spring 2026 | Data 2 (399)</span><br> <span>Jeffrey M. Girard | Lecture 05c</span></p>
+<p><span>Spring 2026 | Data 2 (399)</span><br> <span>Jeffrey M. Girard | Lecture 05b</span></p>
 </div>
 <p><img data-src="../../img/proud_coder_357EDD.svg" class="absolute" style="bottom: 30px; right: 0px; width: 400px; "></p>
 </section>
@@ -142,15 +206,426 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><p>Learn when to “set” versus “map” an aesthetic value</p></li>
-<li><p>Combine layers of geometrics objects (points and smooths)</p></li>
+<li><p>Visualize the distribution of a single variable</p></li>
+<li><p>Visualize the relationship between two variables</p></li>
 </ul>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section class="slide level2">
+<h2>Setup</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species     &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Ad…
+$ island      &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Tor…
+$ bill_len    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, …
+$ bill_dep    &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, …
+$ flipper_len &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180,…
+$ body_mass   &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, …
+$ sex         &lt;fct&gt; male, female, female, NA, female, male, female, male, NA, …
+$ year        &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Distributions</h1>
 
 </section>
+<section class="slide level2 smaller">
+<h2>Visualizing Distributions</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>Variable <span class="b blue">distributions</span> are critical in data analysis
+<ul>
+<li>What are the most and least <span class="b">common values</span>?</li>
+<li>What are the <span class="b">extrema</span> (min and max values)?</li>
+<li>Are there any <span class="b">outliers</span> or impossible values?</li>
+<li>How much <span class="b">spread</span> is there in the variable?</li>
+<li>What <span class="b">shape</span> does the distribution take?</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>Visualization helps us to understand <span class="b green">variation</span>
+<ul>
+<li>It can also <span class="b">communicate</span> it to others</li>
+<li>The geom chosen depends on whether the variable is <span class="b">discrete</span> or <span class="b">continuous</span></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/dice.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Common Strategies</h2>
+<ul>
+<li><strong>One <span class="blue">Discrete</span> <span class="math inline">\(\rightarrow\)</span> <span class="green">Bar</span></strong>
+<ul>
+<li>Count each category’s occurrence</li>
+<li>x = Discrete Categories, y = Count</li>
+</ul></li>
+<li><strong>One <span class="blue">Continuous</span> <span class="math inline">\(\rightarrow\)</span> <span class="green">Histogram</span></strong>
+<ul>
+<li>Cut the variable’s range into discrete “bins”</li>
+<li>Count each bin’s occurrence</li>
+<li>x = Variable Values, y = Count</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Bar Chart</h1>
+
+</section>
+<section class="slide level2">
+<h2>Species Bar Chart</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>                   <span class="co"># start with penguins, pipe to pass tibble</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species)) <span class="sc">+</span>  <span class="co"># map x-axis to species, plus to add to plot</span></span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()                  <span class="co"># bar to plot category counts</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Species Interpretation</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment">
+<ul>
+<li>Three species were observed</li>
+<li>Adelie was most common, then Gentoo, then Chinstrap</li>
+<li>Adelies were observed twice as often as Chinstraps</li>
+<li>Are unequal frequencies expected? Problematic?</li>
+</ul>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Sex Bar Chart</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>               <span class="co"># start with penguins, pipe to pass tibble</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sex)) <span class="sc">+</span>  <span class="co"># map x-axis to sex, plus to add to plot</span></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()              <span class="co"># bar to plot category counts</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Sex Interpretation</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment">
+<ul>
+<li>Males were slightly more common than Females</li>
+<li>Around 10 observations are missing sex info (NA)</li>
+<li>Are these NAs: expected? problematic? fixable?</li>
+</ul>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Bar Missing Values</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>               <span class="co"># start with penguins, pipe to pass tibble</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(sex) <span class="sc">|&gt;</span>         <span class="co"># drop NAs in sex, pipe to pass tibble</span></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sex)) <span class="sc">+</span>  <span class="co"># map x-axis to sex, plus to add to plot</span></span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()              <span class="co"># bar to plot category counts</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Histogram</h1>
+
+</section>
+<section class="slide level2">
+<h2>Mass Histogram</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>                     <span class="co"># start with penguins, pipe to pass tibble</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass)) <span class="sc">+</span>  <span class="co"># map x-axis to body_mass, plus to add to plot</span></span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()              <span class="co"># histogram to plot bin counts</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Mass Interpretation</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment">
+<ul>
+<li>Body mass ranged from around 2500 to around 6500</li>
+<li>Most values were between 3250 and 4000</li>
+<li>Values from 4000 to 5750 were also pretty common</li>
+<li>At a glance, no values seem impossible or erroneous</li>
+</ul>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Histogram Bins</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># break x range into 20 bins</span></span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass)) <span class="sc">+</span></span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># break x range into 4 bins</span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass)) <span class="sc">+</span></span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Histogram Binwidth</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># each bin is 20 x-units wide</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass)) <span class="sc">+</span></span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># each bin is 2000 x-units wide</span></span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass)) <span class="sc">+</span></span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Relationships</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Visualizing Relationships</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>We are often interested in variable <span class="b blue">relationships</span>
+<ul>
+<li>Does variation in X go with variation in Y?</li>
+<li>Do higher X scores go with higher Y scores?</li>
+<li>Do groups differ on Y score distributions?</li>
+<li>Do certain groups tend to go together?</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>We can extend variation geoms into <span class="b blue">covariation</span>
+<ul>
+<li>The geoms we use will heavily depend on…</li>
+<li>…are the variables <span class="b green">continuous</span> or <span class="b green">discrete</span>?</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/rings.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Common Strategies</h2>
+<ul>
+<li><strong><span class="blue">Two Continuous</span> <span class="math inline">\(\rightarrow\)</span> <span class="green">Point</span></strong>
+<ul>
+<li>Use two positional axes</li>
+<li>x = Variable 1 Values, y = Variable 2 Values</li>
+</ul></li>
+<li><strong><span class="blue">One Discrete, One Continuous</span> <span class="math inline">\(\rightarrow\)</span> <span class="green">Boxplot</span></strong>
+<ul>
+<li>Use one positional axis and boxes-and-whiskers</li>
+<li>x = Discrete Categories, y = Continuous Values</li>
+</ul></li>
+<li><strong><span class="blue">Two Discrete</span> <span class="math inline">\(\rightarrow\)</span> <span class="green">Bar (with fill)</span></strong>
+<ul>
+<li>Use stacked-and-colored bars to show proportions</li>
+<li>x = Variable 1 Categories, y = Counts, fill = Variable 2 Categories</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Scatterplot</h1>
+
+</section>
+<section class="slide level2">
+<h2>Flipper–Mass Scatterplot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_len, <span class="at">y =</span> body_mass)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Flipper–Mass Interpretation</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment">
+<ul>
+<li>As flipper length increases, body mass also increases</li>
+<li>This relationship looks linear (as in a straight line)</li>
+<li>However, there is some spread around that line</li>
+<li>There seem to be more penguins with low body mass and low flipper length</li>
+</ul>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Boxplot</h1>
+
+</section>
+<section class="slide level2">
+<h2>How to read a boxplot</h2>
+
+<img data-src="../../img/EDA-boxplot.png" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Species–Mass Boxplot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Species–Mass Interpretation</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment">
+<ul>
+<li>Adelies and Chinstraps have similar mass distributions</li>
+<li>There are outlier Chinstraps</li>
+<li>Gentoos tend to be larger than Adelies &amp; Chinstraps</li>
+<li>There is overlap: large Adelies &amp; Chinstraps are larger than small Gentoos</li>
+</ul>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Rotated Boxplot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass, <span class="at">y =</span> species)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Stack Bar Chart</h1>
+
+</section>
+<section class="slide level2">
+<h2>Island–Species Bar Chart</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> island, <span class="at">fill =</span> species)) <span class="sc">+</span> <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Island–Species Interpretation</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment">
+<ul>
+<li>Adelies are seen on all three Islands</li>
+<li>Gentoos are only seen on Biscoe Island</li>
+<li>Chinstraps are only seen on Dream Island</li>
+<li>Only Adelies are seen on Torgersen Island</li>
+</ul>
+</div></div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

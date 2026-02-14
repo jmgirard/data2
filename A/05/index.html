@@ -257,14 +257,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
   </ul></li>
-  <li><a href="#b-distributions-relationships" id="toc-b-distributions-relationships" class="nav-link" data-scroll-target="#b-distributions-relationships">[05b] Distributions / Relationships</a>
+  <li><a href="#b-aesthetics-layers" id="toc-b-aesthetics-layers" class="nav-link" data-scroll-target="#b-aesthetics-layers">[05b] Aesthetics / Layers</a>
   <ul class="collapse">
   <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
   <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
   <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
   <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
   </ul></li>
-  <li><a href="#c-aesthetics-geometrics" id="toc-c-aesthetics-geometrics" class="nav-link" data-scroll-target="#c-aesthetics-geometrics">[05c] Aesthetics / Geometrics</a>
+  <li><a href="#c-distributions-relationships" id="toc-c-distributions-relationships" class="nav-link" data-scroll-target="#c-distributions-relationships">[05c] Distributions / Relationships</a>
   <ul class="collapse">
   <li><a href="#topics-2" id="toc-topics-2" class="nav-link" data-scroll-target="#topics-2">Topics</a></li>
   <li><a href="#readings-2" id="toc-readings-2" class="nav-link" data-scroll-target="#readings-2">Readings</a></li>
@@ -399,20 +399,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="b-distributions-relationships" class="level2">
-<h2 class="anchored" data-anchor-id="b-distributions-relationships">[05b] Distributions / Relationships</h2>
+<section id="b-aesthetics-layers" class="level2">
+<h2 class="anchored" data-anchor-id="b-aesthetics-layers">[05b] Aesthetics / Layers</h2>
 <section id="topics-1" class="level3">
 <h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
 <ul>
-<li>Visualize the distribution of a single variable</li>
-<li>Visualize relationships between several variables</li>
+<li>Learn when to “set” versus “map” an aesthetic value</li>
+<li>Combine layers of geometric objects (points and smooths)</li>
 </ul>
 </section>
 <section id="readings-1" class="level3">
 <h3 class="anchored" data-anchor-id="readings-1">Readings</h3>
 <ul>
-<li>R4DS (2E) Section 1.4: <a href="https://r4ds.hadley.nz/data-visualize.html#visualizing-distributions" target="_blank">Visualizing distributions</a></li>
-<li>R4DS (2E) Section 1.5: <a href="https://r4ds.hadley.nz/data-visualize.html#visualizing-relationships" target="_blank">Visualizing relationships</a></li>
+<li>R4DS (2E) Section 1.2.4: <a href="https://r4ds.hadley.nz/data-visualize.html#sec-adding-aesthetics-layers" target="_blank">Adding aesthetics and layers</a></li>
+<li>R4DS (2E) Section 9.2: <a href="https://r4ds.hadley.nz/layers.html#aesthetic-mappings" target="_blank">Aesthetic mappings</a></li>
+<li>R4DS (2E) Section 9.3: <a href="https://r4ds.hadley.nz/layers.html#sec-geometric-objects" target="_blank">Geometric objects</a></li>
 </ul>
 </section>
 <section id="slides-1" class="level3">
@@ -425,6 +426,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-1" class="level3">
 <h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
+</section>
+</section>
+<section id="c-distributions-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="c-distributions-relationships">[05c] Distributions / Relationships</h2>
+<section id="topics-2" class="level3">
+<h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
+<ul>
+<li>Visualize the distribution of a single variable</li>
+<li>Visualize relationships between several variables</li>
+</ul>
+</section>
+<section id="readings-2" class="level3">
+<h3 class="anchored" data-anchor-id="readings-2">Readings</h3>
+<ul>
+<li>R4DS (2E) Section 1.4: <a href="https://r4ds.hadley.nz/data-visualize.html#visualizing-distributions" target="_blank">Visualizing distributions</a></li>
+<li>R4DS (2E) Section 1.5: <a href="https://r4ds.hadley.nz/data-visualize.html#visualizing-relationships" target="_blank">Visualizing relationships</a></li>
+</ul>
+</section>
+<section id="slides-2" class="level3">
+<h3 class="anchored" data-anchor-id="slides-2">Slides</h3>
+<iframe class="slide-deck" src="c_Slides.html" title="[05c] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
+</div>
+</section>
+<section id="practice-2" class="level3">
+<h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
 <section id="distributions" class="level4">
 <h4 class="anchored" data-anchor-id="distributions">1) Distributions</h4>
 <ol type="a">
@@ -516,35 +545,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p></p></blockquote></details><p></p><p></p>
-</section>
-</section>
-</section>
-<section id="c-aesthetics-geometrics" class="level2">
-<h2 class="anchored" data-anchor-id="c-aesthetics-geometrics">[05c] Aesthetics / Geometrics</h2>
-<section id="topics-2" class="level3">
-<h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
-<ul>
-<li>Learn when to “set” versus “map” an aesthetic value</li>
-<li>Combine layers of geometrics objects (points and smooths)</li>
-</ul>
-</section>
-<section id="readings-2" class="level3">
-<h3 class="anchored" data-anchor-id="readings-2">Readings</h3>
-<ul>
-<li>R4DS (2E) Section 9.2: <a href="https://r4ds.hadley.nz/layers.html#aesthetic-mappings" target="_blank">Aesthetic mappings</a></li>
-<li>R4DS (2E) Section 9.3: <a href="https://r4ds.hadley.nz/layers.html#sec-geometric-objects" target="_blank">Geometric objects</a></li>
-</ul>
-</section>
-<section id="slides-2" class="level3">
-<h3 class="anchored" data-anchor-id="slides-2">Slides</h3>
-<iframe class="slide-deck" src="c_Slides.html" title="[05c] Slideshow">
-</iframe>
-<div class="fsmaller">
-<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
-</div>
-</section>
-<section id="practice-2" class="level3">
-<h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../04/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 04</a>
@@ -553,6 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+</section>
 </section>
 </section>
 
