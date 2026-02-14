@@ -112,6 +112,12 @@ iframe.slide-deck {
   background-color: #33FCFF;
 }
 
+.tibbledisp pre code {
+  color: black;
+  font-size: 1.4em !important;
+  line-height: 1.2em !important;
+}
+
 /* From Tachyons */
 
 .br-100 {     border-radius: 100%; }

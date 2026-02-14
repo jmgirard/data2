@@ -43,7 +43,71 @@ This page is still under development.
 
 ### Practice
 
+#### 1) Scatterplots
 
+Create a new scatterplot using the `mpg` dataset (from the \{ggplot2\} package).
+ 
+* Map **Highway MPG (`hwy`)** to the x-axis.
+* Map **City MPG (`cty`)** to the y-axis.
+* Ensure the points are displayed as geometric objects.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("mpg", package = "ggplot2")
+p <- 
+  ggplot(
+    data = mpg,
+    mapping = aes(x = hwy, y = cty)
+  ) +
+  geom_point()
+p
+```
+
+{{< dstop >}}
+
+## 2) Saving Graphics
+
+Using `ggsave()`, perform the following steps:
+
+a.  Save the plot from question 1 as a **PNG** file named "plot_mpg.png" with a width of 8 inches and a height of 6 inches.
+b.  Save the plot from question 1 as a **PDF** file named "plot_mpg.pdf" with the same dimensions.
+c.  Open both files on your computer. Zoom in closely on the points in both files and describe the difference in quality between the raster (PNG) and vector (PDF) versions.
+
+{{< dstart summary="Answer key" >}}
+
+**Part (a)**
+
+```{r}
+#| eval: false
+
+ggsave(
+  filename = "plot_mpg.png",
+  plot = p,
+  width = 8,
+  height = 6,
+  units = "in"
+)
+```
+
+**Part (b)**
+
+```{r}
+#| eval: false
+
+ggsave(
+  filename = "plot_mpg.pdf",
+  plot = p,
+  width = 8,
+  height = 6,
+  units = "in"
+)
+```
+
+{{< dstop >}}
 
 ## [05b] Distributions / Relationships
 
