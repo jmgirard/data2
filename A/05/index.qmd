@@ -69,7 +69,7 @@ p
 
 {{< dstop >}}
 
-## 2) Saving Graphics
+#### 2) Saving Graphics
 
 Using `ggsave()`, perform the following steps:
 
@@ -116,8 +116,8 @@ ggsave(
 - Visualize relationships between several variables
 
 ### Readings
-- R4DS (2E) Section 1.4: [Visualizing distributions](https://r4ds.hadley.nz/data-transform.html#introduction){target="_blank"}
-- R4DS (2E) Section 1.5: [Visualizing relationships](https://r4ds.hadley.nz/data-visualize.html#visualizing-distributions){target="_blank"}
+- R4DS (2E) Section 1.4: [Visualizing distributions](https://r4ds.hadley.nz/data-visualize.html#visualizing-distributions){target="_blank"}
+- R4DS (2E) Section 1.5: [Visualizing relationships](https://r4ds.hadley.nz/data-visualize.html#visualizing-relationships){target="_blank"}
 
 ### Slides
 ```{=html}
