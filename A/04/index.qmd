@@ -34,7 +34,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ### Slides
 ```{=html}
-<iframe class="slide-deck" src="a_Slides.html" title="[02a] Slideshow">
+<iframe class="slide-deck" src="a_Slides.html" title="[04a] Slideshow">
 </iframe>
 ```
 
@@ -141,7 +141,7 @@ glimpse(cereal)
 
 ### Slides
 ```{=html}
-<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+<iframe class="slide-deck" src="b_Slides.html" title="[04b] Slideshow">
 </iframe>
 ```
 
@@ -222,7 +222,7 @@ storms_mph
 
 ### Slides
 ```{=html}
-<iframe class="slide-deck" src="c_Slides.html" title="[02c] Slideshow">
+<iframe class="slide-deck" src="c_Slides.html" title="[04c] Slideshow">
 </iframe>
 ```
 
@@ -307,6 +307,6 @@ read_csv("../../data/cereal.csv") |>
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../03/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 03</a>
 
-  <a href="../04/index.html" class="btn btn-primary" role="button">Week 04&nbsp;&nbsp;&raquo;</a>
+  <a href="../05/index.html" class="btn btn-primary" role="button">Week 05&nbsp;&nbsp;&raquo;</a>
 </div>
 ```
