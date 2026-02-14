@@ -332,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <iframe class="slide-deck" src="a_Slides.html" title="[05a] Slideshow">
 </iframe>
 <div class="fsmaller">
-<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.</p>
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
 <section id="practice" class="level3">
@@ -420,11 +420,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <iframe class="slide-deck" src="b_Slides.html" title="[05b] Slideshow">
 </iframe>
 <div class="fsmaller">
-<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.</p>
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
 <section id="practice-1" class="level3">
 <h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
+<section id="distributions" class="level4">
+<h4 class="anchored" data-anchor-id="distributions">1) Distributions</h4>
+<ol type="a">
+<li>Create a histogram using the <code>mpg</code> dataset (from the {ggplot2} package) to visualize the distribution of City MPG.
+<ul>
+<li>Map <strong>City MPG (<code>cty</code>)</strong> to the x-axis.</li>
+<li>Ensure the bars are displayed as geometric objects using <code>geom_histogram()</code>.</li>
+<li>Set the <code>binwidth</code> argument to 2.</li>
+</ul></li>
+<li>Create a bar chart using the <code>mpg</code> dataset to visualize the distribution of Vehicle Class.
+<ul>
+<li>Map <strong>Vehicle Class (<code>class</code>)</strong> to the x-axis.</li>
+<li>Ensure the bars are displayed as geometric objects using <code>geom_bar()</code>.</li>
+</ul></li>
+</ol>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<p><strong>Part (a)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mpg"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cty)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Part (b)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="relationships" class="level4">
+<h4 class="anchored" data-anchor-id="relationships">2) Relationships</h4>
+<ol type="a">
+<li>Create a boxplot using the <code>mpg</code> dataset to visualize the relationship between vehicle class and Highway MPG.
+<ul>
+<li>Map <strong>Vehicle Class (<code>class</code>)</strong> to the x-axis.</li>
+<li>Map <strong>Highway MPG (<code>hwy</code>)</strong> to the y-axis.</li>
+<li>Ensure the distribution summaries are displayed as geometric objects using <code>geom_boxplot()</code>.</li>
+</ul></li>
+<li>Create a stacked bar chart using the <code>mpg</code> dataset to visualize the relationship between vehicle class and drive train.
+<ul>
+<li>Map <strong>Vehicle Class (<code>class</code>)</strong> to the x-axis.</li>
+<li>Map <strong>Drive Train (<code>drv</code>)</strong> to the fill aesthetic.</li>
+<li>Ensure the bars are displayed as geometric objects using <code>geom_bar()</code>.</li>
+</ul></li>
+</ol>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<p><strong>Part (a)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Part (b)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
 </section>
 </section>
 <section id="c-aesthetics-geometrics" class="level2">
@@ -448,7 +540,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <iframe class="slide-deck" src="c_Slides.html" title="[05c] Slideshow">
 </iframe>
 <div class="fsmaller">
-<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.</p>
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
 <section id="practice-2" class="level3">
