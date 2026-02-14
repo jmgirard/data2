@@ -38,7 +38,7 @@ This page is still under development.
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
 ### Practice
@@ -126,12 +126,77 @@ ggsave(
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
 ### Practice
 
+#### 1) Distributions
 
+a) Create a histogram using the `mpg` dataset (from the \{ggplot2\} package) to visualize the distribution of City MPG.
+    + Map **City MPG (`cty`)** to the x-axis.
+    + Ensure the bars are displayed as geometric objects using `geom_histogram()`.
+    + Set the `binwidth` argument to 2.
+b) Create a bar chart using the `mpg` dataset to visualize the distribution of Vehicle Class.
+    + Map **Vehicle Class (`class`)** to the x-axis.
+    + Ensure the bars are displayed as geometric objects using `geom_bar()`.
+
+{{< dstart summary="Answer key" >}}
+
+**Part (a)**
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("mpg", package = "ggplot2")
+
+mpg |>
+  ggplot(aes(x = cty)) +
+  geom_histogram(binwidth = 2)
+```
+
+**Part (b)**
+
+```{r}
+mpg |>
+  ggplot(aes(x = class)) +
+  geom_bar()
+```
+
+{{< dstop >}}
+
+#### 2) Relationships
+
+a) Create a boxplot using the `mpg` dataset to visualize the relationship between vehicle class and Highway MPG.
+    + Map **Vehicle Class (`class`)** to the x-axis.
+    + Map **Highway MPG (`hwy`)** to the y-axis.
+    + Ensure the distribution summaries are displayed as geometric objects using `geom_boxplot()`.
+
+b) Create a stacked bar chart using the `mpg` dataset to visualize the relationship between vehicle class and drive train.
+    + Map **Vehicle Class (`class`)** to the x-axis.
+    + Map **Drive Train (`drv`)** to the fill aesthetic.
+    + Ensure the bars are displayed as geometric objects using `geom_bar()`.
+
+{{< dstart summary="Answer key" >}}
+
+**Part (a)**
+
+```{r}
+mpg |>
+  ggplot(aes(x = class, y = hwy)) +
+  geom_boxplot()
+```
+
+**Part (b)**
+
+```{r}
+mpg |>
+  ggplot(aes(x = class, fill = drv)) +
+  geom_bar()
+```
+
+{{< dstop >}}
 
 ## [05c] Aesthetics / Geometrics
 
@@ -150,7 +215,7 @@ ggsave(
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
 ### Practice
