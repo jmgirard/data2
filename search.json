@@ -4,21 +4,21 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "Week 01: Orient\n\nNo Class\nSyllabus / Website\nNo Class\n\nWeek 02: Start\n\nRStudio / Console\nScripts / Projects\nQuarto / Markdown\n\nWeek 03: Program\n\nAssignment / Functions\nArguments / Vectors\nStrings / Packages\n\nWeek 04: Wrangle\n\nTidy Data / Data Files\nRows / Columns\nPipes / Pipelines\n\nWeek 05: Visualize\n\nGraphics / Scatterplots\nDistributions / Relationships\nAesthetics / Geometrics\n\nWeek 06: Communicate\n\nCode Style / Chunks\nQuarto Figures / Tables\nPlot Labels / Scales\n\nWeek 07: Collaborate\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 08: Present\n\nPresentations\nPresentations\nNo Class"
+    "text": "Week 01: Orient\n\nNo Class\nSyllabus / Website\nNo Class\n\nWeek 02: Start\n\nRStudio / Console\nScripts / Projects\nQuarto / Markdown\n\nWeek 03: Program I\n\nAssignment / Functions\nArguments / Vectors\nStrings / Packages\n\nWeek 04: Wrangle I\n\nTidy Data / Data Files\nRows / Columns\nPipes / Pipelines\n\nWeek 05: Visualize I\n\nGraphics / Scatterplots\nDistributions / Relationships\nAesthetics / Geometrics\n\nWeek 06: Communicate\n\nCode Style / Chunks\nQuarto Figures / Tables\nPlot Labels / Scales\n\nWeek 07: Collaborate I\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 08: Present I\n\nPresentations\nPresentations\nNo Class"
   },
   {
     "objectID": "schedule.html#unit-a",
     "href": "schedule.html#unit-a",
     "title": "Course Schedule",
     "section": "",
-    "text": "Week 01: Orient\n\nNo Class\nSyllabus / Website\nNo Class\n\nWeek 02: Start\n\nRStudio / Console\nScripts / Projects\nQuarto / Markdown\n\nWeek 03: Program\n\nAssignment / Functions\nArguments / Vectors\nStrings / Packages\n\nWeek 04: Wrangle\n\nTidy Data / Data Files\nRows / Columns\nPipes / Pipelines\n\nWeek 05: Visualize\n\nGraphics / Scatterplots\nDistributions / Relationships\nAesthetics / Geometrics\n\nWeek 06: Communicate\n\nCode Style / Chunks\nQuarto Figures / Tables\nPlot Labels / Scales\n\nWeek 07: Collaborate\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 08: Present\n\nPresentations\nPresentations\nNo Class"
+    "text": "Week 01: Orient\n\nNo Class\nSyllabus / Website\nNo Class\n\nWeek 02: Start\n\nRStudio / Console\nScripts / Projects\nQuarto / Markdown\n\nWeek 03: Program I\n\nAssignment / Functions\nArguments / Vectors\nStrings / Packages\n\nWeek 04: Wrangle I\n\nTidy Data / Data Files\nRows / Columns\nPipes / Pipelines\n\nWeek 05: Visualize I\n\nGraphics / Scatterplots\nDistributions / Relationships\nAesthetics / Geometrics\n\nWeek 06: Communicate\n\nCode Style / Chunks\nQuarto Figures / Tables\nPlot Labels / Scales\n\nWeek 07: Collaborate I\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 08: Present I\n\nPresentations\nPresentations\nNo Class"
   },
   {
     "objectID": "schedule.html#unit-b",
     "href": "schedule.html#unit-b",
     "title": "Course Schedule",
     "section": "Unit B",
-    "text": "Unit B\n\nWeek 09: Rest\n\nNo Class\nNo Class\nNo Class\n\nWeek 10: Infer\n\nCompare Groups\nTest Associations\nNo Class\n\nWeek 11: Reshape\n\nSummarize / Group\nLengthen / Widen\nLink / Join Data\n\nWeek 12: Wrangle\n\nExplicit / Implicit NAs\nStrings / Factors\nGlue / Separate\n\nWeek 13: Visualize\n\nFacets / Positions\nStatistics / Coordinates\nThemes / Layout\n\nWeek 14: Program\n\nLogicals / Conditionals\nCustom Functions / Across\nMany Reads / Many Writes\n\nWeek 15: Collaborate\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 16: Present\n\nPresentations\nPresentations\nNo Class"
+    "text": "Unit B\n\nWeek 09: Rest\n\nNo Class\nNo Class\nNo Class\n\nWeek 10: Infer\n\nCompare Groups\nTest Associations\nNo Class\n\nWeek 11: Reshape\n\nSummarize / Group\nLengthen / Widen\nLink / Join Data\n\nWeek 12: Wrangle II\n\nExplicit / Implicit NAs\nStrings / Factors\nGlue / Separate\n\nWeek 13: Visualize II\n\nFacets / Positions\nStatistics / Coordinates\nThemes / Layout\n\nWeek 14: Program II\n\nLogicals / Conditionals\nCustom Functions / Across\nMany Reads / Many Writes\n\nWeek 15: Collaborate II\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 16: Present II\n\nPresentations\nPresentations\nNo Class"
   },
   {
     "objectID": "A/05/index.html",
@@ -32,7 +32,14 @@
     "href": "A/05/index.html#a-graphics-scatterplots",
     "title": "Week 05: Visualize",
     "section": "[05a] Graphics / Scatterplots",
-    "text": "[05a] Graphics / Scatterplots\n\nTopics\n\nLearn the principles that govern data visualization\nCreate and save scatterplots using ggplot() and ggsave()\n\n\n\nReadings\n\nR4DS (2E) Section 1.1: Introductions\nR4DS (2E) Section 1.2: First Steps\nR4DS (2E) Section 1.3: ggplot2 calls\nR4DS (2E) Section 1.6: Saving your plots\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.\n\n\n\nPractice"
+    "text": "[05a] Graphics / Scatterplots\n\nTopics\n\nLearn the principles that govern data visualization\nCreate and save scatterplots using ggplot() and ggsave()\n\n\n\nReadings\n\nR4DS (2E) Section 1.1: Introductions\nR4DS (2E) Section 1.2: First Steps\nR4DS (2E) Section 1.3: ggplot2 calls\nR4DS (2E) Section 1.6: Saving your plots\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.\n\n\n\nPractice\n\n1) Scatterplots\nCreate a new scatterplot using the mpg dataset (from the {ggplot2} package).\n\nMap Highway MPG (hwy) to the x-axis.\nMap City MPG (cty) to the y-axis.\nEnsure the points are displayed as geometric objects.\n\nAnswer key\n\nlibrary(tidyverse)\ndata(\"mpg\", package = \"ggplot2\")\np &lt;- \n  ggplot(\n    data = mpg,\n    mapping = aes(x = hwy, y = cty)\n  ) +\n  geom_point()\np"
+  },
+  {
+    "objectID": "A/05/index.html#saving-graphics",
+    "href": "A/05/index.html#saving-graphics",
+    "title": "Week 05: Visualize",
+    "section": "2) Saving Graphics",
+    "text": "2) Saving Graphics\nUsing ggsave(), perform the following steps:\n\nSave the plot from question 1 as a PNG file named “plot_mpg.png” with a width of 8 inches and a height of 6 inches.\nSave the plot from question 1 as a PDF file named “plot_mpg.pdf” with the same dimensions.\nOpen both files on your computer. Zoom in closely on the points in both files and describe the difference in quality between the raster (PNG) and vector (PDF) versions.\n\nAnswer key\nPart (a)\n\nggsave(\n  filename = \"plot_mpg.png\",\n  plot = p,\n  width = 8,\n  height = 6,\n  units = \"in\"\n)\n\nPart (b)\n\nggsave(\n  filename = \"plot_mpg.pdf\",\n  plot = p,\n  width = 8,\n  height = 6,\n  units = \"in\"\n)"
   },
   {
     "objectID": "A/05/index.html#b-distributions-relationships",
