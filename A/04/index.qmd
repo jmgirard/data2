@@ -39,7 +39,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
 ### Practice
@@ -146,7 +146,7 @@ glimpse(cereal)
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
 ### Practice
@@ -227,7 +227,7 @@ storms_mph
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
 ### Practice

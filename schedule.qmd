@@ -22,8 +22,8 @@ toc: false
     c. Pipes / Pipelines
 - Week 05: [Visualize I](A/05/index.qmd)
     a. Graphics / Scatterplots
-    b. Distributions / Relationships
-    c.  Aesthetics / Geometrics
+    b. Aesthetics / Layers
+    c. Distributions / Relationships
 - Week 06: [Communicate](A/06/index.qmd)
     a. Code Style / Chunks
     b. Quarto Figures / Tables

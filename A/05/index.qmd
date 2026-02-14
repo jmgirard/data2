@@ -109,7 +109,32 @@ ggsave(
 
 {{< dstop >}}
 
-## [05b] Distributions / Relationships
+## [05b] Aesthetics / Layers
+
+### Topics
+- Learn when to "set" versus "map" an aesthetic value
+- Combine layers of geometric objects (points and smooths)
+
+### Readings
+- R4DS (2E) Section 1.2.4: [Adding aesthetics and layers](https://r4ds.hadley.nz/data-visualize.html#sec-adding-aesthetics-layers){target="_blank"}
+- R4DS (2E) Section 9.2: [Aesthetic mappings](https://r4ds.hadley.nz/layers.html#aesthetic-mappings){target="_blank"}
+- R4DS (2E) Section 9.3: [Geometric objects](https://r4ds.hadley.nz/layers.html#sec-geometric-objects){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[05b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+
+
+
+## [05c] Distributions / Relationships
 
 ### Topics
 - Visualize the distribution of a single variable
@@ -121,7 +146,7 @@ ggsave(
 
 ### Slides
 ```{=html}
-<iframe class="slide-deck" src="b_Slides.html" title="[05b] Slideshow">
+<iframe class="slide-deck" src="c_Slides.html" title="[05c] Slideshow">
 </iframe>
 ```
 
@@ -197,29 +222,6 @@ mpg |>
 ```
 
 {{< dstop >}}
-
-## [05c] Aesthetics / Geometrics
-
-### Topics
-- Learn when to "set" versus "map" an aesthetic value
-- Combine layers of geometrics objects (points and smooths)
-
-### Readings
-- R4DS (2E) Section 9.2: [Aesthetic mappings](https://r4ds.hadley.nz/layers.html#aesthetic-mappings){target="_blank"}
-- R4DS (2E) Section 9.3: [Geometric objects](https://r4ds.hadley.nz/layers.html#sec-geometric-objects){target="_blank"}
-
-### Slides
-```{=html}
-<iframe class="slide-deck" src="c_Slides.html" title="[05c] Slideshow">
-</iframe>
-```
-
-::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
-:::
-
-### Practice
-
 
 <!-- Bottom Nav -->
 

@@ -27,7 +27,7 @@ execute:
 ---
 
 ::: {.my-title}
-# [Foundations of]{.my-subtitle}<br />[Data Science]{.blue}
+# [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
 
 ::: {.my-grey}
 [{{< meta semester >}} | {{< meta course >}}]{}<br />
