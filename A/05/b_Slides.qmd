@@ -19,7 +19,7 @@ format:
     author-meta: "Jeffrey Girard"
     semester: "Spring 2026"
     course: "Data 2 (399)"
-    lecture: "05c"
+    lecture: "05b"
 execute:
   echo: true
   eval: true
@@ -39,10 +39,15 @@ execute:
 
 ```{r}
 #| include: false
+#| message: false
 #| label: setup
 
 library(here)
 source(here("_common.R"))
+
+library(tidyverse)
+library(patchwork)
+set_theme(theme_gray(base_size = 30))
 ```
 
 ## Roadmap
@@ -50,9 +55,9 @@ source(here("_common.R"))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- Learn when to "set" versus "map" an aesthetic value
+- Combine layers of overlapping geometric objects
 
-- Combine layers of geometric objects (points and smooths)
+- Learn aesthetic setting, mapping, and grouping
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -61,3 +66,321 @@ source(here("_common.R"))
 
 :::
 
+## Setup
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("mpg", package = "ggplot2")
+
+glimpse(mpg)
+```
+
+# Layering
+
+## Layering {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   ggplot2 uses a [layered]{.b .blue} grammar of graphics
+    -   We can keep [stacking geoms]{.b .green} on top
+
+::: {.fragment .mt1}
+-   Layering adds a lot of possibilities
+    -   We can convey [more complex]{.b .green} ideas
+    -   We can learn more about our data
+:::
+
+::: {.fragment .mt1}
+-   But we can still describe these graphics
+    -   Just [describe each layer]{.b .green} in turn
+    -   And describe the layers' ordering
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/layers.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## The Smooth Geom
+
+```{r}
+# Left: Point geom plots all the observations
+p1 <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
+
+# Right: Smooth geom plots a local line-of-best-fit
+p2 <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_smooth()
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-height: 5
+#| fig-width: 16
+p1 | p2
+```
+
+## Overlapping the Layers
+
+```{r}
+# Adding additional geoms stacks their layers on top
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() + 
+  geom_smooth()
+```
+
+## Economics Dataset
+
+```{r}
+data("economics", package = "ggplot2")
+
+glimpse(economics)
+```
+
+
+## Line Geoms for Time Series
+
+```{r}
+# Left
+p1 <- ggplot(economics, aes(x = date, y = unemploy)) + geom_point()
+
+# Right
+p2 <- ggplot(economics, aes(x = date, y = unemploy)) + geom_line()
+```
+
+```{r}
+#| echo: false
+#| fig-height: 5
+#| fig-width: 16
+
+p1 | p2
+```
+
+## Adding Reference Lines
+
+```{r}
+# Add a horizontal reference line at y=10000
+ggplot(economics, aes(x = date, y = unemploy)) + 
+  geom_hline(yintercept = 10000) +
+  geom_line()
+```
+
+
+# Aesthetics
+
+## Aesthetics {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   [Aesthetics]{.b .blue} control a geom's appearance
+    -   points: *color, shape, size, ...*
+    -   smooths: *color, linetype, linewidth, ...*
+
+::: {.fragment .mt1}
+-   There are two ways to control aesthetics:
+    -   You can [set it]{.b .blue} to a [value]{.b .green}
+        -   It will take on *one* value only
+        -   e.g., all points = red
+    -   You can [map it]{.b .blue} to a [variable]{.b .green}
+        -   It will take on *different* values
+        -   e.g., sedans = red, trucks = blue
+
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/watercolor.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Setting Color
+
+```{r}
+# Set color inside geom_*() to apply it to all points
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "blue")
+```
+
+## Mapping Color
+
+```{r}
+# Map color to a variable within aes() to have it vary
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point()
+```
+
+## Pitfall: Setting in aes
+
+```{r}
+# Don't try to set an aesthetic inside aes()
+ggplot(mpg, aes(x = displ, y = hwy, color = "blue")) + 
+  geom_point()
+```
+
+## Pitfall: Mapping in geom
+
+```{r}
+#| error: true
+
+# Don't try to map an aesthetic outside of aes()
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(color = class)
+```
+
+
+## Setting Shape
+
+```{r}
+# Set the shape inside geom_*() to "triangle"
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(shape = "triangle")
+```
+
+## Mapping Shape
+
+```{r}
+# Map shape to the drv variable inside aes()
+ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) + 
+  geom_point()
+```
+
+## Redundant Mapping
+
+```{r}
+# Map both shape and color to the drv variable
+ggplot(mpg, aes(x = displ, y = hwy, shape = drv, color = drv)) + 
+  geom_point()
+```
+
+## Other Useful Aesthetics {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="50%"}
+-   [size]{.b .blue}
+    -   **Geoms:** `point`, `text`
+    -   **Action:** Controls point or font size
+
+-   [alpha]{.b .blue}
+    -   **Geoms:** All
+    -   **Action:** Controls transparency<br>(0 = invisible, 1 = opaque)
+    
+:::
+::: {.column width="50%"}
+-   [linewidth]{.b .blue}
+    -   **Geoms:** `line`, `smooth`
+    -   **Action:** Controls line thickness
+
+-   [linetype]{.b .blue}
+    -   **Geoms:** `line`, `smooth`
+    -   **Action:** Controls line pattern<br>(solid, dashed, dotted)
+
+:::
+:::
+
+## Aesthetics in Action
+
+```{r}
+#| output-location: column
+#| message: false
+#| fig-height: 7
+#| fig-width: 7
+
+ggplot(
+  mpg, 
+  aes(x = displ, y = hwy)
+) +
+  geom_point(
+    size = 4,
+    color = "coral",
+    shape = "square",
+    alpha = 0.5
+  ) +
+  geom_smooth(
+    color = "steelblue",
+    linewidth = 1.5,
+    linetype = "dashed"
+  )
+```
+
+## Aesthetics in Action
+
+```{r}
+ggplot(economics, aes(x = date, y = unemploy)) + 
+  geom_hline(yintercept = 10000, color = "coral", 
+             linetype = "dashed", linewidth = 2) +
+  geom_line(linewidth = 1)
+```
+
+# Grouping
+
+## Implicit vs. Explicit Grouping {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   **Grouping** controls how functions (like `geom_smooth` or `geom_line`) analyze your data.
+    -   Do we calculate *one* trend or *many*?
+
+::: {.fragment .mt1}
+-   **Implicit Grouping** (via `color`, `shape`, etc.)
+    -   Mapping a variable to appearance *automatically* groups the data.
+    -   **Result:** Separate geoms + a Legend.
+:::
+
+::: {.fragment .mt1}
+-   **Explicit Grouping** (via `group`)
+    -   Mapping a variable to `group` groups the data *without* changing appearance.
+    -   **Result:** Separate geoms + No Legend.
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/hub.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Smooth (No Grouping)
+
+```{r}
+#| message: false
+
+# No color mapping leads to a smooth for all datapoints
+ggplot(mpg, aes(x = displ, y = hwy)) + geom_smooth()
+```
+
+## Smooth (Implicit Grouping)
+
+```{r}
+#| message: false
+
+# Mapping color to drv leads to a separate smooth for each group
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) + geom_smooth()
+```
+
+## ChickWeight Dataset
+
+```{r}
+data("ChickWeight", package = "datasets")
+
+glimpse(ChickWeight)
+```
+
+## Line Series (No Grouping)
+
+```{r}
+#| message: false
+
+# Without grouping, we get an incomprehensible line for all Chicks
+ggplot(ChickWeight, aes(x = Time, y = weight)) + geom_line()
+```
+
+## Line Series (Explicit Grouping)
+
+```{r}
+#| message: false
+
+# But with explicit grouping, we get a separate line per Chick
+ggplot(ChickWeight, aes(x = Time, y = weight, group = Chick)) + 
+  geom_line(alpha = 0.3)
+```

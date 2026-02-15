@@ -19,7 +19,7 @@ format:
     author-meta: "Jeffrey Girard"
     semester: "Spring 2026"
     course: "Data 2 (399)"
-    lecture: "05b"
+    lecture: "05c"
 execute:
   echo: true
   eval: true
@@ -298,7 +298,7 @@ penguins |>
 ## Common Strategies {.fsmaller}
 
 - **[Two Continuous]{.blue} $\rightarrow$ [Point]{.green}**
-    + Use two positional axes
+    + Use two positional axes, possibly a smoother
     + x = Variable 1 Values, y = Variable 2 Values
 - **[One Discrete, One Continuous]{.blue} $\rightarrow$ [Boxplot]{.green}**
     + Use one positional axis and boxes-and-whiskers
@@ -336,6 +336,19 @@ penguins |> ggplot(aes(x = flipper_len, y = body_mass)) + geom_point()
 - There seem to be more penguins with low body mass and low flipper length
 :::
 :::
+
+## Adding a Smooth
+
+```{r}
+#| warning: false
+#| message: false
+
+penguins |> 
+  ggplot(aes(x = flipper_len, y = body_mass)) + 
+  geom_point() +
+  geom_smooth()
+```
+
 
 # Boxplot
 

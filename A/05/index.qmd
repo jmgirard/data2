@@ -15,10 +15,6 @@ source(here("_common.R"))
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
-:::{.callout-caution title="Work in Progress"}
-This page is still under development.
-:::
-
 ## [05a] Graphics / Scatterplots
 
 ### Topics
@@ -109,11 +105,11 @@ ggsave(
 
 {{< dstop >}}
 
-## [05b] Aesthetics / Layers
+## [05b] Layers / Aesthetics
 
 ### Topics
-- Learn when to "set" versus "map" an aesthetic value
-- Combine layers of geometric objects (points and smooths)
+- Combine layers of overlapping geometric objects
+- Learn aesthetic setting, mapping, and grouping
 
 ### Readings
 - R4DS (2E) Section 1.2.4: [Adding aesthetics and layers](https://r4ds.hadley.nz/data-visualize.html#sec-adding-aesthetics-layers){target="_blank"}
@@ -132,6 +128,78 @@ ggsave(
 
 ### Practice
 
+#### 1) Layers and Settings
+
+a.  **Layering Geoms:** The `pressure` dataset contains data on the relationship between temperature and vapor pressure of mercury. Create a plot to visualize this.
+    * Map **Temperature (`temperature`)** to the x-axis and **Pressure (`pressure`)** to the y-axis.
+    * Add a layer of points using `geom_point()`.
+    * Add a layer of lines using `geom_line()`.
+b.  **Setting Aesthetics:** Modify the plot from Part (a) to change the static appearance.
+    * Keep the points layer, but set the size of the points to 3.
+    * Modify the line layer: set the color to "blue" and the linetype to "dashed".
+
+{{< dstart summary="Answer key" >}}
+
+**Part (a)**
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("pressure", package = "datasets")
+
+pressure |>
+  ggplot(aes(x = temperature, y = pressure)) +
+  geom_point() +
+  geom_line()
+```
+
+**Part (b)**
+
+```{r}
+pressure |>
+  ggplot(aes(x = temperature, y = pressure)) +
+  geom_point(size = 3) +
+  geom_line(color = "blue", linetype = "dashed")
+```
+
+{{< dstop >}}
+
+#### 2) Mappings and Grouping
+
+a.  **Mapping Aesthetics:** Create a scatterplot using the `mpg` dataset to see if fuel efficiency data is clustered by cylinder count.
+    * Map **City MPG (`cty`)** to the x-axis and **Highway MPG (`hwy`)** to the y-axis.
+    * Map **Cylinders (`cyl`)** to the **color** aesthetic. (Note: You may want to wrap `cyl` in `factor()` so R treats it as categories rather than a continuous number).
+    * Add a layer of points and set their `size` to 3.
+b.  **Explicit Grouping:** The `Orange` dataset (built-in to R) tracks the growth of 5 specific orange trees. Create a line plot to visualize this growth.
+    * Map **Age (`age`)** to the x-axis and **Circumference (`circumference`)** to the y-axis.
+    * Map **Tree (`Tree`)** to the `group` aesthetic.
+    * Add a layer of lines using `geom_line()`.
+    * *Bonus:* What happens if you remove the `group` aesthetic?
+
+{{< dstart summary="Answer key" >}}
+
+**Part (a)**
+
+```{r}
+data("mpg", package = "ggplot2")
+
+mpg |>
+  ggplot(aes(x = cty, y = hwy, color = factor(cyl))) +
+  geom_point(size = 3)
+```
+
+**Part (b)**
+
+```{r}
+data("Orange", package = "datasets")
+
+Orange |>
+  ggplot(aes(x = age, y = circumference, group = Tree)) +
+  geom_line()
+```
+
+{{< dstop >}}
 
 
 ## [05c] Distributions / Relationships
