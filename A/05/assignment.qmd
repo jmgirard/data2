@@ -1,0 +1,87 @@
+---
+title: "Week 05 Assignment"
+format: 
+  html:
+    css: ../../styles.css
+    toc: false
+---
+
+![](../../img/programming_2780E3.svg){width="200"}
+
+## Instructions
+
+*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2--4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.*
+
+```markdown
+---
+title: "Week 05 Assignment"
+author: "Your Name"
+embed-resources: true
+---
+```
+
+*Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any "scratch work" or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).*
+
+## Question 1 (Scatterplots)
+
+**Background:** Lecture introduced the concept that a "graphic" is not just a random drawing, but a structured mapping of data.
+
+a) **Conceptual:** According to the "Grammar of Graphics" discussed in lecture, we need four fundamental elements to build a plot. We need **Data**, **Scales**, **Geometric Objects**, and... what is the fourth element? Briefly explain what this fourth element connects.
+
+b) **Applied:** Using the `msleep` dataset (from the ggplot2 package), create a simple scatterplot. Map **Time Spent Awake (`awake`)** to the x-axis and **REM Sleep (`sleep_rem`)** to the y-axis. Use `geom_point()` to represent the observations.
+
+## Question 2 (Saving Graphics)
+
+*Note: For this question, you will need to save a plot to your project folder.*
+
+a) **Formats:** Lecture distinguished between Raster and Vector formats. Give a real-world example of a circumstance in which you might prefer each format over the other (i.e., give examples that highlight their strengths).
+
+b) **Applied:** Use the `ggsave()` function to save the scatterplot you created in Question 1b to a file named "mammal_sleep.pdf". Set the width to 6 inches and the height to 4 inches.
+
+## Question 3 (Aesthetics)
+
+**Background:** Lecture focused on how we control the appearance of our geoms, specifically the difference between "mapping" and "setting."
+
+a) **Identify the Error:** A student wants to make the color of all the points in their plot "forestgreen." They run the code below, but instead of green points, they get salmon-colored points and a legend that says "colour: forestgreen." Explain *why* this is happening based on where they placed the color argument.
+
+```{r}
+#| message: false
+
+# Broken Code
+library(tidyverse)
+data("diamonds", package = "ggplot2")
+ggplot(diamonds, aes(x = carat, y = price, color = "forestgreen")) + 
+  geom_point()
+```
+
+b) **Fix the Code:** Rewrite the code above so that the points are actually set to the color "forestgreen" and no legend is produced.
+
+## Question 4 (Layers & Groups)
+
+**Background:** Lecture demonstrated how to layer multiple geoms and how to use grouping.
+
+a) **Layering:** Using the `economics` dataset (from the ggplot2 package), create a plot with **Date (`date`)** on the x-axis and **Personal Savings Rate (`psavert`)** on the y-axis. Add **two** layers to this plot:
+    1.  A line geom (`geom_line()`) to show the specific path of the data.
+    2.  A smoothing geom (`geom_smooth()`) to show the general trend.
+
+b) **Grouping:** The `CO2` dataset (from the datasets package) tracks the carbon dioxide uptake of various grass plants. Create a plot using this dataset with **Concentration (`conc`)** on the x-axis and **Uptake (`uptake`)** on the y-axis. Use `geom_line()`. Use the `group` aesthetic (mapped to `Plant`) so that you see one line per plant, rather than one jagged line connecting everything. *Optionally, use the `color` aesthetic (mapped to `Type`) so that you can see whether the uptake curves differ between the two types of plants.*
+
+## Question 5 (Distributions)
+
+*Note: For the remaining questions, load the `diamonds` dataset (from the ggplot2 package).*
+
+a) **Histogram:** Create a histogram to visualize the distribution of diamond **Price (`price`)**. Set the `binwidth` to 500. Looking at the result, is the distribution symmetrical (bell-shaped) or skewed (lopsided)?
+
+b) **Bar Chart:** Create a bar chart to visualize the counts of diamonds by **Cut (`cut`)**. Which cut quality appears to be the most common in this dataset?
+
+## Question 6 (Relationships)
+
+**Background:** Lecture focused on choosing the right geom for the relationship between two variables.
+
+a) **Boxplot:** Create a boxplot to visualize the relationship between **Cut (`cut`)** on the x-axis and **Carat (`carat`)** on the y-axis. Which cut category appears to have the largest median carat size?
+
+b) **Stacked Bar:** Create a stacked bar chart to visualize the relationship between **Color (`color`)** and **Clarity (`clarity`)**. Map `color` to the x-axis and `clarity` to the fill aesthetic. This will show us the breakdown of clarity ratings within each diamond color grade.
+
+---
+
+✅ Done! *Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking "Render" about a missing file, this actually means that there is an error in one of your chunks.*

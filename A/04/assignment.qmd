@@ -3,7 +3,6 @@ title: "Week 04 Assignment"
 format: 
   html:
     css: ../../styles.css
-    embed-resources: true
     toc: false
 ---
 

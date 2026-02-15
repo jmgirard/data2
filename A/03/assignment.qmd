@@ -3,7 +3,6 @@ title: "Week 03 Assignment"
 format: 
   html:
     css: ../../styles.css
-    embed-resources: true
 ---
 
 ![](../../img/programming_2780E3.svg){width="200"}

@@ -196,6 +196,7 @@ penguins |>                     # start with penguins, pipe to pass tibble
 :::{.column}
 ```{r}
 #| echo: false
+#| warning: false
 #| fig-height: 9
 #| fig-width: 9
 
@@ -323,6 +324,7 @@ penguins |> ggplot(aes(x = flipper_len, y = body_mass)) + geom_point()
 :::{.column}
 ```{r}
 #| echo: false
+#| warning: false
 #| fig-height: 9
 #| fig-width: 9
 
@@ -348,7 +350,7 @@ penguins |>
   geom_point() +
   geom_smooth()
 ```
-
+## Adding 
 
 # Boxplot
 
@@ -370,6 +372,7 @@ penguins |> ggplot(aes(x = species, y = body_mass)) + geom_boxplot()
 :::{.column}
 ```{r}
 #| echo: false
+#| warning: false
 #| fig-height: 9
 #| fig-width: 9
 
@@ -419,3 +422,22 @@ penguins |> ggplot(aes(x = island, fill = species)) + geom_bar()
 - Only Adelies are seen on Torgersen Island
 :::
 :::
+
+# Complex Relationships
+
+## Three or more variables
+
+```{r}
+#| warning: false
+
+ggplot(penguins, aes(x = flipper_len, y = body_mass, 
+  color = species, shape = sex)) + geom_point(alpha = 0.7)
+```
+
+## Mixed Grouping
+
+```{r}
+# Group by Chick (one line per Chick) but color by Diet
+ggplot(ChickWeight, aes(x = Time, y = weight, group = Chick, color = Diet)) + 
+  geom_line()
+```
