@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 04 Assignment – DATA2</title>
+<title>Week 05 Assignment – DATA2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 04 Assignment</h1>
+<h1 class="title">Week 05 Assignment</h1>
 </div>
 
 
@@ -273,107 +273,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
 <p><em>Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable <code>embed-resources</code> using the header below. If your answer involves writing text, then use markdown to write 2–4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.</em></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Week 04 Assignment"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Week 05 Assignment"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">embed-resources:</span><span class="co"> true</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any “scratch work” or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).</em></p>
 </section>
-<section id="question-1-tidy-data" class="level2">
-<h2 class="anchored" data-anchor-id="question-1-tidy-data">Question 1 (Tidy Data)</h2>
-<p><strong>Background:</strong> Consider the following table regarding two hit songs.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Field</th>
-<th style="text-align: left;">Song 1</th>
-<th style="text-align: left;">Song 2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Track</strong></td>
-<td style="text-align: left;">“Anti-Hero”</td>
-<td style="text-align: left;">“Flowers”</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Artist</strong></td>
-<td style="text-align: left;">Taylor Swift</td>
-<td style="text-align: left;">Miley Cyrus</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Release_Year</strong></td>
-<td style="text-align: left;">2022</td>
-<td style="text-align: left;">2023</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Streams_Millions</strong></td>
-<td style="text-align: left;">120</td>
-<td style="text-align: left;">95</td>
-</tr>
-</tbody>
-</table>
+<section id="question-1-scatterplots" class="level2">
+<h2 class="anchored" data-anchor-id="question-1-scatterplots">Question 1 (Scatterplots)</h2>
+<p><strong>Background:</strong> Lecture introduced the concept that a “graphic” is not just a random drawing, but a structured mapping of data.</p>
 <ol type="a">
-<li><p><strong>Identify the violation:</strong> Which specific principle of Tidy Data does this table violate? Briefly explain how.</p></li>
-<li><p><strong>Propose a fix:</strong> Describe how you would restructure this data to make it tidy. What should the columns be? What should the rows be? (You do not need to write code for this, just describe the new structure).</p></li>
+<li><p><strong>Conceptual:</strong> According to the “Grammar of Graphics” discussed in lecture, we need four fundamental elements to build a plot. We need <strong>Data</strong>, <strong>Scales</strong>, <strong>Geometric Objects</strong>, and… what is the fourth element? Briefly explain what this fourth element connects.</p></li>
+<li><p><strong>Applied:</strong> Using the <code>msleep</code> dataset (from the ggplot2 package), create a simple scatterplot. Map <strong>Time Spent Awake (<code>awake</code>)</strong> to the x-axis and <strong>REM Sleep (<code>sleep_rem</code>)</strong> to the y-axis. Use <code>geom_point()</code> to represent the observations.</p></li>
 </ol>
 </section>
-<section id="question-2-data-files" class="level2">
-<h2 class="anchored" data-anchor-id="question-2-data-files">Question 2 (Data Files)</h2>
-<p><em>For the remaining questions, ensure the file “chocolate.csv” is saved in your project’s folder.</em></p>
+<section id="question-2-saving-graphics" class="level2">
+<h2 class="anchored" data-anchor-id="question-2-saving-graphics">Question 2 (Saving Graphics)</h2>
+<p><em>Note: For this question, you will need to save a plot to your project folder.</em></p>
 <ol type="a">
-<li><p><strong>Reading Data:</strong> Use the appropriate <strong>tidyverse</strong> function to read the “chocolate.csv” file into R and save it as an object named <code>chocolate</code>. Then, use a command to preview the dataset “at a glance.”</p></li>
-<li><p><strong>Writing Data:</strong> Imagine you want to send a backup copy of this data to a colleague. Use an R function to write the <code>chocolate</code> object you created in part (a) to a new file named “chocolate_YYYY-MM-DD.csv” where YYYY-MM-DD is the date in the year-month-day format, which is preferred for data storage.</p></li>
+<li><p><strong>Formats:</strong> Lecture distinguished between Raster and Vector formats. Give a real-world example of a circumstance in which you might prefer each format over the other (i.e., give examples that highlight their strengths).</p></li>
+<li><p><strong>Applied:</strong> Use the <code>ggsave()</code> function to save the scatterplot you created in Question 1b to a file named “mammal_sleep.pdf”. Set the width to 6 inches and the height to 4 inches.</p></li>
 </ol>
 </section>
-<section id="question-3-rows" class="level2">
-<h2 class="anchored" data-anchor-id="question-3-rows">Question 3 (Rows)</h2>
-<p><em>Note: For these questions, do not save over the original <code>chocolate</code> object. You can just print the result.</em></p>
+<section id="question-3-aesthetics" class="level2">
+<h2 class="anchored" data-anchor-id="question-3-aesthetics">Question 3 (Aesthetics)</h2>
+<p><strong>Background:</strong> Lecture focused on how we control the appearance of our geoms, specifically the difference between “mapping” and “setting.”</p>
 <ol type="a">
-<li><p><strong>Filtering:</strong> We want to find the highest-rated chocolates from France. Filter the <code>chocolate</code> dataset to retain only observations where the <code>company_location</code> is “France” AND the <code>rating</code> is greater than or equal to 4.0.</p></li>
-<li><p><strong>Distinct values:</strong> We are interested in the variety of bean origins. Use <code>distinct()</code> to find all the unique values in the <code>country_of_bean_origin</code> column.</p></li>
+<li><strong>Identify the Error:</strong> A student wants to make the color of all the points in their plot “forestgreen.” They run the code below, but instead of green points, they get salmon-colored points and a legend that says “colour: forestgreen.” Explain <em>why</em> this is happening based on where they placed the color argument.</li>
 </ol>
-</section>
-<section id="question-4-columns" class="level2">
-<h2 class="anchored" data-anchor-id="question-4-columns">Question 4 (Columns)</h2>
-<p><em>Note: For these questions, do not save over the original <code>chocolate</code> object. You can just print the result.</em></p>
-<ol type="a">
-<li><p><strong>Select:</strong> Create a subset of the data that contains only the <code>company_manufacturer</code>, <code>review_date</code>, and <code>rating</code> columns.</p></li>
-<li><p><strong>Mutate:</strong> The <code>cocoa_percent</code> column is currently stored as a decimal (e.g., 0.75). Use <code>mutate()</code> to overwrite this column by multiplying the existing values by 100 (so 0.75 becomes 75).</p></li>
-</ol>
-</section>
-<section id="question-5-the-pipe" class="level2">
-<h2 class="anchored" data-anchor-id="question-5-the-pipe">Question 5 (The Pipe)</h2>
-<ol type="a">
-<li><strong>Math with Pipes:</strong> Rewrite the following “traditional” code using the pipe operator (<code>|&gt;</code>). The goal is to find the mean of the numbers 10, 20, and 30, and then round that average to 0 decimal places.</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional code</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)), <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Broken Code</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"diamonds"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price, <span class="at">color =</span> <span class="st">"forestgreen"</span>)) <span class="sc">+</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assignment_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <ol start="2" type="a">
-<li><strong>Data with Pipes:</strong> Rewrite the following code using the pipe operator. The output should remain exactly the same.</li>
+<li><strong>Fix the Code:</strong> Rewrite the code above so that the points are actually set to the color “forestgreen” and no legend is produced.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional code</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(chocolate, review_date <span class="sc">==</span> <span class="dv">2021</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="question-6-pipelines" class="level2">
-<h2 class="anchored" data-anchor-id="question-6-pipelines">Question 6 (Pipelines)</h2>
-<p><em>For these questions, construct a single pipeline (chaining multiple pipes) to achieve the goal.</em></p>
+<section id="question-4-layers-groups" class="level2">
+<h2 class="anchored" data-anchor-id="question-4-layers-groups">Question 4 (Layers &amp; Groups)</h2>
+<p><strong>Background:</strong> Lecture demonstrated how to layer multiple geoms and how to use grouping.</p>
 <ol type="a">
-<li><strong>Finding the Best:</strong> Which companies in Canada produced highly-rated chocolate in 2021?
+<li><strong>Layering:</strong> Using the <code>economics</code> dataset (from the ggplot2 package), create a plot with <strong>Date (<code>date</code>)</strong> on the x-axis and <strong>Personal Savings Rate (<code>psavert</code>)</strong> on the y-axis. Add <strong>two</strong> layers to this plot:
 <ol type="1">
-<li>Start with the <code>chocolate</code> data.</li>
-<li>Filter for observations where <code>company_location</code> is “Canada” AND <code>review_date</code> is 2021.</li>
-<li>Filter for <code>rating</code> greater than or equal to 3.75.</li>
-<li>Select only the <code>company_manufacturer</code>, <code>specific_bean_origin_or_bar_name</code>, and <code>rating</code> columns.</li>
-<li>Arrange the result by <code>rating</code> in descending order.</li>
+<li>A line geom (<code>geom_line()</code>) to show the specific path of the data.</li>
+<li>A smoothing geom (<code>geom_smooth()</code>) to show the general trend.</li>
 </ol></li>
-<li><strong>Dark Chocolate Analysis:</strong> We want to explore the darkest chocolates in the dataset.
-<ol type="1">
-<li>Start with the <code>chocolate</code> data.</li>
-<li>Filter for observations where <code>cocoa_percent</code> is exactly 1.0 (100% cocoa).</li>
-<li>Select the <code>company_manufacturer</code>, <code>company_location</code>, and <code>rating</code> columns.</li>
-<li>Arrange the results alphabetically by <code>company_location</code>.</li>
-</ol></li>
+<li><strong>Grouping:</strong> The <code>CO2</code> dataset (from the datasets package) tracks the carbon dioxide uptake of various grass plants. Create a plot using this dataset with <strong>Concentration (<code>conc</code>)</strong> on the x-axis and <strong>Uptake (<code>uptake</code>)</strong> on the y-axis. Use <code>geom_line()</code>. Use the <code>group</code> aesthetic (mapped to <code>Plant</code>) so that you see one line per plant, rather than one jagged line connecting everything. <em>Optionally, use the <code>color</code> aesthetic (mapped to <code>Type</code>) so that you can see whether the uptake curves differ between the two types of plants.</em></li>
+</ol>
+</section>
+<section id="question-5-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="question-5-distributions">Question 5 (Distributions)</h2>
+<p><em>Note: For the remaining questions, load the <code>diamonds</code> dataset (from the ggplot2 package).</em></p>
+<ol type="a">
+<li><p><strong>Histogram:</strong> Create a histogram to visualize the distribution of diamond <strong>Price (<code>price</code>)</strong>. Set the <code>binwidth</code> to 500. Looking at the result, is the distribution symmetrical (bell-shaped) or skewed (lopsided)?</p></li>
+<li><p><strong>Bar Chart:</strong> Create a bar chart to visualize the counts of diamonds by <strong>Cut (<code>cut</code>)</strong>. Which cut quality appears to be the most common in this dataset?</p></li>
+</ol>
+</section>
+<section id="question-6-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="question-6-relationships">Question 6 (Relationships)</h2>
+<p><strong>Background:</strong> Lecture focused on choosing the right geom for the relationship between two variables.</p>
+<ol type="a">
+<li><p><strong>Boxplot:</strong> Create a boxplot to visualize the relationship between <strong>Cut (<code>cut</code>)</strong> on the x-axis and <strong>Carat (<code>carat</code>)</strong> on the y-axis. Which cut category appears to have the largest median carat size?</p></li>
+<li><p><strong>Stacked Bar:</strong> Create a stacked bar chart to visualize the relationship between <strong>Color (<code>color</code>)</strong> and <strong>Clarity (<code>clarity</code>)</strong>. Map <code>color</code> to the x-axis and <code>clarity</code> to the fill aesthetic. This will show us the breakdown of clarity ratings within each diamond color grade.</p></li>
 </ol>
 <hr>
 <p>✅ Done! <em>Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks.</em></p>
