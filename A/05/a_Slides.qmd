@@ -265,7 +265,7 @@ Graphics require [geometric objects]{.b .blue} (geoms), which [represent the obs
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/palette.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/palette.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
