@@ -416,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="layers-and-settings" class="level4">
 <h4 class="anchored" data-anchor-id="layers-and-settings">1) Layers and Settings</h4>
 <ol type="a">
-<li><strong>Layering Geoms:</strong> The <code>pressure</code> dataset contains data on the relationship between temperature and vapor pressure of mercury. Create a plot to visualize this.
+<li><strong>Layering Geoms:</strong> The <code>pressure</code> dataset (from the “datasets” package) contains data on the relationship between temperature and vapor pressure of mercury. Create a plot to visualize this.
 <ul>
 <li>Map <strong>Temperature (<code>temperature</code>)</strong> to the x-axis and <strong>Pressure (<code>pressure</code>)</strong> to the y-axis.</li>
 <li>Add a layer of points using <code>geom_point()</code>.</li>
@@ -465,13 +465,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="mappings-and-grouping" class="level4">
 <h4 class="anchored" data-anchor-id="mappings-and-grouping">2) Mappings and Grouping</h4>
 <ol type="a">
-<li><strong>Mapping Aesthetics:</strong> Create a scatterplot using the <code>mpg</code> dataset to see if fuel efficiency data is clustered by cylinder count.
+<li><strong>Mapping Aesthetics:</strong> Create a scatterplot using the <code>mpg</code> dataset (from the “ggplot2” package) to see if fuel efficiency data is clustered by cylinder count.
 <ul>
 <li>Map <strong>City MPG (<code>cty</code>)</strong> to the x-axis and <strong>Highway MPG (<code>hwy</code>)</strong> to the y-axis.</li>
 <li>Map <strong>Cylinders (<code>cyl</code>)</strong> to the <strong>color</strong> aesthetic. (Note: You may want to wrap <code>cyl</code> in <code>factor()</code> so R treats it as categories rather than a continuous number).</li>
 <li>Add a layer of points and set their <code>size</code> to 3.</li>
 </ul></li>
-<li><strong>Explicit Grouping:</strong> The <code>Orange</code> dataset (built-in to R) tracks the growth of 5 specific orange trees. Create a line plot to visualize this growth.
+<li><strong>Explicit Grouping:</strong> The <code>Orange</code> dataset (from the “datasets” package) tracks the growth of 5 specific orange trees. Create a line plot to visualize this growth.
 <ul>
 <li>Map <strong>Age (<code>age</code>)</strong> to the x-axis and <strong>Circumference (<code>circumference</code>)</strong> to the y-axis.</li>
 <li>Map <strong>Tree (<code>Tree</code>)</strong> to the <code>group</code> aesthetic.</li>
