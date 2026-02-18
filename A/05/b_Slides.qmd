@@ -125,6 +125,9 @@ p1 | p2
 ## Overlapping the Layers
 
 ```{r}
+#| message: false
+#| warning: false
+
 # Adding additional geoms stacks their layers on top
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() + 
