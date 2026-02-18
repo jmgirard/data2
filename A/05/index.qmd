@@ -130,7 +130,7 @@ ggsave(
 
 #### 1) Layers and Settings
 
-a.  **Layering Geoms:** The `pressure` dataset contains data on the relationship between temperature and vapor pressure of mercury. Create a plot to visualize this.
+a.  **Layering Geoms:** The `pressure` dataset (from the "datasets" package) contains data on the relationship between temperature and vapor pressure of mercury. Create a plot to visualize this.
     * Map **Temperature (`temperature`)** to the x-axis and **Pressure (`pressure`)** to the y-axis.
     * Add a layer of points using `geom_point()`.
     * Add a layer of lines using `geom_line()`.
@@ -167,11 +167,11 @@ pressure |>
 
 #### 2) Mappings and Grouping
 
-a.  **Mapping Aesthetics:** Create a scatterplot using the `mpg` dataset to see if fuel efficiency data is clustered by cylinder count.
+a.  **Mapping Aesthetics:** Create a scatterplot using the `mpg` dataset (from the "ggplot2" package) to see if fuel efficiency data is clustered by cylinder count.
     * Map **City MPG (`cty`)** to the x-axis and **Highway MPG (`hwy`)** to the y-axis.
     * Map **Cylinders (`cyl`)** to the **color** aesthetic. (Note: You may want to wrap `cyl` in `factor()` so R treats it as categories rather than a continuous number).
     * Add a layer of points and set their `size` to 3.
-b.  **Explicit Grouping:** The `Orange` dataset (built-in to R) tracks the growth of 5 specific orange trees. Create a line plot to visualize this growth.
+b.  **Explicit Grouping:** The `Orange` dataset (from the "datasets" package) tracks the growth of 5 specific orange trees. Create a line plot to visualize this growth.
     * Map **Age (`age`)** to the x-axis and **Circumference (`circumference`)** to the y-axis.
     * Map **Tree (`Tree`)** to the `group` aesthetic.
     * Add a layer of lines using `geom_line()`.
