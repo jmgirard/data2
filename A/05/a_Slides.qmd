@@ -1,29 +1,10 @@
 ---
-format: 
+lecture: "05a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
   revealjs:
-    css: ../../styles.css
-    slide-number: true
-    show-slide-number: all
-    preview-links: false
-    progress: true
-    history: true
-    hash-type: number
     theme: default
-    code-block-background: true
-    highlight-style: zenburn
-    code-link: false
-    code-copy: true
-    code-line-numbers: false
-    controls: true
-    pagetitle: "Foundations of Data Science"
-    author-meta: "Jeffrey Girard"
-    semester: "Spring 2026"
-    course: "Data 2 (399)"
-    lecture: "05a"
-execute:
-  echo: true
-  eval: true
-  collapse: false
 ---
 
 ::: {.my-title}
@@ -84,7 +65,7 @@ A [data visualization]{.b .blue} expresses [data]{.b .green} through [visual aes
 
 ```{r graphics1}
 #| layout-ncol: 2
-#| fig-height: 8
+#| fig-height: 7
 #| echo: false
 #| message: false
 
@@ -112,7 +93,7 @@ Some simple graphics are [easy to describe]{.b .green} and may even have [ready 
 
 ```{r graphics2}
 #| layout-ncol: 2
-#| fig-height: 8
+#| fig-height: 7
 #| echo: false
 #| message: false
 
@@ -125,7 +106,7 @@ ggplot(mpg2, aes(x = displ, y = hwy, color = factor(cyl))) +
 
 ggplot(mpg2, aes(x = "0", y = hwy)) + 
   facet_wrap(~cyl) +
-  geom_violin(size = 1) +
+  geom_violin(linewidth = 1) +
   geom_jitter(size = 3) +
   stat_summary(
     geom = "point", 
@@ -221,7 +202,7 @@ Graphics require [scales]{.b .blue}, which connect specific [data *values*]{.b .
 
 ```{r geoms}
 #| layout-ncol: 2
-#| fig-height: 8
+#| fig-height: 7
 #| echo: false
 #| message: false
 
@@ -273,6 +254,7 @@ Graphics require [geometric objects]{.b .blue} (geoms), which [represent the obs
 
 ```{r}
 #| output-location: column
+#| echo: true
 #| fig-width: 7
 #| fig-height: 7
 
@@ -295,6 +277,7 @@ p
 
 ```{r}
 #| output-location: column
+#| echo: true
 #| fig-width: 7
 #| fig-height: 7
 
@@ -316,6 +299,7 @@ p
 
 ```{r}
 #| output-location: column
+#| echo: true
 #| fig-width: 7
 #| fig-height: 7
 

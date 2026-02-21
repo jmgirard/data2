@@ -1,29 +1,10 @@
 ---
-format: 
+lecture: "05c"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
   revealjs:
-    css: ../../styles.css
-    slide-number: true
-    show-slide-number: all
-    preview-links: false
-    progress: true
-    history: true
-    hash-type: number
     theme: default
-    code-block-background: true
-    highlight-style: zenburn
-    code-link: false
-    code-copy: true
-    code-line-numbers: false
-    controls: true
-    pagetitle: "Foundations of Data Science"
-    author-meta: "Jeffrey Girard"
-    semester: "Spring 2026"
-    course: "Data 2 (399)"
-    lecture: "05c"
-execute:
-  echo: true
-  eval: true
-  collapse: false
 ---
 
 ::: {.my-title}
@@ -118,6 +99,8 @@ glimpse(penguins)
 ## Species Bar Chart
 
 ```{r}
+#| fig-height: 6
+#| fig-width: 18
 penguins |>                   # start with penguins, pipe to pass tibble
   ggplot(aes(x = species)) +  # map x-axis to species, plus to add to plot
   geom_bar()                  # bar to plot category counts
@@ -145,6 +128,8 @@ penguins |> ggplot(aes(x = species)) + geom_bar()
 ## Sex Bar Chart
 
 ```{r}
+#| fig-height: 6
+#| fig-width: 18
 penguins |>               # start with penguins, pipe to pass tibble
   ggplot(aes(x = sex)) +  # map x-axis to sex, plus to add to plot
   geom_bar()              # bar to plot category counts
@@ -172,6 +157,8 @@ penguins |> ggplot(aes(x = sex)) + geom_bar()
 ## Bar Missing Values
 
 ```{r}
+#| fig-height: 6
+#| fig-width: 18
 penguins |>               # start with penguins, pipe to pass tibble
   drop_na(sex) |>         # drop NAs in sex, pipe to pass tibble
   ggplot(aes(x = sex)) +  # map x-axis to sex, plus to add to plot
@@ -184,7 +171,8 @@ penguins |>               # start with penguins, pipe to pass tibble
 
 ```{r}
 #| warning: false
-
+#| fig-height: 6
+#| fig-width: 18
 penguins |>                     # start with penguins, pipe to pass tibble
   ggplot(aes(x = body_mass)) +  # map x-axis to body_mass, plus to add to plot
   geom_histogram()              # histogram to plot bin counts
@@ -314,7 +302,8 @@ penguins |>
 
 ```{r}
 #| warning: false
-
+#| fig-height: 7
+#| fig-width: 18
 penguins |> ggplot(aes(x = flipper_len, y = body_mass)) + geom_point()
 ```
 
@@ -344,14 +333,14 @@ penguins |> ggplot(aes(x = flipper_len, y = body_mass)) + geom_point()
 ```{r}
 #| warning: false
 #| message: false
+#| fig-height: 6
+#| fig-width: 18
 
 penguins |> 
   ggplot(aes(x = flipper_len, y = body_mass)) + 
   geom_point() +
   geom_smooth()
 ```
-## Adding 
-
 # Boxplot
 
 ## How to read a boxplot
@@ -362,6 +351,8 @@ penguins |>
 
 ```{r}
 #| warning: false
+#| fig-height: 6
+#| fig-width: 18
 
 penguins |> ggplot(aes(x = species, y = body_mass)) + geom_boxplot()
 ```
@@ -391,6 +382,8 @@ penguins |> ggplot(aes(x = species, y = body_mass)) + geom_boxplot()
 
 ```{r}
 #| warning: false
+#| fig-height: 7
+#| fig-width: 18
 
 penguins |> ggplot(aes(x = body_mass, y = species)) + geom_boxplot()
 ```
@@ -400,6 +393,9 @@ penguins |> ggplot(aes(x = body_mass, y = species)) + geom_boxplot()
 ## Island--Species Bar Chart
 
 ```{r}
+#| fig-height: 7
+#| fig-width: 18
+
 penguins |> ggplot(aes(x = island, fill = species)) + geom_bar()
 ```
 
@@ -429,6 +425,8 @@ penguins |> ggplot(aes(x = island, fill = species)) + geom_bar()
 
 ```{r}
 #| warning: false
+#| fig-height: 6
+#| fig-width: 18
 
 ggplot(penguins, aes(x = flipper_len, y = body_mass, 
   color = species, shape = sex)) + geom_point(alpha = 0.7)
@@ -437,6 +435,9 @@ ggplot(penguins, aes(x = flipper_len, y = body_mass,
 ## Mixed Grouping
 
 ```{r}
+#| fig-height: 6
+#| fig-width: 18
+
 # Group by Chick (one line per Chick) but color by Diet
 ggplot(ChickWeight, aes(x = Time, y = weight, group = Chick, color = Diet)) + 
   geom_line()

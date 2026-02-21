@@ -1,0 +1,100 @@
+---
+title: "Week 06: Communicate"
+execute:
+  echo: true
+  eval: true
+---
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+## [06a] Code Style / Code Chunks
+
+### Topics
+- Style your code to improve organization and clarity
+- Manage the behavior of individual code chunks in Quarto
+
+### Readings
+- R4DS (2E) Chapter 4: [Code Style](https://r4ds.hadley.nz/workflow-style.html){target="_blank"}
+- R4DS (2E) Section 28.5: [Code Chunks](https://r4ds.hadley.nz/quarto.html#code-chunks){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[06a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+
+
+
+## [06b] Quarto Figures / Quarto Tables
+
+### Topics
+- Customize how figures are displayed in Quarto
+- Customize how tables are displayed in Quarto
+
+### Readings
+- R4DS (2E) Section 28.6: [Figures](https://r4ds.hadley.nz/quarto.html#sec-figures){target="_blank"}
+- R4DS (2E) Section 28.7: [Tables](https://r4ds.hadley.nz/quarto.html#tables){target="_blank"}
+
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[06b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+
+
+
+
+## [06c] Plot Labels / Plot Scales
+
+### Topics
+- Customize the axis and plot labels in a figure
+- Customize the scale appearance in a figure
+
+### Readings
+- R4DS (2E) Section 11.2: [Labels](https://r4ds.hadley.nz/communication.html#labels){target="_blank"}
+- R4DS (2E) Section 11.4: [Scales](https://r4ds.hadley.nz/communication.html#scales){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="c_Slides.html" title="[06c] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+
+
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../05/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 05</a>
+
+  <a href="../07/index.html" class="btn btn-primary" role="button">Week 07&nbsp;&nbsp;&raquo;</a>
+</div>
+```

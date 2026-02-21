@@ -1,0 +1,334 @@
+---
+lecture: "06a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
+
+::: {.my-grey}
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+library(tidyverse)
+
+set_theme(theme_gray(base_size = 30))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Style your code to improve organization and clarity
+
+- Manage the behavior of individual code chunks in Quarto
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Code Style
+
+## Code Style {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Style describes *optional* changes
+
+  - e.g., how to name files and objects
+  
+  - e.g., where to add spaces and line breaks
+
+::: {.fragment .mt1}
+- There is no "right" or "wrong" with style
+:::
+
+::: {.fragment .mt1}
+- But using a consistent code style has benefits
+
+  - Code becomes more readable and predictable
+  
+  - Collaboration becomes easier and smoother
+:::
+
+::: {.fragment .mt1}
+- We will learn about the [tidyverse style guide](https://style.tidyverse.org)
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/stylist.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## File Names {.smaller}
+
+- File names should be [meaningful]{.b .blue} and [clear]{.b .blue}
+
+  -   [`models.qmd`]{.danger} ➔ `dissertation_study2_models.qmd`
+
+::: {.fragment .mt1}
+- [Avoid special characters]{.b .blue} in names (arguably this includes spaces)
+
+  -   [`M@$teR$ Th3s1s.r`]{.danger} ➔ `masters_thesis.R`
+  
+:::
+
+::: {.fragment .mt1}
+- If your files need to be run in order, [prefix with numbers]{.b .blue}
+
+  -   `1_import.qmd`, `2_model.qmd`, `3_visualize.qmd`
+  
+:::
+
+::: {.fragment .mt1}
+- Use [zero-padding]{.b .blue} as necessary (to sort them properly)
+
+  -   `01_download.qmd`, `02_tidy.qmd`, ..., `10_visualize.qmd`
+  
+:::
+
+## Sectioning and Comments {.smaller}
+
+- Use [sections and subsections]{.b .blue} to give the file internal structure
+
+- Load [all packages together]{.b .blue} at the top of the document
+
+- Use [comments to explain]{.b .blue} the "why" (not the "what" or "how")
+
+## Object Naming {.smaller}
+
+- Object names should use a **single** and [consistent style]{.b .blue}
+  - [`countydata` and `plot_county`]{.danger}
+  - **Snake Case:** `county_data` and `county_plot`
+  - **Camel Case:** `countyData` and `countyPlot`
+
+::: {.fragment .mt1}
+- Use brief, descriptive [noun phrases]{.b .blue} for object names
+  - [`x`]{.danger} ➔ `heart_rate`
+  - [`df`]{.danger} ➔ `aim1_data`
+  
+:::
+
+::: {.fragment .mt1}
+- [Avoid reusing names]{.b .blue} of base R objects and functions
+  - e.g., [`F`, `T`, `c`, `mean`, `sum`, `pi`, `data`]{.danger}
+  
+:::
+
+
+## Spacing {.smaller}
+
+- Put spaces [around most operators]{.b .blue} (arithmetic, relational, and logical)
+  - [`1/2+3*4-5`]{.danger} ➔  `1 / 2 + 3 * 4 - 5`
+  - [`a>3&b<=0`]{.danger} ➔ `a > 3 & b <= 0`
+
+::: {.fragment .mt1}
+- But don't put spaces [around "high priority" operators]{.b .green}
+  - [`5 ^ 2`]{.danger} ➔ `5^2`
+  - [`( 1 + 2 ) * 3`]{.danger} ➔ `(1 + 2) * 3`
+  - [`sum ( sales )`]{.danger} ➔ `sum(sales)`
+  - [`df $ variable`]{.danger} ➔ `df$variable`
+  
+:::
+
+::: {.fragment .mt1}
+- Always add a space [after a comma]{.b .blue} but not before a comma
+  - [`c(1 ,2,3 ,4, 5)`]{.danger} ➔ `c(1, 2, 3, 4, 5)`
+  
+:::
+
+
+## Argument Specification {.smaller}
+
+- Function arguments usually either provide [data]{.b .green} or customize [details]{.b .blue}
+  - e.g., the `round()` function has two arguments:
+  - `x` contains the number(s) to be rounded (a [data]{.b .green} argument)
+  - `digits` contains the number of digits to round to (a [details]{.b .blue} argument)
+
+::: {.fragment .mt1}
+- In a function call, [omit]{.b .green} (i.e., remove) the names of [data]{.b .green} arguments
+  - e.g., omit `x = `
+  
+:::
+
+::: {.fragment .mt1}
+- In a function call, [include]{.b .blue} the full names of [detail]{.b .blue} arguments
+  - e.g., include `details = `
+  
+:::
+
+::: {.fragment .mt1}
+- [`round(x = 2 / 3, digits = 1)`]{.danger} ➔ `round(2 / 3, digits = 1)`
+
+:::
+
+
+## Line Length and Indents
+
+:::{.fsmaller}
+- Strive to limit your code to just **80 characters per line**
+  - *Tools > Global Options > Code > Display > Show Margin (Column=80)*
+
+::: {.fragment .mt1}
+- If a line is longer than 80 characters, [break it up]{.b .blue} and [align it]{.b .green}
+  - Put each argument on a separate, indented line
+  
+:::
+:::
+
+::: {.fragment .mt1}
+```{r}
+#| eval: false
+#| echo: true
+
+do_something_very_complicated(
+  that = "requires",
+  many = arguments,
+  some = "of which may be very long"
+)
+```
+:::
+
+
+## Pipes and Pipelines
+
+:::{.fsmaller}
+- Line break and [indent after assignment]{.b .blue}
+
+- Follow each pipe with a [line break]{.b .blue}
+
+- [Separate long lines]{.b .blue} of arguments with line breaks
+
+- [Indent further]{.b .blue} for arguments
+:::
+
+```{r}
+#| eval: false
+#| echo: true
+
+x <- 
+  df |> 
+  step_one(arg = TRUE) |> 
+  step_two(
+    arg1 = 1,
+    arg2 = 2
+  ) |> 
+  step_three()
+```
+
+
+# Chunk Options
+
+## Chunk Options {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- The YAML header customizes our document
+  - e.g., setting the `author:` or `format:` fields
+
+::: {.fragment .mt1}
+- YAML can also customize each code chunk
+  - We add a special comment to the top of it
+  - The syntax we use is called the "hash pipe"<br />
+  `#| field: value`
+  
+:::
+
+::: {.fragment .mt1}
+- We can also give each chunk a unique name
+  - This is helpful when troubleshooting
+  - It also helps when caching results
+  
+:::
+
+:::
+
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/doc_cog.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Suppress Messages
+
+Sometimes a chunk will issue messages
+
+```{r}
+#| message: true
+library(mgcv)
+```
+
+We can hide them in Quarto's rendered output
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| message: false
+library(mgcv)
+```
+````
+
+## Suppress Warnings
+
+Sometimes a chunk will issue warnings
+
+```{r}
+#| warning: true
+as.numeric(c("1", "2", "NA", "4"))
+```
+
+We can hide them in Quarto's rendered output
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| warning: false
+as.numeric(c("1", "2", "NA", "4"))
+```
+````
+
+```{r}
+#| warning: false
+as.numeric(c("1", "2", "NA", "4"))
+```
+
+## Include Errors
+
+Errors will usually prevent Quarto from rendering at all
+
+But sometimes (e.g., for teaching) we do want to render them
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| error: true
+x <- 1 2 3 4 5
+```
+````
+
+```{r}
+#| error: true
+x <- 1 2 3 4 5
+```
+

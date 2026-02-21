@@ -5,6 +5,9 @@ project:
 
 execute:
   freeze: auto
+  echo: true
+  eval: true
+  collapse: false
 
 website:
   title: "DATA2"
@@ -82,6 +85,3 @@ format:
       - brand
     css: styles.css
     toc: true
-
-
-

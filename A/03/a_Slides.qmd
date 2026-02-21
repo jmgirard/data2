@@ -1,33 +1,14 @@
 ---
-format: 
+lecture: "03a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
   revealjs:
-    css: ../../styles.css
-    slide-number: true
-    show-slide-number: all
-    preview-links: false
-    progress: true
-    history: true
-    hash-type: number
     theme: default
-    code-block-background: true
-    highlight-style: zenburn
-    code-link: false
-    code-copy: true
-    code-line-numbers: false
-    controls: true
-    pagetitle: "Foundations of Data Science"
-    author-meta: "Jeffrey Girard"
-    semester: "Spring 2026"
-    course: "Data 2 (399)"
-    lecture: "03a"
-execute:
-  echo: true
-  eval: true
-  collapse: false
 ---
 
 ::: {.my-title}
-# [Foundations of]{.my-subtitle}<br />[Data Science]{.blue}
+# [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
 
 ::: {.my-grey}
 [{{< meta semester >}} | {{< meta course >}}]{}<br />
