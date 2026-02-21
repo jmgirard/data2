@@ -273,16 +273,44 @@ x <-
 
 :::
 
-## Suppress Messages
+## Hash Pipe Rules
 
-Sometimes a chunk will issue messages
+:::{.fsmaller}
+- Hash pipes must be the [very first lines]{.b .blue} inside the chunk.
+- You can [combine options]{.b .green} by putting each on a new line.
+
+:::
+
+::: {.fragment .mt1}
+````{verbatim, lang = "qmd"}
+```{r}
+#| label: summarize-data
+#| echo: false
+
+# Regular R code safely goes below the options!
+summary(mtcars)
+```
+````
+:::
+
+::: {.fragment .callout-important title="Danger"}
+Do not include empty lines or R comments above the hash pipes.<br>Quarto will stop reading options as soon as it hits normal code or empty space.
+:::
+
+## Message
+
+Sometimes a chunk will issue messages, which we may want to hide in our rendered Quarto output file.
 
 ```{r}
 #| message: true
 library(mgcv)
 ```
 
-We can hide them in Quarto's rendered output
+This is often a side-effect of loading packages. Some packages like tidyverse give easy ways to suppress this, but others don't.
+
+## Message
+
+We can add a hashpipe and set *message* to false.
 
 ````{verbatim, lang = "qmd"}
 ```{r}
@@ -291,17 +319,23 @@ library(mgcv)
 ```
 ````
 
-## Suppress Warnings
+Produces: 
 
-Sometimes a chunk will issue warnings
+```{r}
+#| message: false
+library(mgcv)
+```
+
+## Warning
+
+Warnings are somewhere between messages and errors.
 
 ```{r}
 #| warning: true
 as.numeric(c("1", "2", "NA", "4"))
 ```
 
-We can hide them in Quarto's rendered output
-
+:::{.fragment}
 ````{verbatim, lang = "qmd"}
 ```{r}
 #| warning: false
@@ -309,16 +343,17 @@ as.numeric(c("1", "2", "NA", "4"))
 ```
 ````
 
+Produces: 
+
 ```{r}
 #| warning: false
 as.numeric(c("1", "2", "NA", "4"))
 ```
+:::
 
-## Include Errors
+## Error
 
-Errors will usually prevent Quarto from rendering at all
-
-But sometimes (e.g., for teaching) we do want to render them
+Errors will usually prevent Quarto from rendering at all. But sometimes (e.g., for teaching) we *do* want to render them.
 
 ````{verbatim, lang = "qmd"}
 ```{r}
@@ -327,8 +362,136 @@ x <- 1 2 3 4 5
 ```
 ````
 
+Produces: 
+
 ```{r}
 #| error: true
 x <- 1 2 3 4 5
 ```
 
+## Eval
+
+Sometimes we want to [show code without running it]{.b .blue}. This is helpful for showing examples that take too long to run or for demonstrating syntax.
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| eval: false
+remove.packages("tidyverse")
+```
+````
+
+Produces:
+
+```{r}
+#| eval: false
+remove.packages("tidyverse") # Doesn't actually run
+```
+
+## Echo
+
+Sometimes we want to [run the code without showing it]{.b .blue} (i.e., without *echoing* it). This is very common in reports where the audience only cares about the final results, plot, or table.
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| echo: false
+summary(mtcars$mpg)
+```
+````
+
+Produces:
+
+```{r}
+#| echo: false
+summary(mtcars$mpg)
+```
+
+## Code Fold
+
+An alternative to *echo* is to [let the user fold/unfold the code]{.b .blue}.
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| code-fold: true
+summary(mtcars$mpg)
+```
+````
+
+Produces:
+
+```{r}
+#| code-fold: true
+summary(mtcars$mpg)
+```
+
+## Collapse
+
+:::{.fsmaller}
+By default, Quarto puts your code and its output into [separate blocks]{.b .blue}.
+
+We can use the *collapse* option to [merge them]{.b .green} into a single, compact block.
+:::
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| collapse: true
+summary(mtcars$mpg)
+```
+````
+
+Produces:
+
+```{r}
+#| collapse: true
+summary(mtcars$mpg)
+```
+
+
+## Label {.fsmaller}
+
+We can give each code chunk a unique name using the *label* option.
+
+- Makes troubleshooting easier by identifying which chunk failed
+- Required for cross-referencing figures and tables in your text
+- Labels must be strictly unique across the entire document 
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| label: import-data
+aim1_data <- read_csv("aim1_data.csv")
+```
+````
+
+::: {.callout-tip title="The Setup Label"}
+The "setup" label is special! RStudio will automatically run the chunk with this label before running any other chunk in interactive mode. Load your packages and data in this chunk.
+:::
+
+## Figure Options
+
+We can use hash pipes to control how generated plots are displayed in our rendered document. 
+Helpful options include *fig-width*, *fig-height*, *fig-align*, and *fig-cap*.
+
+````{verbatim, lang = "qmd"}
+```{r}
+#| label: mpg-plot
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+#| fig-align: left
+#| fig-cap: "Miles per gallon by weight."
+
+mtcars |> ggplot(aes(x = wt, y = mpg)) + geom_point()
+```
+````
+
+## Figure Options
+
+```{r}
+#| label: mpg-plot
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+#| fig-align: left
+#| fig-cap: "Miles per gallon by weight and horsepower."
+
+mtcars |> ggplot(aes(x = wt, y = mpg)) + geom_point()
+```

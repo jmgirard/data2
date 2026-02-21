@@ -24,6 +24,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 ### Readings
 - R4DS (2E) Chapter 4: [Code Style](https://r4ds.hadley.nz/workflow-style.html){target="_blank"}
 - R4DS (2E) Section 28.5: [Code Chunks](https://r4ds.hadley.nz/quarto.html#code-chunks){target="_blank"}
+- R4DS (2E) Section 28.6: [Figures](https://r4ds.hadley.nz/quarto.html#sec-figures){target="_blank"}
 
 ### Slides
 ```{=html}
@@ -39,15 +40,16 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 
 
-## [06b] Quarto Figures / Quarto Tables
+## [06b] Table Anatomy / Table Styling
 
 ### Topics
-- Customize how figures are displayed in Quarto
-- Customize how tables are displayed in Quarto
+- Learn the anatomy of a table using gt
+- Format and style your table using gt
 
 ### Readings
-- R4DS (2E) Section 28.6: [Figures](https://r4ds.hadley.nz/quarto.html#sec-figures){target="_blank"}
-- R4DS (2E) Section 28.7: [Tables](https://r4ds.hadley.nz/quarto.html#tables){target="_blank"}
+- gt Vignette: [Introduction to Creating gt Tables](https://gt.rstudio.com/articles/gt.html){target="_blank"}
+- gt Vignette: [Creating Summary Lines](https://gt.rstudio.com/articles/creating-summary-lines.html){target="_blank"}
+- gt Vignette: [Case Study--gtcars](https://gt.rstudio.com/articles/case-study-gtcars.html){target="_blank"}
 
 
 ### Slides
