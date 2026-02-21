@@ -469,10 +469,43 @@
 </div></div>
 </section>
 <section class="slide level2">
-<h2>Suppress Messages</h2>
-<p>Sometimes a chunk will issue messages</p>
+<h2>Hash Pipe Rules</h2>
+<div class="fsmaller">
+<ul>
+<li>Hash pipes must be the <span class="b blue">very first lines</span> inside the chunk.</li>
+<li>You can <span class="b green">combine options</span> by putting each on a new line.</li>
+</ul>
+</div>
+<div class="fragment mt1">
+<pre class="qmd"><code>```{r}
+#| label: summarize-data
+#| echo: false
+
+# Regular R code safely goes below the options!
+summary(mtcars)
+```</code></pre>
+</div>
+<div class="fragment" title="Danger">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Danger</strong></p>
+</div>
+<div class="callout-content">
+<p>Do not include empty lines or R comments above the hash pipes.<br>Quarto will stop reading options as soon as it hits normal code or empty space.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Message</h2>
+<p>Sometimes a chunk will issue messages, which we may want to hide in our rendered Quarto output file.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: nlme</code></pre>
 </div>
@@ -489,17 +522,25 @@ Attaching package: 'nlme'</code></pre>
 <pre><code>This is mgcv 1.9-4. For overview type '?mgcv'.</code></pre>
 </div>
 </div>
-<p>We can hide them in Quarto’s rendered output</p>
+<p>This is often a side-effect of loading packages. Some packages like tidyverse give easy ways to suppress this, but others don’t.</p>
+</section>
+<section class="slide level2">
+<h2>Message</h2>
+<p>We can add a hashpipe and set <em>message</em> to false.</p>
 <pre class="qmd"><code>```{r}
 #| message: false
 library(mgcv)
 ```</code></pre>
+<p>Produces:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section class="slide level2">
-<h2>Suppress Warnings</h2>
-<p>Sometimes a chunk will issue warnings</p>
+<h2>Warning</h2>
+<p>Warnings are somewhere between messages and errors.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"NA"</span>, <span class="st">"4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"NA"</span>, <span class="st">"4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: NAs introduced by coercion</code></pre>
 </div>
@@ -507,37 +548,148 @@ library(mgcv)
 <pre><code>[1]  1  2 NA  4</code></pre>
 </div>
 </div>
-<p>We can hide them in Quarto’s rendered output</p>
+<div class="fragment">
 <pre class="qmd"><code>```{r}
 #| warning: false
 as.numeric(c("1", "2", "NA", "4"))
 ```</code></pre>
+<p>Produces:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"NA"</span>, <span class="st">"4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"NA"</span>, <span class="st">"4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  1  2 NA  4</code></pre>
 </div>
 </div>
+</div>
 </section>
 <section class="slide level2">
-<h2>Include Errors</h2>
-<p>Errors will usually prevent Quarto from rendering at all</p>
-<p>But sometimes (e.g., for teaching) we do want to render them</p>
+<h2>Error</h2>
+<p>Errors will usually prevent Quarto from rendering at all. But sometimes (e.g., for teaching) we <em>do</em> want to render them.</p>
 <pre class="qmd"><code>```{r}
 #| error: true
 x &lt;- 1 2 3 4 5
 ```</code></pre>
+<p>Produces:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in parse(text = input): &lt;text&gt;:1:8: unexpected numeric constant
 1: x &lt;- 1 2
            ^</code></pre>
 </div>
 </div>
+</section>
+<section class="slide level2">
+<h2>Eval</h2>
+<p>Sometimes we want to <span class="b blue">show code without running it</span>. This is helpful for showing examples that take too long to run or for demonstrating syntax.</p>
+<pre class="qmd"><code>```{r}
+#| eval: false
+remove.packages("tidyverse")
+```</code></pre>
+<p>Produces:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">remove.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># Doesn't actually run</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Echo</h2>
+<p>Sometimes we want to <span class="b blue">run the code without showing it</span> (i.e., without <em>echoing</em> it). This is very common in reports where the audience only cares about the final results, plot, or table.</p>
+<pre class="qmd"><code>```{r}
+#| echo: false
+summary(mtcars$mpg)
+```</code></pre>
+<p>Produces:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  10.40   15.43   19.20   20.09   22.80   33.90 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Code Fold</h2>
+<p>An alternative to <em>echo</em> is to <span class="b blue">let the user fold/unfold the code</span>.</p>
+<pre class="qmd"><code>```{r}
+#| code-fold: true
+summary(mtcars$mpg)
+```</code></pre>
+<p>Produces:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  10.40   15.43   19.20   20.09   22.80   33.90 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Collapse</h2>
+<div class="fsmaller">
+<p>By default, Quarto puts your code and its output into <span class="b blue">separate blocks</span>.</p>
+<p>We can use the <em>collapse</em> option to <span class="b green">merge them</span> into a single, compact block.</p>
+</div>
+<pre class="qmd"><code>```{r}
+#| collapse: true
+summary(mtcars$mpg)
+```</code></pre>
+<p>Produces:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a><span class="do">##   10.40   15.43   19.20   20.09   22.80   33.90</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Label</h2>
+<p>We can give each code chunk a unique name using the <em>label</em> option.</p>
+<ul>
+<li>Makes troubleshooting easier by identifying which chunk failed</li>
+<li>Required for cross-referencing figures and tables in your text</li>
+<li>Labels must be strictly unique across the entire document</li>
+</ul>
+<pre class="qmd"><code>```{r}
+#| label: import-data
+aim1_data &lt;- read_csv("aim1_data.csv")
+```</code></pre>
+<div title="The Setup Label">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Setup Label</strong></p>
+</div>
+<div class="callout-content">
+<p>The “setup” label is special! RStudio will automatically run the chunk with this label before running any other chunk in interactive mode. Load your packages and data in this chunk.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Figure Options</h2>
+<p>We can use hash pipes to control how generated plots are displayed in our rendered document. Helpful options include <em>fig-width</em>, <em>fig-height</em>, <em>fig-align</em>, and <em>fig-cap</em>.</p>
+<pre class="qmd"><code>```{r}
+#| label: mpg-plot
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+#| fig-align: left
+#| fig-cap: "Miles per gallon by weight."
+
+mtcars |&gt; ggplot(aes(x = wt, y = mpg)) + geom_point()
+```</code></pre>
+</section>
+<section class="slide level2">
+<h2>Figure Options</h2>
 
 
-</section></section>
+
+<img data-src="a_Slides_files/figure-revealjs/mpg-plot-1.png" width="576" class="r-stretch quarto-figure-left"><p class="caption">Miles per gallon by weight and horsepower.</p></section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

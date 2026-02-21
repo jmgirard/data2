@@ -371,3 +371,22 @@ kbd {
   display: block;
   border-radius: 8px !important;
 }
+
+/* Remove gap and border-radius when code-fold is true */
+.reveal .cell:has(.cell-output) details {
+  margin-bottom: 0 !important;
+}
+
+.reveal .cell:has(.cell-output) details pre.cell-code,
+.reveal .cell:has(.cell-output) details div.sourceCode {
+  margin-bottom: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.reveal .cell:has(.cell-output) details pre.cell-code code,
+.reveal .cell:has(.cell-output) details div.sourceCode pre,
+.reveal .cell:has(.cell-output) details div.sourceCode code {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
