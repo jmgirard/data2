@@ -39,7 +39,7 @@
     "href": "A/06/index.html#b-table-anatomy-table-styling",
     "title": "Week 06: Communicate",
     "section": "[06b] Table Anatomy / Table Styling",
-    "text": "[06b] Table Anatomy / Table Styling\n\nTopics\n\nLearn the anatomy of a table using gt\nFormat and style your table using gt\n\n\n\nReadings\n\ngt Vignette: Introduction to Creating gt Tables\ngt Vignette: Creating Summary Lines\ngt Vignette: Case Study–gtcars\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice"
+    "text": "[06b] Table Anatomy / Table Styling\n\nTopics\n\nUnderstand the structural anatomy of a gt table\nFormat and style table data for clear communication\n\n\n\nReadings\n\ngt Vignette: Introduction to Creating gt Tables\ngt Vignette: Creating Summary Lines\ngt Vignette: Case Study–gtcars\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice"
   },
   {
     "objectID": "A/06/index.html#c-plot-labels-plot-scales",
