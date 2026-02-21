@@ -38,7 +38,55 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ### Practice
 
+#### 1) Code Style
 
+The following code works, but it violates several principles of the tidyverse style guide. Using consistent code style makes collaboration easier and smoother. Rewrite this code to improve its style. 
+
+* Use a consistent snake case style for the object name.
+* Put spaces around the relational operators, arithmetic operators, and after commas.
+* Follow each pipe with a line break and indent appropriately.
+
+```{r}
+#| eval: false
+Clean_Sleep_Data<-msleep|>filter(order=="Carnivora",sleep_total>10)|>mutate(sleep_ratio=sleep_rem/sleep_total)|>select(name,sleep_ratio)|>arrange(desc(sleep_ratio))
+```
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| eval: false
+clean_sleep_data <- 
+  msleep |> 
+  filter(order == "Carnivora", sleep_total > 10) |> 
+  mutate(sleep_ratio = sleep_rem / sleep_total) |> 
+  select(name, sleep_ratio) |> 
+  arrange(desc(sleep_ratio))
+```
+
+{{< dstop >}}
+
+#### 2) Chunk Options
+
+Create a new code chunk that generates a simple plot (e.g., `plot(1:10)`). Use hash pipes (`#|`) to configure the chunk options. You can combine multiple options by putting each on a new line.
+
+* Give the chunk a unique label called `simple-plot`.
+* Run the code without showing it in the final document.
+* Prevent any messages or warnings from rendering.
+* Add a figure caption that reads "A simple plot of numbers.".
+
+{{< dstart summary="Answer key" >}}
+
+```markdown
+#| label: simple-plot
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "A simple plot of numbers."
+
+plot(1:10)
+```
+
+{{< dstop >}}
 
 ## [06b] Table Anatomy / Table Styling
 
@@ -64,8 +112,78 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ### Practice
 
+#### 1) Table Structure
 
+Using the `msleep` dataset (from the {ggplot2} package), create a base display table using the `gt` package.
 
+* First, filter the data to only include animals where the `vore` is "carni", and select the `name`, `sleep_total`, and `sleep_rem` columns.
+* Pass this data to `gt()` to create the base table.
+* Use `tab_header()` to add a title ("Carnivore Sleep Patterns") and a subtitle ("Total and REM sleep").
+* Use `cols_label()` to rename the columns to "Animal", "Total Sleep", and "REM Sleep".
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| message: false
+library(tidyverse)
+library(gt)
+
+msleep |> 
+  filter(vore == "carni") |> 
+  select(name, sleep_total, sleep_rem) |> 
+  gt() |> 
+  tab_header(
+    title = md("**Carnivore Sleep Patterns**"),
+    subtitle = "Total and REM sleep"
+  ) |> 
+  cols_label(
+    name = "Animal",
+    sleep_total = "Total Sleep",
+    sleep_rem = "REM Sleep"
+  )
+```
+
+{{< dstop >}}
+
+#### 2) Spanners and Styling
+
+Modify your table from question 1 to add grouping and formatting options.
+
+* Add a spanner using `tab_spanner()` with the label "Hours" over the `sleep_total` and `sleep_rem` columns.
+* Center the alignment of the data columns using `cols_align()`.
+* Format the sleep values to only show one decimal place using `fmt_number()`.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+msleep |> 
+  filter(vore == "carni") |> 
+  select(name, sleep_total, sleep_rem) |> 
+  gt() |> 
+  tab_header(
+    title = md("**Carnivore Sleep Patterns**"),
+    subtitle = "Total and REM sleep"
+  ) |> 
+  cols_label(
+    name = "Animal",
+    sleep_total = "Total Sleep",
+    sleep_rem = "REM Sleep"
+  ) |> 
+  tab_spanner(
+    label = "Hours",
+    columns = c(sleep_total, sleep_rem)
+  ) |> 
+  cols_align(
+    align = "center",
+    columns = c(sleep_total, sleep_rem)
+  ) |> 
+  fmt_number(
+    columns = c(sleep_total, sleep_rem),
+    decimals = 1
+  )
+```
+
+{{< dstop >}}
 
 ## [06c] Plot Labels / Plot Scales
 
@@ -89,7 +207,66 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ### Practice
 
+#### 1) Customizing Labels
 
+Create a scatterplot using the `iris` dataset (from the {datasets} package).
+
+* Map **Sepal Length (`Sepal.Length`)** to the x-axis and **Sepal Width (`Sepal.Width`)** to the y-axis.
+* Map **Species (`Species`)** to the color aesthetic.
+* Use `labs()` to add a clear title, x-axis label, y-axis label, and legend title.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| message: false
+library(tidyverse)
+
+iris |> 
+  ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Sepal dimensions vary by iris species",
+    x = "Sepal Length (cm)",
+    y = "Sepal Width (cm)",
+    color = "Iris Species"
+  )
+```
+
+{{< dstop >}}
+
+#### 2) Customizing Scales
+
+Modify your plot from question 1 to customize its scales.
+
+* Use `scale_y_continuous()` to set the limits from 2 to 5, and add breaks every 0.5 units.
+* Use `scale_color_manual()` to assign specific colors ("darkorange", "purple", and "cyan4") to the three iris species.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+iris |> 
+  ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Sepal dimensions vary by iris species",
+    x = "Sepal Length (cm)",
+    y = "Sepal Width (cm)",
+    color = "Iris Species"
+  ) +
+  scale_y_continuous(
+    limits = c(2, 5),
+    breaks = seq(2, 5, by = 0.5)
+  ) +
+  scale_color_manual(
+    values = c(
+      "setosa" = "darkorange",
+      "versicolor" = "purple",
+      "virginica" = "cyan4"
+    )
+  )
+```
+
+{{< dstop >}}
 
 <!-- Bottom Nav -->
 
