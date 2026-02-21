@@ -71,7 +71,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ### Topics
 - Customize the axis and plot labels in a figure
-- Customize the scale appearance in a figure
+- Customize the appearance of scales in a figure
 
 ### Readings
 - R4DS (2E) Section 11.2: [Labels](https://r4ds.hadley.nz/communication.html#labels){target="_blank"}

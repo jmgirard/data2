@@ -48,7 +48,7 @@ set_theme(theme_gray(base_size = 30))
 
 :::
 
-# The Grammar<br> of Tables
+# Table Anatomy
 
 ## The gt Package {.smaller}
 
@@ -73,15 +73,7 @@ set_theme(theme_gray(base_size = 30))
 
 :::
 
-## Table Anatomy
-
-- **Table Header:** Contains the title and subtitle
-- **Stub Head and Stub:** Row labels and row groupings
-- **Column Labels:** Variable names and column spanners
-- **Table Body:** The actual data cells
-- **Table Footer:** Source notes and footnotes
-
-## Table Anatomy
+## Parts of a Table
 
 ![](../../img/gt_parts_of_a_table.svg)
 
@@ -208,7 +200,7 @@ table5 <-
 table5
 ```
 
-# Formatting<br> and Styling
+# Table Styling
 
 ## Formatting and Styling {.smaller}
 

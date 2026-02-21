@@ -26,7 +26,7 @@ toc: false
     c. Distributions / Relationships
 - Week 06: [Communicate](A/06/index.qmd)
     a. Code Style / Chunks
-    b. Quarto Figures / Tables
+    b. Table Anatomy / Styling
     c. Plot Labels / Scales
 - Week 07: [Collaborate I](A/07/index.qmd)
     a. Group Work

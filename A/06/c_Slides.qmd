@@ -1,0 +1,293 @@
+---
+lecture: "06c"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
+
+::: {.my-grey}
+[{{< meta semester >}} |
+{{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+library(tidyverse)
+
+set_theme(theme_gray(base_size = 20))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Customize the axis and plot labels in a figure
+- Customize the appearance of scales in a figure
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Labels
+
+## Labels {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- By default, scales are named after data variables
+
+::: {.mt1}
+- Changing names may [enhance communication]{.b .blue}
+  - Provide accessible names/definitions
+  - Include units and other methods info.
+  - Appear prettier and more professional
+  
+:::
+
+::: {.fragment .mt1}
+- We can also add [plot-level information]{.b .blue}
+  - Titles and subtitles for take-aways
+  - Captions for asides or data sources
+  
+:::
+
+::: {.fragment .mt1}
+- This is all done by adding on `labs()`
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/sale_tag.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Step 1: The Base Plot
+
+```{r}
+#| output-location: slide
+
+# Create a base plot with default labels and scales
+p1 <- 
+  ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(size = 3, aes(color = drv, shape = drv)) + 
+  geom_smooth(method = "lm", color = "black")
+p1
+```
+
+## Step 2: Axis Titles
+
+```{r}
+#| output-location: slide
+
+# Adjusting the positional (x and y) axis titles
+p2 <- 
+  p1 +
+  labs(
+    x = "Engine displacement (L)",
+    y = "Highway fuel economy (mpg)"
+  )
+p2
+```
+
+## Step 3: Legend Titles
+
+```{r}
+#| output-location: slide
+
+# Adjusting the color and shape legend titles
+p3 <- 
+  p2 +
+  labs(
+    color = "Drivetrain",
+    shape = "Drivetrain"
+  )
+p3
+```
+
+## Step 4: Title, Subtitle, and Caption
+
+```{r}
+#| output-location: slide
+
+# Adding context for key takeaways and data sourcing
+p4 <- 
+  p3 +
+  labs(
+    title = "Fuel efficiency generally decreases with engine size",
+    subtitle = "Lightweight sports cars with rear-wheel drive break this rule",
+    caption = "Data from fueleconomy.gov"
+  )
+p4
+```
+
+# Scales
+
+## Scales {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Scales are one of the basic gg elements
+
+::: {.mt1}
+- So far, we have let R guess on the scales
+  - Type (e.g., continuous or discrete)
+  - Limits (minimum and maximum values)
+  - Breaks (values to emphasize)
+:::
+
+::: {.fragment .mt1}
+- But we can completely [customize the scales]{.b .blue}!
+  - Changes may [enhance communication]{.b .green}
+  - We will add on various `scale_` functions
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/sliders.json" trigger=loop delay=3000 colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+
+## Step 5: Y-Axis Scale
+
+```{r}
+#| output-location: slide
+
+# Configuring the limits and breaks of the continuous y axis
+p5 <- 
+  p4 +
+  scale_y_continuous(
+    limits = c(0, 50),
+    breaks = seq(0, 50, by = 10)
+  )
+p5
+```
+
+## Step 6: X-Axis Scale
+
+```{r}
+#| output-location: slide
+
+# Configuring the limits and breaks of the continuous x axis
+p6 <- 
+  p5 +
+  scale_x_continuous(
+    limits = c(1, 7),
+    breaks = seq(1, 7)
+  )
+p6
+```
+
+## Step 7: Color Scale
+
+```{r}
+#| output-location: slide
+
+# Manually specifying the color values and labels
+p7 <- 
+  p6 +
+  scale_color_manual(
+    breaks = c("r", "f", "4"),
+    labels = c(
+      "4" = "Four-Wheel",
+      "f" = "Front-Wheel",
+      "r" = "Rear-Wheel"
+    ),
+    values = c(
+      "4" = "salmon",
+      "f" = "cornflowerblue",
+      "r" = "seagreen3"
+    )
+  )
+p7
+```
+
+## Step 8: Shape Scale
+
+```{r}
+#| output-location: slide
+
+# Matching the shape scale to the color scale for accessibility
+p8 <- 
+  p7 +
+  scale_shape_discrete(
+    breaks = c("r", "f", "4"),
+    labels = c(
+      "4" = "Four-Wheel",
+      "f" = "Front-Wheel",
+      "r" = "Rear-Wheel"
+    )
+  )
+p8
+```
+
+## Putting It All Together
+
+```{r}
+#| output-location: slide
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_jitter(size = 3, aes(color = drv, shape = drv)) + 
+  geom_smooth(method = "lm", color = "black") +
+  labs(
+    x = "Engine displacement (L)",
+    y = "Highway fuel economy (mpg)",
+    color = "Drivetrain",
+    shape = "Drivetrain",
+    title = "Fuel efficiency generally decreases with engine size",
+    subtitle = "Rear-wheel drive vehicles are often an exception due to sports cars",
+    caption = "Data from fueleconomy.gov"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 50),
+    breaks = seq(0, 50, by = 10)
+  ) +
+  scale_x_continuous(
+    limits = c(1, 7),
+    breaks = seq(1, 7, by = 1)
+  ) +
+  scale_color_manual(
+    breaks = c("r", "f", "4"),
+    labels = c(
+      "4" = "Four-Wheel",
+      "f" = "Front-Wheel",
+      "r" = "Rear-Wheel"
+    ),
+    values = c(
+      "4" = "salmon",
+      "f" = "cornflowerblue",
+      "r" = "seagreen3"
+    )
+  ) +
+  scale_shape_discrete(
+    breaks = c("r", "f", "4"),
+    labels = c(
+      "4" = "Four-Wheel",
+      "f" = "Front-Wheel",
+      "r" = "Rear-Wheel"
+    )
+  )
+```
+
