@@ -21,6 +21,34 @@
     "text": "Unit B\n\nWeek 09: Rest\n\nNo Class\nNo Class\nNo Class\n\nWeek 10: Infer\n\nCompare Groups\nTest Associations\nNo Class\n\nWeek 11: Reshape\n\nSummarize / Group\nLengthen / Widen\nLink / Join Data\n\nWeek 12: Wrangle II\n\nExplicit / Implicit NAs\nStrings / Factors\nGlue / Separate\n\nWeek 13: Visualize II\n\nFacets / Positions\nStatistics / Coordinates\nThemes / Layout\n\nWeek 14: Program II\n\nLogicals / Conditionals\nCustom Functions / Across\nMany Reads / Many Writes\n\nWeek 15: Collaborate II\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 16: Present II\n\nPresentations\nPresentations\nNo Class"
   },
   {
+    "objectID": "A/06/index.html",
+    "href": "A/06/index.html",
+    "title": "Week 06: Communicate",
+    "section": "",
+    "text": "Style your code to improve organization and clarity\nManage the behavior of individual code chunks in Quarto\n\n\n\n\n\nR4DS (2E) Chapter 4: Code Style\nR4DS (2E) Section 28.5: Code Chunks\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "A/06/index.html#a-code-style-code-chunks",
+    "href": "A/06/index.html#a-code-style-code-chunks",
+    "title": "Week 06: Communicate",
+    "section": "",
+    "text": "Style your code to improve organization and clarity\nManage the behavior of individual code chunks in Quarto\n\n\n\n\n\nR4DS (2E) Chapter 4: Code Style\nR4DS (2E) Section 28.5: Code Chunks\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "A/06/index.html#b-quarto-figures-quarto-tables",
+    "href": "A/06/index.html#b-quarto-figures-quarto-tables",
+    "title": "Week 06: Communicate",
+    "section": "[06b] Quarto Figures / Quarto Tables",
+    "text": "[06b] Quarto Figures / Quarto Tables\n\nTopics\n\nCustomize how figures are displayed in Quarto\nCustomize how tables are displayed in Quarto\n\n\n\nReadings\n\nR4DS (2E) Section 28.6: Figures\nR4DS (2E) Section 28.7: Tables\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice"
+  },
+  {
+    "objectID": "A/06/index.html#c-plot-labels-plot-scales",
+    "href": "A/06/index.html#c-plot-labels-plot-scales",
+    "title": "Week 06: Communicate",
+    "section": "[06c] Plot Labels / Plot Scales",
+    "text": "[06c] Plot Labels / Plot Scales\n\nTopics\n\nCustomize the axis and plot labels in a figure\nCustomize the scale appearance in a figure\n\n\n\nReadings\n\nR4DS (2E) Section 11.2: Labels\nR4DS (2E) Section 11.4: Scales\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice\n\n\n  «  Week 05\n\n  Week 07  »"
+  },
+  {
     "objectID": "A/05/index.html",
     "href": "A/05/index.html",
     "title": "Week 05: Visualize",

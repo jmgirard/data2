@@ -196,7 +196,7 @@
 <section class="title-slide slide level1 my-title center">
 <h1><span class="my-subtitle">Foundations of</span> <br><span class="blue">Data Science</span></h1>
 <div class="my-grey">
-<p><span>Spring 2026 | Data 2 (399)</span><br> <span>Jeffrey M. Girard | Lecture 03b</span></p>
+<p><span>Spring 2026 | Data 2 (399)</span><br> <span>Jeffrey M. Girard | Lecture 06a</span></p>
 </div>
 <p><img data-src="../../img/proud_coder_357EDD.svg" class="absolute" style="bottom: 30px; right: 0px; width: 400px; "></p>
 </section>
@@ -205,281 +205,335 @@
 <h2>Roadmap</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
-<ol type="1">
-<li><p>Customize the behavior of functions by modifying their arguments</p></li>
-<li><p>Collect multiple objects into vectors using the <code>c()</code> function</p></li>
-</ol>
+<ul>
+<li><p>Style your code to improve organization and clarity</p></li>
+<li><p>Manage the behavior of individual code chunks in Quarto</p></li>
+</ul>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Arguments</h1>
+<h1>Code Style</h1>
 
 </section>
 <section class="slide level2 smaller">
-<h2>Arguments</h2>
+<h2>Code Style</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><span class="b green">Recipes</span> allow chefs to cook up tasty treats
+<li><p>Style describes <em>optional</em> changes</p>
 <ul>
-<li>Recipes call for ingredients</li>
-<li>Recipes involve one or more steps</li>
-<li>Steps transform ingredients into treats</li>
+<li><p>e.g., how to name files and objects</p></li>
+<li><p>e.g., where to add spaces and line breaks</p></li>
 </ul></li>
 </ul>
 <div class="fragment mt1">
 <ul>
-<li><span class="b blue">Functions</span> are like <em>customizable</em> recipes
+<li>There is no “right” or “wrong” with style</li>
+</ul>
+</div>
+<div class="fragment mt1">
 <ul>
-<li>Functions call for inputs (“arguments”)</li>
-<li>Functions involve one or more lines of code</li>
-<li>Code transforms inputs into outputs</li>
-<li>Put all arguments in the parentheses</li>
-<li>Separate the arguments using commas</li>
+<li><p>But using a consistent code style has benefits</p>
+<ul>
+<li><p>Code becomes more readable and predictable</p></li>
+<li><p>Collaboration becomes easier and smoother</p></li>
 </ul></li>
 </ul>
 </div>
-</div><div class="column tc pv5" style="width:40%;">
-<p><lord-icon src="../../icons/blender.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
-<div class="fragment">
-<p><code>out &lt;- f(in1, in2, in3)</code></p>
+<div class="fragment mt1">
+<ul>
+<li>We will learn about the <a href="https://style.tidyverse.org">tidyverse style guide</a></li>
+</ul>
 </div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/stylist.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
+<section class="slide level2 smaller">
+<h2>File Names</h2>
+<ul>
+<li><p>File names should be <span class="b blue">meaningful</span> and <span class="b blue">clear</span></p>
+<ul>
+<li><span class="danger"><code>models.qmd</code></span> ➔ <code>dissertation_study2_models.qmd</code></li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li><p><span class="b blue">Avoid special characters</span> in names (arguably this includes spaces)</p>
+<ul>
+<li><span class="danger"><code>M@$teR$ Th3s1s.r</code></span> ➔ <code>masters_thesis.R</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><p>If your files need to be run in order, <span class="b blue">prefix with numbers</span></p>
+<ul>
+<li><code>1_import.qmd</code>, <code>2_model.qmd</code>, <code>3_visualize.qmd</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><p>Use <span class="b blue">zero-padding</span> as necessary (to sort them properly)</p>
+<ul>
+<li><code>01_download.qmd</code>, <code>02_tidy.qmd</code>, …, <code>10_visualize.qmd</code></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Sectioning and Comments</h2>
+<ul>
+<li><p>Use <span class="b blue">sections and subsections</span> to give the file internal structure</p></li>
+<li><p>Load <span class="b blue">all packages together</span> at the top of the document</p></li>
+<li><p>Use <span class="b blue">comments to explain</span> the “why” (not the “what” or “how”)</p></li>
+</ul>
+</section>
+<section class="slide level2 smaller">
+<h2>Object Naming</h2>
+<ul>
+<li>Object names should use a <strong>single</strong> and <span class="b blue">consistent style</span>
+<ul>
+<li><span class="danger"><code>countydata</code> and <code>plot_county</code></span></li>
+<li><strong>Snake Case:</strong> <code>county_data</code> and <code>county_plot</code></li>
+<li><strong>Camel Case:</strong> <code>countyData</code> and <code>countyPlot</code></li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>Use brief, descriptive <span class="b blue">noun phrases</span> for object names
+<ul>
+<li><span class="danger"><code>x</code></span> ➔ <code>heart_rate</code></li>
+<li><span class="danger"><code>df</code></span> ➔ <code>aim1_data</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><span class="b blue">Avoid reusing names</span> of base R objects and functions
+<ul>
+<li>e.g., <span class="danger"><code>F</code>, <code>T</code>, <code>c</code>, <code>mean</code>, <code>sum</code>, <code>pi</code>, <code>data</code></span></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Spacing</h2>
+<ul>
+<li>Put spaces <span class="b blue">around most operators</span> (arithmetic, relational, and logical)
+<ul>
+<li><span class="danger"><code>1/2+3*4-5</code></span> ➔ <code>1 / 2 + 3 * 4 - 5</code></li>
+<li><span class="danger"><code>a&gt;3&amp;b&lt;=0</code></span> ➔ <code>a &gt; 3 &amp; b &lt;= 0</code></li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>But don’t put spaces <span class="b green">around “high priority” operators</span>
+<ul>
+<li><span class="danger"><code>5 ^ 2</code></span> ➔ <code>5^2</code></li>
+<li><span class="danger"><code>( 1 + 2 ) * 3</code></span> ➔ <code>(1 + 2) * 3</code></li>
+<li><span class="danger"><code>sum ( sales )</code></span> ➔ <code>sum(sales)</code></li>
+<li><span class="danger"><code>df $ variable</code></span> ➔ <code>df$variable</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>Always add a space <span class="b blue">after a comma</span> but not before a comma
+<ul>
+<li><span class="danger"><code>c(1 ,2,3 ,4, 5)</code></span> ➔ <code>c(1, 2, 3, 4, 5)</code></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Argument Specification</h2>
+<ul>
+<li>Function arguments usually either provide <span class="b green">data</span> or customize <span class="b blue">details</span>
+<ul>
+<li>e.g., the <code>round()</code> function has two arguments:</li>
+<li><code>x</code> contains the number(s) to be rounded (a <span class="b green">data</span> argument)</li>
+<li><code>digits</code> contains the number of digits to round to (a <span class="b blue">details</span> argument)</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>In a function call, <span class="b green">omit</span> (i.e., remove) the names of <span class="b green">data</span> arguments
+<ul>
+<li>e.g., omit <code>x =</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>In a function call, <span class="b blue">include</span> the full names of <span class="b blue">detail</span> arguments
+<ul>
+<li>e.g., include <code>details =</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><span class="danger"><code>round(x = 2 / 3, digits = 1)</code></span> ➔ <code>round(2 / 3, digits = 1)</code></li>
+</ul>
+</div>
+</section>
 <section class="slide level2">
-<h2>Customized Rounding</h2>
+<h2>Line Length and Indents</h2>
+<div class="fsmaller">
+<ul>
+<li>Strive to limit your code to just <strong>80 characters per line</strong>
+<ul>
+<li><em>Tools &gt; Global Options &gt; Code &gt; Display &gt; Show Margin (Column=80)</em></li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>If a line is longer than 80 characters, <span class="b blue">break it up</span> and <span class="b green">align it</span>
+<ul>
+<li>Put each argument on a separate, indented line</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="fragment mt1">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Default rounds to nearest even integer</span></span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># But we can customize to round to 2 digits</span></span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="dv">3</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.67</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Or to 3 digits</span></span>
-<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="dv">3</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.667</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The "default" value is digits = 0</span></span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="dv">3</span>, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">do_something_very_complicated</span>(</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">that =</span> <span class="st">"requires"</span>,</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">many =</span> arguments,</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">some =</span> <span class="st">"of which may be very long"</span></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
 <section class="slide level2">
-<h2>Customized Logarithms</h2>
+<h2>Pipes and Pipelines</h2>
+<div class="fsmaller">
+<ul>
+<li><p>Line break and <span class="b blue">indent after assignment</span></p></li>
+<li><p>Follow each pipe with a <span class="b blue">line break</span></p></li>
+<li><p><span class="b blue">Separate long lines</span> of arguments with line breaks</p></li>
+<li><p><span class="b blue">Indent further</span> for arguments</p></li>
+</ul>
+</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Default is the natural logarithm (base = e)</span></span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.302585</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Verifying this using exp(1), which is e</span></span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>, <span class="at">base =</span> <span class="fu">exp</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.302585</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Changing to base 2</span></span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.321928</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Changing to base 10</span></span>
-<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>, <span class="at">base =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>Multiple Arguments</h2>
-<p>Randomly sample from the uniform distribution</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate n numbers between min and max, all equally likely</span></span>
-<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">min =</span> <span class="dv">10</span>, <span class="at">max =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.98593</code></pre>
-</div>
-</div>
-<p>Randomly sample from the normal distribution</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate n numbers from a population with mean and sd</span></span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 118.5914</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_one</span>(<span class="at">arg =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_two</span>(</span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">arg1 =</span> <span class="dv">1</span>,</span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">arg2 =</span> <span class="dv">2</span></span>
+<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_three</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Vectors</h1>
+<h1>Chunk Options</h1>
 
 </section>
 <section class="slide level2 smaller">
-<h2>Vectors</h2>
+<h2>Chunk Options</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><span class="b blue">Vectors</span> combine similar objects into a collection
+<li>The YAML header customizes our document
 <ul>
-<li><em>I like to imagine a train pulling multiple cars</em><br> <img data-src="../../img/traincar.png"></li>
-<li>A vector is one object with many sub-objects</li>
-<li>We refer to each sub-object as an <span class="b green">element</span></li>
+<li>e.g., setting the <code>author:</code> or <code>format:</code> fields</li>
 </ul></li>
 </ul>
 <div class="fragment mt1">
 <ul>
-<li>Some functions <span class="b green">transform each element</span> in turn
+<li>YAML can also customize each code chunk
 <ul>
-<li><em>Double the amount of cargo in every train car</em></li>
+<li>We add a special comment to the top of it</li>
+<li>The syntax we use is called the “hash pipe”<br> <code>#| field: value</code></li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment mt1">
 <ul>
-<li>Some functions <span class="b green">summarize across elements</span>
+<li>We can also give each chunk a unique name
 <ul>
-<li><em>Calculate the total cargo across all train cars</em></li>
+<li>This is helpful when troubleshooting</li>
+<li>It also helps when caching results</li>
 </ul></li>
 </ul>
 </div>
-</div><div class="column tc pv5" style="width:40%;">
-<p><lord-icon src="../../icons/old_train.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
-<div class="fragment">
-<p><code>v &lt;- c(1, 2, 3)</code></p>
-</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/doc_cog.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
 <section class="slide level2">
-<h2>Creating Simple Vectors</h2>
+<h2>Suppress Messages</h2>
+<p>Sometimes a chunk will issue messages</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We can't just type the elements out in a row</span></span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">16</span> <span class="dv">25</span> <span class="dv">36</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: nlme</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'nlme'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    collapse</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is mgcv 1.9-4. For overview type '?mgcv'.</code></pre>
+</div>
+</div>
+<p>We can hide them in Quarto’s rendered output</p>
+<pre class="qmd"><code>```{r}
+#| message: false
+library(mgcv)
+```</code></pre>
+</section>
+<section class="slide level2">
+<h2>Suppress Warnings</h2>
+<p>Sometimes a chunk will issue warnings</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"NA"</span>, <span class="st">"4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  2 NA  4</code></pre>
+</div>
+</div>
+<p>We can hide them in Quarto’s rendered output</p>
+<pre class="qmd"><code>```{r}
+#| warning: false
+as.numeric(c("1", "2", "NA", "4"))
+```</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"NA"</span>, <span class="st">"4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  2 NA  4</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Include Errors</h2>
+<p>Errors will usually prevent Quarto from rendering at all</p>
+<p>But sometimes (e.g., for teaching) we do want to render them</p>
+<pre class="qmd"><code>```{r}
+#| error: true
+x &lt;- 1 2 3 4 5
+```</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:2:8: unexpected numeric constant
-1: # We can't just type the elements out in a row
-2: x &lt;- 4 9
-          ^</code></pre>
+<pre><code>Error in parse(text = input): &lt;text&gt;:1:8: unexpected numeric constant
+1: x &lt;- 1 2
+           ^</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Instead, we need to collect them using c()</span></span>
-<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">36</span>)</span>
-<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  4  9 16 25 36</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We can also append to a vector using c()</span></span>
-<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="dv">49</span>, <span class="dv">64</span>)</span>
-<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  4  9 16 25 36 49 64</code></pre>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>Generating Sequences</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># You can use seq() to generate sequence vectors</span></span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">20</span>)</span>
-<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 10 11 12 13 14 15 16 17 18 19 20</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># You can use by the control the spacing</span></span>
-<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
-<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10 12 14 16 18 20</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Sometimes length.out is more useful than by</span></span>
-<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">length.out =</span> <span class="dv">5</span>)</span>
-<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.0 12.5 15.0 17.5 20.0</code></pre>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>Elementwise Operations</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Multiply every element in x by 3</span></span>
-<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">*</span> <span class="dv">3</span></span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 30 60 90</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Subtract each element of y from the corresponding element in x</span></span>
-<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> x <span class="sc">-</span> y</span>
-<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -20 -40 -60</code></pre>
-</div>
-</div>
-<div class="fsmaller">
-<p>Note that, for this to work, both vectors need the same number of elements</p>
-</div>
-</section>
-<section class="slide level2">
-<h2>Elementwise Functions</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Some functions also transform each element</span></span>
-<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2 3 4 5</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># You can also combine operations and functions</span></span>
-<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(x <span class="sc">*</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.688879 4.499810 5.075174 5.521461</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This can even apply with nested functions</span></span>
-<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">log</span>(x <span class="sc">*</span> <span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4 4 5 6</code></pre>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>Summary Functions</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The length of a vector is its number of elements</span></span>
-<span id="cb46-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The sum of a vector adds all its elements together</span></span>
-<span id="cb48-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 60</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The mean of a vector divides the sum by the length</span></span>
-<span id="cb50-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12</code></pre>
-</div>
-</div>
-<div class="fsmaller">
-<p>Others include: <code>prod()</code>, <code>min()</code>, <code>max()</code>, <code>sd()</code>, <code>median()</code>, and <code>mad()</code></p>
 </div>
 
 

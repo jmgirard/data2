@@ -273,6 +273,101 @@ iframe.slide-deck {
   margin-bottom: 1rem;
 }
 
+/* Warning styles */
+.cell-output-warning pre {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.cell-output-warning pre code {
+  color: #5c4700 !important;
+  background-color: #dcdccc !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+  padding: 10px !important;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cell-output-warning pre code::before {
+  content: "\26A0\FE0E";
+  color: #5c4700 !important;
+  font-size: 1.2em;
+  margin-right: 8px;
+  vertical-align: middle;
+  margin-bottom: 0 !important;
+}
+
+/* Message styles */
+.cell-output-message pre {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.cell-output-message pre code {
+  color: #00449E !important;
+  background-color: #dcdccc !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+  padding: 10px !important;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cell-output-message pre code::before {
+  content: "\2139\FE0E";
+  color: #00449E !important;
+  font-size: 1.2em;
+  margin-right: 8px;
+  vertical-align: middle;
+  margin-bottom: 0 !important;
+}
+
+.reveal .cell-output:has(+ .cell-output) pre code {
+  margin-bottom: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.reveal .cell-output:has(+ .cell-output) {
+  margin-bottom: 0 !important;
+}
+
 kbd {
   font-size: 0.8em;
+}
+
+.reveal pre.cell-code {
+  margin-bottom: 1rem !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+  background-color: #f4f4f4;
+}
+
+.reveal pre.cell-code code {
+  padding: 10px !important;
+  display: block;
+  margin-bottom: 0 !important;
+  border-radius: 8px !important;
+  color: #3f3f3f;
+  background-color: transparent !important;
+}
+
+.reveal pre.qmd {
+  background-color: #f4f4f4 !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+.reveal pre.qmd code {
+  color: #3f3f3f !important;
+  background-color: transparent !important;
+  padding: 10px !important;
+  display: block;
+  border-radius: 8px !important;
 }
