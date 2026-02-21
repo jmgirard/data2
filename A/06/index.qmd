@@ -43,8 +43,8 @@ knitr::opts_chunk$set(collapse = TRUE)
 ## [06b] Table Anatomy / Table Styling
 
 ### Topics
-- Learn the anatomy of a table using gt
-- Format and style your table using gt
+- Understand the structural anatomy of a `gt` table
+- Format and style table data for clear communication
 
 ### Readings
 - gt Vignette: [Introduction to Creating gt Tables](https://gt.rstudio.com/articles/gt.html){target="_blank"}
