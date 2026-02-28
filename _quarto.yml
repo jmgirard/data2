@@ -26,9 +26,6 @@ website:
         text: "Schedule"
       - text: Unit A
         menu:
-          - icon: compass
-            text: "Week 01: Orient"
-            href: A/01/index.html
           - icon: rocket-takeoff
             text: "Week 02: Start"
             href: A/02/index.html
@@ -44,17 +41,8 @@ website:
           - icon: chat-quote
             text: "Week 06: Communicate"
             href: A/06/index.html
-          - icon: people
-            text: "Week 07: Collaborate"
-            href: A/07/index.html
-          - icon: easel2
-            text: "Week 08: Present"
-            href: A/08/index.html
       - text: Unit B
         menu:
-          - icon: balloon
-            text: "Week 09: Rest"
-            href: B/10/index.html
           - icon: calculator
             text: "Week 10: Infer"
             href: B/10/index.html
@@ -70,12 +58,6 @@ website:
           - icon: arrow-repeat
             text: "Week 14: Program"
             href: B/14/index.html
-          - icon: people
-            text: "Week 15: Collaborate"
-            href: B/15/index.html
-          - icon: easel2
-            text: "Week 16: Present"
-            href: B/16/index.html
   page-footer: "Copyright 2026 &copy; Jeffrey Girard"
 
 format:

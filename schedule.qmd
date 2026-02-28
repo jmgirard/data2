@@ -4,7 +4,7 @@ toc: false
 ---
 
 ## Unit A
-- Week 01: [Orient](A/01/index.qmd)
+- Week 01: Orient
     a. No Class
     b. Syllabus / Website
     c. No Class
@@ -28,17 +28,17 @@ toc: false
     a. Code Style / Chunks
     b. Table Anatomy / Styling
     c. Plot Labels / Scales
-- Week 07: [Collaborate I](A/07/index.qmd)
+- Week 07: Collaborate I
     a. Group Work
     b. Group Work
     c. Group Work
-- Week 08: [Present I](A/08/index.qmd)
+- Week 08: Present I
     a. Presentations
     b. Presentations
     c. No Class
     
 ## Unit B
-- Week 09: [Rest](B/09/index.qmd)
+- Week 09: Rest
     a. No Class
     b. No Class
     c. No Class
@@ -62,11 +62,11 @@ toc: false
     a. Logicals / Conditionals
     b. Custom Functions / Across
     c. Many Reads / Many Writes
-- Week 15: [Collaborate II](B/15/index.qmd)
+- Week 15: Collaborate II
     a. Group Work
     b. Group Work
     c. Group Work
-- Week 16: [Present II](B/16/index.qmd)
+- Week 16: Present II
     a. Presentations
     b. Presentations
     c. No Class
