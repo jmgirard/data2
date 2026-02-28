@@ -76,7 +76,7 @@ set_theme(theme_gray(base_size = 20))
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/sale_tag.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/sale_tag.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::
@@ -290,4 +290,5 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
     )
   )
 ```
+
 
