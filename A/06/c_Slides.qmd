@@ -164,7 +164,7 @@ p4
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/sliders.json" trigger=loop delay=3000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/sliders.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::
