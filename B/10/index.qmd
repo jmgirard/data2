@@ -1,0 +1,80 @@
+---
+title: "Week 10: Infer"
+execute:
+  echo: true
+  eval: true
+---
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+## [10a] Compare Groups
+
+### Topics
+- Understand the difference between samples and populations
+
+- Learn the structure of independent and dependent groups
+
+- Run group comparisons using `afex` and `easystats`
+
+### Readings
+- [LSR](https://learningstatisticswithr.com/){target="_blank"} Chapter 11: Hypothesis testing
+
+- [LSR](https://learningstatisticswithr.com/){target="_blank"} Chapter 13: Comparing two means
+
+- [LSR](https://learningstatisticswithr.com/){target="_blank"} Chapter 14: Comparing several means (one-way ANOVA)
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[10a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+
+
+## [10b] Test Associations
+
+### Topics
+
+
+### Readings
+
+
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[10b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+
+
+## [10c] No Class
+
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../../A/06/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 06</a>
+
+  <a href="../B/11/index.html" class="btn btn-primary" role="button">Week 11&nbsp;&nbsp;&raquo;</a>
+</div>
+```

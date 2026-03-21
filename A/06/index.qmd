@@ -274,6 +274,6 @@ iris |>
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../05/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 05</a>
 
-  <a href="../../B/10/index.html" class="btn btn-primary" role="button">Week 010&nbsp;&nbsp;&raquo;</a>
+  <a href="../../B/10/index.html" class="btn btn-primary" role="button">Week 10&nbsp;&nbsp;&raquo;</a>
 </div>
 ```

@@ -1,0 +1,31 @@
+---
+title: "Week 10 Assignment"
+format: 
+  html:
+    css: ../../styles.css
+    toc: false
+---
+
+![](../../img/programming_2780E3.svg){width="200"}
+
+## Instructions
+
+*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2--4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.*
+
+```markdown
+---
+title: "Week 10 Assignment"
+author: "Your Name"
+embed-resources: true
+---
+```
+
+*Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any "scratch work" or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).*
+
+## Question 1
+
+
+---
+
+✅ Done!
+*Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking "Render" about a missing file, this actually means that there is an error in one of your chunks.*

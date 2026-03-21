@@ -1,0 +1,460 @@
+---
+lecture: "10a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
+
+::: {.my-grey}
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+library(tidyverse)
+library(afex)
+library(easystats)
+
+set_theme(theme_gray(base_size = 30))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Understand the difference between samples and populations
+
+- Learn the structure of independent and dependent groups
+
+- Run group comparisons using `afex` and `easystats`
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# EDA vs. Inference
+
+## The Trap of the Sample {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- We have been turning data into tables and figures
+    + This is called Exploratory Data Analysis (EDA)
+
+::: {.fragment .mt1}
+- This only tells us about *our specific data*
+    + These tables and figures don't tell us whether the patterns we saw are universally true
+  
+:::
+
+::: {.fragment .mt1}
+- We often want to generalize *beyond our data*
+    + If Group A has a higher mean than Group B in our data, is that also true more broadly?
+  
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/search.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Populations vs. Samples {.smaller}
+
+- The [Population]{.b .blue} is the entire group we want to understand
+    + *e.g., All penguins in Antarctica*
+    + We rarely have access to the whole population
+
+::: {.fragment .mt1}
+- The [Sample]{.b .green} is the subset of data we actually collected
+    + *e.g., The 344 penguins in our dataset*
+    + Samples are imperfect but may be all we have
+    
+:::
+
+## Parameters vs. Statistics {.smaller}
+
+- A [Parameter]{.b .blue} is the "true" number in the population
+    + *e.g., the real average body mass of all penguins in Antarctica*
+    + This number is fixed, but we usually do not know it
+
+::: {.fragment .mt1}
+- A [Statistic]{.b .green} is the number we calculate from our sample
+    + *e.g., the average body mass of the penguins we happened to catch*
+    + We use the statistic to estimate the parameter
+    
+:::
+
+::: {.fragment .mt1}
+- [Sampling Uncertainty]{.b .dark-red} is the idea that every sample is different
+    + If we catch 10 different penguins, our statistic will change slightly
+    + Statistical tests help us decide if patterns in our sample are "real"
+  
+:::
+
+## Mapping the Connections
+
+![](../../img/inference.png){width="800"}
+
+## Why Compare Groups? {.smaller}
+
+Comparing groups is a fundamental tool in Data Science. It allows us to move from simply describing data to evaluating impact and making decisions.
+
+::: {.fragment .mt1}
+- **Basic Science** (Discovery)
+    + Are there natural differences between categories?
+    + *e.g., Do Adelie penguins differ in body mass from Gentoo penguins?*
+    
+:::
+
+::: {.fragment .mt1}
+- **Applied Science** (Intervention)
+    + Does a specific treatment or change have a real effect?
+    + *e.g., Does a new medication lower blood pressure more than a placebo?*
+    
+:::
+
+::: {.fragment .mt1}
+- **Business & Tech** (Optimization)
+    + Which strategy leads to better outcomes?
+    + *e.g., A/B Testing: Does a red "Buy" button generate more revenue than a blue one?*
+    
+:::
+
+# Group Designs
+
+## How is the Data Structured? {.smaller}
+
+Before running any tests, R needs to know how the groups are related.
+
+::: {.fragment .mt1}
+- [Independent Groups]{.b .blue} (Between-Subjects)
+    + Comparing completely different entities
+    + *e.g., (Male vs. Female) or (Adelie vs. Chinstrap vs. Gentoo) penguins*
+  
+:::
+
+::: {.fragment .mt1}
+- [Dependent Groups]{.b .green} (Within-Subjects / Repeated Measures)
+    + Comparing the exact same entities across different conditions
+    + *e.g., The Same Penguin Chicks on (Day 0 vs. Day 10 vs. Day 20)*
+
+:::
+
+## Setup: Packages
+
+```{r}
+#| message: false
+
+library(tidyverse) # data prep and visualization
+library(afex) # fitting ANOVA statistical models
+library(easystats) # extracting info from models
+library(marginaleffects) # needed by easystats
+```
+
+# Two Independent Groups
+
+## 1. Preparing the Data {.smaller}
+
+We will use the `penguins` dataset to compare body mass between Males and Females.
+
+::: {.fragment .mt1}
+```{r}
+#| message: false 
+
+data("penguins", package = "datasets")
+
+dat1 <- 
+  penguins |> 
+  drop_na(body_mass, sex) |> # Remove penguins with missing data
+  mutate(
+    id = row_number(), # afex requires an explicit ID column
+    sex = factor(sex) # treat sex as a categorical variable
+  ) |> 
+  select(id, sex, body_mass) # select only used variables
+
+glimpse(dat1)
+```
+:::
+
+## 2. Exploring our Sample
+
+```{r}
+ggplot(dat1, aes(x = sex, y = body_mass, fill = sex)) + geom_boxplot()
+```
+
+## 3. The Omnibus Test {.smaller}
+
+The `aov_ez()` function tells us if there are any differences between our groups. Since there are only two groups here, this is mathematically identical to an independent t-test.
+
+::: {.fragment .mt1}
+```{r}
+fit1 <- aov_ez(
+  id = "id",
+  dv = "body_mass",
+  between = "sex",
+  data = dat1
+)
+model_parameters(fit1)
+```
+
+**Interpretation:** The significant result (*p* < .001) means the effect of sex is statistically significant. This provides strong evidence to suggest that, in the broader *population*, the true average body mass differs between male and female penguins.
+:::
+
+## 4. Mean Estimates {.smaller}
+
+We use `estimate_means()` to guess what the group means are in the population
+
+We can also plot those model-based estimates (and, optionally, the sample data)
+
+::: {.fragment .mt1}
+::: {.columns}
+::: {.column}
+```{r}
+means1 <- estimate_means(fit1) |> print()
+```
+:::
+::: {.column}
+```{r}
+plot(means1, show_data = TRUE)
+```
+:::
+:::
+:::
+
+# Three Independent Groups
+
+## 1. Preparing the Data {.smaller}
+
+What if we have more than two groups? We use the exact same functions. Let's start by looking at our `penguins` data again. We will use the `species` variable to illustrate this, as there are 3 species represented in this sample.
+
+::: {.fragment .mt1}
+```{r}
+data("penguins", package = "datasets")
+
+dat2 <- 
+  penguins |>
+  drop_na(body_mass, species) |> 
+  mutate(
+    id = row_number(),
+    species = factor(species)
+  ) |> 
+  select(id, species, body_mass)
+
+glimpse(dat2)
+```
+:::
+
+## 2. Exploring our Sample
+
+```{r}
+ggplot(dat2, aes(x = species, y = body_mass, fill = species)) + geom_boxplot()
+```
+
+## 3. The Omnibus Test {.smaller}
+
+Now we swap `between = "sex"` to `between = "species"`.
+
+::: {.fragment .mt1}
+```{r}
+fit2 <- aov_ez(
+  id = "id",
+  dv = "body_mass",
+  between = "species",
+  data = dat2
+)
+model_parameters(fit2)
+```
+
+**Interpretation:** The significant result (*p* < .001) suggests that the true average body mass in the *population* is not identical across all three species. This gives us evidence that species is related to mass, though we cannot yet say which specific ones differ.
+:::
+
+## 4. Estimating Means {.smaller}
+
+::: {.columns}
+::: {.column}
+```{r}
+means2 <- estimate_means(fit2) |> print()
+```
+:::
+::: {.column}
+```{r}
+plot(means2, show_data = TRUE)
+```
+:::
+:::
+
+## 5. Contrasting Groups {.smaller}
+
+The `estimate_contrasts()` function automatically tests all pairs and adjusts the *p*-values to protect us from false positives (due to multiple tests).
+
+::: {.fragment .mt1}
+```{r}
+estimate_contrasts(fit2, p_adjust = "holm")
+```
+
+**Interpretation:** We found significant differences (*p* < .001) when comparing Gentoos to both Adelies and Chinstraps, suggesting these mass differences likely exist in the population. However, the difference between Chinstraps and Adelies was not significant (*p* > .05), meaning we lack evidence to say their true population means differ.
+:::
+
+# Two Dependent Groups
+
+## 1. Preparing the Data {.smaller}
+
+When testing the same subjects multiple times, the data must be in a long format. We will use the `ChickWeight` dataset to see if chicks gained weight between Day 0 and Day 20.
+
+::: {.fragment .mt1}
+```{r}
+data("ChickWeight", package = "datasets")
+
+dat3 <- 
+  ChickWeight |>
+  drop_na(weight, Time) |> 
+  filter(Time %in% c(0, 20)) |>
+  mutate(Time = factor(Time, labels = c("day0", "day20"))) |> 
+  select(Chick, Time, weight)
+
+glimpse(dat3)
+```
+:::
+
+## 2. Exploring our Sample
+
+For dependent groups, it is helpful to connect the same participants with lines to see how they change over time.
+
+```{r}
+ggplot(dat3, aes(x = Time, y = weight, group = Chick)) + 
+  geom_point() + 
+  geom_line(alpha = 0.5)
+```
+
+## 3. The Omnibus Test {.smaller}
+
+To tell R to run a dependent test, swap the `between` argument for `within`
+
+::: {.fragment .mt1}
+```{r}
+#| R.options:
+#|   width: 120
+#| warning: false
+
+fit3 <- aov_ez(
+  id = "Chick", 
+  dv = "weight", 
+  within = "Time",
+  data = dat3
+)
+model_parameters(fit3)
+```
+
+**Interpretation:** The significant *p*-value (*p* < .001) provides strong evidence that chicks in this *population* gain weight over time. It suggests the true average weight at Day 20 is higher than at Day 0, assuming our sample is representative.
+:::
+
+## 4. Mean Estimates {.smaller}
+
+The `plot()` function automatically accounts for the repeated measures structure when visualizing the average weights at each Time
+
+::: {.fragment .mt1}
+::: {.columns}
+::: {.column}
+```{r}
+means3 <- estimate_means(fit3) |> print()
+```
+:::
+::: {.column}
+```{r}
+plot(means3, show_data = TRUE)
+```
+:::
+:::
+:::
+
+# Three Dependent Groups
+
+## 1. Preparing the Data {.smaller}
+
+Let's scale up again. How did the growth trajectory look if we include Day 10?
+
+::: {.fragment .mt1}
+```{r}
+data("ChickWeight", package = "datasets")
+
+dat4 <- 
+  ChickWeight |>
+  drop_na(weight, Time) |> 
+  filter(Time %in% c(0, 10, 20)) |>
+  mutate(Time = factor(Time, labels = c("day0", "day10", "day20"))) |> 
+  select(Chick, Time, weight)
+
+glimpse(dat4)
+```
+:::
+
+## 2. Exploring our Sample
+
+```{r}
+ggplot(dat4, aes(x = Time, y = weight, group = Chick)) + 
+  geom_point() + 
+  geom_line(alpha = 0.5)
+```
+
+## 3. The Omnibus Test {.smaller}
+
+```{r}
+#| R.options:
+#|   width: 120
+#| warning: false
+
+fit4 <- aov_ez(
+  id = "Chick", 
+  dv = "weight",
+  within = "Time", 
+  data = dat4
+)
+model_parameters(fit4)
+```
+
+**Interpretation:** The significant *p*-value (*p* < .001) indicates that the true average weight of the *population* likely does not stay constant across these three time points. This points to a broader growth trend beyond just our specific sample.
+
+
+## 4. Estimating Means {.smaller}
+
+::: {.columns}
+::: {.column}
+```{r}
+means4 <- estimate_means(fit4) |> print()
+```
+:::
+::: {.column}
+```{r}
+plot(means4, show_data = TRUE)
+```
+:::
+:::
+
+## 5. Contrasting Groups {.smaller}
+
+```{r}
+estimate_contrasts(fit4, p_adjust = "holm")
+```
+
+**Interpretation:** All three pairwise comparisons are statistically significant. This provides evidence to suggest that the true average weight in the *population* increases at each of these measured intervals (from Day 0 to 10, and Day 10 to 20).
