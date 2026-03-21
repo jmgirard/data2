@@ -19,17 +19,13 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ### Topics
 - Understand the difference between samples and populations
-
 - Learn the structure of independent and dependent groups
-
 - Run group comparisons using `afex` and `easystats`
 
 ### Readings
-- [LSR](https://learningstatisticswithr.com/){target="_blank"} Chapter 11: Hypothesis testing
-
-- [LSR](https://learningstatisticswithr.com/){target="_blank"} Chapter 13: Comparing two means
-
-- [LSR](https://learningstatisticswithr.com/){target="_blank"} Chapter 14: Comparing several means (one-way ANOVA)
+- [Learning Statistics with R](https://learningstatisticswithr.com/){target="_blank"} Chapter 11: Hypothesis testing
+- [Learning Statistics with R](https://learningstatisticswithr.com/){target="_blank"} Chapter 13: Comparing two means
+- [Learning Statistics with R](https://learningstatisticswithr.com/){target="_blank"} Chapter 14: Comparing several means
 
 ### Slides
 ```{=html}
@@ -42,15 +38,15 @@ knitr::opts_chunk$set(collapse = TRUE)
 :::
 
 ### Practice
-
+TBA
 
 ## [10b] Test Associations
 
 ### Topics
-
+TBA
 
 ### Readings
-
+TBA
 
 
 ### Slides
@@ -64,10 +60,10 @@ knitr::opts_chunk$set(collapse = TRUE)
 :::
 
 ### Practice
-
+TBA
 
 ## [10c] No Class
-
+Instructor is traveling (for the final time this semester)
 
 <!-- Bottom Nav -->
 
