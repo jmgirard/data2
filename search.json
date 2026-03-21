@@ -21,6 +21,34 @@
     "text": "Unit B\n\nWeek 09: Rest\n\nNo Class\nNo Class\nNo Class\n\nWeek 10: Infer\n\nCompare Groups\nTest Associations\nNo Class\n\nWeek 11: Reshape\n\nSummarize / Group\nLengthen / Widen\nLink / Join Data\n\nWeek 12: Wrangle II\n\nExplicit / Implicit NAs\nStrings / Factors\nGlue / Separate\n\nWeek 13: Visualize II\n\nFacets / Positions\nStatistics / Coordinates\nThemes / Layout\n\nWeek 14: Program II\n\nLogicals / Conditionals\nCustom Functions / Across\nMany Reads / Many Writes\n\nWeek 15: Collaborate II\n\nGroup Work\nGroup Work\nGroup Work\n\nWeek 16: Present II\n\nPresentations\nPresentations\nNo Class"
   },
   {
+    "objectID": "B/10/index.html",
+    "href": "B/10/index.html",
+    "title": "Week 10: Infer",
+    "section": "",
+    "text": "Understand the difference between samples and populations\nLearn the structure of independent and dependent groups\nRun group comparisons using afex and easystats\n\n\n\n\n\nLSR Chapter 11: Hypothesis testing\nLSR Chapter 13: Comparing two means\nLSR Chapter 14: Comparing several means (one-way ANOVA)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "B/10/index.html#a-compare-groups",
+    "href": "B/10/index.html#a-compare-groups",
+    "title": "Week 10: Infer",
+    "section": "",
+    "text": "Understand the difference between samples and populations\nLearn the structure of independent and dependent groups\nRun group comparisons using afex and easystats\n\n\n\n\n\nLSR Chapter 11: Hypothesis testing\nLSR Chapter 13: Comparing two means\nLSR Chapter 14: Comparing several means (one-way ANOVA)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "B/10/index.html#b-test-associations",
+    "href": "B/10/index.html#b-test-associations",
+    "title": "Week 10: Infer",
+    "section": "[10b] Test Associations",
+    "text": "[10b] Test Associations\n\nTopics\n\n\nReadings\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice"
+  },
+  {
+    "objectID": "B/10/index.html#c-no-class",
+    "href": "B/10/index.html#c-no-class",
+    "title": "Week 10: Infer",
+    "section": "[10c] No Class",
+    "text": "[10c] No Class\n\n\n  «  Week 06\n\n  Week 11  »"
+  },
+  {
     "objectID": "A/06/index.html",
     "href": "A/06/index.html",
     "title": "Week 06: Communicate",
@@ -46,7 +74,7 @@
     "href": "A/06/index.html#c-plot-labels-plot-scales",
     "title": "Week 06: Communicate",
     "section": "[06c] Plot Labels / Plot Scales",
-    "text": "[06c] Plot Labels / Plot Scales\n\nTopics\n\nCustomize the axis and plot labels in a figure\nCustomize the appearance of scales in a figure\n\n\n\nReadings\n\nR4DS (2E) Section 11.2: Labels\nR4DS (2E) Section 11.4: Scales\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice\n\n1) Customizing Labels\nCreate a scatterplot using the iris dataset (from the {datasets} package).\n\nMap Sepal Length (Sepal.Length) to the x-axis and Sepal Width (Sepal.Width) to the y-axis.\nMap Species (Species) to the color aesthetic.\nUse labs() to add a clear title, x-axis label, y-axis label, and legend title.\n\nAnswer key\n\nlibrary(tidyverse)\n\niris |&gt; \n  ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  labs(\n    title = \"Sepal dimensions vary by iris species\",\n    x = \"Sepal Length (cm)\",\n    y = \"Sepal Width (cm)\",\n    color = \"Iris Species\"\n  )\n\n\n\n\n\n\n\n\n\n\n\n2) Customizing Scales\nModify your plot from question 1 to customize its scales.\n\nUse scale_y_continuous() to set the limits from 2 to 5, and add breaks every 0.5 units.\nUse scale_color_manual() to assign specific colors (“darkorange”, “purple”, and “cyan4”) to the three iris species.\n\nAnswer key\n\niris |&gt; \n  ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  labs(\n    title = \"Sepal dimensions vary by iris species\",\n    x = \"Sepal Length (cm)\",\n    y = \"Sepal Width (cm)\",\n    color = \"Iris Species\"\n  ) +\n  scale_y_continuous(\n    limits = c(2, 5),\n    breaks = seq(2, 5, by = 0.5)\n  ) +\n  scale_color_manual(\n    values = c(\n      \"setosa\" = \"darkorange\",\n      \"versicolor\" = \"purple\",\n      \"virginica\" = \"cyan4\"\n    )\n  )\n\n\n\n\n\n\n\n\n\n\n\n  «  Week 05\n\n  Week 010  »"
+    "text": "[06c] Plot Labels / Plot Scales\n\nTopics\n\nCustomize the axis and plot labels in a figure\nCustomize the appearance of scales in a figure\n\n\n\nReadings\n\nR4DS (2E) Section 11.2: Labels\nR4DS (2E) Section 11.4: Scales\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice\n\n1) Customizing Labels\nCreate a scatterplot using the iris dataset (from the {datasets} package).\n\nMap Sepal Length (Sepal.Length) to the x-axis and Sepal Width (Sepal.Width) to the y-axis.\nMap Species (Species) to the color aesthetic.\nUse labs() to add a clear title, x-axis label, y-axis label, and legend title.\n\nAnswer key\n\nlibrary(tidyverse)\n\niris |&gt; \n  ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  labs(\n    title = \"Sepal dimensions vary by iris species\",\n    x = \"Sepal Length (cm)\",\n    y = \"Sepal Width (cm)\",\n    color = \"Iris Species\"\n  )\n\n\n\n\n\n\n\n\n\n\n\n2) Customizing Scales\nModify your plot from question 1 to customize its scales.\n\nUse scale_y_continuous() to set the limits from 2 to 5, and add breaks every 0.5 units.\nUse scale_color_manual() to assign specific colors (“darkorange”, “purple”, and “cyan4”) to the three iris species.\n\nAnswer key\n\niris |&gt; \n  ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  labs(\n    title = \"Sepal dimensions vary by iris species\",\n    x = \"Sepal Length (cm)\",\n    y = \"Sepal Width (cm)\",\n    color = \"Iris Species\"\n  ) +\n  scale_y_continuous(\n    limits = c(2, 5),\n    breaks = seq(2, 5, by = 0.5)\n  ) +\n  scale_color_manual(\n    values = c(\n      \"setosa\" = \"darkorange\",\n      \"versicolor\" = \"purple\",\n      \"virginica\" = \"cyan4\"\n    )\n  )\n\n\n\n\n\n\n\n\n\n\n\n  «  Week 05\n\n  Week 10  »"
   },
   {
     "objectID": "A/06/assignment.html#instructions",
@@ -355,6 +383,20 @@
     "title": "Week 05: Visualize",
     "section": "[05c] Distributions / Relationships",
     "text": "[05c] Distributions / Relationships\n\nTopics\n\nVisualize the distribution of a single variable\nVisualize relationships between several variables\n\n\n\nReadings\n\nR4DS (2E) Section 1.4: Visualizing distributions\nR4DS (2E) Section 1.5: Visualizing relationships\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\nPractice\n\n1) Distributions\n\nCreate a histogram using the mpg dataset (from the {ggplot2} package) to visualize the distribution of City MPG.\n\nMap City MPG (cty) to the x-axis.\nEnsure the bars are displayed as geometric objects using geom_histogram().\nSet the binwidth argument to 2.\n\nCreate a bar chart using the mpg dataset to visualize the distribution of Vehicle Class.\n\nMap Vehicle Class (class) to the x-axis.\nEnsure the bars are displayed as geometric objects using geom_bar().\n\n\nAnswer key\nPart (a)\n\nlibrary(tidyverse)\ndata(\"mpg\", package = \"ggplot2\")\n\nmpg |&gt;\n  ggplot(aes(x = cty)) +\n  geom_histogram(binwidth = 2)\n\n\n\n\n\n\n\n\nPart (b)\n\nmpg |&gt;\n  ggplot(aes(x = class)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\n\n2) Relationships\n\nCreate a boxplot using the mpg dataset to visualize the relationship between vehicle class and Highway MPG.\n\nMap Vehicle Class (class) to the x-axis.\nMap Highway MPG (hwy) to the y-axis.\nEnsure the distribution summaries are displayed as geometric objects using geom_boxplot().\n\nCreate a stacked bar chart using the mpg dataset to visualize the relationship between vehicle class and drive train.\n\nMap Vehicle Class (class) to the x-axis.\nMap Drive Train (drv) to the fill aesthetic.\nEnsure the bars are displayed as geometric objects using geom_bar().\n\n\nAnswer key\nPart (a)\n\nmpg |&gt;\n  ggplot(aes(x = class, y = hwy)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\nPart (b)\n\nmpg |&gt;\n  ggplot(aes(x = class, fill = drv)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\n\n  «  Week 04\n\n  Week 06  »"
+  },
+  {
+    "objectID": "B/10/assignment.html#instructions",
+    "href": "B/10/assignment.html#instructions",
+    "title": "Week 10 Assignment",
+    "section": "Instructions",
+    "text": "Instructions\nCreate a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable embed-resources using the header below. If your answer involves writing text, then use markdown to write 2–4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.\n---\ntitle: \"Week 10 Assignment\"\nauthor: \"Your Name\"\nembed-resources: true\n---\nPlease clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any “scratch work” or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture)."
+  },
+  {
+    "objectID": "B/10/assignment.html#question-1",
+    "href": "B/10/assignment.html#question-1",
+    "title": "Week 10 Assignment",
+    "section": "Question 1",
+    "text": "Question 1\n\n✅ Done! Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks."
   },
   {
     "objectID": "index.html",
