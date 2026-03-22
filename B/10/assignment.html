@@ -283,50 +283,52 @@ window.Quarto = {
 <section id="question-1-inference-hypotheses" class="level2">
 <h2 class="anchored" data-anchor-id="question-1-inference-hypotheses">Question 1 (Inference &amp; Hypotheses)</h2>
 <p><strong>Background:</strong> We often want to generalize our findings beyond our specific data to understand broader trends. Statistical inference allows us to make these leaps safely.</p>
-<ol type="a">
-<li><strong>Conceptual:</strong> Explain the difference between a sample and a population. Why do we rely on calculating statistics rather than parameters when conducting data science research?</li>
-<li><strong>Applied:</strong> Load the <code>PlantGrowth</code> dataset from the <code>datasets</code> package. Explore the sample by creating a boxplot that shows <code>weight</code> on the y-axis and the treatment <code>group</code> on the x-axis. Use the mapping arguments to color the boxes by their group.</li>
-</ol>
+<p><strong>a) Conceptual</strong></p>
+<p>Explain the difference between a sample and a population. Why do we rely on calculating statistics rather than parameters when conducting data science research?</p>
+<p><strong>b) Applied</strong></p>
+<p>Load the <code>PlantGrowth</code> dataset from the <code>datasets</code> package. Explore the sample by creating a boxplot that shows <code>weight</code> on the y-axis and the treatment <code>group</code> on the x-axis. Use the mapping arguments to color the boxes by their group.</p>
 </section>
 <section id="question-2-independent-groups" class="level2">
 <h2 class="anchored" data-anchor-id="question-2-independent-groups">Question 2 (Independent Groups)</h2>
 <p><strong>Background:</strong> When comparing a continuous variable across completely different entities, we can use an analysis of variance (ANOVA) model to test for differences.</p>
-<ol type="a">
-<li><strong>Conceptual:</strong> Describe the conceptual difference between “signal” and “noise” in the context of an ANOVA. How does the ratio of signal to noise influence the resulting <em>p</em>-value?</li>
-<li><strong>Applied:</strong> Using the <code>PlantGrowth</code> dataset from Question 1, run an omnibus test to see if there are overall differences in plant weight between the three independent treatment groups. Print the model parameters to view the results. Below your code chunk, write a 1 to 2 sentence interpretation of what the <em>p</em>-value tells us about the plant weights in the broader population. <em>(Hint: You will need to use your data wrangling skills to add an explicit ID column to the dataset before running the test, just like we did in lecture)</em>.</li>
-</ol>
+<p><strong>a) Conceptual</strong></p>
+<p>Describe the conceptual difference between “signal” and “noise” in the context of an ANOVA. How does the ratio of signal to noise influence the resulting p-value?</p>
+<p><strong>b) Applied</strong></p>
+<p>Using the <code>PlantGrowth</code> dataset from Question 1, run an omnibus test to see if there are overall differences in plant weight between the three independent treatment groups. Print the model parameters to view the results. Below your code chunk, write a 1 to 2 sentence interpretation of what the p-value tells us about the plant weights in the broader population. <em>(Hint: You will need to use your data wrangling skills to add an explicit ID column to the dataset before running the test, just like we did in lecture)</em>.</p>
 </section>
 <section id="question-3-dependent-groups" class="level2">
 <h2 class="anchored" data-anchor-id="question-3-dependent-groups">Question 3 (Dependent Groups)</h2>
 <p><strong>Background:</strong> Sometimes we measure the exact same subjects multiple times or across different conditions, requiring a dependent (within-subjects) design.</p>
-<ol type="a">
-<li><strong>Conceptual:</strong> What is the Null Hypothesis (<span class="math inline">\(H_0\)</span>) when testing for differences across three dependent groups? If your omnibus test yields a <em>p</em>-value of 0.01, what do you conclude about this hypothesis?</li>
-<li><strong>Applied:</strong> Load the <code>sleep</code> dataset from the <code>datasets</code> package, which shows the effect of two soporific drugs on 10 unique patients (tracked in the <code>ID</code> column). First, use your data wrangling skills to rename the <code>group</code> column to <code>drug</code> (the statistical modeling packages we use will sometimes throw errors when estimating means if a variable is literally named “group”). Then, run the appropriate statistical test to compare the <code>extra</code> sleep hours between the two drugs within the exact same patients. Once the model is fit, estimate the means and test the contrasts between the two groups. Below your code chunk, write a brief interpretation of what the contrast test results tell us.</li>
-</ol>
+<p><strong>a) Conceptual</strong></p>
+<p>What is the Null Hypothesis (<span class="math inline">\(H_0\)</span>) when testing for differences across three dependent groups? If your omnibus test yields a p-value of 0.01, what do you conclude about this hypothesis?</p>
+<p><strong>b) Applied</strong></p>
+<p>Load the <code>sleep</code> dataset from the <code>datasets</code> package, which shows the effect of two soporific drugs on 10 unique patients (tracked in the <code>ID</code> column). First, use your data wrangling skills to rename the <code>group</code> column to <code>drug</code> (the statistical modeling packages we use will sometimes throw errors when estimating means if a variable is literally named “group”). Then, run the appropriate statistical test to compare the <code>extra</code> sleep hours between the two drugs within the exact same patients. Once the model is fit, estimate the means and test the contrasts between the two groups. Below your code chunk, write a brief interpretation of what the contrast test results tell us.</p>
 </section>
 <section id="question-4-correlations" class="level2">
 <h2 class="anchored" data-anchor-id="question-4-correlations">Question 4 (Correlations)</h2>
 <p><strong>Background:</strong> A correlation quantifies the linear relationship between two continuous variables.</p>
-<ol type="a">
-<li><strong>Conceptual:</strong> A correlation statistic (<span class="math inline">\(r\)</span>) ranges from -1 to 1. Explain what the sign (positive or negative) and the magnitude (distance from zero) tell us about the relationship between two variables.</li>
-<li><strong>Applied:</strong> Load the <code>mtcars</code> dataset. Select the <code>mpg</code> (miles per gallon), <code>hp</code> (horsepower), and <code>wt</code> (weight) columns. Using the skills learned in class, run a correlation test on this subset of variables to examine all pairwise relationships and print the resulting summary matrix. Below your code chunk, pick one of the significant relationships and interpret its direction and strength in plain English.</li>
-</ol>
+<p><strong>a) Conceptual</strong></p>
+<p>A correlation statistic (<span class="math inline">\(r\)</span>) ranges from -1 to 1. Explain what the sign (positive or negative) and the magnitude (distance from zero) tell us about the relationship between two variables.</p>
+<p><strong>b) Applied</strong></p>
+<p>Load the <code>mtcars</code> dataset. Select the <code>mpg</code> (miles per gallon), <code>hp</code> (horsepower), and <code>wt</code> (weight) columns. Using the skills learned in class, run a correlation test on this subset of variables to examine all pairwise relationships and print the resulting summary matrix. Below your code chunk, pick one of the significant relationships and interpret its direction and strength in plain English.</p>
 </section>
 <section id="question-5-categorical-associations" class="level2">
 <h2 class="anchored" data-anchor-id="question-5-categorical-associations">Question 5 (Categorical Associations)</h2>
 <p><strong>Background:</strong> The Chi-Square Test of Independence evaluates categorical relationships to see if knowing one category tells us something about another.</p>
-<ol type="a">
-<li><strong>Conceptual:</strong> Explain the basic logic of a Chi-Square test. Specifically, what does it mean to compare “observed” frequencies to “expected” frequencies?</li>
-<li><strong>Applied:</strong> Load the <code>mtcars</code> dataset and select the <code>cyl</code> (cylinders) and <code>am</code> (transmission type) columns. Create a cross-tabulation table to count how many cars fall into each combination of cylinder count and transmission type.</li>
-</ol>
+<p><strong>a) Conceptual</strong></p>
+<p>Explain the basic logic of a Chi-Square test. Specifically, what does it mean to compare “observed” frequencies to “expected” frequencies?</p>
+<p><strong>b) Applied</strong></p>
+<p>Load the <code>mtcars</code> dataset and select the <code>cyl</code> (cylinder count) and <code>am</code> (transmission type, 0=automatic, 1=manual) columns. Create a cross-tabulation table to count how many cars fall into each combination of cylinder count and transmission type. Below your code chunk, run the formal Chi-Square test on this table and extract the model parameters to view the results.</p>
 </section>
-<section id="question-6-chi-square-effect-size" class="level2">
-<h2 class="anchored" data-anchor-id="question-6-chi-square-effect-size">Question 6 (Chi-Square &amp; Effect Size)</h2>
-<p><strong>Background:</strong> Once we have our expected and observed frequencies, we can formally test for independence and calculate the strength of the association.</p>
-<ol type="a">
-<li><strong>Conceptual:</strong> If a Chi-Square test yields a statistically significant result, why might a data scientist still want to calculate an effect size like Cramer’s V?</li>
-<li><strong>Applied:</strong> Using the cross-tabulation table you created in Question 5b, run a Chi-Square test of independence to see if transmission type and cylinder count are associated in the broader population. Extract the model parameters to view the test results and compute the effect size. Below your code chunk, write a brief interpretation of what the <em>p</em>-value and the effect size metric collectively tell us about these two variables.</li>
-</ol>
+<section id="question-6-visualizing-associations" class="level2">
+<h2 class="anchored" data-anchor-id="question-6-visualizing-associations">Question 6 (Visualizing Associations)</h2>
+<p><strong>Background:</strong> Once we test for an association between two categorical variables, it is helpful to visualize the frequencies to see exactly how the categories are distributed.</p>
+<p><strong>a) Conceptual</strong></p>
+<p>When looking at a stacked bar chart of two categorical variables, how can you visually evaluate whether the variables are likely independent versus if they are associated?</p>
+<p><strong>b) Applied</strong></p>
+<p>Using the <code>mtcars</code> dataset, create a stacked bar plot with transmission type (<code>am</code>) on the x-axis and cylinder count (<code>cyl</code>) mapped to the fill color. Add the <code>position = "fill"</code> argument to your geometry function to make all bars the same height.</p>
+<p><em>(Note: Because these variables are stored as numbers in the dataset, you must use <code>mutate()</code> to convert both <code>am</code> and <code>cyl</code> into factors before plotting, or the colors and groups will not display correctly).</em></p>
+<p>Below your code chunk, write a 1 to 2 sentence interpretation of what this plot tells us about the relationship between cylinders and transmission types in our sample.</p>
 <hr>
 <p>✅ Done! <em>Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks.</em></p>
 

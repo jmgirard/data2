@@ -374,51 +374,7 @@ p-value adjustment method: Holm (1979)</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mat2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 smaller">
-<h2>Interpreting Correlation Strength</h2>
-<p>Once we know a correlation is significant, how do we evaluate its size?</p>
-<div class="fragment mt1">
-<ul>
-<li><strong>Cohen’s Guidelines (1988):</strong>
-<ul>
-<li>A common heuristic for interpreting the absolute value of <em>r</em></li>
-</ul></li>
-</ul>
-</div>
-<div class="fragment mt1">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Effect Size</th>
-<th style="text-align: left;">Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(|r|\approx0.10\)</span></td>
-<td style="text-align: left;">Small / Weak</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="math inline">\(|r|\approx0.30\)</span></td>
-<td style="text-align: left;">Medium / Moderate</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(|r|\approx0.50\)</span></td>
-<td style="text-align: left;">Large / Strong</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="fragment mt1">
-<ul>
-<li><strong>Context matters!</strong>
-<ul>
-<li>An <span class="math inline">\(r\approx0.10\)</span> might be groundbreaking in medicine but useless in physics</li>
-</ul></li>
-</ul>
-</div>
-</section></section>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section class="title-slide slide level1 center">
 <h1>Two Categorical Variables</h1>
@@ -566,68 +522,6 @@ Chi2(4) |      p
 </div>
 <div class="fsmaller">
 <p><strong>Interpretation:</strong> The highly significant result (<em>p</em> &lt; .001) means the distribution of species is dependent on the island. We have strong evidence that this geographic sorting exists in the broader population.</p>
-</div>
-</section>
-<section class="slide level2">
-<h2>7. Effect Size</h2>
-<div class="fsmaller">
-<p>To quantify the <em>strength</em> of the association, we can calculate <strong>Cramer’s V</strong></p>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">effectsize</span>(res3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Cramer's V (adj.) |       95% CI
---------------------------------
-0.66              | [0.59, 1.00]
-
-- One-sided CIs: upper bound fixed at [1.00].</code></pre>
-</div>
-</div>
-<div class="fsmaller">
-<p><strong>Interpretation:</strong> Cramer’s V ranges from 0 to 1. A value of 0.84 indicates a very strong association between species and island location.</p>
-</div>
-</section>
-<section class="slide level2 smaller">
-<h2>Interpreting Cramer’s V</h2>
-<ul>
-<li><strong>Cohen’s Guidelines (Adapted):</strong>
-<ul>
-<li>Similar to correlation, we can use heuristics to interpret <span class="math inline">\(V\)</span></li>
-<li><em>(Note: Exact thresholds depend on table size, but this is a solid start!)</em></li>
-</ul></li>
-</ul>
-<div class="fragment mt1">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Effect Size</th>
-<th style="text-align: left;">Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(V\approx0.10\)</span></td>
-<td style="text-align: left;">Small / Weak</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="math inline">\(V\approx0.30\)</span></td>
-<td style="text-align: left;">Medium / Moderate</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(V\approx0.50\)</span></td>
-<td style="text-align: left;">Large / Strong</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="fragment mt1">
-<ul>
-<li><strong>Applying it to our penguins:</strong>
-<ul>
-<li>We previously found a Cramer’s <span class="math inline">\(V\)</span> of 0.66 for Species and Island.</li>
-<li>According to these guidelines, this is a <em>strong</em> association!</li>
-</ul></li>
-</ul>
 </div>
 </section></section>
 <section>
