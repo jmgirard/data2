@@ -37,16 +37,16 @@ knitr::opts_chunk$set(collapse = TRUE)
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
-### Practice
-TBA
 
 ## [10b] Test Associations
 
 ### Topics
-TBA
+- Run correlation tests for continuous variables
+- Run Chi-Square tests for categorical variables
 
 ### Readings
-TBA
+- [Learning Statistics with R](https://learningstatisticswithr.com/){target="_blank"} Chapter 15: Linear regression
+- [Learning Statistics with R](https://learningstatisticswithr.com/){target="_blank"} Chapter 12: Categorical data analysis
 
 
 ### Slides
@@ -59,8 +59,6 @@ TBA
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
-### Practice
-TBA
 
 ## [10c] No Class
 Instructor is traveling (for the final time this semester)

@@ -11,8 +11,7 @@ format:
 # [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
 
 ::: {.my-grey}
-[{{< meta semester >}} |
-{{< meta course >}}]{}<br />
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
 [Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
 :::
 
@@ -27,9 +26,15 @@ library(here)
 source(here("_common.R"))
 
 library(tidyverse)
-library(gt)
+library(easystats)
+library(faux)
+library(patchwork)
 
-set_theme(theme_gray(base_size = 30))
+set_theme(theme_gray(base_size = 24))
+
+rsim <- function(r) {
+  rnorm_multi(n = 200, vars = 2, mu = 0, sd = 1, r = r)
+}
 ```
 
 ## Roadmap
@@ -37,8 +42,9 @@ set_theme(theme_gray(base_size = 30))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
-- B
+- Run correlation tests for continuous variables
+
+- Run Chi-Square tests for categorical variables
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -47,3 +53,373 @@ set_theme(theme_gray(base_size = 30))
 
 :::
 
+## Moving Beyond Groups {.smaller}
+
+Last lecture, we compared a continuous variable across different categories
+
+::: {.fragment .mt1}
+- What if we want to test the association of [two continuous variables]{.b .blue}?
+    + *e.g., As a penguin's flipper gets longer, does its body mass also increase?*
+    + We can use **Correlation** to test this
+    
+:::
+
+::: {.fragment .mt1}
+- What if we want to test the association of [two categorical variables]{.b .green}?
+    + *e.g., Does the species of a penguin depend on which island it lives on?*
+    + We can use **Chi-Square** to test this
+    
+:::
+
+# Correlations
+
+## Interpreting Correlations {.smaller}
+
+- A correlation (parameter = $\rho$, statistic = $r$) quantifies the **direction** and **strength** of the *linear* relationship between two variables (how closely the points form a straight line)
+    
+- [Hypotheses]{.b .dark-red}:
+    + **$H_0$**: $\rho = 0$ (There is no linear relationship in the population)
+    + **$H_1$**: $\rho \neq 0$ (There is a linear relationship in the population)
+
+- [Direction]{.b .blue}: do the variables change together or opposing?
+    + $r > 0$: the variables change together
+    + $r < 0$: the variables change in opposition
+
+- [Strength]{.b .green}: how well does one variable predict the other?
+    + $r \to 0$: no linear relationship (but maybe a non-linear one)
+    + $r \to \pm 1$: perfect (positive or negative) linear relationship
+
+## Positive linear
+
+```{r}
+#| echo: false
+
+p1 <- 
+  ggplot(rsim(0.25), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ 0.25", x = "x1", y = "y") + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+p2 <-   
+  ggplot(rsim(0.50), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ 0.50", x = "x2", y = NULL) + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+p3 <- 
+  ggplot(rsim(0.75), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ 0.75", x = "x3", y = NULL) + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+p1 | p2 | p3
+```
+
+## Negative linear
+
+```{r}
+#| echo: false
+
+p4 <- 
+  ggplot(rsim(-0.25), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ −0.25", x = "x4", y = "y") + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+p5 <-   
+  ggplot(rsim(-0.50), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ −0.50", x = "x5", y = NULL) + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+p6 <- 
+  ggplot(rsim(-0.75), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ −0.75", x = "x6", y = NULL) + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+p4 | p5 | p6
+```
+
+## No linear / Nonlinear
+
+```{r, echo=FALSE}
+set.seed(2021)
+p7 <- 
+  ggplot(rsim(0), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ 0.00", x = "x7", y = "y") + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+p8 <-   
+  ggplot(tibble(X1 = runif(200, -5, 5), 
+                X2 = -X1^2 + rnorm(200, 0, 3)), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ 0.00", x = "x8", y = NULL) + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+p9 <-   
+  ggplot(tibble(X1 = runif(200, -5, 5), 
+                X2 = X1^2 + X1^3 + rnorm(200, 0, 10)), aes(x = X1, y = X2)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon", size = 2) +
+  labs(title = "r ≈ 0.87", x = "x9", y = NULL) + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+
+p7 | p8 | p9
+```
+
+
+## 1. Preparing the Data
+
+```{r}
+#| message: false 
+
+library(tidyverse)
+library(easystats)
+
+data("penguins", package = "datasets")
+
+dat1 <- penguins |> select(flipper_len, body_mass)
+
+glimpse(dat1)
+```
+
+
+## 2. Exploring our Sample
+
+```{r}
+#| warning: false
+
+ggplot(dat1, aes(x = flipper_len, y = body_mass)) + 
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "salmon")
+```
+
+## 3. The Correlation Test
+```{r}
+res1 <- correlation(dat1) |> print()
+```
+
+:::{.fsmaller}
+**Interpretation:** The correlation ($r$) is 0.87. The significant result (*p* < .001) provides evidence that flipper length and body mass are positively associated in the population: penguins with more (or less) body mass tend to have longer (or shorter) flippers.
+:::
+
+## 4. Multiple Variables
+
+```{r}
+dat2 <- 
+  penguins |> 
+  select(bill_len, bill_dep, flipper_len, body_mass)
+
+res2 <- correlation(dat2, p_adjust = "holm") |> print()
+```
+
+
+## 4. The Correlation Matrix
+
+```{r}
+mat2 <- summary(res2) |> print()
+```
+
+:::{.fsmaller}
+**Interpretation:** The function automatically tests every possible pair of variables and provides adjusted $p$-values for each relationship.
+:::
+
+## 5. Visualizing the Matrix
+
+```{r}
+plot(mat2)
+```
+
+# Two Categorical Variables
+
+## Understanding Chi-Square {.smaller}
+
+The **Chi-Square $(\chi^2)$ Test of Independence** looks at categorical relationships
+
+::: {.fragment .mt1}
+- **The Core Question:**
+    + Does knowing one category tell us something about the other category?
+    + *e.g., Are the Species and Island categorical variables associated?*
+    
+:::
+
+::: {.fragment .mt1}
+- **The Hypotheses:**
+    + **Null Hypothesis ($H_0$):** The variables are completely independent
+        + *e.g., species are randomly distributed across islands*
+    + **Alternative Hypothesis ($H_1$):** The variables are associated
+        + *e.g., some species are more common on some islands*
+    
+:::
+
+::: {.fragment .mt1}
+- **The Data:**
+    + We look at **frequencies** (counts) of each combination of categories
+    
+:::
+
+## 1. Preparing the Data
+
+```{r}
+data("penguins", package = "datasets")
+
+dat3 <- penguins |> select(species, island)
+
+glimpse(dat3)
+```
+
+## 2. Exploring our Sample
+
+```{r}
+ggplot(dat3, aes(x = island, fill = species)) + 
+  geom_bar(position = "fill") + # "fill" makes all bars the same height
+  labs(y = "Proportion")
+```
+
+## 3. Cross-Tabulation
+
+::: {.fsmaller}
+Before we can test these variables, we need to count how many penguins fall into each combination of categories. We use the `xtabs()` function for this
+
+The syntax uses a one-sided formula `~ variable1 + variable2`
+:::
+
+::: {.fragment .mt1}
+```{r}
+tab3 <- dat3 |> table() |> print()
+```
+
+::: {.fsmaller}
+**Note:** All Gentoo penguins were observed on Biscoe, and all Chinstrap penguins were observed on Dream This suggests a very strong association!
+:::
+:::
+
+## 4. The Logic of Chi-Square {.smaller}
+
+How does a Chi-Square test actually work?
+
+- It compares what we **observed** in our data to what we would **expect** to see if the two variables were completely independent.
+- If species and island were unrelated, penguins would be distributed across the islands purely based on the overall size of each island and the overall population of each species.
+- The larger the difference between Observed and Expected, the larger our resulting Chi-Square statistic ($\chi^2$).
+
+```{r}
+res3 <- chisq.test(tab3)
+```
+
+
+## 5. Expected Frequencies
+
+::: {.fsmaller}
+R can calculate those "Expected" numbers for us, and we can compare them
+:::
+
+::: {.columns}
+::: {.column}
+```{r}
+res3$observed
+```
+:::
+::: {.column}
+```{r}
+res3$expected
+```
+
+:::
+:::
+
+::: {.fsmaller}
+**Note:** These tables are very different! If there were no association, we would expect to find about 45 Gentoo on Dream. But in our sample, we found 0
+:::
+
+## 6. The Chi-Square Test
+
+:::{.fsmaller}
+Now we look at the formal test results using `model_parameters()`
+:::
+
+```{r}
+model_parameters(res3)
+```
+
+:::{.fsmaller}
+**Interpretation:** The highly significant result (*p* < .001) means the distribution of species is dependent on the island. We have strong evidence that this geographic sorting exists in the broader population.
+:::
+
+## 7. Effect Size
+
+::: {.fsmaller}
+To quantify the *strength* of the association, we can calculate **Cramer's V**
+:::
+
+```{r}
+effectsize(res3)
+```
+
+::: {.fsmaller}
+**Interpretation:** Cramer's V ranges from 0 to 1. A value of 0.84 indicates a very strong association between species and island location.
+:::
+
+# Wrap-Up
+
+## Choosing the Right Test {.smaller}
+
+You now have three primary tools for testing basic bivariate relationships<br><br>
+
+| Variable 1 | Variable 2 | Test | R Function |
+|:---|:---|:---|:---|
+| Categorical | Continuous | **ANOVA** | `aov_ez()` |
+| Continuous | Continuous | **Correlation** | `correlation()` |
+| Categorical | Categorical | **Chi-Square** | `chisq.test()` |
+
+<br><br>
+*Note: "Bivariate" means we are only looking at two variables at a time.<br>In future courses, you will learn how to build models with many variables!*
