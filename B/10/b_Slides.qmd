@@ -280,6 +280,31 @@ mat2 <- summary(res2) |> print()
 plot(mat2)
 ```
 
+## Interpreting Correlation Strength {.smaller}
+
+Once we know a correlation is significant, how do we evaluate its size?
+
+::: {.fragment .mt1}
+- **Cohen's Guidelines (1988):**
+    + A common heuristic for interpreting the absolute value of *r*
+    
+:::
+
+::: {.fragment .mt1}
+| Effect Size | Interpretation |
+|:---|:---|
+| $|r|\approx0.10$ | Small / Weak |
+| $|r|\approx0.30$ | Medium / Moderate |
+| $|r|\approx0.50$ | Large / Strong |
+
+:::
+
+::: {.fragment .mt1}
+- **Context matters!** 
+    + An $r\approx0.10$ might be groundbreaking in medicine but useless in physics
+
+:::
+
 # Two Categorical Variables
 
 ## Understanding Chi-Square {.smaller}
@@ -303,8 +328,7 @@ The **Chi-Square $(\chi^2)$ Test of Independence** looks at categorical relation
 :::
 
 ::: {.fragment .mt1}
-- **The Data:**
-    + We look at **frequencies** (counts) of each combination of categories
+- We look at **frequencies** (counts) of each combination of categories
     
 :::
 
@@ -407,6 +431,27 @@ effectsize(res3)
 
 ::: {.fsmaller}
 **Interpretation:** Cramer's V ranges from 0 to 1. A value of 0.84 indicates a very strong association between species and island location.
+:::
+
+## Interpreting Cramer's V {.smaller}
+
+- **Cohen's Guidelines (Adapted):**
+    + Similar to correlation, we can use heuristics to interpret $V$
+    + *(Note: Exact thresholds depend on table size, but this is a solid start!)*
+
+::: {.fragment .mt1}
+| Effect Size | Interpretation |
+|:---|:---|
+| $V\approx0.10$ | Small / Weak |
+| $V\approx0.30$ | Medium / Moderate |
+| $V\approx0.50$ | Large / Strong |
+:::
+
+::: {.fragment .mt1}
+- **Applying it to our penguins:**
+    + We previously found a Cramer's $V$ of 0.66 for Species and Island.
+    + According to these guidelines, this is a *strong* association!
+    
 :::
 
 # Wrap-Up

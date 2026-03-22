@@ -21,7 +21,7 @@ Below, I will track my progress updating this website week-by-week.
 - [x] Week 06
 :::
 :::{.column width="50%"}
-- [ ] Week 10
+- [x] Week 10
 - [ ] Week 11
 - [ ] Week 12
 - [ ] Week 13

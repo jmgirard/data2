@@ -10,7 +10,7 @@ format:
 
 ## Instructions
 
-*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2--4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.*
+*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2-4 sentences per question; if your answer involves running code, then use one or more code chunks.*
 
 ```markdown
 ---
@@ -22,8 +22,47 @@ embed-resources: true
 
 *Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any "scratch work" or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).*
 
-## Question 1
+## Question 1 (Inference & Hypotheses)
 
+**Background:** We often want to generalize our findings beyond our specific data to understand broader trends. Statistical inference allows us to make these leaps safely.
+
+a) **Conceptual:** Explain the difference between a sample and a population. Why do we rely on calculating statistics rather than parameters when conducting data science research?
+b) **Applied:** Load the `PlantGrowth` dataset from the `datasets` package. Explore the sample by creating a boxplot that shows `weight` on the y-axis and the treatment `group` on the x-axis. Use the mapping arguments to color the boxes by their group.
+
+## Question 2 (Independent Groups)
+
+**Background:** When comparing a continuous variable across completely different entities, we can use an analysis of variance (ANOVA) model to test for differences. 
+
+a) **Conceptual:** Describe the conceptual difference between "signal" and "noise" in the context of an ANOVA. How does the ratio of signal to noise influence the resulting *p*-value?
+b) **Applied:** Using the `PlantGrowth` dataset from Question 1, run an omnibus test to see if there are overall differences in plant weight between the three independent treatment groups. Print the model parameters to view the results. Below your code chunk, write a 1 to 2 sentence interpretation of what the *p*-value tells us about the plant weights in the broader population. *(Hint: You will need to use your data wrangling skills to add an explicit ID column to the dataset before running the test, just like we did in lecture)*.
+
+## Question 3 (Dependent Groups)
+
+**Background:** Sometimes we measure the exact same subjects multiple times or across different conditions, requiring a dependent (within-subjects) design.
+
+a) **Conceptual:** What is the Null Hypothesis ($H_0$) when testing for differences across three dependent groups? If your omnibus test yields a *p*-value of 0.01, what do you conclude about this hypothesis?
+b) **Applied:** Load the `sleep` dataset from the `datasets` package, which shows the effect of two soporific drugs on 10 unique patients (tracked in the `ID` column). First, use your data wrangling skills to rename the `group` column to `drug` (the statistical modeling packages we use will sometimes throw errors when estimating means if a variable is literally named "group"). Then, run the appropriate statistical test to compare the `extra` sleep hours between the two drugs within the exact same patients. Once the model is fit, estimate the means and test the contrasts between the two groups. Below your code chunk, write a brief interpretation of what the contrast test results tell us.
+
+## Question 4 (Correlations)
+
+**Background:** A correlation quantifies the linear relationship between two continuous variables.
+
+a) **Conceptual:** A correlation statistic ($r$) ranges from -1 to 1. Explain what the sign (positive or negative) and the magnitude (distance from zero) tell us about the relationship between two variables.
+b) **Applied:** Load the `mtcars` dataset. Select the `mpg` (miles per gallon), `hp` (horsepower), and `wt` (weight) columns. Using the skills learned in class, run a correlation test on this subset of variables to examine all pairwise relationships and print the resulting summary matrix. Below your code chunk, pick one of the significant relationships and interpret its direction and strength in plain English.
+
+## Question 5 (Categorical Associations)
+
+**Background:** The Chi-Square Test of Independence evaluates categorical relationships to see if knowing one category tells us something about another.
+
+a) **Conceptual:** Explain the basic logic of a Chi-Square test. Specifically, what does it mean to compare "observed" frequencies to "expected" frequencies?
+b) **Applied:** Load the `mtcars` dataset and select the `cyl` (cylinders) and `am` (transmission type) columns. Create a cross-tabulation table to count how many cars fall into each combination of cylinder count and transmission type.
+
+## Question 6 (Chi-Square & Effect Size)
+
+**Background:** Once we have our expected and observed frequencies, we can formally test for independence and calculate the strength of the association.
+
+a) **Conceptual:** If a Chi-Square test yields a statistically significant result, why might a data scientist still want to calculate an effect size like Cramer's V?
+b) **Applied:** Using the cross-tabulation table you created in Question 5b, run a Chi-Square test of independence to see if transmission type and cylinder count are associated in the broader population. Extract the model parameters to view the test results and compute the effect size. Below your code chunk, write a brief interpretation of what the *p*-value and the effect size metric collectively tell us about these two variables.
 
 ---
 
