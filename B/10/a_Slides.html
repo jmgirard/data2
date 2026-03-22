@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-cda0bb3ae8bf36564267672919c60290.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c6070853b5fc0f07c03ed05933ca4b03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+  <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="Jeffrey Girard">
   <title>DATA2 – Foundations of Data Science</title>
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -94,7 +97,7 @@
     code span.vs { color: #cc9393; } /* VerbatimString */
     code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -330,6 +333,37 @@
 </ul></li>
 </ul>
 </div>
+</section>
+<section class="slide level2 smaller">
+<h2>The Logic of Hypothesis Testing</h2>
+<p>Every statistical test we will learn uses the same underlying logic</p>
+<div class="fragment mt1">
+<ul>
+<li><strong>The Null Hypothesis (<span class="math inline">\(H_0\)</span>):</strong> The “baseline” assumption
+<ul>
+<li>It assumes nothing interesting is happening in the population</li>
+<li>For group comparisons, <span class="math inline">\(H_0\)</span> assumes all group means are exactly equal</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><strong>The Alternative Hypothesis (<span class="math inline">\(H_1\)</span>):</strong> The “discovery” assumption
+<ul>
+<li>It is the claim about the hypothesis we are looking for evidence to support</li>
+<li>For group comparisons, <span class="math inline">\(H_1\)</span> assumes at least one group mean is different</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><strong>The <em>p</em>-value:</strong>
+<ul>
+<li>How consistent are our sample data with the Null Hypothesis?</li>
+<li>If <em>p</em> &lt; .05, we (traditionally) begin to doubt <span class="math inline">\(H_0\)</span> and believe <span class="math inline">\(H_1\)</span> instead</li>
+</ul></li>
+</ul>
+</div>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
@@ -365,6 +399,67 @@
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex) <span class="co"># fitting ANOVA statistical models</span></span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats) <span class="co"># extracting info from models</span></span>
 <span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co"># needed by easystats</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>The Statistical Engine</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>The Logic of ANOVA</h2>
+<ul>
+<li>We will use a statistical model called <strong>ANOVA</strong> (Analysis of Variance)
+<ul>
+<li>It works for comparing two groups or comparing multiple groups</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>Conceptually, ANOVA compares <strong>signal</strong> to <strong>noise</strong>:
+<ul>
+<li><strong>Signal:</strong> How different are the group averages from one another?</li>
+<li><strong>Noise:</strong> How much random variation is there <em>within</em> the groups?</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>If the signal is significantly louder than the noise…
+<ul>
+<li>…we can safely conclude the groups are truly different in the population</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Understanding the <em>p</em>-value</h2>
+<ul>
+<li>When we run our ANOVA, it outputs a <strong>p-value</strong> (probability value)
+<ul>
+<li>It measures how “surprised” we should be by our sample data if there were actually <em>no real differences</em> in the population</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li><strong>Large p-value (e.g., p = .40):</strong> Our data is not surprising. The differences we see could easily just be random sampling noise</li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><strong>Small p-value (e.g., p &lt; .05):</strong> Our data is very surprising. It is highly unlikely we would see these differences just by random chance
+<ul>
+<li>We call this <strong>statistically significant</strong> and conclude the population parameters differ</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><span class="b dark-red">The Catch:</span> Statistics deals in probabilities, not absolute proofs
+<ul>
+<li>Even with a significant result, there is always a small chance of a “false positive”</li>
+</ul></li>
+</ul>
 </div>
 </section></section>
 <section>
@@ -592,12 +687,12 @@ p-value adjustment method: Holm (1979)</code></pre>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Two Dependent Groups</h1>
+<h1>Three Dependent Groups</h1>
 
 </section>
 <section class="slide level2 smaller">
 <h2>1. Preparing the Data</h2>
-<p>When testing the same subjects multiple times, the data must be in a long format. We will use the <code>ChickWeight</code> dataset to see if chicks gained weight between Day 0 and Day 20.</p>
+<p>When testing the same subjects multiple times, the data must be in a long format. We will use the <code>ChickWeight</code> dataset to see if chicks gained weight between Days 0, 10, and 20.</p>
 <div class="fragment mt1">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ChickWeight"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
@@ -605,24 +700,23 @@ p-value adjustment method: Holm (1979)</code></pre>
 <span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>dat3 <span class="ot">&lt;-</span> </span>
 <span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  ChickWeight <span class="sc">|&gt;</span></span>
 <span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(weight, Time) <span class="sc">|&gt;</span> </span>
-<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">factor</span>(Time, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"day0"</span>, <span class="st">"day20"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">factor</span>(Time, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"day0"</span>, <span class="st">"day10"</span>, <span class="st">"day20"</span>))) <span class="sc">|&gt;</span> </span>
 <span id="cb20-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Chick, Time, weight)</span>
 <span id="cb20-9"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 96
+<pre><code>Rows: 145
 Columns: 3
-$ Chick  &lt;ord&gt; 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 1…
-$ Time   &lt;fct&gt; day0, day20, day0, day20, day0, day20, day0, day20, day0, day20…
-$ weight &lt;dbl&gt; 42, 199, 40, 209, 43, 198, 42, 160, 41, 220, 41, 160, 41, 288, …</code></pre>
+$ Chick  &lt;ord&gt; 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, …
+$ Time   &lt;fct&gt; day0, day10, day20, day0, day10, day20, day0, day10, day20, day…
+$ weight &lt;dbl&gt; 42, 93, 199, 40, 103, 209, 43, 99, 198, 42, 87, 160, 41, 106, 2…</code></pre>
 </div>
 </div>
 </div>
 </section>
 <section class="slide level2">
 <h2>2. Exploring our Sample</h2>
-<p>For dependent groups, it is helpful to connect the same participants with lines to see how they change over time.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat3, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">group =</span> Chick)) <span class="sc">+</span> </span>
 <span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
@@ -633,32 +727,28 @@ $ weight &lt;dbl&gt; 42, 199, 40, 209, 43, 198, 42, 160, 41, 220, 41, 160, 41, 2
 <section class="slide level2 smaller">
 <h2>3. The Omnibus Test</h2>
 <p>To tell R to run a dependent test, swap the <code>between</code> argument for <code>within</code></p>
-<div class="fragment mt1">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(</span>
 <span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"Chick"</span>, </span>
-<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">"weight"</span>, </span>
-<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">within =</span> <span class="st">"Time"</span>,</span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">"weight"</span>,</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">within =</span> <span class="st">"Time"</span>, </span>
 <span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat3</span>
 <span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA estimation for factorial designs using 'afex'
 
-Parameter | Sum_Squares | Sum_Squares_Error | df | df (error) | Mean_Square |      F |      p
----------------------------------------------------------------------------------------------
-Time      |    6.54e+05 |          1.01e+05 |  1 |         45 |     2236.65 | 292.42 | &lt; .001
+Parameter | Sum_Squares | Sum_Squares_Error |   df | df (error) | Mean_Square |      F |      p
+-----------------------------------------------------------------------------------------------
+Time      |    6.62e+05 |          1.16e+05 | 1.11 |      50.13 |     2306.78 | 257.45 | &lt; .001
 
 Anova Table (Type 3 tests)</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong> The significant <em>p</em>-value (<em>p</em> &lt; .001) provides strong evidence that chicks in this <em>population</em> gain weight over time. It suggests the true average weight at Day 20 is higher than at Day 0, assuming our sample is representative.</p>
-</div>
+<p><strong>Interpretation:</strong> The significant <em>p</em>-value (<em>p</em> &lt; .001) indicates that the true average weight of the <em>population</em> likely does not stay constant across these three time points. This points to a broader growth trend beyond just our specific sample.</p>
 </section>
 <section class="slide level2 smaller">
-<h2>4. Mean Estimates</h2>
-<p>The <code>plot()</code> function automatically accounts for the repeated measures structure when visualizing the average weights at each Time</p>
-<div class="fragment mt1">
+<h2>4. Estimating Means</h2>
 <div class="columns">
 <div class="column">
 <div class="cell">
@@ -669,6 +759,7 @@ Anova Table (Type 3 tests)</code></pre>
 Time  |   Mean |   SE |           95% CI |  t(45)
 -------------------------------------------------
 day0  |  41.09 | 0.17 | [ 40.75,  41.42] | 246.20
+day10 | 109.72 | 3.30 | [103.07, 116.36] |  33.25
 day20 | 209.72 | 9.81 | [189.97, 229.47] |  21.39
 
 Variable predicted: weight
@@ -688,106 +779,11 @@ Predictors averaged: Chick</code></pre>
 </div>
 </div>
 </div></div>
-</div>
-</section></section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>Three Dependent Groups</h1>
-
-</section>
-<section class="slide level2 smaller">
-<h2>1. Preparing the Data</h2>
-<p>Let’s scale up again. How did the growth trajectory look if we include Day 10?</p>
-<div class="fragment mt1">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ChickWeight"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
-<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>dat4 <span class="ot">&lt;-</span> </span>
-<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>  ChickWeight <span class="sc">|&gt;</span></span>
-<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(weight, Time) <span class="sc">|&gt;</span> </span>
-<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">factor</span>(Time, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"day0"</span>, <span class="st">"day10"</span>, <span class="st">"day20"</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb28-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Chick, Time, weight)</span>
-<span id="cb28-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 145
-Columns: 3
-$ Chick  &lt;ord&gt; 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, …
-$ Time   &lt;fct&gt; day0, day10, day20, day0, day10, day20, day0, day10, day20, day…
-$ weight &lt;dbl&gt; 42, 93, 199, 40, 103, 209, 43, 99, 198, 42, 87, 160, 41, 106, 2…</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>2. Exploring our Sample</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat4, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">group =</span> Chick)) <span class="sc">+</span> </span>
-<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
-</div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 smaller">
-<h2>3. The Omnibus Test</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>fit4 <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(</span>
-<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"Chick"</span>, </span>
-<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">"weight"</span>,</span>
-<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">within =</span> <span class="st">"Time"</span>, </span>
-<span id="cb31-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat4</span>
-<span id="cb31-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>ANOVA estimation for factorial designs using 'afex'
-
-Parameter | Sum_Squares | Sum_Squares_Error |   df | df (error) | Mean_Square |      F |      p
------------------------------------------------------------------------------------------------
-Time      |    6.62e+05 |          1.16e+05 | 1.11 |      50.13 |     2306.78 | 257.45 | &lt; .001
-
-Anova Table (Type 3 tests)</code></pre>
-</div>
-</div>
-<p><strong>Interpretation:</strong> The significant <em>p</em>-value (<em>p</em> &lt; .001) indicates that the true average weight of the <em>population</em> likely does not stay constant across these three time points. This points to a broader growth trend beyond just our specific sample.</p>
-</section>
-<section class="slide level2 smaller">
-<h2>4. Estimating Means</h2>
-<div class="columns">
-<div class="column">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>means4 <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(fit4) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Estimated Marginal Means
-
-Time  |   Mean |   SE |           95% CI |  t(45)
--------------------------------------------------
-day0  |  41.09 | 0.17 | [ 40.75,  41.42] | 246.20
-day10 | 109.72 | 3.30 | [103.07, 116.36] |  33.25
-day20 | 209.72 | 9.81 | [189.97, 229.47] |  21.39
-
-Variable predicted: weight
-Predictors modulated: Time
-Predictors averaged: Chick</code></pre>
-</div>
-</div>
-</div><div class="column">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(means4, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
 </section>
 <section class="slide level2 smaller">
 <h2>5. Contrasting Groups</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(fit4, <span class="at">p_adjust =</span> <span class="st">"holm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(fit3, <span class="at">p_adjust =</span> <span class="st">"holm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Marginal Contrasts Analysis
 
