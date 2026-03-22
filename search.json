@@ -389,14 +389,49 @@
     "href": "B/10/assignment.html#instructions",
     "title": "Week 10 Assignment",
     "section": "Instructions",
-    "text": "Instructions\nCreate a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable embed-resources using the header below. If your answer involves writing text, then use markdown to write 2–4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.\n---\ntitle: \"Week 10 Assignment\"\nauthor: \"Your Name\"\nembed-resources: true\n---\nPlease clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any “scratch work” or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture)."
+    "text": "Instructions\nCreate a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable embed-resources using the header below. If your answer involves writing text, then use markdown to write 2-4 sentences per question; if your answer involves running code, then use one or more code chunks.\n---\ntitle: \"Week 10 Assignment\"\nauthor: \"Your Name\"\nembed-resources: true\n---\nPlease clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any “scratch work” or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture)."
   },
   {
-    "objectID": "B/10/assignment.html#question-1",
-    "href": "B/10/assignment.html#question-1",
+    "objectID": "B/10/assignment.html#question-1-inference-hypotheses",
+    "href": "B/10/assignment.html#question-1-inference-hypotheses",
     "title": "Week 10 Assignment",
-    "section": "Question 1",
-    "text": "Question 1\n\n✅ Done! Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks."
+    "section": "Question 1 (Inference & Hypotheses)",
+    "text": "Question 1 (Inference & Hypotheses)\nBackground: We often want to generalize our findings beyond our specific data to understand broader trends. Statistical inference allows us to make these leaps safely.\n\nConceptual: Explain the difference between a sample and a population. Why do we rely on calculating statistics rather than parameters when conducting data science research?\nApplied: Load the PlantGrowth dataset from the datasets package. Explore the sample by creating a boxplot that shows weight on the y-axis and the treatment group on the x-axis. Use the mapping arguments to color the boxes by their group."
+  },
+  {
+    "objectID": "B/10/assignment.html#question-2-independent-groups",
+    "href": "B/10/assignment.html#question-2-independent-groups",
+    "title": "Week 10 Assignment",
+    "section": "Question 2 (Independent Groups)",
+    "text": "Question 2 (Independent Groups)\nBackground: When comparing a continuous variable across completely different entities, we can use an analysis of variance (ANOVA) model to test for differences.\n\nConceptual: Describe the conceptual difference between “signal” and “noise” in the context of an ANOVA. How does the ratio of signal to noise influence the resulting p-value?\nApplied: Using the PlantGrowth dataset from Question 1, run an omnibus test to see if there are overall differences in plant weight between the three independent treatment groups. Print the model parameters to view the results. Below your code chunk, write a 1 to 2 sentence interpretation of what the p-value tells us about the plant weights in the broader population. (Hint: You will need to use your data wrangling skills to add an explicit ID column to the dataset before running the test, just like we did in lecture)."
+  },
+  {
+    "objectID": "B/10/assignment.html#question-3-dependent-groups",
+    "href": "B/10/assignment.html#question-3-dependent-groups",
+    "title": "Week 10 Assignment",
+    "section": "Question 3 (Dependent Groups)",
+    "text": "Question 3 (Dependent Groups)\nBackground: Sometimes we measure the exact same subjects multiple times or across different conditions, requiring a dependent (within-subjects) design.\n\nConceptual: What is the Null Hypothesis (\\(H_0\\)) when testing for differences across three dependent groups? If your omnibus test yields a p-value of 0.01, what do you conclude about this hypothesis?\nApplied: Load the sleep dataset from the datasets package, which shows the effect of two soporific drugs on 10 unique patients (tracked in the ID column). First, use your data wrangling skills to rename the group column to drug (the statistical modeling packages we use will sometimes throw errors when estimating means if a variable is literally named “group”). Then, run the appropriate statistical test to compare the extra sleep hours between the two drugs within the exact same patients. Once the model is fit, estimate the means and test the contrasts between the two groups. Below your code chunk, write a brief interpretation of what the contrast test results tell us."
+  },
+  {
+    "objectID": "B/10/assignment.html#question-4-correlations",
+    "href": "B/10/assignment.html#question-4-correlations",
+    "title": "Week 10 Assignment",
+    "section": "Question 4 (Correlations)",
+    "text": "Question 4 (Correlations)\nBackground: A correlation quantifies the linear relationship between two continuous variables.\n\nConceptual: A correlation statistic (\\(r\\)) ranges from -1 to 1. Explain what the sign (positive or negative) and the magnitude (distance from zero) tell us about the relationship between two variables.\nApplied: Load the mtcars dataset. Select the mpg (miles per gallon), hp (horsepower), and wt (weight) columns. Using the skills learned in class, run a correlation test on this subset of variables to examine all pairwise relationships and print the resulting summary matrix. Below your code chunk, pick one of the significant relationships and interpret its direction and strength in plain English."
+  },
+  {
+    "objectID": "B/10/assignment.html#question-5-categorical-associations",
+    "href": "B/10/assignment.html#question-5-categorical-associations",
+    "title": "Week 10 Assignment",
+    "section": "Question 5 (Categorical Associations)",
+    "text": "Question 5 (Categorical Associations)\nBackground: The Chi-Square Test of Independence evaluates categorical relationships to see if knowing one category tells us something about another.\n\nConceptual: Explain the basic logic of a Chi-Square test. Specifically, what does it mean to compare “observed” frequencies to “expected” frequencies?\nApplied: Load the mtcars dataset and select the cyl (cylinders) and am (transmission type) columns. Create a cross-tabulation table to count how many cars fall into each combination of cylinder count and transmission type."
+  },
+  {
+    "objectID": "B/10/assignment.html#question-6-chi-square-effect-size",
+    "href": "B/10/assignment.html#question-6-chi-square-effect-size",
+    "title": "Week 10 Assignment",
+    "section": "Question 6 (Chi-Square & Effect Size)",
+    "text": "Question 6 (Chi-Square & Effect Size)\nBackground: Once we have our expected and observed frequencies, we can formally test for independence and calculate the strength of the association.\n\nConceptual: If a Chi-Square test yields a statistically significant result, why might a data scientist still want to calculate an effect size like Cramer’s V?\nApplied: Using the cross-tabulation table you created in Question 5b, run a Chi-Square test of independence to see if transmission type and cylinder count are associated in the broader population. Extract the model parameters to view the test results and compute the effect size. Below your code chunk, write a brief interpretation of what the p-value and the effect size metric collectively tell us about these two variables.\n\n\n✅ Done! Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks."
   },
   {
     "objectID": "index.html",

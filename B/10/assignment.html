@@ -106,6 +106,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -243,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="../../img/programming_2780E3.svg" class="img-fluid" width="200"></p>
 <section id="instructions" class="level2">
 <h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
-<p><em>Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable <code>embed-resources</code> using the header below. If your answer involves writing text, then use markdown to write 2–4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.</em></p>
+<p><em>Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable <code>embed-resources</code> using the header below. If your answer involves writing text, then use markdown to write 2-4 sentences per question; if your answer involves running code, then use one or more code chunks.</em></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Week 10 Assignment"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
@@ -251,8 +280,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><em>Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any “scratch work” or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).</em></p>
 </section>
-<section id="question-1" class="level2">
-<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<section id="question-1-inference-hypotheses" class="level2">
+<h2 class="anchored" data-anchor-id="question-1-inference-hypotheses">Question 1 (Inference &amp; Hypotheses)</h2>
+<p><strong>Background:</strong> We often want to generalize our findings beyond our specific data to understand broader trends. Statistical inference allows us to make these leaps safely.</p>
+<ol type="a">
+<li><strong>Conceptual:</strong> Explain the difference between a sample and a population. Why do we rely on calculating statistics rather than parameters when conducting data science research?</li>
+<li><strong>Applied:</strong> Load the <code>PlantGrowth</code> dataset from the <code>datasets</code> package. Explore the sample by creating a boxplot that shows <code>weight</code> on the y-axis and the treatment <code>group</code> on the x-axis. Use the mapping arguments to color the boxes by their group.</li>
+</ol>
+</section>
+<section id="question-2-independent-groups" class="level2">
+<h2 class="anchored" data-anchor-id="question-2-independent-groups">Question 2 (Independent Groups)</h2>
+<p><strong>Background:</strong> When comparing a continuous variable across completely different entities, we can use an analysis of variance (ANOVA) model to test for differences.</p>
+<ol type="a">
+<li><strong>Conceptual:</strong> Describe the conceptual difference between “signal” and “noise” in the context of an ANOVA. How does the ratio of signal to noise influence the resulting <em>p</em>-value?</li>
+<li><strong>Applied:</strong> Using the <code>PlantGrowth</code> dataset from Question 1, run an omnibus test to see if there are overall differences in plant weight between the three independent treatment groups. Print the model parameters to view the results. Below your code chunk, write a 1 to 2 sentence interpretation of what the <em>p</em>-value tells us about the plant weights in the broader population. <em>(Hint: You will need to use your data wrangling skills to add an explicit ID column to the dataset before running the test, just like we did in lecture)</em>.</li>
+</ol>
+</section>
+<section id="question-3-dependent-groups" class="level2">
+<h2 class="anchored" data-anchor-id="question-3-dependent-groups">Question 3 (Dependent Groups)</h2>
+<p><strong>Background:</strong> Sometimes we measure the exact same subjects multiple times or across different conditions, requiring a dependent (within-subjects) design.</p>
+<ol type="a">
+<li><strong>Conceptual:</strong> What is the Null Hypothesis (<span class="math inline">\(H_0\)</span>) when testing for differences across three dependent groups? If your omnibus test yields a <em>p</em>-value of 0.01, what do you conclude about this hypothesis?</li>
+<li><strong>Applied:</strong> Load the <code>sleep</code> dataset from the <code>datasets</code> package, which shows the effect of two soporific drugs on 10 unique patients (tracked in the <code>ID</code> column). First, use your data wrangling skills to rename the <code>group</code> column to <code>drug</code> (the statistical modeling packages we use will sometimes throw errors when estimating means if a variable is literally named “group”). Then, run the appropriate statistical test to compare the <code>extra</code> sleep hours between the two drugs within the exact same patients. Once the model is fit, estimate the means and test the contrasts between the two groups. Below your code chunk, write a brief interpretation of what the contrast test results tell us.</li>
+</ol>
+</section>
+<section id="question-4-correlations" class="level2">
+<h2 class="anchored" data-anchor-id="question-4-correlations">Question 4 (Correlations)</h2>
+<p><strong>Background:</strong> A correlation quantifies the linear relationship between two continuous variables.</p>
+<ol type="a">
+<li><strong>Conceptual:</strong> A correlation statistic (<span class="math inline">\(r\)</span>) ranges from -1 to 1. Explain what the sign (positive or negative) and the magnitude (distance from zero) tell us about the relationship between two variables.</li>
+<li><strong>Applied:</strong> Load the <code>mtcars</code> dataset. Select the <code>mpg</code> (miles per gallon), <code>hp</code> (horsepower), and <code>wt</code> (weight) columns. Using the skills learned in class, run a correlation test on this subset of variables to examine all pairwise relationships and print the resulting summary matrix. Below your code chunk, pick one of the significant relationships and interpret its direction and strength in plain English.</li>
+</ol>
+</section>
+<section id="question-5-categorical-associations" class="level2">
+<h2 class="anchored" data-anchor-id="question-5-categorical-associations">Question 5 (Categorical Associations)</h2>
+<p><strong>Background:</strong> The Chi-Square Test of Independence evaluates categorical relationships to see if knowing one category tells us something about another.</p>
+<ol type="a">
+<li><strong>Conceptual:</strong> Explain the basic logic of a Chi-Square test. Specifically, what does it mean to compare “observed” frequencies to “expected” frequencies?</li>
+<li><strong>Applied:</strong> Load the <code>mtcars</code> dataset and select the <code>cyl</code> (cylinders) and <code>am</code> (transmission type) columns. Create a cross-tabulation table to count how many cars fall into each combination of cylinder count and transmission type.</li>
+</ol>
+</section>
+<section id="question-6-chi-square-effect-size" class="level2">
+<h2 class="anchored" data-anchor-id="question-6-chi-square-effect-size">Question 6 (Chi-Square &amp; Effect Size)</h2>
+<p><strong>Background:</strong> Once we have our expected and observed frequencies, we can formally test for independence and calculate the strength of the association.</p>
+<ol type="a">
+<li><strong>Conceptual:</strong> If a Chi-Square test yields a statistically significant result, why might a data scientist still want to calculate an effect size like Cramer’s V?</li>
+<li><strong>Applied:</strong> Using the cross-tabulation table you created in Question 5b, run a Chi-Square test of independence to see if transmission type and cylinder count are associated in the broader population. Extract the model parameters to view the test results and compute the effect size. Below your code chunk, write a brief interpretation of what the <em>p</em>-value and the effect size metric collectively tell us about these two variables.</li>
+</ol>
 <hr>
 <p>✅ Done! <em>Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks.</em></p>
 
