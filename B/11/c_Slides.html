@@ -32,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -126,6 +190,10 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+  <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -145,16 +213,1211 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><p>A</p></li>
-<li><p>B</p></li>
-<li><p>C</p></li>
+<li><p>Understand the principles of relational data and keys</p></li>
+<li><p>Conceptually differentiate mutating join types</p></li>
+<li><p>Perform joins in R using {dplyr} functions</p></li>
 </ul>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Relational Data</h1>
 
 </section>
+<section class="slide level2 smaller">
+<h2>Relational Data</h2>
+<ul>
+<li>A set of inter-related tables is called a <em>relational database</em> (RDB)</li>
+</ul>
+<div class="columns pv4">
+<div class="column tc" style="width:50%;">
+<p><span class="b blue">ratings</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped caption-top" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">user</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">movie</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sing.it.sam</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">★☆☆☆☆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sing.it.sam</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">★★★★★</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">macattack</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">★★★★☆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">macattack</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">★★☆☆☆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">inzain99</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">★★★☆☆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">inzain99</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">★★☆☆☆</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:50%;">
+<p><span class="b blue">users</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped caption-top" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">user</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">fname</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">lname</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sing.it.sam</td>
+<td style="text-align: left;">Sam</td>
+<td style="text-align: left;">Jones</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">macattack</td>
+<td style="text-align: left;">Alex</td>
+<td style="text-align: left;">Mackey</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">inzain99</td>
+<td style="text-align: left;">Zain</td>
+<td style="text-align: left;">Baker</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><span class="b blue">movies</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped caption-top" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">id</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">title</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">genre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">John Wick 2</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Action</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Frozen II</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Family</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Relational Data</h2>
+<ul>
+<li>To <strong>join</strong> the tables into one unified dataset, we need to know their connections</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped caption-top" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">user</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">fname</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">lname</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">movie</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">title</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">genre</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sing.it.sam</td>
+<td style="text-align: left;">Sam</td>
+<td style="text-align: left;">Jones</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">John Wick 2</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Action</td>
+<td style="text-align: left;">★☆☆☆☆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sing.it.sam</td>
+<td style="text-align: left;">Sam</td>
+<td style="text-align: left;">Jones</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Frozen II</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Family</td>
+<td style="text-align: left;">★★★★★</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">macattack</td>
+<td style="text-align: left;">Alex</td>
+<td style="text-align: left;">Mackey</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">John Wick 2</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Action</td>
+<td style="text-align: left;">★★★★☆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">macattack</td>
+<td style="text-align: left;">Alex</td>
+<td style="text-align: left;">Mackey</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Frozen II</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Family</td>
+<td style="text-align: left;">★★☆☆☆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">inzain99</td>
+<td style="text-align: left;">Zain</td>
+<td style="text-align: left;">Baker</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">John Wick 2</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Action</td>
+<td style="text-align: left;">★★★☆☆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">inzain99</td>
+<td style="text-align: left;">Zain</td>
+<td style="text-align: left;">Baker</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Frozen II</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Family</td>
+<td style="text-align: left;">★★☆☆☆</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Keys</h2>
+<div class="columns pv4">
+<div class="column tc" style="width:50%;">
+<ul>
+<li>Data is <span class="b blue">relational</span> when one observation references another observation</li>
+<li>Each observation needs to be uniquely identified by one or more variables
+<ul>
+<li>These variables are called “keys”</li>
+</ul></li>
+<li><span class="b green">Natural keys</span> are meaningful
+<ul>
+<li>e.g., <code>users$user</code></li>
+</ul></li>
+<li><span class="b green">Surrogate keys</span> are meaningless
+<ul>
+<li>e.g., <code>movies$id</code></li>
+</ul></li>
+<li>The ratings table has a double-key</li>
+</ul>
+</div><div class="column tc" style="width:50%;">
+<p><img data-src="../../img/keys.png"></p>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Complex Databases</h2>
+<ul>
+<li>Let’s try to guess the connections for the {nycflights13} package’s tables</li>
+</ul>
+<div class="columns pv4">
+<div class="column tc" style="width:50%;">
+<p><img data-src="../../img/flights1.png"></p>
+</div><div class="column tc fragment" style="width:50%;">
+<p><img data-src="../../img/flights2.png"></p>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Basic Join Types</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Basic Join Types</h2>
+<ul>
+<li>The basic joins handle non-overlapping or missing observations differently</li>
+</ul>
+<div class="columns pv4">
+<div class="column tc" style="width:25%;">
+<p><span class="b blue">movies</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2002</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:25%;">
+<p><span class="b blue">avg_ratings</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:15%;">
+
+</div><div class="column" style="width:35%;">
+<p><img data-src="../../img/joins.png"></p>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Left Join</h2>
+<div>
+<ul>
+<li>Left join includes all rows in the [left] table; those missing in the [right] table get NA</li>
+</ul>
+</div>
+<div class="columns pv4">
+<div class="column tc" style="width:25%;">
+<p><span class="b blue">movies</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2002</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:25%;">
+<p><span class="b blue">avg_ratings</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:50%;">
+<p><span class="b green">Left Join (movies, avg_ratings)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">movie</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right; color: red !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2003</td>
+<td style="text-align: right; color: black !important;">2.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right; color: black !important;">8.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2006</td>
+<td style="text-align: right; color: black !important;">6.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2003</td>
+<td style="text-align: right; color: black !important;">8.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2002</td>
+<td style="text-align: right; color: black !important;">3.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Right Join</h2>
+<div>
+<ul>
+<li>Right join includes all rows in the [right] table; those missing in the [left] table get NA</li>
+</ul>
+</div>
+<div class="columns pv4">
+<div class="column tc" style="width:25%;">
+<p><span class="b blue">movies</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2002</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:25%;">
+<p><span class="b blue">avg_ratings</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:50%;">
+<p><span class="b green">Right Join (movies, avg_ratings)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">movie</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right; color: black !important;">2003</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right; color: black !important;">2019</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right; color: black !important;">2006</td>
+<td style="text-align: right;">6.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right; color: black !important;">2003</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right; color: black !important;">2002</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right; color: red !important;">NA</td>
+<td style="text-align: right;">7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Inner Join</h2>
+<div>
+<ul>
+<li>Inner join includes only rows present in both the [left] and [right] tables; no new NAs</li>
+</ul>
+</div>
+<div class="columns pv4">
+<div class="column tc" style="width:25%;">
+<p><span class="b blue">movies</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2002</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:25%;">
+<p><span class="b blue">avg_ratings</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:50%;">
+<p><span class="b green">Inner Join (movies, avg_ratings)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">movie</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2003</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2006</td>
+<td style="text-align: right;">6.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2003</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2002</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Full Join</h2>
+<div>
+<ul>
+<li>Full join includes all rows in either the [left] or [right] table; missing values become NAs</li>
+</ul>
+</div>
+<div class="columns pv4">
+<div class="column tc" style="width:25%;">
+<p><span class="b blue">movies</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2020</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2003</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2002</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:25%;">
+<p><span class="b blue">avg_ratings</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">movie</th>
+<th style="text-align: right;">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column tc" style="width:50%;">
+<p><span class="b green">Full Join (movies, avg_ratings)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">movie</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right; color: black !important;">2020</td>
+<td style="text-align: right; color: red !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right; color: black !important;">2003</td>
+<td style="text-align: right; color: black !important;">2.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right; color: black !important;">2019</td>
+<td style="text-align: right; color: black !important;">8.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right; color: black !important;">2006</td>
+<td style="text-align: right; color: black !important;">6.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right; color: black !important;">2003</td>
+<td style="text-align: right; color: black !important;">8.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right; color: black !important;">2002</td>
+<td style="text-align: right; color: black !important;">3.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right; color: red !important;">NA</td>
+<td style="text-align: right; color: black !important;">7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Tidyverse Joins</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Tidyverse Joins</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>{dplyr} has intuitive, standard names for these concepts
+<ul>
+<li><code>left_join(x, y, by)</code></li>
+<li><code>right_join(x, y, by)</code></li>
+<li><code>inner_join(x, y, by)</code></li>
+<li><code>full_join(x, y, by)</code></li>
+</ul></li>
+<li>It is easiest if the key variables have the same names in both tibbles
+<ul>
+<li>e.g., <code>by = "carrier"</code></li>
+<li>e.g., <code>by = c("user", "movie")</code></li>
+</ul></li>
+<li>But you can join by differently named keys too
+<ul>
+<li>e.g., <code>by = join_by(faa == origin)</code></li>
+</ul></li>
+</ul>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/invert.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Preparing our Data</h2>
+<div class="fsmaller">
+<p>Let’s examine a subset of columns from <code>flights</code>.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"flights"</span>, <span class="at">package =</span> <span class="st">"nycflights13"</span>)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="ot">&lt;-</span> </span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  flights <span class="sc">|&gt;</span> </span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month, day, flight, origin, dest, tailnum, carrier) <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 7
+  month   day flight origin dest  tailnum carrier
+  &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  
+1     1     1   1545 EWR    IAH   N14228  UA     
+2     1     1   1714 LGA    IAH   N24211  UA     
+3     1     1   1141 JFK    MIA   N619AA  AA     
+4     1     1    725 JFK    BQN   N804JB  B6     
+5     1     1    461 LGA    ATL   N668DN  DL     
+# ℹ 336,771 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Airlines Dataset</h2>
+<div class="fsmaller">
+<p>Before we join, let’s look at the <code>airlines</code> dataset.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"airlines"</span>, <span class="at">package =</span> <span class="st">"nycflights13"</span>)</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>airlines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+  carrier name                  
+  &lt;chr&gt;   &lt;chr&gt;                 
+1 9E      Endeavor Air Inc.     
+2 AA      American Airlines Inc.
+3 AS      Alaska Airlines Inc.  
+4 B6      JetBlue Airways       
+5 DL      Delta Air Lines Inc.  
+# ℹ 11 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Left Join in R</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>What is the full name of the airline carrier for each flight?</em></p>
+<p>A left join is perfect for looking up and adding reference information to our primary dataset. Notice that the number of rows remains exactly the same.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airlines, <span class="at">by =</span> <span class="st">"carrier"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 8
+  month   day flight origin dest  tailnum carrier name                  
+  &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                 
+1     1     1   1545 EWR    IAH   N14228  UA      United Air Lines Inc. 
+2     1     1   1714 LGA    IAH   N24211  UA      United Air Lines Inc. 
+3     1     1   1141 JFK    MIA   N619AA  AA      American Airlines Inc.
+4     1     1    725 JFK    BQN   N804JB  B6      JetBlue Airways       
+5     1     1    461 LGA    ATL   N668DN  DL      Delta Air Lines Inc.  
+# ℹ 336,771 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Airports Dataset</h2>
+<div class="fsmaller">
+<p>Next, let’s select a few columns from <code>airports</code>.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"airports"</span>, <span class="at">package =</span> <span class="st">"nycflights13"</span>)</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>airports2 <span class="ot">&lt;-</span> </span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  airports <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(faa, name) <span class="sc">|&gt;</span> </span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,458 × 2
+  faa   name                         
+  &lt;chr&gt; &lt;chr&gt;                        
+1 04G   Lansdowne Airport            
+2 06A   Moton Field Municipal Airport
+3 06C   Schaumburg Regional          
+4 06N   Randall Airport              
+5 09J   Jekyll Island Airport        
+# ℹ 1,453 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Joining by Different Names</h2>
+<div class="fsmaller">
+<p>If the key variables are named differently across datasets, we provide <code>by</code> with the <code>join_by()</code> function. The order should match <code>first == second</code>.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airports2, <span class="at">by =</span> <span class="fu">join_by</span>(origin <span class="sc">==</span> faa))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 8
+  month   day flight origin dest  tailnum carrier name               
+  &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;              
+1     1     1   1545 EWR    IAH   N14228  UA      Newark Liberty Intl
+2     1     1   1714 LGA    IAH   N24211  UA      La Guardia         
+3     1     1   1141 JFK    MIA   N619AA  AA      John F Kennedy Intl
+4     1     1    725 JFK    BQN   N804JB  B6      John F Kennedy Intl
+5     1     1    461 LGA    ATL   N668DN  DL      La Guardia         
+# ℹ 336,771 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Duplicate Column Names</h2>
+<div class="fsmaller">
+<p>We now have the name.x (origin) and name.y (dest)…</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airports2, <span class="at">by =</span> <span class="fu">join_by</span>(origin <span class="sc">==</span> faa)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airports2, <span class="at">by =</span> <span class="fu">join_by</span>(dest <span class="sc">==</span> faa))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 9
+  month   day flight origin dest  tailnum carrier name.x              name.y    
+  &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;     
+1     1     1   1545 EWR    IAH   N14228  UA      Newark Liberty Intl George Bu…
+2     1     1   1714 LGA    IAH   N24211  UA      La Guardia          George Bu…
+3     1     1   1141 JFK    MIA   N619AA  AA      John F Kennedy Intl Miami Intl
+4     1     1    725 JFK    BQN   N804JB  B6      John F Kennedy Intl &lt;NA&gt;      
+5     1     1    461 LGA    ATL   N668DN  DL      La Guardia          Hartsfiel…
+# ℹ 336,771 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Changing the Suffixes</h2>
+<div class="fsmaller">
+<p>We can replace “.x” and “.y” using <code>suffix</code> in the second join.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airports2, <span class="at">by =</span> <span class="fu">join_by</span>(origin <span class="sc">==</span> faa)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airports2, <span class="at">by =</span> <span class="fu">join_by</span>(dest <span class="sc">==</span> faa),</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>            <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_origin"</span>, <span class="st">"_dest"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 9
+  month   day flight origin dest  tailnum carrier name_origin         name_dest 
+  &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;     
+1     1     1   1545 EWR    IAH   N14228  UA      Newark Liberty Intl George Bu…
+2     1     1   1714 LGA    IAH   N24211  UA      La Guardia          George Bu…
+3     1     1   1141 JFK    MIA   N619AA  AA      John F Kennedy Intl Miami Intl
+4     1     1    725 JFK    BQN   N804JB  B6      John F Kennedy Intl &lt;NA&gt;      
+5     1     1    461 LGA    ATL   N668DN  DL      La Guardia          Hartsfiel…
+# ℹ 336,771 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Planes Dataset</h2>
+<div class="fsmaller">
+<p>Finally, let’s select a few columns from <code>planes</code>.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"planes"</span>, <span class="at">package =</span> <span class="st">"nycflights13"</span>)</span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>planes2 <span class="ot">&lt;-</span> </span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>  planes <span class="sc">|&gt;</span> </span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(tailnum, manufacturer, model) <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,322 × 3
+  tailnum manufacturer     model    
+  &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;    
+1 N10156  EMBRAER          EMB-145XR
+2 N102UW  AIRBUS INDUSTRIE A320-214 
+3 N103US  AIRBUS INDUSTRIE A320-214 
+4 N104UW  AIRBUS INDUSTRIE A320-214 
+5 N10575  EMBRAER          EMB-145LR
+# ℹ 3,317 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Missing Matches</h2>
+<div class="fsmaller">
+<p>If <code>flights2</code> has a key that does not exist in the right dataset, the joined variables become <code>NA</code>. Let’s look at plane “N3ALAA” to see this in action.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planes2, <span class="at">by =</span> <span class="st">"tailnum"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tailnum <span class="sc">==</span> <span class="st">"N3ALAA"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 63 × 9
+  month   day flight origin dest  tailnum carrier manufacturer model
+  &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;
+1     1     1    301 LGA    ORD   N3ALAA  AA      &lt;NA&gt;         &lt;NA&gt; 
+2     1     2    353 LGA    ORD   N3ALAA  AA      &lt;NA&gt;         &lt;NA&gt; 
+3     1     3    301 LGA    ORD   N3ALAA  AA      &lt;NA&gt;         &lt;NA&gt; 
+4     1     7    359 LGA    ORD   N3ALAA  AA      &lt;NA&gt;         &lt;NA&gt; 
+5     1     8   1351 JFK    ORD   N3ALAA  AA      &lt;NA&gt;         &lt;NA&gt; 
+# ℹ 58 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Inner Join in R</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Which flights were flown by planes that we have registry data for?</em></p>
+<p>To only return rows that have a match in both tables, use inner join. Our row count will decrease because it drops flights with missing plane data.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(planes2, <span class="at">by =</span> <span class="st">"tailnum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 284,170 × 9
+  month   day flight origin dest  tailnum carrier manufacturer model   
+  &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;   
+1     1     1   1545 EWR    IAH   N14228  UA      BOEING       737-824 
+2     1     1   1714 LGA    IAH   N24211  UA      BOEING       737-824 
+3     1     1   1141 JFK    MIA   N619AA  AA      BOEING       757-223 
+4     1     1    725 JFK    BQN   N804JB  B6      AIRBUS       A320-232
+5     1     1    461 LGA    ATL   N668DN  DL      BOEING       757-232 
+# ℹ 284,165 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Right Join in R</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Which airports in our data received zero flights from NYC in 2013?</em></p>
+<p>A right join is useful when we want to keep all observations from a reference table on the right without breaking the flow of our code.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">right_join</span>(airports2, <span class="at">by =</span> <span class="fu">join_by</span>(dest <span class="sc">==</span> faa)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(flight)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(dest, name)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,357 × 2
+  dest  name                         
+  &lt;chr&gt; &lt;chr&gt;                        
+1 04G   Lansdowne Airport            
+2 06A   Moton Field Municipal Airport
+3 06C   Schaumburg Regional          
+4 06N   Randall Airport              
+5 09J   Jekyll Island Airport        
+# ℹ 1,352 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Full Join in R</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Overall, how many flights went to unlisted airports, and how many listed airports received zero flights?</em></p>
+<p>A full join keeps <em>all</em> rows from both tables. By joining flights with airports, we can audit the overlaps and missing matches across our entire database.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(airports2, <span class="at">by =</span> <span class="fu">join_by</span>(dest <span class="sc">==</span> faa)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_airport =</span> <span class="fu">is.na</span>(name),</span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_flight =</span> <span class="fu">is.na</span>(flight)</span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  missing_airport missing_flight      n
+  &lt;lgl&gt;           &lt;lgl&gt;           &lt;int&gt;
+1 FALSE           FALSE          329174
+2 FALSE           TRUE             1357
+3 TRUE            FALSE            7602</code></pre>
+</div>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
