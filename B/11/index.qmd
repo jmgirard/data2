@@ -18,14 +18,12 @@ knitr::opts_chunk$set(collapse = TRUE)
 ## [11a] Summarize / Group
 
 ### Topics
-- A
-- B
-- C
+- Calculate summary statistics to describe an entire dataset
+- Extract extreme rows using the slice family of functions
+- Apply these operations to distinct subgroups within your data
 
 ### Readings
-- A
-- B
-- C
+- R4DS (2E) Section 3.5: [Groups](https://r4ds.hadley.nz/data-transform#groups)
 
 ### Slides
 ```{=html}
@@ -38,19 +36,99 @@ knitr::opts_chunk$set(collapse = TRUE)
 :::
 
 ### Practice
-TBA
+
+### Practice
+
+#### 1) Summarizing Data
+
+Using the `mpg` dataset (included with the tidyverse), calculate summary statistics for vehicle fuel efficiency.
+
+* First, use `summarize()` to calculate the overall average city mileage (`cty`) and highway mileage (`hwy`). Name these new columns `avg_cty` and `avg_hwy`.
+
+* Next, modify your code to calculate these same averages, but grouped by vehicle `class` using the `.by` argument.
+
+* Add a third summary column called `n_cars` that counts the number of observations in each class using `n()`.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| message: false
+
+library(tidyverse)
+
+mpg |> 
+  summarize(
+    avg_cty = mean(cty),
+    avg_hwy = mean(hwy),
+    n_cars = n(),
+    .by = class
+  )
+```
+
+{{< dstop >}}
+
+#### 2) Extracting Extreme Rows
+
+Using the `msleep` dataset (also included with the tidyverse), find the animals that sleep the most.
+
+* First, select just the `name`, `vore`, and `sleep_total` columns to make the output easier to read.
+
+* Use `slice_max()` to find the 3 animals with the highest total sleep (`sleep_total`) across the entire dataset.
+
+* Now, modify your `slice_max()` code to find the single animal with the highest total sleep *within each feeding type* (`vore`). Remember to use the `by` argument instead of `.by` inside slice functions!
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+# Overall top 3 sleepers
+msleep |> 
+  select(name, vore, sleep_total) |> 
+  slice_max(n = 3, order_by = sleep_total)
+
+# Top sleeper per feeding type
+msleep |> 
+  select(name, vore, sleep_total) |> 
+  slice_max(n = 1, order_by = sleep_total, by = vore)
+```
+
+{{< dstop >}}
+
+#### 3) Grouped Transformations
+
+Let's calculate how each animal's sleep compares to others with the exact same diet using a grouped mutate.
+
+* Start with the `msleep` dataset and use `mutate()` with the `.by` argument to group by `vore`.
+
+* Calculate a new column called `mean_sleep` that represents the average `sleep_total` for that specific diet group. *(Note: you will need to add `na.rm = TRUE` inside your mean function since some `vore` values are missing).*
+
+* Calculate a second new column called `diff_sleep` that subtracts the group's `mean_sleep` from the animal's actual `sleep_total`.
+
+* Finally, select the `name`, `vore`, `sleep_total`, `mean_sleep`, and `diff_sleep` columns to view your work.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+msleep |> 
+  mutate(
+    .by = vore,
+    mean_sleep = mean(sleep_total, na.rm = TRUE),
+    diff_sleep = sleep_total - mean_sleep
+  ) |> 
+  select(name, vore, sleep_total, mean_sleep, diff_sleep)
+```
+
+{{< dstop >}}
 
 ## [11b] Lengthen / Widen
 
 ### Topics
-- A
-- B
-- C 
+- Identify when "wide" or "long" format is needed
+- Reshape wide data into long data using `pivot_longer()`
+- Reshape long data into wide data using `pivot_wider()`
 
 ### Readings
-- A
-- B
-- C
+- R4DS (2E) Section 5.3: [Lengthening data](https://r4ds.hadley.nz/data-tidy.html#sec-pivoting){target="_blank"}
+- R4DS (2E) Section 5.4: [Widening data](https://r4ds.hadley.nz/data-tidy.html#widening-data){target="_blank"}
 
 ### Slides
 ```{=html}
@@ -63,7 +141,90 @@ TBA
 :::
 
 ### Practice
-TBA
+
+#### 1) Lengthening Data
+
+Using the `billboard` dataset (included with the tidyr package), reshape the song ranking data from wide to long format.
+
+* The dataset records the chart rank of songs over 76 weeks in columns `wk1` through `wk76`.
+* Use `pivot_longer()` to collapse these week columns. Use the `starts_with()` helper to select them efficiently.
+* Name the new category column `"week"` and the new value column `"rank"`.
+* Use the `names_prefix` and `names_transform = parse_number` arguments to strip the "wk" text and convert the week column into true numbers.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("billboard", package = "tidyr")
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank",
+    names_prefix = "wk",
+    names_transform = parse_number
+  )
+```
+
+{{< dstop >}}
+
+#### 2) Widening Data
+
+Using the `us_rent_income` dataset (included with the tidyr package), reshape the state data from long to wide format so that rent and income are presented side-by-side.
+
+* First, use `select()` to keep only the `NAME`, `variable`, and `estimate` columns. This prevents issues with duplicate rows caused by other identifiers.
+* Use `pivot_wider()` to create separate columns for each category stored in the `variable` column.
+* Pull the actual numerical values from the `estimate` column.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+data("us_rent_income", package = "tidyr")
+
+us_rent_income |> 
+  select(NAME, variable, estimate) |> 
+  pivot_wider(
+    names_from = variable,
+    values_from = estimate
+  )
+```
+
+{{< dstop >}}
+
+#### 3) Pivoting Multiple Columns
+
+Pivoting multiple columns simultaneously is a powerful tool for longitudinal or repeated-measures data. Let's practice this on a simulated weather dataset.
+
+* First, copy the code below to create the `weather` dataset.
+* Use `pivot_wider()` to flatten this dataset so each station occupies only a single row.
+* Provide both category columns to the `names_from` argument to combine the season and measurement types.
+* Separate the combined names using a custom character with the `names_sep` argument.
+
+```{r}
+weather <- tibble(
+  station = rep(c("Station1", "Station2"), each = 4),
+  season = rep(c("summer", "summer", "winter", "winter"), times = 2),
+  measure = rep(c("temp", "precip"), times = 4),
+  value = c(85, 2.1, 32, 5.5, 90, 1.8, 40, 6.2)
+)
+```
+
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+weather |> 
+  pivot_wider(
+    names_from = c(season, measure),
+    values_from = value,
+    names_sep = "_"
+  )
+```
+
+{{< dstop >}}
 
 ## [11c] Link / Join Data
 

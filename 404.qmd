@@ -6,10 +6,6 @@ The page you requested cannot be found. It is likely still being developed!
 
 ### Update Progress
 
-The following weeks are ready for viewing:
-
-### Update Progress
-
 Below, I will track my progress updating this website week-by-week.
 
 :::{.columns}

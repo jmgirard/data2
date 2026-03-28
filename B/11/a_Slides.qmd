@@ -27,6 +27,11 @@ source(here("_common.R"))
 
 library(tidyverse)
 
+options(
+  tibble.print_max = 6,
+  tibble.print_min = 6
+)
+
 set_theme(theme_gray(base_size = 24))
 ```
 
@@ -35,11 +40,11 @@ set_theme(theme_gray(base_size = 24))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
+- Calculate summary statistics to describe an entire dataset
 
-- B
+- Extract extreme rows using the slice family of functions
 
-- C
+- Apply these operations to distinct subgroups within your data
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -48,3 +53,329 @@ set_theme(theme_gray(base_size = 24))
 
 :::
 
+# Basic Summarize
+
+## Summarize {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Question:** *What does the data look like overall?*
+
+-   Although we store data about many observations, we often want to [summarize across]{.b .blue} them.
+    -   This is like [folding]{.b .green} the tibble down to [one row]{.b .green}.
+
+::: {.fragment .mt1}
+-   We have seen functions that summarize vectors:
+    -   `length()`, `sum()`, `min()`, `max()`
+    -   `mean()`, `median()`, `sd()`, `var()`
+:::
+
+::: {.fragment .mt1}
+-   `summarize()` lets us use them on tibbles.
+    -   It works very similarly to `mutate()`.
+    -   It always creates a new tibble as output.
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/fold.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Preparing the Data
+
+::: {.fsmaller}
+First, let's create a small example dataset of sales to practice with.
+:::
+
+```{r}
+library(tidyverse)
+sales <- tibble(
+  customer = c(1, 2, 3, 1, 3),
+  store = c("A", "A", "A", "B", "B"),
+  quantity = c(25, 20, 16, 10, 5),
+  revenue = c(685, 590, 392, 185, 123)
+)
+sales
+```
+
+## Overall Averages
+
+::: {.fsmaller}
+**Question:** *What is the average transaction size and value?*
+
+We can use `summarize()` to calculate the mean quantity and revenue across all observations in the dataset.
+:::
+
+```{r}
+sales |> 
+  summarize(
+    avg_quantity = mean(quantity),
+    avg_revenue = mean(revenue)
+  )
+```
+
+## The summary() Pitfall
+
+::: {.fsmaller}
+[Warning:]{.b .dark-red} Be careful not to accidentally use base R's `summary()` function when you mean to use `dplyr::summarize()`. It will ignore your arguments!
+:::
+
+```{r}
+sales |> 
+  summary(
+    avg_quantity = mean(quantity),
+    avg_revenue = mean(revenue)
+  )
+```
+
+## Counting Functions
+
+::: {.fsmaller}
+**Question:** *How much data do we actually have?*
+
+We can use special functions like `n()` to count total rows, and `n_distinct()` to count unique values.
+:::
+
+```{r}
+sales |> 
+  summarize(
+    n_sales = n(),
+    n_customers = n_distinct(customer),
+    n_stores = n_distinct(store)
+  )
+```
+
+# Grouped Summarize
+
+## Grouped Summarize {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Question:** *How do different categories compare to one another?*
+
+-   We can summarize a tibble [by group]{.b .blue}.
+    -   This is like [folding]{.b .green} the tibble multiple times.
+    -   We will fold down to [one row per group]{.b .green}.
+
+::: {.fragment .mt1}
+-   We just add the `.by` argument to `summarize()`.
+    -   We can group by one or many variables.
+    -   With many, we group by their combinations.
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/origami.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Summarizing by One Group
+
+::: {.fsmaller}
+**Question:** *Which store is performing better?*
+
+Let's see how the sales perform on a per-store basis by adding `.by`.
+:::
+
+```{r}
+sales |> 
+  summarize(
+    .by = store,
+    customers = n_distinct(customer),
+    total_quantity = sum(quantity),
+    total_revenue = sum(revenue),
+    avg_quantity = mean(quantity),
+    avg_revenue = mean(revenue)
+  )
+```
+
+## Summarizing by Multiple Groups
+
+::: {.fsmaller}
+**Question:** *How much did each customer purchase at each store?*
+
+Now let's group by customer and store combinations.
+:::
+
+```{r}
+sales |> 
+  summarize(
+    .by = c(customer, store),
+    n_visits = n(),
+    total_quantity = sum(quantity),
+    total_revenue = sum(revenue)
+  )
+```
+
+## Real-World Data
+
+::: {.fsmaller}
+Let's apply these concepts to a larger, more realistic dataset.
+:::
+
+```{r}
+library(nycflights13)
+
+delays <- 
+  flights |> 
+  select(month, day, carrier, flight, dep_delay)
+
+glimpse(delays)
+```
+
+## Average Delay by Carrier
+
+::: {.fsmaller}
+**Question:** *What is the average departure delay for each airline carrier?*
+:::
+
+```{r}
+delays |> 
+  summarize(
+    .by = carrier,
+    m_delay = mean(dep_delay, na.rm = TRUE)
+  )
+```
+
+# Slice 
+
+## The Slice Functions {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+**Question:** *Who are the extreme winners and losers?*
+
+We often want to extract specific rows.
+
+::: {.fragment .mt1}
+- The `slice` functions do exactly this:
+    - `slice_min()` extracts rows based on their lowest values.
+    - `slice_max()` extracts rows based on their highest values.
+
+:::
+
+::: {.fragment .mt1}
+- We just tell it which column to look at using `order_by` and how many rows to return using `n`.
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/scissors.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Best Average Performance
+
+::: {.fsmaller}
+**Question:** *Which 3 carriers have the lowest average departure delay?*
+
+We can calculate the summary and then slice the results to get our answer.
+:::
+
+```{r}
+delays |> 
+  summarize(
+    .by = carrier, 
+    m_delay = mean(dep_delay, na.rm = TRUE)
+  ) |> 
+  slice_min(n = 3, order_by = m_delay)
+```
+
+## Peak Volume
+
+::: {.fsmaller}
+**Question:** *Which 2 dates had the most NYC flights (in 2013)?*
+:::
+
+```{r}
+delays |> 
+  summarize(
+    .by = c(month, day), 
+    n_flights = n()
+  ) |> 
+  slice_max(n = 2, order_by = n_flights)
+```
+
+# Grouped Slice
+
+## Grouping inside Slice {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- **Question:** *What is the extreme value WITHIN each category?*
+
+- We do not always have to summarize before we slice.
+- We can slice the raw data directly, and we can apply the `by` argument to `slice_max()` and `slice_min()`.
+    - **Note:** Notice we use `by` here, not `.by`!
+
+::: {.fragment .mt1}
+- Instead of returning the top 1 row overall, this returns the top 1 row **for each group**.
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/layers.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## The Worst Flights per Carrier
+
+::: {.fsmaller}
+**Question:** *What was the single most delayed flight for each airline?*
+:::
+
+```{r}
+delays |> 
+  slice_max(
+    n = 1, 
+    order_by = dep_delay, 
+    by = carrier
+  )
+```
+
+# Grouped Mutate
+
+## Grouped Mutate {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- **Question:** *How does a row compare to its peers?*
+
+- We have already learned that `mutate()` creates new columns or alters existing ones.
+- What happens if we combine `mutate()` with the `.by` argument?
+
+::: {.fragment .mt1}
+- The new column is calculated **within each group** but keeps the original structure of the dataset.
+- This is useful for calculating deviations from group means or standardizing scores within categories.
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/gears.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Comparing to Group Means
+
+::: {.fsmaller}
+**Question:** *Was this specific flight worse than the carrier's usual performance?*
+:::
+
+```{r}
+delays |> 
+  mutate(
+    .by = carrier,
+    carrier_avg = mean(dep_delay, na.rm = TRUE),
+    relative_delay = dep_delay - carrier_avg
+  )
+```
