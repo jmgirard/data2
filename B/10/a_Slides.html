@@ -199,7 +199,7 @@
 <section class="title-slide slide level1 my-title center">
 <h1><span class="my-subtitle">Foundations of</span> <br><span class="blue">Data Science</span></h1>
 <div class="my-grey">
-<p><span>Spring 2026 | Data 2 (399)</span><br> <span>Jeffrey M. Girard | Lecture 11a</span></p>
+<p><span>Spring 2026 | Data 2 (399)</span><br> <span>Jeffrey M. Girard | Lecture 10a</span></p>
 </div>
 <p><img data-src="../../img/proud_coder_357EDD.svg" class="absolute" style="bottom: 30px; right: 0px; width: 400px; "></p>
 </section>
@@ -209,8 +209,9 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><p>Learn how to summarize whole datasets</p></li>
-<li><p>Learn how to summarize data by distinct groups</p></li>
+<li><p>Understand the difference between samples and populations</p></li>
+<li><p>Learn the structure of independent and dependent groups</p></li>
+<li><p>Run group comparisons using <code>afex</code> and <code>easystats</code></p></li>
 </ul>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
@@ -218,285 +219,587 @@
 </section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Summarize</h1>
+<h1>EDA vs.&nbsp;Inference</h1>
 
 </section>
 <section class="slide level2 smaller">
-<h2>Summarize</h2>
+<h2>The Trap of the Sample</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li>Although we store data about many observations…</li>
-<li>…we often want to <span class="b blue">summarize across</span> observations
+<li>We have been turning data into tables and figures
 <ul>
-<li>This is like <span class="b green">folding</span> the tibble down to <span class="b green">one row</span></li>
+<li>This is called Exploratory Data Analysis (EDA)</li>
 </ul></li>
 </ul>
 <div class="fragment mt1">
 <ul>
-<li>We have seen functions that summarize vectors
+<li>This only tells us about <em>our specific data</em>
 <ul>
-<li><code>length()</code>, <code>sum()</code>, <code>min()</code>, <code>max()</code></li>
-<li><code>mean()</code>, <code>median()</code>, <code>sd()</code>, <code>var()</code></li>
+<li>These tables and figures don’t tell us whether the patterns we saw are universally true</li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment mt1">
 <ul>
-<li><code>summarize()</code> lets us use them on tibbles
+<li>We often want to generalize <em>beyond our data</em>
 <ul>
-<li>It works very similarly to <code>mutate()</code></li>
-<li>It always creates a tibble as output</li>
+<li>If Group A has a higher mean than Group B in our data, is that also true more broadly?</li>
 </ul></li>
 </ul>
 </div>
 </div><div class="column tc pv4" style="width:40%;">
-<p><lord-icon src="../../icons/fold.json" colors="secondary:#2a76dd" trigger="loop" delay="3000" class="rc"></lord-icon></p>
+<p><lord-icon src="../../icons/search.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2">
-<h2>1. Preparing the Data</h2>
-<div class="fsmaller">
-<p>First, let’s create a small example dataset of sales to practice our summary functions.</p>
+<section class="slide level2 smaller">
+<h2>Populations vs.&nbsp;Samples</h2>
+<ul>
+<li>The <span class="b blue">Population</span> is the entire group we want to understand
+<ul>
+<li><em>e.g., All penguins in Antarctica</em></li>
+<li>We rarely have access to the whole population</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>The <span class="b green">Sample</span> is the subset of data we actually collected
+<ul>
+<li><em>e.g., The 344 penguins in our dataset</em></li>
+<li>Samples are imperfect but may be all we have</li>
+</ul></li>
+</ul>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> </span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">customer =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
-<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">store =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>),</span>
-<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">items =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">20</span>, <span class="dv">16</span>, <span class="dv">10</span>, <span class="dv">5</span>),</span>
-<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">spent =</span> <span class="fu">c</span>(<span class="dv">685</span>, <span class="dv">590</span>, <span class="dv">392</span>, <span class="dv">185</span>, <span class="dv">123</span>)</span>
-<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a>sales</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 4
-  customer store items spent
-     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-1        1 A        25   685
-2        2 A        20   590
-3        3 A        16   392
-4        1 B        10   185
-5        3 B         5   123</code></pre>
+</section>
+<section class="slide level2 smaller">
+<h2>Parameters vs.&nbsp;Statistics</h2>
+<ul>
+<li>A <span class="b blue">Parameter</span> is the “true” number in the population
+<ul>
+<li><em>e.g., the real average body mass of all penguins in Antarctica</em></li>
+<li>This number is fixed, but we usually do not know it</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>A <span class="b green">Statistic</span> is the number we calculate from our sample
+<ul>
+<li><em>e.g., the average body mass of the penguins we happened to catch</em></li>
+<li>We use the statistic to estimate the parameter</li>
+</ul></li>
+</ul>
 </div>
+<div class="fragment mt1">
+<ul>
+<li><span class="b dark-red">Sampling Uncertainty</span> is the idea that every sample is different
+<ul>
+<li>If we catch 10 different penguins, our statistic will change slightly</li>
+<li>Statistical tests help us decide if patterns in our sample are “real”</li>
+</ul></li>
+</ul>
 </div>
 </section>
 <section class="slide level2">
-<h2>2. Basic Summarize</h2>
-<div class="fsmaller">
-<p>We can use <code>summarize()</code> to calculate the average items and spent across all observations in the dataset.</p>
+<h2>Mapping the Connections</h2>
+
+<img data-src="../../img/inference.png" width="800" class="r-stretch"></section>
+<section class="slide level2 smaller">
+<h2>Why Compare Groups?</h2>
+<p>Comparing groups is a fundamental tool in Data Science. It allows us to move from simply describing data to evaluating impact and making decisions.</p>
+<div class="fragment mt1">
+<ul>
+<li><strong>Basic Science</strong> (Discovery)
+<ul>
+<li>Are there natural differences between categories?</li>
+<li><em>e.g., Do Adelie penguins differ in body mass from Gentoo penguins?</em></li>
+</ul></li>
+</ul>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_items =</span> <span class="fu">mean</span>(items),</span>
-<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_spent =</span> <span class="fu">mean</span>(spent)</span>
-<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  avg_items avg_spent
-      &lt;dbl&gt;     &lt;dbl&gt;
-1      15.2       395</code></pre>
+<div class="fragment mt1">
+<ul>
+<li><strong>Applied Science</strong> (Intervention)
+<ul>
+<li>Does a specific treatment or change have a real effect?</li>
+<li><em>e.g., Does a new medication lower blood pressure more than a placebo?</em></li>
+</ul></li>
+</ul>
 </div>
-</div>
-</section>
-<section class="slide level2">
-<h2>3. The <code>summary()</code> Pitfall</h2>
-<div class="fsmaller">
-<p><strong>Warning:</strong> Be careful not to accidentally use base R’s <code>summary()</code> function when you mean to use <code>dplyr::summarize()</code>. The former will not return a tidy tibble.</p>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(</span>
-<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_items =</span> <span class="fu">mean</span>(items),</span>
-<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_spent =</span> <span class="fu">mean</span>(spent)</span>
-<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    customer    store               items          spent    
- Min.   :1   Length:5           Min.   : 5.0   Min.   :123  
- 1st Qu.:1   Class :character   1st Qu.:10.0   1st Qu.:185  
- Median :2   Mode  :character   Median :16.0   Median :392  
- Mean   :2                      Mean   :15.2   Mean   :395  
- 3rd Qu.:3                      3rd Qu.:20.0   3rd Qu.:590  
- Max.   :3                      Max.   :25.0   Max.   :685  </code></pre>
-</div>
+<div class="fragment mt1">
+<ul>
+<li><strong>Business &amp; Tech</strong> (Optimization)
+<ul>
+<li>Which strategy leads to better outcomes?</li>
+<li><em>e.g., A/B Testing: Does a red “Buy” button generate more revenue than a blue one?</em></li>
+</ul></li>
+</ul>
 </div>
 </section>
-<section class="slide level2">
-<h2>4. Counting Functions</h2>
-<div class="fsmaller">
-<p>We can also use special functions like <code>n()</code> to count total rows, and <code>n_distinct()</code> to count unique values.</p>
+<section class="slide level2 smaller">
+<h2>The Logic of Hypothesis Testing</h2>
+<p>Every statistical test we will learn uses the same underlying logic</p>
+<div class="fragment mt1">
+<ul>
+<li><strong>The Null Hypothesis (<span class="math inline">\(H_0\)</span>):</strong> The “baseline” assumption
+<ul>
+<li>It assumes nothing interesting is happening in the population</li>
+<li>For group comparisons, <span class="math inline">\(H_0\)</span> assumes all group means are exactly equal</li>
+</ul></li>
+</ul>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_sales =</span> <span class="fu">n</span>(),</span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_customers =</span> <span class="fu">n_distinct</span>(customer),</span>
-<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_stores =</span> <span class="fu">n_distinct</span>(store)</span>
-<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  n_sales n_customers n_stores
-    &lt;int&gt;       &lt;int&gt;    &lt;int&gt;
-1       5           3        2</code></pre>
+<div class="fragment mt1">
+<ul>
+<li><strong>The Alternative Hypothesis (<span class="math inline">\(H_1\)</span>):</strong> The “discovery” assumption
+<ul>
+<li>It is the claim about the hypothesis we are looking for evidence to support</li>
+<li>For group comparisons, <span class="math inline">\(H_1\)</span> assumes at least one group mean is different</li>
+</ul></li>
+</ul>
 </div>
+<div class="fragment mt1">
+<ul>
+<li><strong>The <em>p</em>-value:</strong>
+<ul>
+<li>How consistent are our sample data with the Null Hypothesis?</li>
+<li>If <em>p</em> &lt; .05, we (traditionally) begin to doubt <span class="math inline">\(H_0\)</span> and believe <span class="math inline">\(H_1\)</span> instead</li>
+</ul></li>
+</ul>
 </div>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Grouped Summarize</h1>
+<h1>Group Designs</h1>
 
 </section>
 <section class="slide level2 smaller">
-<h2>Grouped Summarize</h2>
-<div class="columns pv4">
-<div class="column" style="width:60%;">
+<h2>How is the Data Structured?</h2>
+<p>Before running any tests, R needs to know how the groups are related.</p>
+<div class="fragment mt1">
 <ul>
-<li>We can also summarize a tibble <span class="b blue">by group</span>
+<li><span class="b blue">Independent Groups</span> (Between-Subjects)
 <ul>
-<li>This is like <span class="b green">folding</span> the tibble multiple times</li>
-<li>Specifically, we fold down to <span class="b green">one row per group</span></li>
+<li>Comparing completely different entities</li>
+<li><em>e.g., (Male vs.&nbsp;Female) or (Adelie vs.&nbsp;Chinstrap vs.&nbsp;Gentoo) penguins</em></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><span class="b green">Dependent Groups</span> (Within-Subjects / Repeated Measures)
+<ul>
+<li>Comparing the exact same entities across different conditions</li>
+<li><em>e.g., The Same Penguin Chicks on (Day 0 vs.&nbsp;Day 10 vs.&nbsp;Day 20)</em></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Setup: Packages</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># data prep and visualization</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(afex) <span class="co"># fitting ANOVA statistical models</span></span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats) <span class="co"># extracting info from models</span></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co"># needed by easystats</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>The Statistical Engine</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>The Logic of ANOVA</h2>
+<ul>
+<li>We will use a statistical model called <strong>ANOVA</strong> (Analysis of Variance)
+<ul>
+<li>It works for comparing two groups or comparing multiple groups</li>
 </ul></li>
 </ul>
 <div class="fragment mt1">
 <ul>
-<li>We just add the <code>.by</code> argument to <code>summarize()</code>
+<li>Conceptually, ANOVA compares <strong>signal</strong> to <strong>noise</strong>:
 <ul>
-<li>We can group by one or many variables</li>
-<li>With many, we group by their combinations</li>
+<li><strong>Signal:</strong> How different are the group averages from one another?</li>
+<li><strong>Noise:</strong> How much random variation is there <em>within</em> the groups?</li>
 </ul></li>
 </ul>
 </div>
-</div><div class="column tc pv4" style="width:40%;">
-<p><lord-icon src="../../icons/origami.json" colors="secondary:#2a76dd" trigger="loop" delay="3000" class="rc"></lord-icon></p>
+<div class="fragment mt1">
+<ul>
+<li>If the signal is significantly louder than the noise…
+<ul>
+<li>…we can safely conclude the groups are truly different in the population</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Understanding the <em>p</em>-value</h2>
+<ul>
+<li>When we run our ANOVA, it outputs a <strong>p-value</strong> (probability value)
+<ul>
+<li>It measures how “surprised” we should be by our sample data if there were actually <em>no real differences</em> in the population</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li><strong>Large p-value (e.g., p = .40):</strong> Our data is not surprising. The differences we see could easily just be random sampling noise</li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><strong>Small p-value (e.g., p &lt; .05):</strong> Our data is very surprising. It is highly unlikely we would see these differences just by random chance
+<ul>
+<li>We call this <strong>statistically significant</strong> and conclude the population parameters differ</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><span class="b dark-red">The Catch:</span> Statistics deals in probabilities, not absolute proofs
+<ul>
+<li>Even with a significant result, there is always a small chance of a “false positive”</li>
+</ul></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Two Independent Groups</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>1. Preparing the Data</h2>
+<p>We will use the <code>penguins</code> dataset to compare body mass between Males and Females.</p>
+<div class="fragment mt1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> </span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>  penguins <span class="sc">|&gt;</span> </span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass, sex) <span class="sc">|&gt;</span> <span class="co"># Remove penguins with missing data</span></span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="fu">row_number</span>(), <span class="co"># afex requires an explicit ID column</span></span>
+<span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(sex) <span class="co"># treat sex as a categorical variable</span></span>
+<span id="cb2-9"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, sex, body_mass) <span class="co"># select only used variables</span></span>
+<span id="cb2-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 333
+Columns: 3
+$ id        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
+$ sex       &lt;fct&gt; male, female, female, female, male, female, male, female, ma…
+$ body_mass &lt;int&gt; 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3200, 3800, 4400, …</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>2. Exploring our Sample</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat1, <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> body_mass, <span class="at">fill =</span> sex)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 smaller">
+<h2>3. The Omnibus Test</h2>
+<p>The <code>aov_ez()</code> function tells us if there are any differences between our groups. Since there are only two groups here, this is mathematically identical to an independent t-test.</p>
+<div class="fragment mt1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"id"</span>,</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">"body_mass"</span>,</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">between =</span> <span class="st">"sex"</span>,</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat1</span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA estimation for factorial designs using 'afex'
+
+Parameter | Sum_Squares |  df | Mean_Square |     F |      p
+------------------------------------------------------------
+sex       |    3.89e+07 |   1 |    3.89e+07 | 72.96 | &lt; .001
+Residuals |    1.76e+08 | 331 |    5.33e+05 |       |       
+
+Anova Table (Type 3 tests)</code></pre>
+</div>
+</div>
+<p><strong>Interpretation:</strong> The significant result (<em>p</em> &lt; .001) means the effect of sex is statistically significant. This provides strong evidence to suggest that, in the broader <em>population</em>, the true average body mass differs between male and female penguins.</p>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>4. Mean Estimates</h2>
+<p>We use <code>estimate_means()</code> to guess what the group means are in the population</p>
+<p>We can also plot those model-based estimates (and, optionally, the sample data)</p>
+<div class="fragment mt1">
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>means1 <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(fit1) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Means
+
+sex    |    Mean |    SE |             95% CI | t(331)
+------------------------------------------------------
+female | 3862.27 | 56.83 | [3750.48, 3974.06] |  67.96
+male   | 4545.68 | 56.32 | [4434.90, 4656.47] |  80.71
+
+Variable predicted: body_mass
+Predictors modulated: sex
+Predictors averaged: id</code></pre>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(means1, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Three Independent Groups</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>1. Preparing the Data</h2>
+<p>What if we have more than two groups? We use the exact same functions. Let’s start by looking at our <code>penguins</code> data again. We will use the <code>species</code> variable to illustrate this, as there are 3 species represented in this sample.</p>
+<div class="fragment mt1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> </span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>  penguins <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass, species) <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">species =</span> <span class="fu">factor</span>(species)</span>
+<span id="cb10-9"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb10-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, species, body_mass)</span>
+<span id="cb10-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 342
+Columns: 3
+$ id        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
+$ species   &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ body_mass &lt;int&gt; 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3475, 4250, 3300, …</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>2. Exploring our Sample</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat2, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass, <span class="at">fill =</span> species)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 smaller">
+<h2>3. The Omnibus Test</h2>
+<p>Now we swap <code>between = "sex"</code> to <code>between = "species"</code>.</p>
+<div class="fragment mt1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"id"</span>,</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">"body_mass"</span>,</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">between =</span> <span class="st">"species"</span>,</span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat2</span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA estimation for factorial designs using 'afex'
+
+Parameter | Sum_Squares |  df | Mean_Square |      F |      p
+-------------------------------------------------------------
+species   |    1.47e+08 |   2 |    7.34e+07 | 343.63 | &lt; .001
+Residuals |    7.24e+07 | 339 |    2.14e+05 |        |       
+
+Anova Table (Type 3 tests)</code></pre>
+</div>
+</div>
+<p><strong>Interpretation:</strong> The significant result (<em>p</em> &lt; .001) suggests that the true average body mass in the <em>population</em> is not identical across all three species. This gives us evidence that species is related to mass, though we cannot yet say which specific ones differ.</p>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>4. Estimating Means</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>means2 <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(fit2) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Means
+
+species   |    Mean |    SE |             95% CI | t(339)
+---------------------------------------------------------
+Adelie    | 3700.66 | 37.62 | [3626.67, 3774.66] |  98.37
+Chinstrap | 3733.09 | 56.06 | [3622.82, 3843.36] |  66.59
+Gentoo    | 5076.02 | 41.68 | [4994.03, 5158.00] | 121.78
+
+Variable predicted: body_mass
+Predictors modulated: species
+Predictors averaged: id</code></pre>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(means2, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 </div></div>
 </section>
-<section class="slide level2">
-<h2>1. Summarizing by One Group</h2>
-<div class="fsmaller">
-<p>Let’s see how the sales perform on a per-store basis by adding the <code>.by</code> argument.</p>
-</div>
+<section class="slide level2 smaller">
+<h2>5. Contrasting Groups</h2>
+<p>The <code>estimate_contrasts()</code> function automatically tests all pairs and adjusts the <em>p</em>-values to protect us from false positives (due to multiple tests).</p>
+<div class="fragment mt1">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">customers =</span> <span class="fu">n_distinct</span>(customer),</span>
-<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">items_sold =</span> <span class="fu">sum</span>(items),</span>
-<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">total_sales =</span> <span class="fu">sum</span>(spent),</span>
-<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_items =</span> <span class="fu">mean</span>(items),</span>
-<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_spent =</span> <span class="fu">mean</span>(spent),</span>
-<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> store</span>
-<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(fit2, <span class="at">p_adjust =</span> <span class="st">"holm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 6
-  store customers items_sold total_sales avg_items avg_spent
-  &lt;chr&gt;     &lt;int&gt;      &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 A             3         61        1667      20.3      556.
-2 B             2         15         308       7.5      154 </code></pre>
+<pre><code>Marginal Contrasts Analysis
+
+Level1    | Level2    | Difference |    SE |             95% CI | t(339) |      p
+---------------------------------------------------------------------------------
+Chinstrap | Adelie    |      32.43 | 67.51 | [-100.37,  165.22] |   0.48 |  0.631
+Gentoo    | Adelie    |    1375.35 | 56.15 | [1264.91, 1485.80] |  24.50 | &lt; .001
+Gentoo    | Chinstrap |    1342.93 | 69.86 | [1205.52, 1480.34] |  19.22 | &lt; .001
+
+Variable predicted: body_mass
+Predictors contrasted: species
+Predictors averaged: id
+p-value adjustment method: Holm (1979)</code></pre>
+</div>
+</div>
+<p><strong>Interpretation:</strong> We found significant differences (<em>p</em> &lt; .001) when comparing Gentoos to both Adelies and Chinstraps, suggesting these mass differences likely exist in the population. However, the difference between Chinstraps and Adelies was not significant (<em>p</em> &gt; .05), meaning we lack evidence to say their true population means differ.</p>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Three Dependent Groups</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>1. Preparing the Data</h2>
+<p>When testing the same subjects multiple times, the data must be in a long format. We will use the <code>ChickWeight</code> dataset to see if chicks gained weight between Days 0, 10, and 20.</p>
+<div class="fragment mt1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ChickWeight"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>dat3 <span class="ot">&lt;-</span> </span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  ChickWeight <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(weight, Time) <span class="sc">|&gt;</span> </span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">factor</span>(Time, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"day0"</span>, <span class="st">"day10"</span>, <span class="st">"day20"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb20-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Chick, Time, weight)</span>
+<span id="cb20-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 145
+Columns: 3
+$ Chick  &lt;ord&gt; 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, …
+$ Time   &lt;fct&gt; day0, day10, day20, day0, day10, day20, day0, day10, day20, day…
+$ weight &lt;dbl&gt; 42, 93, 199, 40, 103, 209, 43, 99, 198, 42, 87, 160, 41, 106, 2…</code></pre>
+</div>
 </div>
 </div>
 </section>
 <section class="slide level2">
-<h2>2. Summarizing by Multiple Groups</h2>
-<div class="fsmaller">
-<p>If we pass multiple variables to <code>.by</code>, it summarizes every unique combination of those groups.</p>
-</div>
+<h2>2. Exploring our Sample</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_visits =</span> <span class="fu">n</span>(),</span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">items_bought =</span> <span class="fu">sum</span>(items),</span>
-<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">total_spent =</span> <span class="fu">sum</span>(spent),</span>
-<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(customer, store)</span>
-<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat3, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">group =</span> Chick)) <span class="sc">+</span> </span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 smaller">
+<h2>3. The Omnibus Test</h2>
+<p>To tell R to run a dependent test, swap the <code>between</code> argument for <code>within</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(</span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"Chick"</span>, </span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dv =</span> <span class="st">"weight"</span>,</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">within =</span> <span class="st">"Time"</span>, </span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat3</span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 5
-  customer store n_visits items_bought total_spent
-     &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-1        1 A            1           25         685
-2        2 A            1           20         590
-3        3 A            1           16         392
-4        1 B            1           10         185
-5        3 B            1            5         123</code></pre>
+<pre><code>ANOVA estimation for factorial designs using 'afex'
+
+Parameter | Sum_Squares | Sum_Squares_Error |   df | df (error) | Mean_Square |      F |      p
+-----------------------------------------------------------------------------------------------
+Time      |    6.62e+05 |          1.16e+05 | 1.11 |      50.13 |     2306.78 | 257.45 | &lt; .001
+
+Anova Table (Type 3 tests)</code></pre>
 </div>
 </div>
+<p><strong>Interpretation:</strong> The significant <em>p</em>-value (<em>p</em> &lt; .001) indicates that the true average weight of the <em>population</em> likely does not stay constant across these three time points. This points to a broader growth trend beyond just our specific sample.</p>
 </section>
-<section class="slide level2">
-<h2>3. Real-World Data</h2>
-<div class="fsmaller">
-<p>Let’s apply these concepts to a larger, more realistic dataset using <code>nycflights13</code>.</p>
-</div>
+<section class="slide level2 smaller">
+<h2>4. Estimating Means</h2>
+<div class="columns">
+<div class="column">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month, day, carrier, flight, dep_delay) <span class="sc">|&gt;</span> </span>
-<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>means3 <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(fit3) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
-  month   day carrier flight dep_delay
-  &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;     &lt;dbl&gt;
-1     1     1 UA        1545         2
-2     1     1 UA        1714         4
-3     1     1 AA        1141         2
-4     1     1 B6         725        -1
-5     1     1 DL         461        -6
-6     1     1 UA        1696        -4</code></pre>
+<pre><code>Estimated Marginal Means
+
+Time  |   Mean |   SE |           95% CI |  t(45)
+-------------------------------------------------
+day0  |  41.09 | 0.17 | [ 40.75,  41.42] | 246.20
+day10 | 109.72 | 3.30 | [103.07, 116.36] |  33.25
+day20 | 209.72 | 9.81 | [189.97, 229.47] |  21.39
+
+Variable predicted: weight
+Predictors modulated: Time
+Predictors averaged: Chick</code></pre>
 </div>
 </div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(means3, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
-<section class="slide level2">
-<h2>4. Flight Delays by Carrier</h2>
-<div class="fsmaller">
-<p>We can find the carrier with the lowest average departure delays by grouping and sorting. Note that we need <code>na.rm = TRUE</code> to ignore missing values.</p>
-</div>
+<section class="slide level2 smaller">
+<h2>5. Contrasting Groups</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">m_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> carrier</span>
-<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(m_delay) <span class="sc">|&gt;</span> </span>
-<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(fit3, <span class="at">p_adjust =</span> <span class="st">"holm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-  carrier m_delay
-  &lt;chr&gt;     &lt;dbl&gt;
-1 US         3.78
-2 HA         4.90
-3 AS         5.80
-4 AA         8.59
-5 DL         9.26
-6 MQ        10.6 </code></pre>
+<pre><code>Marginal Contrasts Analysis
+
+Level1 | Level2 | Difference |   SE |           95% CI | t(45) |      p
+-----------------------------------------------------------------------
+day10  | day0   |      68.63 | 3.34 | [ 61.91,  75.36] | 20.56 | &lt; .001
+day20  | day0   |     168.63 | 9.86 | [148.77, 188.49] | 17.10 | &lt; .001
+day20  | day10  |     100.00 | 7.69 | [ 84.50, 115.50] | 13.00 | &lt; .001
+
+Variable predicted: weight
+Predictors contrasted: Time
+Predictors averaged: Chick
+p-value adjustment method: Holm (1979)</code></pre>
 </div>
 </div>
-</section>
-<section class="slide level2">
-<h2>5. Busiest Days of the Year</h2>
-<div class="fsmaller">
-<p>By grouping by both <code>month</code> and <code>day</code>, we get 365 rows instead of just 31 (which would happen if we only grouped by <code>day</code>).</p>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_flights =</span> <span class="fu">n</span>(),</span>
-<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(month, day)</span>
-<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_flights)) <span class="sc">|&gt;</span> </span>
-<span id="cb17-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  month   day n_flights
-  &lt;int&gt; &lt;int&gt;     &lt;int&gt;
-1    11    27      1014
-2     7    11      1006
-3    12     2      1004
-4     7     8      1004
-5     7    10      1004
-6     7    18      1003</code></pre>
-</div>
-</div>
+<p><strong>Interpretation:</strong> All three pairwise comparisons are statistically significant. This provides evidence to suggest that the true average weight in the <em>population</em> increases at each of these measured intervals (from Day 0 to 10, and Day 10 to 20).</p>
 
 
 </section></section>
@@ -808,6 +1111,82 @@
     });
 
     </script>
+
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
