@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -193,20 +228,21 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
+  <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
   </ul></li>
   <li><a href="#b-lengthen-widen" id="toc-b-lengthen-widen" class="nav-link" data-scroll-target="#b-lengthen-widen">[11b] Lengthen / Widen</a>
   <ul class="collapse">
   <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
   <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
   <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
-  <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
+  <li><a href="#practice-2" id="toc-practice-2" class="nav-link" data-scroll-target="#practice-2">Practice</a></li>
   </ul></li>
   <li><a href="#c-link-join-data" id="toc-c-link-join-data" class="nav-link" data-scroll-target="#c-link-join-data">[11c] Link / Join Data</a>
   <ul class="collapse">
   <li><a href="#topics-2" id="toc-topics-2" class="nav-link" data-scroll-target="#topics-2">Topics</a></li>
   <li><a href="#readings-2" id="toc-readings-2" class="nav-link" data-scroll-target="#readings-2">Readings</a></li>
   <li><a href="#slides-2" id="toc-slides-2" class="nav-link" data-scroll-target="#slides-2">Slides</a></li>
-  <li><a href="#practice-2" id="toc-practice-2" class="nav-link" data-scroll-target="#practice-2">Practice</a></li>
+  <li><a href="#practice-3" id="toc-practice-3" class="nav-link" data-scroll-target="#practice-3">Practice</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -238,17 +274,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="topics" class="level3">
 <h3 class="anchored" data-anchor-id="topics">Topics</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Calculate summary statistics to describe an entire dataset</li>
+<li>Extract extreme rows using the slice family of functions</li>
+<li>Apply these operations to distinct subgroups within your data</li>
 </ul>
 </section>
 <section id="readings" class="level3">
 <h3 class="anchored" data-anchor-id="readings">Readings</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>R4DS (2E) Section 3.5: <a href="https://r4ds.hadley.nz/data-transform#groups">Groups</a></li>
 </ul>
 </section>
 <section id="slides" class="level3">
@@ -261,7 +295,112 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="practice" class="level3">
 <h3 class="anchored" data-anchor-id="practice">Practice</h3>
-<p>TBA</p>
+</section>
+<section id="practice-1" class="level3">
+<h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
+<section id="summarizing-data" class="level4">
+<h4 class="anchored" data-anchor-id="summarizing-data">1) Summarizing Data</h4>
+<p>Using the <code>mpg</code> dataset (included with the tidyverse), calculate summary statistics for vehicle fuel efficiency.</p>
+<ul>
+<li><p>First, use <code>summarize()</code> to calculate the overall average city mileage (<code>cty</code>) and highway mileage (<code>hwy</code>). Name these new columns <code>avg_cty</code> and <code>avg_hwy</code>.</p></li>
+<li><p>Next, modify your code to calculate these same averages, but grouped by vehicle <code>class</code> using the <code>.by</code> argument.</p></li>
+<li><p>Add a third summary column called <code>n_cars</code> that counts the number of observations in each class using <code>n()</code>.</p></li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_cty =</span> <span class="fu">mean</span>(cty),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_hwy =</span> <span class="fu">mean</span>(hwy),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_cars =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> class</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 7 × 4</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   class      avg_cty avg_hwy n_cars</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 compact       20.1    28.3     47</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 midsize       18.8    27.3     41</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 suv           13.5    18.1     62</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 2seater       15.4    24.8      5</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 minivan       15.8    22.4     11</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 pickup        13      16.9     33</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 7 subcompact    20.4    28.1     35</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="extracting-extreme-rows" class="level4">
+<h4 class="anchored" data-anchor-id="extracting-extreme-rows">2) Extracting Extreme Rows</h4>
+<p>Using the <code>msleep</code> dataset (also included with the tidyverse), find the animals that sleep the most.</p>
+<ul>
+<li><p>First, select just the <code>name</code>, <code>vore</code>, and <code>sleep_total</code> columns to make the output easier to read.</p></li>
+<li><p>Use <code>slice_max()</code> to find the 3 animals with the highest total sleep (<code>sleep_total</code>) across the entire dataset.</p></li>
+<li><p>Now, modify your <code>slice_max()</code> code to find the single animal with the highest total sleep <em>within each feeding type</em> (<code>vore</code>). Remember to use the <code>by</code> argument instead of <code>.by</code> inside slice functions!</p></li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall top 3 sleepers</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, vore, sleep_total) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">order_by =</span> sleep_total)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 3</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   name                 vore    sleep_total</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;                &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Little brown bat     insecti        19.9</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Big brown bat        insecti        19.7</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Thick-tailed opposum carni          19.4</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Top sleeper per feeding type</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">|&gt;</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, vore, sleep_total) <span class="sc">|&gt;</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">order_by =</span> sleep_total, <span class="at">by =</span> vore)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 3</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   name                   vore    sleep_total</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;                  &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Thick-tailed opposum   carni          19.4</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 North American Opossum omni           18  </span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Arctic ground squirrel herbi          16.6</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Phalanger              &lt;NA&gt;           13.7</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Little brown bat       insecti        19.9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="grouped-transformations" class="level4">
+<h4 class="anchored" data-anchor-id="grouped-transformations">3) Grouped Transformations</h4>
+<p>Let’s calculate how each animal’s sleep compares to others with the exact same diet using a grouped mutate.</p>
+<ul>
+<li><p>Start with the <code>msleep</code> dataset and use <code>mutate()</code> with the <code>.by</code> argument to group by <code>vore</code>.</p></li>
+<li><p>Calculate a new column called <code>mean_sleep</code> that represents the average <code>sleep_total</code> for that specific diet group. <em>(Note: you will need to add <code>na.rm = TRUE</code> inside your mean function since some <code>vore</code> values are missing).</em></p></li>
+<li><p>Calculate a second new column called <code>diff_sleep</code> that subtracts the group’s <code>mean_sleep</code> from the animal’s actual <code>sleep_total</code>.</p></li>
+<li><p>Finally, select the <code>name</code>, <code>vore</code>, <code>sleep_total</code>, <code>mean_sleep</code>, and <code>diff_sleep</code> columns to view your work.</p></li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> vore,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_sleep =</span> <span class="fu">mean</span>(sleep_total, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_sleep =</span> sleep_total <span class="sc">-</span> mean_sleep</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, vore, sleep_total, mean_sleep, diff_sleep)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 83 × 5</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    name                       vore  sleep_total mean_sleep diff_sleep</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;                      &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Cheetah                    carni        12.1      10.4       1.72 </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Owl monkey                 omni         17        10.9       6.07 </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Mountain beaver            herbi        14.4       9.51      4.89 </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Greater short-tailed shrew omni         14.9      10.9       3.97 </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Cow                        herbi         4         9.51     -5.51 </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Three-toed sloth           herbi        14.4       9.51      4.89 </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Northern fur seal          carni         8.7      10.4      -1.68 </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Vesper mouse               &lt;NA&gt;          7        10.2      -3.19 </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Dog                        carni        10.1      10.4      -0.279</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Roe deer                   herbi         3         9.51     -6.51 </span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 73 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
 </section>
 </section>
 <section id="b-lengthen-widen" class="level2">
@@ -269,17 +408,16 @@ ul.task-list li input[type="checkbox"] {
 <section id="topics-1" class="level3">
 <h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Identify when “wide” or “long” format is needed</li>
+<li>Reshape wide data into long data using <code>pivot_longer()</code></li>
+<li>Reshape long data into wide data using <code>pivot_wider()</code></li>
 </ul>
 </section>
 <section id="readings-1" class="level3">
 <h3 class="anchored" data-anchor-id="readings-1">Readings</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>R4DS (2E) Section 5.3: <a href="https://r4ds.hadley.nz/data-tidy.html#sec-pivoting" target="_blank">Lengthening data</a></li>
+<li>R4DS (2E) Section 5.4: <a href="https://r4ds.hadley.nz/data-tidy.html#widening-data" target="_blank">Widening data</a></li>
 </ul>
 </section>
 <section id="slides-1" class="level3">
@@ -290,9 +428,115 @@ ul.task-list li input[type="checkbox"] {
 <p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
-<section id="practice-1" class="level3">
-<h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
-<p>TBA</p>
+<section id="practice-2" class="level3">
+<h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
+<section id="lengthening-data" class="level4">
+<h4 class="anchored" data-anchor-id="lengthening-data">1) Lengthening Data</h4>
+<p>Using the <code>billboard</code> dataset (included with the tidyr package), reshape the song ranking data from wide to long format.</p>
+<ul>
+<li>The dataset records the chart rank of songs over 76 weeks in columns <code>wk1</code> through <code>wk76</code>.</li>
+<li>Use <code>pivot_longer()</code> to collapse these week columns. Use the <code>starts_with()</code> helper to select them efficiently.</li>
+<li>Name the new category column <code>"week"</code> and the new value column <code>"rank"</code>.</li>
+<li>Use the <code>names_prefix</code> and <code>names_transform = parse_number</code> arguments to strip the “wk” text and convert the week column into true numbers.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"billboard"</span>, <span class="at">package =</span> <span class="st">"tidyr"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>billboard <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"wk"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> parse_number</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 24,092 × 5</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">##    artist track                   date.entered  week  rank</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 2 Pac  Baby Don't Cry (Keep... 2000-02-26       1    87</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 2 Pac  Baby Don't Cry (Keep... 2000-02-26       2    82</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 2 Pac  Baby Don't Cry (Keep... 2000-02-26       3    72</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 2 Pac  Baby Don't Cry (Keep... 2000-02-26       4    77</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 2 Pac  Baby Don't Cry (Keep... 2000-02-26       5    87</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 2 Pac  Baby Don't Cry (Keep... 2000-02-26       6    94</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 2 Pac  Baby Don't Cry (Keep... 2000-02-26       7    99</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 2 Pac  Baby Don't Cry (Keep... 2000-02-26       8    NA</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 2 Pac  Baby Don't Cry (Keep... 2000-02-26       9    NA</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 2 Pac  Baby Don't Cry (Keep... 2000-02-26      10    NA</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 24,082 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="widening-data" class="level4">
+<h4 class="anchored" data-anchor-id="widening-data">2) Widening Data</h4>
+<p>Using the <code>us_rent_income</code> dataset (included with the tidyr package), reshape the state data from long to wide format so that rent and income are presented side-by-side.</p>
+<ul>
+<li>First, use <code>select()</code> to keep only the <code>NAME</code>, <code>variable</code>, and <code>estimate</code> columns. This prevents issues with duplicate rows caused by other identifiers.</li>
+<li>Use <code>pivot_wider()</code> to create separate columns for each category stored in the <code>variable</code> column.</li>
+<li>Pull the actual numerical values from the <code>estimate</code> column.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"us_rent_income"</span>, <span class="at">package =</span> <span class="st">"tidyr"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>us_rent_income <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NAME, variable, estimate) <span class="sc">|&gt;</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> estimate</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 52 × 3</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    NAME                 income  rent</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Alabama               24476   747</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Alaska                32940  1200</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Arizona               27517   972</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Arkansas              23789   709</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 California            29454  1358</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Colorado              32401  1125</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Connecticut           35326  1123</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Delaware              31560  1076</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 District of Columbia  43198  1424</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Florida               25952  1077</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 42 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="pivoting-multiple-columns" class="level4">
+<h4 class="anchored" data-anchor-id="pivoting-multiple-columns">3) Pivoting Multiple Columns</h4>
+<p>Pivoting multiple columns simultaneously is a powerful tool for longitudinal or repeated-measures data. Let’s practice this on a simulated weather dataset.</p>
+<ul>
+<li>First, copy the code below to create the <code>weather</code> dataset.</li>
+<li>Use <code>pivot_wider()</code> to flatten this dataset so each station occupies only a single row.</li>
+<li>Provide both category columns to the <code>names_from</code> argument to combine the season and measurement types.</li>
+<li>Separate the combined names using a custom character with the <code>names_sep</code> argument.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>weather <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">station =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Station1"</span>, <span class="st">"Station2"</span>), <span class="at">each =</span> <span class="dv">4</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">season =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"summer"</span>, <span class="st">"summer"</span>, <span class="st">"winter"</span>, <span class="st">"winter"</span>), <span class="at">times =</span> <span class="dv">2</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">measure =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"temp"</span>, <span class="st">"precip"</span>), <span class="at">times =</span> <span class="dv">4</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="fl">2.1</span>, <span class="dv">32</span>, <span class="fl">5.5</span>, <span class="dv">90</span>, <span class="fl">1.8</span>, <span class="dv">40</span>, <span class="fl">6.2</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="fu">c</span>(season, measure),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> value,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   station  summer_temp summer_precip winter_temp winter_precip</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Station1          85           2.1          32           5.5</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Station2          90           1.8          40           6.2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
 </section>
 </section>
 <section id="c-link-join-data" class="level2">
@@ -321,8 +565,9 @@ ul.task-list li input[type="checkbox"] {
 <p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
-<section id="practice-2" class="level3">
-<h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
+<section id="practice-3" class="level3">
+<h3 class="anchored" data-anchor-id="practice-3">Practice</h3>
+<p>TBA</p>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../10/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 10</a>

@@ -32,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -145,16 +209,448 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><p>A</p></li>
-<li><p>B</p></li>
-<li><p>C</p></li>
+<li><p>Calculate summary statistics to describe an entire dataset</p></li>
+<li><p>Extract extreme rows using the slice family of functions</p></li>
+<li><p>Apply these operations to distinct subgroups within your data</p></li>
 </ul>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Basic Summarize</h1>
 
 </section>
+<section class="slide level2 smaller">
+<h2>Summarize</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><strong>Question:</strong> <em>What does the data look like overall?</em></p></li>
+<li><p>Although we store data about many observations, we often want to <span class="b blue">summarize across</span> them.</p>
+<ul>
+<li>This is like <span class="b green">folding</span> the tibble down to <span class="b green">one row</span>.</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>We have seen functions that summarize vectors:
+<ul>
+<li><code>length()</code>, <code>sum()</code>, <code>min()</code>, <code>max()</code></li>
+<li><code>mean()</code>, <code>median()</code>, <code>sd()</code>, <code>var()</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li><code>summarize()</code> lets us use them on tibbles.
+<ul>
+<li>It works very similarly to <code>mutate()</code>.</li>
+<li>It always creates a new tibble as output.</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/fold.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Preparing the Data</h2>
+<div class="fsmaller">
+<p>First, let’s create a small example dataset of sales to practice with.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">customer =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">store =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>),</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">quantity =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">20</span>, <span class="dv">16</span>, <span class="dv">10</span>, <span class="dv">5</span>),</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">revenue =</span> <span class="fu">c</span>(<span class="dv">685</span>, <span class="dv">590</span>, <span class="dv">392</span>, <span class="dv">185</span>, <span class="dv">123</span>)</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>sales</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  customer store quantity revenue
+     &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1        1 A           25     685
+2        2 A           20     590
+3        3 A           16     392
+4        1 B           10     185
+5        3 B            5     123</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Overall Averages</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>What is the average transaction size and value?</em></p>
+<p>We can use <code>summarize()</code> to calculate the mean quantity and revenue across all observations in the dataset.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_quantity =</span> <span class="fu">mean</span>(quantity),</span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_revenue =</span> <span class="fu">mean</span>(revenue)</span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  avg_quantity avg_revenue
+         &lt;dbl&gt;       &lt;dbl&gt;
+1         15.2         395</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The summary() Pitfall</h2>
+<div class="fsmaller">
+<p><span class="b dark-red">Warning:</span> Be careful not to accidentally use base R’s <code>summary()</code> function when you mean to use <code>dplyr::summarize()</code>. It will ignore your arguments!</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_quantity =</span> <span class="fu">mean</span>(quantity),</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_revenue =</span> <span class="fu">mean</span>(revenue)</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    customer    store              quantity       revenue   
+ Min.   :1   Length:5           Min.   : 5.0   Min.   :123  
+ 1st Qu.:1   Class :character   1st Qu.:10.0   1st Qu.:185  
+ Median :2   Mode  :character   Median :16.0   Median :392  
+ Mean   :2                      Mean   :15.2   Mean   :395  
+ 3rd Qu.:3                      3rd Qu.:20.0   3rd Qu.:590  
+ Max.   :3                      Max.   :25.0   Max.   :685  </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Counting Functions</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>How much data do we actually have?</em></p>
+<p>We can use special functions like <code>n()</code> to count total rows, and <code>n_distinct()</code> to count unique values.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_sales =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_customers =</span> <span class="fu">n_distinct</span>(customer),</span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_stores =</span> <span class="fu">n_distinct</span>(store)</span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  n_sales n_customers n_stores
+    &lt;int&gt;       &lt;int&gt;    &lt;int&gt;
+1       5           3        2</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Grouped Summarize</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Grouped Summarize</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><strong>Question:</strong> <em>How do different categories compare to one another?</em></p></li>
+<li><p>We can summarize a tibble <span class="b blue">by group</span>.</p>
+<ul>
+<li>This is like <span class="b green">folding</span> the tibble multiple times.</li>
+<li>We will fold down to <span class="b green">one row per group</span>.</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>We just add the <code>.by</code> argument to <code>summarize()</code>.
+<ul>
+<li>We can group by one or many variables.</li>
+<li>With many, we group by their combinations.</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/origami.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Summarizing by One Group</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Which store is performing better?</em></p>
+<p>Let’s see how the sales perform on a per-store basis by adding <code>.by</code>.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> store,</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">customers =</span> <span class="fu">n_distinct</span>(customer),</span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">total_quantity =</span> <span class="fu">sum</span>(quantity),</span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">total_revenue =</span> <span class="fu">sum</span>(revenue),</span>
+<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_quantity =</span> <span class="fu">mean</span>(quantity),</span>
+<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_revenue =</span> <span class="fu">mean</span>(revenue)</span>
+<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  store customers total_quantity total_revenue avg_quantity avg_revenue
+  &lt;chr&gt;     &lt;int&gt;          &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+1 A             3             61          1667         20.3        556.
+2 B             2             15           308          7.5        154 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Summarizing by Multiple Groups</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>How much did each customer purchase at each store?</em></p>
+<p>Now let’s group by customer and store combinations.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(customer, store),</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_visits =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">total_quantity =</span> <span class="fu">sum</span>(quantity),</span>
+<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">total_revenue =</span> <span class="fu">sum</span>(revenue)</span>
+<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  customer store n_visits total_quantity total_revenue
+     &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+1        1 A            1             25           685
+2        2 A            1             20           590
+3        3 A            1             16           392
+4        1 B            1             10           185
+5        3 B            1              5           123</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Real-World Data</h2>
+<div class="fsmaller">
+<p>Let’s apply these concepts to a larger, more realistic dataset.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>delays <span class="ot">&lt;-</span> </span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  flights <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month, day, carrier, flight, dep_delay)</span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(delays)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 336,776
+Columns: 5
+$ month     &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ day       &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ carrier   &lt;chr&gt; "UA", "UA", "AA", "B6", "DL", "UA", "B6", "EV", "B6", "AA", …
+$ flight    &lt;int&gt; 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79, 301, 49, 71…
+$ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1, 0, …</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Average Delay by Carrier</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>What is the average departure delay for each airline carrier?</em></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>delays <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> carrier,</span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">m_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+  carrier m_delay
+  &lt;chr&gt;     &lt;dbl&gt;
+1 UA        12.1 
+2 AA         8.59
+3 B6        13.0 
+4 DL         9.26
+5 EV        20.0 
+6 MQ        10.6 
+# ℹ 10 more rows</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Slice</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>The Slice Functions</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<p><strong>Question:</strong> <em>Who are the extreme winners and losers?</em></p>
+<p>We often want to extract specific rows.</p>
+<div class="fragment mt1">
+<ul>
+<li>The <code>slice</code> functions do exactly this:
+<ul>
+<li><code>slice_min()</code> extracts rows based on their lowest values.</li>
+<li><code>slice_max()</code> extracts rows based on their highest values.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>We just tell it which column to look at using <code>order_by</code> and how many rows to return using <code>n</code>.</li>
+</ul>
+</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/scissors.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Best Average Performance</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Which 3 carriers have the lowest average departure delay?</em></p>
+<p>We can calculate the summary and then slice the results to get our answer.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>delays <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> carrier, </span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">m_delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">order_by =</span> m_delay)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  carrier m_delay
+  &lt;chr&gt;     &lt;dbl&gt;
+1 US         3.78
+2 HA         4.90
+3 AS         5.80</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Peak Volume</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Which 2 dates had the most NYC flights (in 2013)?</em></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>delays <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(month, day), </span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_flights =</span> <span class="fu">n</span>()</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">2</span>, <span class="at">order_by =</span> n_flights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  month   day n_flights
+  &lt;int&gt; &lt;int&gt;     &lt;int&gt;
+1    11    27      1014
+2     7    11      1006</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Grouped Slice</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Grouping inside Slice</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><strong>Question:</strong> <em>What is the extreme value WITHIN each category?</em></p></li>
+<li><p>We do not always have to summarize before we slice.</p></li>
+<li><p>We can slice the raw data directly, and we can apply the <code>by</code> argument to <code>slice_max()</code> and <code>slice_min()</code>.</p>
+<ul>
+<li><strong>Note:</strong> Notice we use <code>by</code> here, not <code>.by</code>!</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>Instead of returning the top 1 row overall, this returns the top 1 row <strong>for each group</strong>.</li>
+</ul>
+</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/layers.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>The Worst Flights per Carrier</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>What was the single most delayed flight for each airline?</em></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>delays <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span>, </span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">order_by =</span> dep_delay, </span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> carrier</span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 5
+  month   day carrier flight dep_delay
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;     &lt;dbl&gt;
+1     7    26 UA         372       483
+2     9    20 AA         177      1014
+3     1    16 B6         517       502
+4     4    10 DL        2391       960
+5    12     5 EV        4711       548
+6     6    15 MQ        3535      1137
+# ℹ 10 more rows</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Grouped Mutate</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Grouped Mutate</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><strong>Question:</strong> <em>How does a row compare to its peers?</em></p></li>
+<li><p>We have already learned that <code>mutate()</code> creates new columns or alters existing ones.</p></li>
+<li><p>What happens if we combine <code>mutate()</code> with the <code>.by</code> argument?</p></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>The new column is calculated <strong>within each group</strong> but keeps the original structure of the dataset.</li>
+<li>This is useful for calculating deviations from group means or standardizing scores within categories.</li>
+</ul>
+</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/gears.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Comparing to Group Means</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Was this specific flight worse than the carrier’s usual performance?</em></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>delays <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> carrier,</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">carrier_avg =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">relative_delay =</span> dep_delay <span class="sc">-</span> carrier_avg</span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 7
+  month   day carrier flight dep_delay carrier_avg relative_delay
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;
+1     1     1 UA        1545         2       12.1          -10.1 
+2     1     1 UA        1714         4       12.1           -8.11
+3     1     1 AA        1141         2        8.59          -6.59
+4     1     1 B6         725        -1       13.0          -14.0 
+5     1     1 DL         461        -6        9.26         -15.3 
+6     1     1 UA        1696        -4       12.1          -16.1 
+# ℹ 336,770 more rows</code></pre>
+</div>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

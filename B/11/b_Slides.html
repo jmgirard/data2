@@ -32,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -145,16 +209,554 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><p>A</p></li>
-<li><p>B</p></li>
-<li><p>C</p></li>
+<li><p>Identify when “wide” or “long” format is needed</p></li>
+<li><p>Reshape wide data into long data using <code>pivot_longer()</code></p></li>
+<li><p>Reshape long data into wide data using <code>pivot_wider()</code></p></li>
 </ul>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Pivot Longer</h1>
 
 </section>
+<section class="slide level2 smaller">
+<h2>Pivot Longer</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>Tidy data can have many different shapes.
+<ul>
+<li><span class="b blue">Long format</span> is useful for group summaries and most plots.</li>
+<li>Wide format is useful for correlations and calculating differences.</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li><code>pivot_longer()</code> adds rows from columns.
+<ul>
+<li><code>cols</code>: select the columns we want to pivot.</li>
+<li><code>names_to</code>: create a <em>new</em> column where the old names will go (provide as a “string”).</li>
+<li><code>values_to</code>: create a <em>new</em> column where the old values will go (provide as a “string”).</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/arrows_down.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Preparing the Data</h2>
+<div class="fsmaller">
+<p>First, let’s simulate a dataset in wide format.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>gradebook <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">student =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">test1 =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">77</span>, <span class="at">sd =</span> <span class="dv">9</span>)),</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">test2 =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">75</span>, <span class="at">sd =</span> <span class="dv">8</span>)),</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">test3 =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">80</span>, <span class="at">sd =</span> <span class="dv">7</span>))</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>gradebook</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+  student test1 test2 test3
+    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1       1    66    71    81
+2       2    79    67    77
+3       3    87    69    77
+4       4    56    76    83
+5       5    81    83    75
+6       6    82    74    70
+# ℹ 4 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Problem with Wide Data</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>How do we plot the trend of grades across tests for each student?</em></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gradebook)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 10
+Columns: 4
+$ student &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+$ test1   &lt;dbl&gt; 66, 79, 87, 56, 81, 82, 72, 72, 72, 69
+$ test2   &lt;dbl&gt; 71, 67, 69, 76, 83, 74, 71, 68, 68, 94
+$ test3   &lt;dbl&gt; 81, 77, 77, 83, 75, 70, 84, 73, 80, 73</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We cannot map test and grade to x and y because they aren't columns!</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gradebook, <span class="fu">aes</span>(<span class="at">x =</span> ???, <span class="at">y =</span> ???, <span class="at">group =</span> student)) <span class="sc">+</span> ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># What we need are test and grade columns</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gradebook, <span class="fu">aes</span>(<span class="at">x =</span> test, <span class="at">y =</span> grade, <span class="at">group =</span> student)) <span class="sc">+</span> ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Basic pivot_longer()</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>gradebook2 <span class="ot">&lt;-</span> gradebook <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(test1, test2, test3), </span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"test"</span>, </span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"grade"</span></span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>gradebook2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30 × 3
+  student test  grade
+    &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+1       1 test1    66
+2       1 test2    71
+3       1 test3    81
+4       2 test1    79
+5       2 test2    67
+6       2 test3    77
+# ℹ 24 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Plotting Long Data</h2>
+<div class="fsmaller">
+<p>Now that we have the data in long format, plotting is easy!</p>
+</div>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  gradebook2, </span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> test, </span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> grade, </span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> student</span>
+<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
+<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb9-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Convenience Options</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>gradebook <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"test"</span>), <span class="co"># tidy select cols</span></span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"test"</span>, </span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"grade"</span>,</span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"test"</span>, <span class="co"># remove prefix from names</span></span>
+<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> parse_number <span class="co"># turn names into numbers</span></span>
+<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30 × 3
+  student  test grade
+    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+1       1     1    66
+2       1     2    71
+3       1     3    81
+4       2     1    79
+5       2     2    67
+6       2     3    77
+# ℹ 24 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Numeric Column Names</h2>
+<div class="fsmaller">
+<p>Datasets with numeric columns names can cause issues…</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"table4a"</span>, <span class="at">package =</span> <span class="st">"tidyr"</span>)</span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>table4a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  country     `1999` `2000`
+  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+1 Afghanistan    745   2666
+2 Brazil       37737  80488
+3 China       212258 213766</code></pre>
+</div>
+</div>
+<div class="columns">
+<div class="column fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="dv">1999</span>, <span class="dv">2000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `select()`:
+! Can't select columns past the end.
+ℹ Locations 1999 and 2000 don't exist.
+ℹ There are only 3 columns.</code></pre>
+</div>
+</div>
+</div><div class="column fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  `1999` `2000`
+   &lt;dbl&gt;  &lt;dbl&gt;
+1    745   2666
+2  37737  80488
+3 212258 213766</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Pivoting Such Columns</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>),</span>
+<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"cases"</span></span>
+<span id="cb18-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country     year   cases
+  &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+1 Afghanistan 1999     745
+2 Afghanistan 2000    2666
+3 Brazil      1999   37737
+4 Brazil      2000   80488
+5 China       1999  212258
+6 China       2000  213766</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Pivot Wider</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Pivot Wider</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>Tidy data can have many different shapes.
+<ul>
+<li>Long format is useful for group summaries and most plots.</li>
+<li><span class="b blue">Wide format</span> is useful for correlations and calculating differences.</li>
+</ul></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li><code>pivot_wider()</code> adds columns from rows.
+<ul>
+<li><code>names_from</code>: select the columns containing the new column names.</li>
+<li><code>values_from</code>: select the columns containing the data values.</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/arrows_right.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Preparing the Data</h2>
+<div class="fsmaller">
+<p>First, let’s simulate a dataset in long format.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>diary_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">participant =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">each =</span> <span class="dv">7</span>, <span class="at">times =</span> <span class="dv">2</span>),</span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">day =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">each =</span> <span class="dv">2</span>, <span class="at">times =</span> <span class="dv">3</span>),</span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"mood"</span>, <span class="st">"sleep"</span>), <span class="at">times =</span> <span class="dv">3</span><span class="sc">*</span><span class="dv">7</span>),</span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">score =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">3</span><span class="sc">*</span><span class="dv">7</span><span class="sc">*</span><span class="dv">2</span>), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>diary_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 42 × 4
+  participant   day scale score
+        &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+1           1     1 mood    1.1
+2           1     1 sleep  -0.5
+3           1     2 mood   -0.7
+4           1     2 sleep  -0.5
+5           1     3 mood   -1.6
+6           1     3 sleep  -1.2
+# ℹ 36 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Problem with Long Data</h2>
+<div class="fsmaller">
+<p><strong>Question:</strong> <em>Does daily mood correlate with daily sleep?</em></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(diary_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 42
+Columns: 4
+$ participant &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3…
+$ day         &lt;int&gt; 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 1, 1, 2, 2, 3, 3…
+$ scale       &lt;chr&gt; "mood", "sleep", "mood", "sleep", "mood", "sleep", "mood",…
+$ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -0.5,…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We cannot map mood and sleep to x and y because they aren't columns!</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diary_data, <span class="fu">aes</span>(<span class="at">x =</span> ???, <span class="at">y =</span> ???)) <span class="sc">+</span> ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># What we need are mood and sleep columns</span></span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diary_data, <span class="fu">aes</span>(<span class="at">x =</span> mood, <span class="at">y =</span> sleep)) <span class="sc">+</span> ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Basic pivot_wider()</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>diary_data <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> scale,</span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> score</span>
+<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21 × 4
+  participant   day  mood sleep
+        &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+1           1     1   1.1  -0.5
+2           1     2  -0.7  -0.5
+3           1     3  -1.6  -1.2
+4           1     4  -2.2  -0.6
+5           2     4   0    -1.3
+6           2     5  -0.3  -0.5
+# ℹ 15 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Plotting Wide Data</h2>
+<div class="fsmaller">
+<p>Now that we have the data in wide format, plotting is easy!</p>
+</div>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>diary_data <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> scale,</span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> score</span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mood, <span class="at">y =</span> sleep)) <span class="sc">+</span> </span>
+<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Numerical Column Names</h2>
+<div class="fsmaller">
+<p>Sometimes pivoting leaves you with column names that are just numbers.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a>diary_data <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> day,</span>
+<span id="cb30-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> score</span>
+<span id="cb30-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  participant scale   `1`   `2`   `3`   `4`   `5`   `6`   `7`
+        &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1           1 mood    1.1  -0.7  -1.6  -2.2  -1.1  -0.2   1.6
+2           1 sleep  -0.5  -0.5  -1.2  -0.6  -1     0.6  -0.8
+3           2 sleep  -1.2   2.5  -0.7  -1.3  -0.5  -1.1  -0.3
+4           2 mood    1.6   0.7   0     0    -0.3   1.4  -0.9
+5           3 mood   -1    -1.1  -0.5  -1.8  -1.1   1.3   0  
+6           3 sleep  -1    -1.3  -0.5   1.8   1.4   0.3  -0.5</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Avoiding Such Columns</h2>
+<div class="fsmaller">
+<p>We can use <code>names_prefix</code> to make them clearer and easier to work with.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a>diary_data <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb32-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> day,</span>
+<span id="cb32-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> score,</span>
+<span id="cb32-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"day_"</span></span>
+<span id="cb32-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  participant scale day_1 day_2 day_3 day_4 day_5 day_6 day_7
+        &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1           1 mood    1.1  -0.7  -1.6  -2.2  -1.1  -0.2   1.6
+2           1 sleep  -0.5  -0.5  -1.2  -0.6  -1     0.6  -0.8
+3           2 sleep  -1.2   2.5  -0.7  -1.3  -0.5  -1.1  -0.3
+4           2 mood    1.6   0.7   0     0    -0.3   1.4  -0.9
+5           3 mood   -1    -1.1  -0.5  -1.8  -1.1   1.3   0  
+6           3 sleep  -1    -1.3  -0.5   1.8   1.4   0.3  -0.5</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Pivoting Multiple Columns</h2>
+<div class="fsmaller">
+<p>We can also create new columns by combining categories. Here, we generate new column names based on combinations of the <code>day</code> and <code>scale</code> columns.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>diary_data <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="fu">c</span>(day, scale),</span>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> score,</span>
+<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"day"</span>,</span>
+<span id="cb34-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span></span>
+<span id="cb34-7"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 15
+  participant day1_mood day1_sleep day2_mood day2_sleep day3_mood day3_sleep
+        &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1           1       1.1       -0.5      -0.7       -0.5      -1.6       -1.2
+2           2       1.6       -1.2       0.7        2.5       0         -0.7
+3           3      -1         -1        -1.1       -1.3      -0.5       -0.5
+# ℹ 8 more variables: day4_mood &lt;dbl&gt;, day4_sleep &lt;dbl&gt;, day5_mood &lt;dbl&gt;,
+#   day5_sleep &lt;dbl&gt;, day6_mood &lt;dbl&gt;, day6_sleep &lt;dbl&gt;, day7_mood &lt;dbl&gt;,
+#   day7_sleep &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Why Pivot Multiple Columns?</h2>
+<div class="fsmaller">
+<p>This extreme wide format collapses every observation for a single participant onto a single row. This makes calculating change scores across time easy!</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>diary_data <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="fu">c</span>(day, scale),</span>
+<span id="cb36-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> score,</span>
+<span id="cb36-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"day"</span>,</span>
+<span id="cb36-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span></span>
+<span id="cb36-7"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb36-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mood_change =</span> day7_mood <span class="sc">-</span> day1_mood) <span class="sc">|&gt;</span> </span>
+<span id="cb36-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(participant, day1_mood, day7_mood, mood_change)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  participant day1_mood day7_mood mood_change
+        &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+1           1       1.1       1.6         0.5
+2           2       1.6      -0.9        -2.5
+3           3      -1         0           1  </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Data with Duplicate Identifiers</h2>
+<div class="fsmaller">
+<p>Let’s create a dataset where two participants share the same first name.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fname =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"John"</span>, <span class="st">"Alice"</span>, <span class="st">"Buster"</span>, <span class="st">"John"</span>, <span class="st">"Zenia"</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"grad_year"</span>, <span class="st">"cum_gpa"</span>), <span class="at">times =</span> <span class="dv">5</span>),</span>
+<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">1990</span>, <span class="fl">3.01</span>, <span class="dv">1993</span>, <span class="fl">3.32</span>, <span class="dv">1997</span>, <span class="fl">2.09</span>, <span class="dv">1994</span>, <span class="fl">3.28</span>, <span class="dv">1991</span>, <span class="fl">2.64</span>)</span>
+<span id="cb38-5"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb38-6"><a aria-hidden="true" tabindex="-1"></a>records</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+  fname  variable    value
+  &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;
+1 John   grad_year 1990   
+2 John   cum_gpa      3.01
+3 Alice  grad_year 1993   
+4 Alice  cum_gpa      3.32
+5 Buster grad_year 1997   
+6 Buster cum_gpa      2.09
+# ℹ 4 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Duplicate Row Problem</h2>
+<div class="fsmaller">
+<p>Pivoting assumes it can uniquely identify every observation. Because we have two “John” observations, it jams them both into a list.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a>records <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable, </span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> value</span>
+<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Values from `value` are not uniquely identified; output will contain list-cols.
+• Use `values_fn = list` to suppress this warning.
+• Use `values_fn = {summary_fun}` to summarise duplicates.
+• Use the following dplyr code to identify duplicates.
+  {data} |&gt;
+  dplyr::summarise(n = dplyr::n(), .by = c(fname, variable)) |&gt;
+  dplyr::filter(n &gt; 1L)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  fname  grad_year cum_gpa  
+  &lt;chr&gt;  &lt;list&gt;    &lt;list&gt;   
+1 John   &lt;dbl [2]&gt; &lt;dbl [2]&gt;
+2 Alice  &lt;dbl [1]&gt; &lt;dbl [1]&gt;
+3 Buster &lt;dbl [1]&gt; &lt;dbl [1]&gt;
+4 Zenia  &lt;dbl [1]&gt; &lt;dbl [1]&gt;</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Resolving Duplicate Rows</h2>
+<div class="fsmaller">
+<p>We fix this by ensuring our rows are uniquely identified before we pivot (e.g., by adding the last name initials to distinguish “John A” from “John Z”).</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a>records <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">linitial =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"S"</span>, <span class="st">"K"</span>, <span class="st">"Z"</span>, <span class="st">"I"</span>), <span class="at">each =</span> <span class="dv">2</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> variable,</span>
+<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> value</span>
+<span id="cb43-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  fname  linitial grad_year cum_gpa
+  &lt;chr&gt;  &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;
+1 John   A             1990    3.01
+2 Alice  S             1993    3.32
+3 Buster K             1997    2.09
+4 John   Z             1994    3.28
+5 Zenia  I             1991    2.64</code></pre>
+</div>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -463,82 +1065,6 @@
     });
 
     </script>
-
-    
-
-    <script>
-
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
-        }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
-        }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
-        }
-
-    
-
-      })();
-
-    </script>
-
-    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
