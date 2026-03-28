@@ -1,0 +1,108 @@
+---
+title: "Week 11 Assignment"
+format: 
+  html:
+    css: ../../styles.css
+    toc: false
+---
+
+![](../../img/programming_2780E3.svg){width="200"}
+
+## Instructions
+
+*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2-4 sentences per question; if your answer involves running code, then use one or more code chunks.*
+
+```markdown
+---
+title: "Week 11 Assignment"
+author: "Your Name"
+embed-resources: true
+---
+```
+
+*Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any "scratch work" or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).*
+
+## Question 1 (Basic & Grouped Summaries)
+
+**Background:** Although we store data about many observations, we often want to summarize across them to understand overall trends. We can do this for the entire dataset or distinct categories.
+
+**a) Conceptual**
+
+Explain the difference between applying a summary function like `mean()` to a vector versus using it inside `summarize()` on a tibble. Furthermore, how does the output change when you add the `.by` argument to `summarize()`?
+
+**b) Applied**
+
+Load the `diamonds` dataset from \{ggplot2\} (in \{tidyverse\}). First, use `summarize()` to calculate the overall average `price` and the total number of diamonds in the dataset using `n()`. Next, modify your code to calculate these same summary statistics grouped by the `cut` of the diamond using the `.by` argument. Print the resulting tibble.
+
+## Question 2 (Extracting Extreme Rows)
+
+**Background:** We often want to extract specific rows to find extreme winners, losers, or peak values within our data.
+
+**a) Conceptual**
+
+Suppose you have a dataset of students and their test scores and you want to identify the specific student who achieved the highest score. Briefly explain how the output of `summarize()` using the `max()` function differs from the output of `slice_max()`. Which function is required for this task and why?
+
+**b) Applied**
+
+Load the `txhousing` dataset from \{ggplot2\}. Find the single month with the highest number of `sales` within each city. You will need to use `slice_max()` and provide it with the correct `n`, `order_by`, and `by` arguments to group the slices. Ensure you select only the `city`, `year`, `month`, and `sales` columns to make the output easy to read.
+
+## Question 3 (Lengthening Data)
+
+**Background:** Tidy data can have many different shapes. While wide formats are common for data entry, long formats are typically required for group summaries and plotting in R.
+
+**a) Conceptual**
+
+When using `pivot_longer()`, you must provide a `names_to` argument and a `values_to` argument. Conceptually, what do these two arguments do to the structure of the dataset?
+
+**b) Applied**
+
+Load the `relig_income` dataset from \{tidyr\} (in \{tidyverse\}). This dataset has religions as rows and income brackets as columns. Use `pivot_longer()` to collapse all the income bracket columns into a single new column called `"income_bracket"` and place the numerical counts into a new column called `"frequency"`. Exclude the `religion` column from the pivot so it remains an identifier. Print the new dataset.
+
+*(Hint: Instead of typing out every single income column, you can use `cols = -religion` to tell R to pivot every column EXCEPT for the religion column!)*
+
+## Question 4 (Widening Data)
+
+**Background:** Sometimes data is collected in a long format, but we need it in a wide format to calculate differences across time or to examine correlations between variables.
+
+**a) Conceptual**
+
+If you attempt to use `pivot_wider()` on a dataset where the rows are not uniquely identified (e.g., multiple observations share the exact same identifier variables), what happens to the output? How can you fix this problem before pivoting?
+
+**b) Applied**
+
+Load the `ChickWeight` dataset from the \{datasets\} package. This dataset tracks the `weight` of chicks over several `Time` points. 
+
+Use `pivot_wider()` to reshape this dataset so that each chick occupies only a single row, with separate columns for their weight at every single time point. Take your names from the `Time` column and values from the `weight` column. Add a prefix of `"day_"` to ensure your new column names are easy to work with (e.g., `day_0`, `day_2`, etc.).
+
+## Question 5 (Keys and Left Joins)
+
+**Background:** A set of inter-related tables is called a relational database. To join these tables into one unified dataset, we need to know their connections using keys.
+
+**a) Conceptual**
+
+What is the difference between a natural key and a surrogate key? Why is it vital to identify the correct key variable(s) before attempting to join two datasets?
+
+**b) Applied**
+
+Load the `Batting` and `People` datasets from the \{Lahman\} package. Start your code by piping the `Batting` dataset into `as_tibble()` so the final output prints neatly. Next, use a pipe and filter to keep only the stats from the year 2022. 
+
+Use a left join to merge the `People` dataset into your filtered batting data using `playerID` as your key. Afterward, pipe the result into a `select()` function to keep only the following columns: `playerID`, `nameFirst`, `nameLast`, `yearID`, `teamID`, and `HR`.
+
+## Question 6 (Inner vs. Full Joins)
+
+**Background:** Different join functions handle non-overlapping or missing observations differently.
+
+**a) Conceptual**
+
+Explain the difference in behavior between an `inner_join()` and a `full_join()` when there are missing matches between the left and right tables.
+
+**b) Applied**
+
+Let's find out which baseball managers won awards in 2015. Load the `Managers` and `AwardsManagers` datasets from the \{Lahman\} package. 
+
+First, perform an `inner_join()` between the two datasets. Use `join_by(playerID, yearID)` to ensure you match the correct person to the correct year. Second, pipe the joined data into a `filter()` to keep only the rows where `yearID == 2015`. Finally, select the `playerID`, `teamID`, `awardID`, and `pointsWon` columns. 
+
+---
+
+✅ Done!
+*Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking "Render" about a missing file, this actually means that there is an error in one of your chunks.*
