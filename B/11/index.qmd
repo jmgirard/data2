@@ -1,0 +1,101 @@
+---
+title: "Week 11: Reshape"
+execute:
+  echo: true
+  eval: true
+---
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+## [11a] Summarize / Group
+
+### Topics
+- A
+- B
+- C
+
+### Readings
+- A
+- B
+- C
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[11a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+TBA
+
+## [11b] Lengthen / Widen
+
+### Topics
+- A
+- B
+- C 
+
+### Readings
+- A
+- B
+- C
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[11b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+TBA
+
+## [11c] Link / Join Data
+
+### Topics
+- A
+- B
+- C
+
+### Readings
+- A
+- B
+- C
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="c_Slides.html" title="[11c] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+### Practice
+TBA
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../10/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 10</a>
+
+  <a href="../12/index.html" class="btn btn-primary" role="button">Week 12&nbsp;&nbsp;&raquo;</a>
+</div>
+```

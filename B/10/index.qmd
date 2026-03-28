@@ -69,6 +69,6 @@ Instructor is traveling (for the final time this semester)
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../../A/06/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 06</a>
 
-  <a href="../B/11/index.html" class="btn btn-primary" role="button">Week 11&nbsp;&nbsp;&raquo;</a>
+  <a href="../11/index.html" class="btn btn-primary" role="button">Week 11&nbsp;&nbsp;&raquo;</a>
 </div>
 ```

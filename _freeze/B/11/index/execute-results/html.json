@@ -1,0 +1,17 @@
+{
+  "hash": "20a99d388ef747b8bf821c8960e1ead5",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Week 11: Reshape\"\nexecute:\n  echo: true\n  eval: true\n---\n\n\n\n## [11a] Summarize / Group\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- A\n- B\n- C\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"a_Slides.html\" title=\"[11a] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\nTBA\n\n## [11b] Lengthen / Widen\n\n### Topics\n- A\n- B\n- C \n\n### Readings\n- A\n- B\n- C\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"b_Slides.html\" title=\"[11b] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\nTBA\n\n## [11c] Link / Join Data\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- A\n- B\n- C\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"c_Slides.html\" title=\"[11c] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\n<!-- Bottom Nav -->\n\n```{=html}\n<div style=\"display: flex; justify-content: space-between; margin-top: 3rem;\">\n  <a href=\"../10/index.html\" class=\"btn btn-outline-primary\" role=\"button\">&laquo;&nbsp;&nbsp;Week 10</a>\n\n  <a href=\"../12/index.html\" class=\"btn btn-primary\" role=\"button\">Week 12&nbsp;&nbsp;&raquo;</a>\n</div>\n```\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
