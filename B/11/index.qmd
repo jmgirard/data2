@@ -229,14 +229,12 @@ weather |>
 ## [11c] Link / Join Data
 
 ### Topics
-- A
-- B
-- C
+- Understand the principles of relational data and keys
+- Conceptually differentiate mutating join types
+- Perform joins in R using {dplyr} functions
 
 ### Readings
-- A
-- B
-- C
+- R4DS (2E) Chapter 19: [Joins](https://r4ds.hadley.nz/joins.html){target="_blank"}
 
 ### Slides
 ```{=html}
@@ -249,7 +247,68 @@ weather |>
 :::
 
 ### Practice
-TBA
+
+#### 1) Weather and Delays
+
+To prepare for an analysis of the relationship between weather and departure delays, link the `flights` and `weather` datasets (from the nycflights13 package) and add the weather variables to the flights dataset. Treat the following variables as key variables: year, month, day, hour, and origin.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| message: false
+
+library(tidyverse)
+library(nycflights13)
+
+data("flights", package = "nycflights13")
+data("weather", package = "nycflights13")
+
+flights |> 
+  left_join(weather, by = join_by(year, month, day, hour, origin))
+```
+
+{{< dstop >}}
+
+#### 2) Aircraft Specs for Long Hauls
+
+What kind of hardware is flying into Honolulu (HNL)? Retrieve the seating capacity and the manufacturer for every flight that flew to that destination. 
+
+*Hint: Start by filtering down to flights destined for HNL; then add the manufacturer and seats data for those specific aircraft; then select down to month, day, flight, tailnum, manufacturer, and seats.*
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+data("planes", package = "nycflights13")
+
+flights |> 
+  filter(dest == "HNL") |> 
+  left_join(planes, by = "tailnum") |> 
+  select(month, day, flight, tailnum, manufacturer, seats)
+```
+
+{{< dstop >}}
+
+#### 3) The High-Altitude Filter
+
+Let's isolate flights traveling to high-altitude territory. Create a dataset that only contains flights that landed at airports located 5,000 feet or higher above sea level.
+
+*Hint: Use an inner join to keep only the flights where the destination airport exists in a pre-filtered list of high-altitude airports.*
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+data("airports", package = "nycflights13")
+
+high_alt_airports <- 
+  airports |> 
+  filter(alt >= 5000)
+
+flights |> 
+  select(flight, dest) |> 
+  inner_join(high_alt_airports, by = join_by(dest == faa))
+```
+
+{{< dstop >}}
 
 <!-- Bottom Nav -->
 
