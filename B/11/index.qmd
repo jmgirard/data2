@@ -37,8 +37,6 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ### Practice
 
-### Practice
-
 #### 1) Summarizing Data
 
 Using the `mpg` dataset (included with the tidyverse), calculate summary statistics for vehicle fuel efficiency.
