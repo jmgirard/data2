@@ -63,12 +63,12 @@ knitr::opts_chunk$set(collapse = TRUE)
 ### Practice
 
 
-## [12c] Dates
+## [12c] Dates & Times
 
 ### Topics
-- A
-- B
-- C
+- Parse strings and build dates from individual components
+- Extract, round, and modify date-time components
+- Understand periods, durations, and intervals for time spans
 
 ### Readings
 - R4DS (2E) Chapter 17: [Dates and times](https://r4ds.hadley.nz/datetimes.html){target="_blank"}

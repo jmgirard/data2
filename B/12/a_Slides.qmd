@@ -124,18 +124,7 @@ df <-
 ## Combining Strings
 
 ::: {.fsmaller}
-We can use `str_c()` to concatenate two or more vectors of strings.
-:::
-
-```{r}
-df |> 
-  mutate(full_name = str_c(first, " ", last))
-```
-
-## String Interpolation
-
-::: {.fsmaller}
-**Question:** *Is there an easier way to mix variables and text?*
+**Question:** *How can we flexibly combine strings?*
 
 Yes, `str_glue()` lets us insert R variables directly into a string using curly braces `{}`. This is often much easier to read than `str_c()`.
 :::
@@ -230,10 +219,6 @@ df <-
 
 ## Separating Columns
 
-::: {.fsmaller}
-The `separate_wider_delim()` function breaks a column apart based on a specific character delimiter.
-:::
-
 ```{r}
 df |> 
   separate_wider_delim(
@@ -246,7 +231,7 @@ df |>
 ## Lengthening Columns
 
 ::: {.fsmaller}
-**Question:** *What if a messy column contains multiple observations that should be separate rows?*
+**Question:** *Can we separate into rows instead of columns?*
 :::
 
 ```{r}
@@ -260,10 +245,6 @@ df <-
 
 ## Lengthening Columns
 
-::: {.fsmaller}
-The `separate_longer_delim()` function breaks a column apart and creates a new row for each piece. This is essential for creating tidy data!
-:::
-
 ```{r}
 df |> 
   separate_longer_delim(
@@ -276,22 +257,13 @@ df |>
 
 ::: {.fsmaller}
 **Question:** *Why is this useful in data science?*
-
-Organizations constantly embed important metadata inside complex ID codes or filenames.
 :::
 
 ```{r}
-df <- 
-  tibble(sku = c("US-APP-2023-11", "CA-BAN-2024-01")) |> 
-  print()
+df <- tibble(sku = c("US-APP-2023-11", "CA-BAN-2024-01"))
 ```
 
-## Real-World Application
-
-::: {.fsmaller}
-We can easily break these codes apart to analyze their components, such as finding the country of origin and the product code.
-:::
-
+:::{.fragment}
 ```{r}
 df |> 
   separate_wider_delim(
@@ -300,6 +272,7 @@ df |>
     delim = "-"
   )
 ```
+:::
 
 # Regular Expressions
 
@@ -371,7 +344,7 @@ str_view(x, "e$")
 
 :::
 
-## Wildcards
+## Examples
 
 ```{r}
 x <- c("sun", "sand", "soon", "July 4", "2026")
@@ -386,8 +359,7 @@ str_view(
   pattern = "s.n"
 )
 ```
-:::
-:::{.column .fragment}
+:::{.fragment}
 ```{r}
 # One or More Wildcards
 str_view(
@@ -397,15 +369,8 @@ str_view(
 ```
 :::
 :::
-
-## Shortcuts
-
-```{r}
-x <- c("sun", "sand", "soon", "July 4", "2026")
-```
-
-:::{.columns .mt1}
-:::{.column }
+:::{.column}
+:::{.fragment}
 ```{r}
 # Spaces
 str_view(
@@ -414,7 +379,7 @@ str_view(
 )
 ```
 :::
-:::{.column .fragment}
+:::{.fragment}
 ```{r}
 # Exactly 4 digits
 str_view(
@@ -422,6 +387,7 @@ str_view(
   pattern = "\\d{4}"
 )
 ```
+:::
 :::
 :::
 
@@ -518,8 +484,8 @@ writeLines(x)
 
 :::{.fragment}
 ```{r}
-# Remove outer (starting and ending) whitespace only
-str_trim(x)
+# Forcibly remove all whitespace
+str_remove_all(x, "\\s")
 ```
 :::
 

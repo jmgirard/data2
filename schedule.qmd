@@ -53,7 +53,7 @@ toc: false
 - Week 12: [Specialize](B/12/index.qmd)
     a. Strings
     b. Factors
-    c. Dates
+    c. Dates & Times
 - Week 13: [Visualize](B/13/index.qmd)
     a. Facets
     b. Coordinates

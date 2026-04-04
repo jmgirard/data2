@@ -11,8 +11,7 @@ format:
 # [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
 
 ::: {.my-grey}
-[{{< meta semester >}} |
-{{< meta course >}}]{}<br />
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
 [Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
 :::
 
@@ -27,6 +26,7 @@ library(here)
 source(here("_common.R"))
 
 library(tidyverse)
+library(nycflights13)
 
 options(
   tibble.print_max = 6,
@@ -35,3 +35,460 @@ options(
 
 set_theme(theme_gray(base_size = 24))
 ```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Parse strings and build dates from individual components
+
+- Extract, round, and modify date-time components
+
+- Understand periods, durations, and intervals for time spans
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Creating Dates & Times
+
+## What are Dates and Times? {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Question:** *Why not just use strings for dates?*
+
+-   [Dates and Times]{.b .blue} are special data types that understand the rules of the calendar and the clock.
+-   Unlike strings, they know that leap years exist, how many days are in each month, and how to do math with time.
+
+::: {.fragment .mt1}
+-   We use the {lubridate} package (part of the {tidyverse}) to work with them.
+-   There are three main types to know: a date, a time, and a date-time (which contains both).
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/calendar.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Current Date and Time
+
+::: {.fsmaller}
+**Question:** *How can I get the current date or time in R?*
+:::
+
+```{r}
+# Get the current date
+today()
+```
+
+```{r}
+# Get the current date AND time
+now()
+```
+
+::: {.aside}
+**Note:** R defaults to the **YYYY-MM-DD** format (the ISO 8601 international standard). This completely avoids the ambiguity between US and European date formats and ensures that dates sort chronologically even when they are treated as plain text!
+:::
+
+## Parsing Dates from Strings
+
+::: {.fsmaller}
+**Question:** *How do I convert a character string into a proper Date object?*
+
+We can build them from strings using the matching {lubridate} function.
+:::
+
+```{r}
+# Year, Month, Day
+ymd("2026-04-06")
+```
+
+:::{.fragment}
+```{r}
+# Month, Day, Year (even handles suffixes and commas)
+mdy("April 6th, 2026")
+```
+:::
+
+:::{.fragment}
+```{r}
+# Day, Month, Year
+dmy("06-Apr-2026")
+```
+:::
+
+## Parsing Date-Times
+
+::: {.fsmaller}
+**Question:** *What if my string also includes the time?*
+:::
+
+```{r}
+ymd_hm("2026-04-06 16:00") # assumes SS=00 and UTC time zone
+```
+
+```{r}
+ymd_hms("2026-04-06 16:00:42") # assumes UTC time zone
+```
+
+```{r}
+ymd_hms("2026-04-06 16:00:42", tz = "US/Central") # fully explicit
+```
+
+:::{.aside}
+**Note:** You can view all the time zone names using the `OlsonNames()` function
+:::
+
+## Building from Components
+
+::: {.fsmaller}
+Sometimes your data has the date components spread across multiple columns. We will use the `flights` dataset to see this in action.
+:::
+
+```{r}
+#| message: false
+
+data("flights", package = "nycflights13")
+
+flights_dt <- flights |> 
+  select(year, month, day, hour, minute, dep_delay) |> 
+  print()
+```
+
+## Making Dates and Date-Times
+
+::: {.fsmaller}
+**Question:** *How do I combine separate columns into one date variable?*
+:::
+
+```{r}
+flights_dt <- flights_dt |> 
+  mutate(
+    date = make_date(year, month, day),
+    datetime = make_datetime(year, month, day, hour, minute)
+  ) |> 
+  print(n = 5)
+```
+
+# Working with Components
+
+## Pulling out Pieces
+
+::: {.fsmaller}
+**Question:** *How do I get just the month or day out of a date-time?*
+:::
+
+```{r}
+# Start with a single date-time
+my_datetime <- ymd_hms("2016-07-08 12:34:56")
+```
+
+:::{.fragment}
+```{r}
+year(my_datetime) # Year
+month(my_datetime) # Month (number)
+mday(my_datetime) # Day of the month
+```
+:::
+
+## Getting Labels
+
+::: {.fsmaller}
+**Question:** *Can I get the actual name of the month or weekday?*
+
+Yes, set `label = TRUE` to return a factor instead of a number.
+:::
+
+```{r}
+# Get the month label
+month(my_datetime, label = TRUE)
+```
+
+:::{.fragment}
+```{r}
+# Get the weekday label
+wday(my_datetime, label = TRUE)
+```
+:::
+
+## Visualizing Weekdays
+
+::: {.fsmaller}
+Extracting components is incredibly useful for summaries and plots.
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+# Which weekdays had the most flights?
+flights_dt |> 
+  mutate(
+    weekday = wday(date, label = TRUE),
+    weekday = fct_infreq(weekday)
+  ) |> 
+  ggplot(aes(x = weekday)) + 
+  geom_bar()
+```
+
+## Summarizing by Time
+
+```{r}
+# Calculate average departure delay per weekday
+flights_dt |> 
+  mutate(weekday = wday(date, label = TRUE)) |> 
+  summarize(
+    .by = weekday,
+    m_delay = mean(dep_delay, na.rm = TRUE)
+  ) |> 
+  arrange(m_delay) |> 
+  print(n = 7)
+```
+
+## Rounding Dates
+
+::: {.fsmaller}
+**Question:** *How can I group dates together by week or month?*
+:::
+
+```{r}
+# Round down to the nearest week
+floor_date(my_datetime, unit = "week")
+```
+
+:::{.fragment}
+```{r}
+# Round to the nearest month
+round_date(my_datetime, unit = "month")
+```
+:::
+
+:::{.fragment}
+```{r}
+# Round up to the nearest year
+ceiling_date(my_datetime, unit = "year")
+```
+:::
+
+## Visualizing Rounded Dates
+
+::: {.fsmaller}
+Rounding dates allows us to aggregate and plot data over time. Notice that the x-axis includes the year, which is redundant since it's always 2013!
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+flights_dt |> 
+  mutate(
+    month = floor_date(
+      date, 
+      unit = "month"
+    )
+  ) |> 
+  ggplot(aes(x = month)) + 
+  geom_bar()
+```
+
+## Formatting Date Axes
+
+::: {.fsmaller}
+**Question:** *How can I format the date labels on a plot's axis?*
+
+Use `scale_x_date()` with the `date_labels` argument. You can use special `%` codes to format the dates (e.g., `%b` for abbreviated month names).
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+flights_dt |> 
+  mutate(
+    month = floor_date(
+      date, 
+      unit = "month"
+    )
+  ) |> 
+  ggplot(aes(x = month)) + 
+  geom_bar() +
+  scale_x_date(date_labels = "%b") 
+```
+
+## Common Date Formats
+
+::: {.fsmaller}
+When formatting dates for plots or parsing tricky strings, you will use special `%` codes to represent different calendar components. 
+
+| Code | Meaning | Example |
+|:---|:---|:---|
+| `%Y` | 4-digit year | "2026" |
+| `%y` | 2-digit year | "26" |
+| `%m` | Month as a number | "04" |
+| `%B` | Full month name | "April" |
+| `%b` | Abbreviated month | "Apr" |
+| `%d` | Day of the month | "06" |
+
+:::
+
+
+# Time Spans
+
+## Three Types of Time Spans
+
+::: {.fsmaller}
+When doing math with time, R provides three different classes of time spans. Picking the right one depends on what you are trying to calculate.
+
+1.  **Periods**: Represent "human" units of time like weeks and months.
+2.  **Durations**: Represent an exact mathematical span of seconds.
+3.  **Intervals**: Represent a specific span between a start and end point.
+
+:::
+
+## Periods
+
+::: {.fsmaller}
+Periods use human logic, e.g., if you add one month to Jan 15, you get Feb 15th
+:::
+
+```{r}
+# Periods use plural functions
+days(7)
+months(2)
+```
+
+:::{.fragment}
+```{r}
+# We can add periods to a starting date
+today() + days(7)
+```
+:::
+
+## Durations
+
+::: {.fsmaller}
+Durations use strict math. They are always tracked in exact seconds. A duration year is exactly 365.25 days of seconds.
+:::
+
+```{r}
+# Durations are prefixed with a 'd'
+ddays(7)
+dyears(1)
+```
+
+:::{.fragment}
+```{r}
+# Because they are exact seconds, you can easily do math with them
+2 * dyears(1)
+```
+:::
+
+## The DST Trap
+
+::: {.fsmaller}
+**Question:** *Why do we need both Periods and Durations?*
+
+Because human clocks are messy! Consider Daylight Saving Time.
+:::
+
+```{r}
+# 1 AM on the day we "spring forward" in the US
+one_am <- ymd_hms("2026-03-08 01:00:00", tz = "America/New_York")
+```
+
+:::{.fragment}
+```{r}
+# Adding a Period respects human clocks (we stay at 1 AM the next day)
+one_am + days(1)
+```
+:::
+
+:::{.fragment}
+```{r}
+# Adding a Duration adds exactly 86,400 seconds (shifts us to 2 AM)
+one_am + ddays(1)
+```
+:::
+
+## Intervals
+
+::: {.fsmaller}
+**Question:** *How do I calculate the exact time span between two dates?*
+
+An `interval` represents a span of time between two specific points. R handles all the complex leaps and bounds of the calendar for you.
+:::
+
+```{r}
+# Create an interval from a start date to an end day
+my_interval <- interval(start = ymd("1987-05-30"), end = today())
+my_interval
+```
+
+:::{.fragment}
+```{r}
+# Divide the interval by a duration to get a number
+my_interval / years(1)
+```
+:::
+
+## Interval Math
+
+::: {.fsmaller}
+You can divide an interval by different units depending on what you want.
+:::
+
+```{r}
+# How many months has it been?
+my_interval / months(1)
+```
+
+:::{.fragment}
+```{r}
+# How many days has it been?
+my_interval / days(1)
+```
+:::
+
+:::{.fragment}
+```{r}
+# How many hours has it been?
+my_interval / hours(1)
+```
+:::
+
+## Dealing with Just Times
+
+::: {.fsmaller}
+**Question:** *What if I just have a time, not a date?*
+
+The {hms} package is great for parsing and doing math with standalone times.
+:::
+
+```{r}
+library(hms)
+
+# Parse time strings
+time1 <- parse_hms("12:34:56")
+time2 <- parse_hms("12:56:34")
+
+# Subtracting times yields a 'difftime' object
+time2 - time1
+```
+
+:::{.fragment}
+```{r}
+# You can force the unit to be seconds, mins, or hours
+difftime(time2, time1, units = "mins")
+```
+:::
