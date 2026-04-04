@@ -2,11 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jmgirard.github.io/data2/schedule.html</loc>
-    <lastmod>2026-03-28T14:00:15.144Z</lastmod>
+    <lastmod>2026-04-04T14:27:46.702Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/B/12/index.html</loc>
+    <lastmod>2026-04-04T18:19:27.246Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/B/12/b_Slides.html</loc>
+    <lastmod>2026-04-04T18:20:04.875Z</lastmod>
   </url>
   <url>
     <loc>https://jmgirard.github.io/data2/B/11/index.html</loc>
-    <lastmod>2026-03-28T19:07:10.045Z</lastmod>
+    <lastmod>2026-03-30T18:34:39.838Z</lastmod>
   </url>
   <url>
     <loc>https://jmgirard.github.io/data2/B/11/b_Slides.html</loc>
@@ -135,6 +143,14 @@
   <url>
     <loc>https://jmgirard.github.io/data2/B/11/c_Slides.html</loc>
     <lastmod>2026-03-28T19:06:05.121Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/B/12/a_Slides.html</loc>
+    <lastmod>2026-04-04T18:17:43.480Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jmgirard.github.io/data2/B/12/c_Slides.html</loc>
+    <lastmod>2026-04-04T18:20:14.495Z</lastmod>
   </url>
   <url>
     <loc>https://jmgirard.github.io/data2/index.html</loc>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 02: Start – DATA2</title>
+<title>Week 12: Specialize – DATA2</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -222,21 +187,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-rstudio-console" id="toc-a-rstudio-console" class="nav-link active" data-scroll-target="#a-rstudio-console">[02a] RStudio / Console</a>
+  <li><a href="#a-strings" id="toc-a-strings" class="nav-link active" data-scroll-target="#a-strings">[12a] Strings</a>
   <ul class="collapse">
   <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
   </ul></li>
-  <li><a href="#b-scripts-projects" id="toc-b-scripts-projects" class="nav-link" data-scroll-target="#b-scripts-projects">[02b] Scripts / Projects</a>
+  <li><a href="#b-factors" id="toc-b-factors" class="nav-link" data-scroll-target="#b-factors">[12b] Factors</a>
   <ul class="collapse">
   <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
   <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
   <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
   <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
   </ul></li>
-  <li><a href="#c-quarto-markdown" id="toc-c-quarto-markdown" class="nav-link" data-scroll-target="#c-quarto-markdown">[02c] Quarto / Markdown</a>
+  <li><a href="#c-dates" id="toc-c-dates" class="nav-link" data-scroll-target="#c-dates">[12c] Dates</a>
   <ul class="collapse">
   <li><a href="#topics-2" id="toc-topics-2" class="nav-link" data-scroll-target="#topics-2">Topics</a></li>
   <li><a href="#readings-2" id="toc-readings-2" class="nav-link" data-scroll-target="#readings-2">Readings</a></li>
@@ -251,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 02: Start</h1>
+<h1 class="title">Week 12: Specialize</h1>
 </div>
 
 
@@ -268,25 +233,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="a-rstudio-console" class="level2">
-<h2 class="anchored" data-anchor-id="a-rstudio-console">[02a] RStudio / Console</h2>
+<section id="a-strings" class="level2">
+<h2 class="anchored" data-anchor-id="a-strings">[12a] Strings</h2>
 <section id="topics" class="level3">
 <h3 class="anchored" data-anchor-id="topics">Topics</h3>
 <ul>
-<li>Install R and RStudio on your laptop computer</li>
-<li>Learn to use the R Console as a scientific calculator</li>
+<li>Understand how R handles strings and special characters</li>
+<li>Combine, separate, and extract parts of text data</li>
+<li>Use regular expressions to detect and replace patterns within strings</li>
 </ul>
 </section>
 <section id="readings" class="level3">
 <h3 class="anchored" data-anchor-id="readings">Readings</h3>
 <ul>
-<li>R4DS (2E) Chapter 0: <a href="https://r4ds.hadley.nz/intro.html" target="_blank">Introduction</a></li>
-<li>R4DS (2E) Section 1.1: <a href="https://r4ds.hadley.nz/workflow-basics.html#coding-basics" target="_blank">Coding basics</a></li>
+<li>R4DS (2E) Chapter 14: <a href="https://r4ds.hadley.nz/strings.html" target="_blank">Strings</a></li>
+<li>R4DS (2E) Chapter 15: <a href="https://r4ds.hadley.nz/regexps.html" target="_blank">Regular Expressions</a></li>
 </ul>
 </section>
 <section id="slides" class="level3">
 <h3 class="anchored" data-anchor-id="slides">Slides</h3>
-<iframe class="slide-deck" src="a_Slides.html" title="[02a] Slideshow">
+<iframe class="slide-deck" src="a_Slides.html" title="[12a] Slideshow">
 </iframe>
 <div class="fsmaller">
 <p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
@@ -294,55 +260,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice" class="level3">
 <h3 class="anchored" data-anchor-id="practice">Practice</h3>
-<section id="rstudio" class="level4">
-<h4 class="anchored" data-anchor-id="rstudio">1) RStudio</h4>
-<p>There are many ways to customize the RStudio interface. To explore the possibilities, go to <strong>Tools</strong> &gt; <strong>Global Options</strong>. The most noticeable things you can change are aspects of RStudio’s appearance. If you click on the <em>Appearance</em> section, you can select a different zoom level, editor font, font size, and editor theme. I usually teach with the default settings and you can keep everything the same if you want your computer to match the one I teach from, but for my own work I use the “Tomorrow Night 80s” theme and a custom font called <a href="https://affcom.ku.edu/posts/firacode/">Fira Code</a>. I also make slight changes to the <em>Pane Layout</em> section that I’d be happy to describe to you in class if you’re interested.</p>
-<p>All of this stuff is optional, but a few changes that I’d recommend making are to go to the <em>General</em> section and make sure that “Restore .RData into workspace at startup” is unchecked and that “Save workspace to .RData on exit” is set to “Never”. Finally, under the <em>Code</em> section and the Display tab, I like to check the box for “Allow scroll past end of document”.</p>
-</section>
-<section id="console" class="level4">
-<h4 class="anchored" data-anchor-id="console">2) Console</h4>
-<p>Read what the user wanted to do and look at the command they sent to R. Fix the errors in the commands and calculate the answers.</p>
-<ol type="a">
-<li>I want to add 20 and 0.2 and divide that sum by 4.1. But I get an error when I try:<br><code>[20 + .2] \ 4.1</code></li>
-<li>I want to multiply 6 by the sum of 2 and 1,300. But I get an error when I try:<br><code>6 x (2 + 1,300)</code></li>
-</ol>
-<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<p><strong>Answer (a)</strong></p>
-<p>Change the brackets <code>[]</code> to parentheses <code>()</code> because parentheses <code>()</code> are the order-of-operations operator in R. Also, change the backslash <code>\</code> to a forward slash <code>/</code> because forward slash <code>/</code> is the division operator in R.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">20</span> <span class="sc">+</span> .<span class="dv">2</span>) <span class="sc">/</span> <span class="fl">4.1</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.926829</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>Answer (b)</strong></p>
-<p>Change the <code>x</code> to an asterisk <code>*</code> because asterisk <code>*</code> is the multiplication operator in R. Also, remove the comma <code>,</code> from <code>1,300</code> because R doesn’t use commas to delimit digits in large numbers.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">+</span> <span class="dv">1300</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7812</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p></p></blockquote></details><p></p><p></p>
 </section>
 </section>
-</section>
-<section id="b-scripts-projects" class="level2">
-<h2 class="anchored" data-anchor-id="b-scripts-projects">[02b] Scripts / Projects</h2>
+<section id="b-factors" class="level2">
+<h2 class="anchored" data-anchor-id="b-factors">[12b] Factors</h2>
 <section id="topics-1" class="level3">
 <h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
 <ul>
-<li>Write Scripts and Comments to store and explain R code</li>
-<li>Create and use RStudio Projects to organize all your files</li>
+<li>A</li>
+<li>B</li>
+<li>C</li>
 </ul>
 </section>
 <section id="readings-1" class="level3">
 <h3 class="anchored" data-anchor-id="readings-1">Readings</h3>
 <ul>
-<li>R4DS (2E) Section 6.1: <a href="https://r4ds.hadley.nz/workflow-scripts.html#scripts" target="_blank">Scripts</a></li>
-<li>R4DS (2E) Section 2.2: <a href="https://r4ds.hadley.nz/workflow-basics.html#comments" target="_blank">Comments</a></li>
-<li>R4DS (2E) Section 6.2: <a href="https://r4ds.hadley.nz/workflow-scripts.html#projects" target="_blank">Projects</a></li>
+<li>R4DS (2E) Chapter 16: <a href="https://r4ds.hadley.nz/factors.html" target="_blank">Factors</a></li>
 </ul>
 </section>
 <section id="slides-1" class="level3">
 <h3 class="anchored" data-anchor-id="slides-1">Slides</h3>
-<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+<iframe class="slide-deck" src="b_Slides.html" title="[12b] Slideshow">
 </iframe>
 <div class="fsmaller">
 <p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
@@ -350,51 +288,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-1" class="level3">
 <h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
-<section id="scripts" class="level4">
-<h4 class="anchored" data-anchor-id="scripts">1) Scripts</h4>
-<p>Create a new R script file and copy your answers to Question 2 into it. Add some comments to explain which line of code corresponds to 2a and 2b. I’ll talk about this more later on, but it is a good idea to get into the practice of keeping your code organized and commented. Organized code will also make grading easier, and a happy grader is associated with a happy student. 😉</p>
-<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## File &gt; New File &gt; R Script (or equivalent shortcuts)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 2a</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">20</span> <span class="sc">+</span> .<span class="dv">2</span>) <span class="sc">/</span> <span class="fl">4.1</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 2b</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">+</span> <span class="dv">1300</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## File &gt; Save (or equivalent shortcuts)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p></p></blockquote></details><p></p><p></p>
-</section>
-<section id="projects" class="level4">
-<h4 class="anchored" data-anchor-id="projects">2) Projects</h4>
-<p>If you haven’t already, create an RStudio Project for this entire course. Name it whatever makes sense to you (e.g., <code>PSYC 399</code> or <code>Data2</code>) and save it somewhere convenient on your computer (e.g., in a OneDrive/Dropbox/Box folder or on your desktop). Think about how you will organize and name your files in this project folder. Will you save your notes in one Quarto document per day or per week or something else? Will you have a consistent naming system for the files based on lecture numbers (e.g., <code>02b Notes.qmd</code> and <code>02 Homework.qmd</code>) or dates (e.g., <code>01-25 Notes.qmd</code>) or something else?</p>
 </section>
 </section>
-</section>
-<section id="c-quarto-markdown" class="level2">
-<h2 class="anchored" data-anchor-id="c-quarto-markdown">[02c] Quarto / Markdown</h2>
+<section id="c-dates" class="level2">
+<h2 class="anchored" data-anchor-id="c-dates">[12c] Dates</h2>
 <section id="topics-2" class="level3">
 <h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
 <ul>
-<li>Create self-contained data science reports using Quarto documents</li>
-<li>Include Markdown commands to format your Quarto documents</li>
+<li>A</li>
+<li>B</li>
+<li>C</li>
 </ul>
 </section>
 <section id="readings-2" class="level3">
 <h3 class="anchored" data-anchor-id="readings-2">Readings</h3>
 <ul>
-<li>R4DS (2E) Section 28.1: <a href="https://r4ds.hadley.nz/quarto.html#introduction" target="_blank">Introduction</a></li>
-<li>R4DS (2E) Section 28.2: <a href="https://r4ds.hadley.nz/quarto.html#quarto-basics" target="_blank">Basics</a></li>
-<li>R4DS (2E) Section 28.3: <a href="https://r4ds.hadley.nz/quarto.html#visual-editor" target="_blank">Visual Editor</a></li>
-<li>R4DS (2E) Section 28.4: <a href="https://r4ds.hadley.nz/quarto.html#sec-source-editor" target="_blank">Source Editor</a></li>
-<li>R4DS (2E) Section 28.10.1: <a href="https://r4ds.hadley.nz/quarto.html#self-contained" target="_blank">Self-contained</a></li>
+<li>R4DS (2E) Chapter 17: <a href="https://r4ds.hadley.nz/datetimes.html" target="_blank">Dates and times</a></li>
 </ul>
 </section>
 <section id="slides-2" class="level3">
 <h3 class="anchored" data-anchor-id="slides-2">Slides</h3>
-<iframe class="slide-deck" src="c_Slides.html" title="[02c] Slideshow">
+<iframe class="slide-deck" src="c_Slides.html" title="[12c] Slideshow">
 </iframe>
 <div class="fsmaller">
 <p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
@@ -402,51 +316,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-2" class="level3">
 <h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
-<section id="quarto" class="level4">
-<h4 class="anchored" data-anchor-id="quarto">1) Quarto</h4>
-<p>Create a new Quarto document for this activity and save it in your new project folder with the naming convention you decided on in Question 1. Clear out the boilerplate text and create a new R code chunk. Inside this code chunk, use R as a calculator to answer the following question: If it costs $100 for each professor and $25 for each student to register for a conference, how much would it cost in total for a department of 8 professors and 20 students to register? Check that the code is working by running the chunk. Once it is giving the correct answer, render the Quarto document to an HTML file and preview it in the Viewer.</p>
-<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<p>Your .qmd file should look something like this (the header is optional):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Conference Costs"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">embed-resources:</span><span class="co"> true</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> <span class="dv">8</span> <span class="sc">+</span> <span class="dv">25</span> <span class="sc">*</span> <span class="dv">20</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Your R output should tell you that the total cost would be $1300.</p>
-<p></p></blockquote></details><p></p><p></p>
-</section>
-<section id="markdown" class="level4">
-<h4 class="anchored" data-anchor-id="markdown">2) Markdown</h4>
-<p>Use markdown to add some formatted text before and after the code chunk in your Quarto document. Before the chunk, describe in text what your code chunk is doing and why. Format some of the text using italics, bold, etc. Add an image below the chunk showing people at a conference (e.g., <a href="https://i.imgur.com/houkSmT.jpeg" class="uri">https://i.imgur.com/houkSmT.jpeg</a>)</p>
-<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
-<p>Your .qmd file should look something like this (the header is optional):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Conference Costs"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">embed-resources:</span><span class="co"> true</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>**How much will it cost** to register our *whole department* to attend the conference? With 8 professors and 20 students, at a price of \$100 per professor and \$25 per student, the total cost will be:</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">*</span> <span class="dv">8</span> <span class="sc">+</span> <span class="dv">25</span> <span class="sc">*</span> <span class="dv">20</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://i.imgur.com/houkSmT.jpeg)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p></p></blockquote></details><p></p><p></p>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
-  <a href="../../index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Home</a>
+  <a href="../11/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 11</a>
 
-  <a href="../03/index.html" class="btn btn-primary" role="button">Week 03&nbsp;&nbsp;»</a>
+  <a href="../13/index.html" class="btn btn-primary" role="button">Week 13&nbsp;&nbsp;»</a>
 </div>
 
 
-</section>
 </section>
 </section>
 
