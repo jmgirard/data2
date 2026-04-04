@@ -302,32 +302,14 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <section class="slide level2">
 <h2>Combining Strings</h2>
 <div class="fsmaller">
-<p>We can use <code>str_c()</code> to concatenate two or more vectors of strings.</p>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">full_name =</span> <span class="fu">str_c</span>(first, <span class="st">" "</span>, last))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 3
-  first last    full_name    
-  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        
-1 John  Doe     John Doe     
-2 Jane  Smith   Jane Smith   
-3 Alice Johnson Alice Johnson</code></pre>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>String Interpolation</h2>
-<div class="fsmaller">
-<p><strong>Question:</strong> <em>Is there an easier way to mix variables and text?</em></p>
+<p><strong>Question:</strong> <em>How can we flexibly combine strings?</em></p>
 <p>Yes, <code>str_glue()</code> lets us insert R variables directly into a string using curly braces <code>{}</code>. This is often much easier to read than <code>str_c()</code>.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">greeting =</span> <span class="fu">str_glue</span>(<span class="st">"Hello, {first} {last}! Welcome back."</span>)</span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">greeting =</span> <span class="fu">str_glue</span>(<span class="st">"Hello, {first} {last}! Welcome back."</span>)</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   first last    greeting                           
@@ -345,10 +327,10 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p>We can use <code>str_flatten()</code> to combine a vector of multiple strings into one single string. We can also specify a separator.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">all_names =</span> <span class="fu">str_flatten</span>(first, <span class="at">collapse =</span> <span class="st">", "</span>)</span>
-<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">all_names =</span> <span class="fu">str_flatten</span>(first, <span class="at">collapse =</span> <span class="st">", "</span>)</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   all_names        
@@ -363,16 +345,16 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p><strong>Question:</strong> <em>Which carriers operate out of each NYC airport?</em></p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"flights"</span>, <span class="at">package =</span> <span class="st">"nycflights13"</span>)</span>
-<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> origin,                   <span class="co"># For each origin airport...</span></span>
-<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">carriers =</span> </span>
-<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>      carrier <span class="sc">|&gt;</span>                    <span class="co"># Find its active carriers</span></span>
-<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">unique</span>() <span class="sc">|&gt;</span>                   <span class="co"># Remove all duplicates</span></span>
-<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">sort</span>() <span class="sc">|&gt;</span>                     <span class="co"># Sort them alphanumerically</span></span>
-<span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_flatten</span>(<span class="at">collapse =</span> <span class="st">", "</span>)  <span class="co"># Flatten them into one string</span></span>
-<span id="cb15-10"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"flights"</span>, <span class="at">package =</span> <span class="st">"nycflights13"</span>)</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> origin,                   <span class="co"># For each origin airport...</span></span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">carriers =</span> </span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a>      carrier <span class="sc">|&gt;</span>                    <span class="co"># Find its active carriers</span></span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">unique</span>() <span class="sc">|&gt;</span>                   <span class="co"># Remove all duplicates</span></span>
+<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">sort</span>() <span class="sc">|&gt;</span>                     <span class="co"># Sort them alphanumerically</span></span>
+<span id="cb13-9"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_flatten</span>(<span class="at">collapse =</span> <span class="st">", "</span>)  <span class="co"># Flatten them into one string</span></span>
+<span id="cb13-10"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   origin carriers                                          
@@ -394,12 +376,12 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p><strong>Question:</strong> <em>How do we extract a specific range of characters?</em></p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Hex color codes use #RRGGBB for red, green, and blue intensities</span></span>
-<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">hex =</span> <span class="fu">c</span>(<span class="st">"#FF0000"</span>, <span class="st">"#00FF00"</span>, <span class="st">"#0000FF"</span>)</span>
-<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Hex color codes use #RRGGBB for red, green, and blue intensities</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">hex =</span> <span class="fu">c</span>(<span class="st">"#FF0000"</span>, <span class="st">"#00FF00"</span>, <span class="st">"#0000FF"</span>)</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 1
   hex    
@@ -416,12 +398,12 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p>We use <code>str_sub()</code>, which takes a <code>start</code> and <code>end</code> position. We can even use negative numbers to count backward from the end of the string.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">red =</span> <span class="fu">str_sub</span>(hex, <span class="at">start =</span> <span class="dv">2</span>, <span class="at">end =</span> <span class="dv">3</span>),     <span class="co"># 2 from left to 3 from left </span></span>
-<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">green =</span> <span class="fu">str_sub</span>(hex, <span class="at">start =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">3</span>), <span class="co"># 4 from right to 3 from right</span></span>
-<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">blue =</span> <span class="fu">str_sub</span>(hex, <span class="at">start =</span> <span class="dv">6</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">1</span>)    <span class="co"># 6 from left to 1 from right</span></span>
-<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">red =</span> <span class="fu">str_sub</span>(hex, <span class="at">start =</span> <span class="dv">2</span>, <span class="at">end =</span> <span class="dv">3</span>),     <span class="co"># 2 from left to 3 from left </span></span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">green =</span> <span class="fu">str_sub</span>(hex, <span class="at">start =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">3</span>), <span class="co"># 4 from right to 3 from right</span></span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">blue =</span> <span class="fu">str_sub</span>(hex, <span class="at">start =</span> <span class="dv">6</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">1</span>)    <span class="co"># 6 from left to 1 from right</span></span>
+<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   hex     red   green blue 
@@ -438,12 +420,12 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p><strong>Question:</strong> <em>How do we split one messy column into multiple clean ones?</em></p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">blood_pressure =</span> <span class="fu">c</span>(<span class="st">"120/80"</span>, <span class="st">"135/90"</span>, <span class="st">"110/70"</span>)</span>
-<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">blood_pressure =</span> <span class="fu">c</span>(<span class="st">"120/80"</span>, <span class="st">"135/90"</span>, <span class="st">"110/70"</span>)</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
      id blood_pressure
@@ -456,16 +438,13 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Separating Columns</h2>
-<div class="fsmaller">
-<p>The <code>separate_wider_delim()</code> function breaks a column apart based on a specific character delimiter.</p>
-</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
-<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> blood_pressure,              <span class="co"># original/messy col name</span></span>
-<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">"/"</span>,                        <span class="co"># character to separate on</span></span>
-<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"systolic"</span>, <span class="st">"diastolic"</span>)  <span class="co"># new col names to create</span></span>
-<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> blood_pressure,              <span class="co"># original/messy col name</span></span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">"/"</span>,                        <span class="co"># character to separate on</span></span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"systolic"</span>, <span class="st">"diastolic"</span>)  <span class="co"># new col names to create</span></span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
      id systolic diastolic
@@ -479,15 +458,15 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <section class="slide level2">
 <h2>Lengthening Columns</h2>
 <div class="fsmaller">
-<p><strong>Question:</strong> <em>What if a messy column contains multiple observations that should be separate rows?</em></p>
+<p><strong>Question:</strong> <em>Can we separate into rows instead of columns?</em></p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>),</span>
-<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">classes =</span> <span class="fu">c</span>(<span class="st">"Math, Science"</span>, <span class="st">"History, Art, Math"</span>)</span>
-<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb25-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>),</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">classes =</span> <span class="fu">c</span>(<span class="st">"Math, Science"</span>, <span class="st">"History, Art, Math"</span>)</span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   name  classes           
@@ -499,15 +478,12 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Lengthening Columns</h2>
-<div class="fsmaller">
-<p>The <code>separate_longer_delim()</code> function breaks a column apart and creates a new row for each piece. This is essential for creating tidy data!</p>
-</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_longer_delim</span>(</span>
-<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> classes, </span>
-<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">", "</span></span>
-<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_longer_delim</span>(</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> classes, </span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">", "</span></span>
+<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   name  classes
@@ -524,39 +500,25 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <h2>Real-World Application</h2>
 <div class="fsmaller">
 <p><strong>Question:</strong> <em>Why is this useful in data science?</em></p>
-<p>Organizations constantly embed important metadata inside complex ID codes or filenames.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">sku =</span> <span class="fu">c</span>(<span class="st">"US-APP-2023-11"</span>, <span class="st">"CA-BAN-2024-01"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 1
-  sku           
-  &lt;chr&gt;         
-1 US-APP-2023-11
-2 CA-BAN-2024-01</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">sku =</span> <span class="fu">c</span>(<span class="st">"US-APP-2023-11"</span>, <span class="st">"CA-BAN-2024-01"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</section>
-<section class="slide level2">
-<h2>Real-World Application</h2>
-<div class="fsmaller">
-<p>We can easily break these codes apart to analyze their components, such as finding the country of origin and the product code.</p>
-</div>
+<div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
-<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> sku, </span>
-<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"product"</span>, <span class="st">"year"</span>, <span class="st">"month"</span>), </span>
-<span id="cb31-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">"-"</span></span>
-<span id="cb31-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> sku, </span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"product"</span>, <span class="st">"year"</span>, <span class="st">"month"</span>), </span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">"-"</span></span>
+<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   country product year  month
   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;
 1 US      APP     2023  11   
 2 CA      BAN     2024  01   </code></pre>
+</div>
 </div>
 </div>
 </section></section>
@@ -590,10 +552,10 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p>The simplest regex pattern is just an exact match of characters.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"pear"</span>, <span class="st">"pineapple"</span>)</span>
-<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Show me elements that contain "apple"</span></span>
-<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">"apple"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"pear"</span>, <span class="st">"pineapple"</span>)</span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Show me elements that contain "apple"</span></span>
+<span id="cb30-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">"apple"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ &lt;apple&gt;
 [4] │ pine&lt;apple&gt;</code></pre>
@@ -607,13 +569,13 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p>We use anchors. <code>^</code> matches the start of the string, and <code>$</code> matches the end.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Show me elements that START with "a"</span></span>
-<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">"^a"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Show me elements that START with "a"</span></span>
+<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">"^a"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ &lt;a&gt;pple</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Show me elements that </span><span class="re">END</span><span class="co"> with "e"</span></span>
-<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">"e$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Show me elements that </span><span class="re">END</span><span class="co"> with "e"</span></span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">"e$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ appl&lt;e&gt;
 [4] │ pineappl&lt;e&gt;</code></pre>
@@ -642,64 +604,60 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </div>
 </section>
 <section class="slide level2">
-<h2>Wildcards</h2>
+<h2>Examples</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sun"</span>, <span class="st">"sand"</span>, <span class="st">"soon"</span>, <span class="st">"July 4"</span>, <span class="st">"2026"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sun"</span>, <span class="st">"sand"</span>, <span class="st">"soon"</span>, <span class="st">"July 4"</span>, <span class="st">"2026"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="columns mt1">
 <div class="column">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Single Wildcard</span></span>
-<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
-<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
-<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"s.n"</span></span>
-<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Single Wildcard</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
+<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"s.n"</span></span>
+<span id="cb37-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ &lt;sun&gt;
 [2] │ &lt;san&gt;d</code></pre>
 </div>
 </div>
-</div><div class="column fragment">
+<div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># One or More Wildcards</span></span>
-<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
-<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
-<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"s.+n"</span></span>
-<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># One or More Wildcards</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"s.+n"</span></span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ &lt;sun&gt;
 [2] │ &lt;san&gt;d
 [3] │ &lt;soon&gt;</code></pre>
 </div>
 </div>
-</div></div>
-</section>
-<section class="slide level2">
-<h2>Shortcuts</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sun"</span>, <span class="st">"sand"</span>, <span class="st">"soon"</span>, <span class="st">"July 4"</span>, <span class="st">"2026"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="columns mt1">
-<div class="column">
+</div><div class="column">
+<div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Spaces</span></span>
-<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
-<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
-<span id="cb45-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span></span>
-<span id="cb45-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Spaces</span></span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
+<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
+<span id="cb41-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span></span>
+<span id="cb41-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[4] │ July&lt; &gt;4</code></pre>
 </div>
 </div>
-</div><div class="column fragment">
+</div>
+<div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Exactly 4 digits</span></span>
-<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
-<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
-<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d{4}"</span></span>
-<span id="cb47-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Exactly 4 digits</span></span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(</span>
+<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> x, </span>
+<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d{4}"</span></span>
+<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[5] │ &lt;2026&gt;</code></pre>
+</div>
 </div>
 </div>
 </div></div>
@@ -710,9 +668,9 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p><strong>Question:</strong> <em>How do we filter a dataset based on text patterns?</em></p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Ann"</span>, <span class="st">"Andy"</span>, <span class="st">"Amanda"</span>, <span class="st">"Bob"</span>, <span class="st">"Cindy"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Ann"</span>, <span class="st">"Andy"</span>, <span class="st">"Amanda"</span>, <span class="st">"Bob"</span>, <span class="st">"Cindy"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   name  
@@ -733,11 +691,11 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Is "an" or "An" detected?</span></span>
-<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">match =</span> <span class="fu">str_detect</span>(name, <span class="st">"[aA]n"</span>)</span>
-<span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Is "an" or "An" detected?</span></span>
+<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">match =</span> <span class="fu">str_detect</span>(name, <span class="st">"[aA]n"</span>)</span>
+<span id="cb47-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   name   match
@@ -751,11 +709,11 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </div>
 </div><div class="column fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Retain row if it is detected</span></span>
-<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(name, <span class="st">"[aA]n"</span>)</span>
-<span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Retain row if it is detected</span></span>
+<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb49-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(name, <span class="st">"[aA]n"</span>)</span>
+<span id="cb49-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 1
   name  
@@ -773,15 +731,15 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p><strong>Question:</strong> <em>How do we fix or replace specific text elements?</em></p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="st">"We often utilize fancy words when we could utilize simple ones."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="st">"We often utilize fancy words when we could utilize simple ones."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "We often utilize fancy words when we could utilize simple ones."</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Replace the FIRST instance of the pattern only</span></span>
-<span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(x, <span class="at">pattern =</span> <span class="st">"utilize"</span>, <span class="at">replacement =</span> <span class="st">"use"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Replace the FIRST instance of the pattern only</span></span>
+<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(x, <span class="at">pattern =</span> <span class="st">"utilize"</span>, <span class="at">replacement =</span> <span class="st">"use"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "We often use fancy words when we could utilize simple ones."</code></pre>
 </div>
@@ -789,8 +747,8 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Replace all instances of the pattern</span></span>
-<span id="cb59-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="at">pattern =</span> <span class="st">"utilize"</span>, <span class="at">replacement =</span> <span class="st">"use"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Replace all instances of the pattern</span></span>
+<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="at">pattern =</span> <span class="st">"utilize"</span>, <span class="at">replacement =</span> <span class="st">"use"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "We often use fancy words when we could use simple ones."</code></pre>
 </div>
@@ -803,18 +761,18 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p><strong>Question:</strong> <em>How do we delete parts of a string?</em></p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"(555) 123-4567"</span>, <span class="st">"800-555-0199"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"(555) 123-4567"</span>, <span class="st">"800-555-0199"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "(555) 123-4567" "800-555-0199"  </code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any of the following: [...]</span></span>
-<span id="cb63-2"><a aria-hidden="true" tabindex="-1"></a><span class="co">#   Parentheses: ()</span></span>
-<span id="cb63-3"><a aria-hidden="true" tabindex="-1"></a><span class="co">#   Hyphens: \\-</span></span>
-<span id="cb63-4"><a aria-hidden="true" tabindex="-1"></a><span class="co">#   Spaces: \\s</span></span>
-<span id="cb63-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_remove_all</span>(x, <span class="st">"[()</span><span class="sc">\\</span><span class="st">-</span><span class="sc">\\</span><span class="st">s]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any of the following: [...]</span></span>
+<span id="cb59-2"><a aria-hidden="true" tabindex="-1"></a><span class="co">#   Parentheses: ()</span></span>
+<span id="cb59-3"><a aria-hidden="true" tabindex="-1"></a><span class="co">#   Hyphens: \\-</span></span>
+<span id="cb59-4"><a aria-hidden="true" tabindex="-1"></a><span class="co">#   Spaces: \\s</span></span>
+<span id="cb59-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_remove_all</span>(x, <span class="st">"[()</span><span class="sc">\\</span><span class="st">-</span><span class="sc">\\</span><span class="st">s]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "5551234567" "8005550199"</code></pre>
 </div>
@@ -824,8 +782,8 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <section class="slide level2">
 <h2>Removing Whitespace</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\t</span><span class="st">  Sometimes strings have</span><span class="sc">\n</span><span class="st">   too   much white space "</span></span>
-<span id="cb65-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\t</span><span class="st">  Sometimes strings have</span><span class="sc">\n</span><span class="st">   too   much white space "</span></span>
+<span id="cb61-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Sometimes strings have
    too   much white space </code></pre>
@@ -833,17 +791,17 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove outer (starting and ending) whitespace only</span></span>
-<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_trim</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Forcibly remove all whitespace</span></span>
+<span id="cb63-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_remove_all</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Sometimes strings have\n   too   much white space"</code></pre>
+<pre><code>[1] "Sometimesstringshavetoomuchwhitespace"</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove outer whitespace and compress inner whitespace</span></span>
-<span id="cb69-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_squish</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove outer whitespace and compress inner whitespace</span></span>
+<span id="cb65-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">str_squish</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Sometimes strings have too much white space"</code></pre>
 </div>
@@ -857,12 +815,12 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <p>Data entered by humans in free-text fields is notoriously messy. We can string these tools together to sanitize it.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb71-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb71-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">email =</span> <span class="fu">c</span>(<span class="st">"jane AT uni DOT edu"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">john@gmail.com "</span>, </span>
-<span id="cb71-4"><a aria-hidden="true" tabindex="-1"></a>              <span class="st">"educator@khan.org"</span>, <span class="st">"SMITH@  college.edu "</span>)</span>
-<span id="cb71-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb71-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb67-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">email =</span> <span class="fu">c</span>(<span class="st">"jane AT uni DOT edu"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">john@gmail.com "</span>, </span>
+<span id="cb67-4"><a aria-hidden="true" tabindex="-1"></a>              <span class="st">"educator@khan.org"</span>, <span class="st">"SMITH@  college.edu "</span>)</span>
+<span id="cb67-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb67-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 1
   email                 
@@ -877,17 +835,17 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <section class="slide level2">
 <h2>Real-World Application</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb73-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb73-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">clean_email =</span> </span>
-<span id="cb73-4"><a aria-hidden="true" tabindex="-1"></a>      email <span class="sc">|&gt;</span> </span>
-<span id="cb73-5"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_squish</span>() <span class="sc">|&gt;</span>               <span class="co"># Collapse whitespace</span></span>
-<span id="cb73-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">" AT "</span>, <span class="st">"@"</span>) <span class="sc">|&gt;</span>   <span class="co"># Replace AT with @</span></span>
-<span id="cb73-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">" DOT "</span>, <span class="st">"."</span>) <span class="sc">|&gt;</span>  <span class="co"># Replace DOT with .</span></span>
-<span id="cb73-8"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_to_lower</span>() <span class="sc">|&gt;</span>             <span class="co"># Make all lowercase</span></span>
-<span id="cb73-9"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_remove_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s"</span>),        <span class="co"># Remove all spaces</span></span>
-<span id="cb73-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">dotedu =</span> <span class="fu">str_detect</span>(clean_email, <span class="st">"</span><span class="sc">\\</span><span class="st">.edu$"</span>)</span>
-<span id="cb73-11"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb69-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb69-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">clean_email =</span> </span>
+<span id="cb69-4"><a aria-hidden="true" tabindex="-1"></a>      email <span class="sc">|&gt;</span> </span>
+<span id="cb69-5"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_squish</span>() <span class="sc">|&gt;</span>               <span class="co"># Collapse whitespace</span></span>
+<span id="cb69-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">" AT "</span>, <span class="st">"@"</span>) <span class="sc">|&gt;</span>   <span class="co"># Replace AT with @</span></span>
+<span id="cb69-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">" DOT "</span>, <span class="st">"."</span>) <span class="sc">|&gt;</span>  <span class="co"># Replace DOT with .</span></span>
+<span id="cb69-8"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_to_lower</span>() <span class="sc">|&gt;</span>             <span class="co"># Make all lowercase</span></span>
+<span id="cb69-9"><a aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_remove_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s"</span>),        <span class="co"># Remove all spaces</span></span>
+<span id="cb69-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">dotedu =</span> <span class="fu">str_detect</span>(clean_email, <span class="st">"</span><span class="sc">\\</span><span class="st">.edu$"</span>)</span>
+<span id="cb69-11"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   email                  clean_email       dotedu
@@ -1415,6 +1373,158 @@ Newlines (\n) and   tabs (\t)</code></pre>
             }
           });
         }
+            let selectedAnnoteEl;
+            const selectorForAnnotation = ( cell, annotation) => {
+              let cellAttr = 'data-code-cell="' + cell + '"';
+              let lineAttr = 'data-code-annotation="' +  annotation + '"';
+              const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+              return selector;
+            }
+            const selectCodeLines = (annoteEl) => {
+              const doc = window.document;
+              const targetCell = annoteEl.getAttribute("data-target-cell");
+              const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+              const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+              const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+              const lineIds = lines.map((line) => {
+                return targetCell + "-" + line;
+              })
+              let top = null;
+              let height = null;
+              let parent = null;
+              if (lineIds.length > 0) {
+                  //compute the position of the single el (top and bottom and make a div)
+                  const el = window.document.getElementById(lineIds[0]);
+                  top = el.offsetTop;
+                  height = el.offsetHeight;
+                  parent = el.parentElement.parentElement;
+                if (lineIds.length > 1) {
+                  const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                  const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                  height = bottom - top;
+                }
+                if (top !== null && height !== null && parent !== null) {
+                  // cook up a div (if necessary) and position it 
+                  let div = window.document.getElementById("code-annotation-line-highlight");
+                  if (div === null) {
+                    div = window.document.createElement("div");
+                    div.setAttribute("id", "code-annotation-line-highlight");
+                    div.style.position = 'absolute';
+                    parent.appendChild(div);
+                  }
+                  div.style.top = top - 2 + "px";
+                  div.style.height = height + 4 + "px";
+                  div.style.left = 0;
+                  let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                  if (gutterDiv === null) {
+                    gutterDiv = window.document.createElement("div");
+                    gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                    gutterDiv.style.position = 'absolute';
+                    const codeCell = window.document.getElementById(targetCell);
+                    const gutter = codeCell.querySelector('.code-annotation-gutter');
+                    gutter.appendChild(gutterDiv);
+                  }
+                  gutterDiv.style.top = top - 2 + "px";
+                  gutterDiv.style.height = height + 4 + "px";
+                }
+                selectedAnnoteEl = annoteEl;
+              }
+            };
+            const unselectCodeLines = () => {
+              const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+              elementsIds.forEach((elId) => {
+                const div = window.document.getElementById(elId);
+                if (div) {
+                  div.remove();
+                }
+              });
+              selectedAnnoteEl = undefined;
+            };
+              // Handle positioning of the toggle
+          window.addEventListener(
+            "resize",
+            throttle(() => {
+              elRect = undefined;
+              if (selectedAnnoteEl) {
+                selectCodeLines(selectedAnnoteEl);
+              }
+            }, 10)
+          );
+          function throttle(fn, ms) {
+          let throttle = false;
+          let timer;
+            return (...args) => {
+              if(!throttle) { // first call gets through
+                  fn.apply(this, args);
+                  throttle = true;
+              } else { // all the others get throttled
+                  if(timer) clearTimeout(timer); // cancel #2
+                  timer = setTimeout(() => {
+                    fn.apply(this, args);
+                    timer = throttle = false;
+                  }, ms);
+              }
+            };
+          }
+            const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+            for (let i=0; i<annoteTargets.length; i++) {
+              const annoteTarget = annoteTargets[i];
+              const targetCell = annoteTarget.getAttribute("data-target-cell");
+              const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+              const contentFn = () => {
+                const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                if (content) {
+                  const tipContent = content.cloneNode(true);
+                  tipContent.classList.add("code-annotation-tip-content");
+                  return tipContent.outerHTML;
+                }
+              }
+              const config = {
+                allowHTML: true,
+                content: contentFn,
+                onShow: (instance) => {
+                  selectCodeLines(instance.reference);
+                  instance.reference.classList.add('code-annotation-active');
+                  window.tippy.hideAll();
+                },
+                onHide: (instance) => {
+                  unselectCodeLines();
+                  instance.reference.classList.remove('code-annotation-active');
+                },
+                maxWidth: 300,
+                delay: [50, 0],
+                duration: [200, 0],
+                offset: [5, 10],
+                arrow: true,
+                appendTo: function(el) {
+                  return el.parentElement.parentElement.parentElement;
+                },
+                interactive: true,
+                interactiveBorder: 10,
+                theme: 'light-border',
+                placement: 'right',
+                popperOptions: {
+                  modifiers: [
+                  {
+                    name: 'flip',
+                    options: {
+                      flipVariations: false, // true by default
+                      allowedAutoPlacements: ['right'],
+                      fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                    },
+                  },
+                  {
+                    name: 'preventOverflow',
+                    options: {
+                      mainAxis: false,
+                      altAxis: false
+                    }
+                  }
+                  ]        
+                }      
+              };
+              window.tippy(annoteTarget, config); 
+            }
         const findCites = (el) => {
           const parentEl = el.parentElement;
           if (parentEl) {
