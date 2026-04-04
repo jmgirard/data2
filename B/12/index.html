@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -201,7 +236,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
   <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
   </ul></li>
-  <li><a href="#c-dates" id="toc-c-dates" class="nav-link" data-scroll-target="#c-dates">[12c] Dates</a>
+  <li><a href="#c-dates-times" id="toc-c-dates-times" class="nav-link" data-scroll-target="#c-dates-times">[12c] Dates &amp; Times</a>
   <ul class="collapse">
   <li><a href="#topics-2" id="toc-topics-2" class="nav-link" data-scroll-target="#topics-2">Topics</a></li>
   <li><a href="#readings-2" id="toc-readings-2" class="nav-link" data-scroll-target="#readings-2">Readings</a></li>
@@ -260,6 +295,106 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="practice" class="level3">
 <h3 class="anchored" data-anchor-id="practice">Practice</h3>
+<section id="combining-and-extracting-text" class="level4">
+<h4 class="anchored" data-anchor-id="combining-and-extracting-text">1) Combining and Extracting Text</h4>
+<p>Using the <code>starwars</code> dataset (included in {dplyr}), let’s generate descriptive text for each character.</p>
+<ul>
+<li>First, use <code>select()</code> to keep just the <code>name</code>, <code>species</code>, and <code>homeworld</code> columns.</li>
+<li>Use <code>str_glue()</code> inside a <code>mutate()</code> step to create a new column called <code>description</code> that dynamically inserts the character’s information into the string.</li>
+<li>Create another column called <code>home_abbr</code> that uses <code>str_sub()</code> to extract only the first three letters of the character’s homeworld.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"starwars"</span>, <span class="at">package =</span> <span class="st">"dplyr"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, species, homeworld) <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">description =</span> <span class="fu">str_glue</span>(<span class="st">"{name} is a {species} from {homeworld}."</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">home_abbr =</span> <span class="fu">str_sub</span>(homeworld, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">3</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 87 × 5</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##    name               species homeworld description                    home_abbr</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;     &lt;glue&gt;                         &lt;chr&gt;    </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Luke Skywalker     Human   Tatooine  Luke Skywalker is a Human fro… Tat      </span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 C-3PO              Droid   Tatooine  C-3PO is a Droid from Tatooin… Tat      </span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 R2-D2              Droid   Naboo     R2-D2 is a Droid from Naboo.   Nab      </span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Darth Vader        Human   Tatooine  Darth Vader is a Human from T… Tat      </span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Leia Organa        Human   Alderaan  Leia Organa is a Human from A… Ald      </span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Owen Lars          Human   Tatooine  Owen Lars is a Human from Tat… Tat      </span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Beru Whitesun Lars Human   Tatooine  Beru Whitesun Lars is a Human… Tat      </span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 R5-D4              Droid   Tatooine  R5-D4 is a Droid from Tatooin… Tat      </span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Biggs Darklighter  Human   Tatooine  Biggs Darklighter is a Human … Tat      </span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Obi-Wan Kenobi     Human   Stewjon   Obi-Wan Kenobi is a Human fro… Ste      </span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 77 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="separating-product-codes" class="level4">
+<h4 class="anchored" data-anchor-id="separating-product-codes">2) Separating Product Codes</h4>
+<p>Data often comes with multiple pieces of information stored in a single column. Let’s practice splitting them apart using a simulated inventory dataset.</p>
+<ul>
+<li>First, run the code provided below to create the <code>inventory</code> dataset.</li>
+<li>Use <code>separate_wider_delim()</code> to split the <code>item</code> column into three separate columns: <code>"furniture"</code>, <code>"wood_type"</code>, and <code>"price"</code>.</li>
+<li>Set the <code>delim</code> argument to the hyphen character.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">item =</span> <span class="fu">c</span>(<span class="st">"Chair-Oak-199"</span>, <span class="st">"Table-Pine-299"</span>, <span class="st">"Desk-Birch-399"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inventory <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> item,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">"-"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"furniture"</span>, <span class="st">"wood_type"</span>, <span class="st">"price"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 3</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   furniture wood_type price</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Chair     Oak       199  </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Table     Pine      299  </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Desk      Birch     399</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="regular-expressions" class="level4">
+<h4 class="anchored" data-anchor-id="regular-expressions">3) Regular Expressions</h4>
+<p>Let’s use regular expressions (regex) to find specific patterns in text and clean them up using building blocks like anchors and character classes.</p>
+<ul>
+<li>Start with the <code>starwars</code> dataset and use <code>filter()</code> with <code>str_detect()</code> to find all characters whose name starts with either “A” or “S”. <em>Hint:</em> Use an anchor and a character class.</li>
+<li>Use <code>mutate()</code> and <code>str_remove_all()</code> to create a new column called <code>no_spaces</code> that removes all whitespace from the names.</li>
+<li>Select only the <code>name</code> and <code>no_spaces</code> columns to verify your work.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(name, <span class="st">"^[AS]"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">no_spaces =</span> <span class="fu">str_remove_all</span>(name, <span class="st">"</span><span class="sc">\\</span><span class="st">s"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, no_spaces)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 11 × 2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    name             no_spaces      </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;            &lt;chr&gt;          </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Anakin Skywalker AnakinSkywalker</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Ackbar           Ackbar         </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Arvel Crynyd     ArvelCrynyd    </span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Sebulba          Sebulba        </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Shmi Skywalker   ShmiSkywalker  </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Ayla Secura      AylaSecura     </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Adi Gallia       AdiGallia      </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Saesee Tiin      SaeseeTiin     </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 San Hill         SanHill        </span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Shaak Ti         ShaakTi        </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 Sly Moore        SlyMoore</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
 </section>
 </section>
 <section id="b-factors" class="level2">
@@ -267,9 +402,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="topics-1" class="level3">
 <h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Understand the difference between character strings and factors</li>
+<li>Control the order of categorical data in plots and tables</li>
+<li>Recode, collapse, and “lump” factor levels to simplify messy data</li>
 </ul>
 </section>
 <section id="readings-1" class="level3">
@@ -288,16 +423,99 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="practice-1" class="level3">
 <h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
+<section id="ordering-factors-by-value" class="level4">
+<h4 class="anchored" data-anchor-id="ordering-factors-by-value">1) Ordering Factors by Value</h4>
+<p>Using the <code>mpg</code> dataset (included in {ggplot2}), let’s create a bar chart that is ordered meaningfully instead of alphabetically.</p>
+<ul>
+<li>First, calculate the average engine size (<code>displ</code>) for each <code>manufacturer</code> using <code>summarize()</code> and the <code>.by</code> argument. Name the new column <code>mean_displ</code>.</li>
+<li>Use <code>mutate()</code> and <code>fct_reorder()</code> to reorder the <code>manufacturer</code> factor based on the calculated <code>mean_displ</code>.</li>
+<li>Pipe the result into <code>ggplot()</code> and create a horizontal bar chart (<code>geom_col()</code>) with <code>mean_displ</code> on the x-axis and <code>manufacturer</code> on the y-axis.</li>
+<li>Look at the plot to answer: which manufacturers make the largest and smallest engines on average?</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> manufacturer, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_displ =</span> <span class="fu">mean</span>(displ)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">manufacturer =</span> <span class="fu">fct_reorder</span>(manufacturer, mean_displ)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mean_displ, <span class="at">y =</span> manufacturer)) <span class="sc">+</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="lumping-rare-categories" class="level4">
+<h4 class="anchored" data-anchor-id="lumping-rare-categories">2) Lumping Rare Categories</h4>
+<p>When a categorical variable has too many levels, it can be helpful to group the smallest ones together.</p>
+<ul>
+<li>Use the <code>starwars</code> dataset and drop any rows with a missing <code>species</code> value.</li>
+<li>Use <code>mutate()</code> and <code>fct_lump_n()</code> to create a new column called <code>species_lumped</code>.</li>
+<li>Keep only the top 3 most common species and lump all others into an “Other” category.</li>
+<li>Pipe the result into <code>count()</code> to see the tallies for your new column.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species_lumped =</span> <span class="fu">fct_lump_n</span>(species, <span class="at">n =</span> <span class="dv">3</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(species_lumped, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 4 × 2</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   species_lumped     n</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;fct&gt;          &lt;int&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Other             39</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Human             35</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Droid              6</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Gungan             3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="collapsing-factor-levels" class="level4">
+<h4 class="anchored" data-anchor-id="collapsing-factor-levels">3) Collapsing Factor Levels</h4>
+<p>Sometimes we want to manually group specific categories together for a broader analysis</p>
+<ul>
+<li>Using the <code>diamonds</code> dataset, create a new column called <code>cut_simplified</code> using <code>fct_collapse()</code>.</li>
+<li>Collapse “Ideal” and “Premium” into a single level called “Excellent”.</li>
+<li>Collapse “Very Good”, “Good”, and “Fair” into a single level called “Standard”.</li>
+<li>Run <code>count()</code> on your new <code>cut_simplified</code> column to see the results.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cut_simplified =</span> <span class="fu">fct_collapse</span>(cut,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Excellent"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ideal"</span>, <span class="st">"Premium"</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Standard"</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Very Good"</span>, <span class="st">"Good"</span>, <span class="st">"Fair"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(cut_simplified)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 2</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   cut_simplified     n</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;ord&gt;          &lt;int&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Standard       18598</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Excellent      35342</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
 </section>
 </section>
-<section id="c-dates" class="level2">
-<h2 class="anchored" data-anchor-id="c-dates">[12c] Dates</h2>
+</section>
+<section id="c-dates-times" class="level2">
+<h2 class="anchored" data-anchor-id="c-dates-times">[12c] Dates &amp; Times</h2>
 <section id="topics-2" class="level3">
 <h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Parse strings and build dates from individual components</li>
+<li>Extract, round, and modify date-time components</li>
+<li>Understand periods, durations, and intervals for time spans</li>
 </ul>
 </section>
 <section id="readings-2" class="level3">
@@ -316,6 +534,99 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="practice-2" class="level3">
 <h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
+<section id="parsing-dates-from-strings" class="level4">
+<h4 class="anchored" data-anchor-id="parsing-dates-from-strings">1) Parsing Dates from Strings</h4>
+<p>Let’s convert human-readable text into proper machine-readable dates.</p>
+<ul>
+<li>Run the code below to load a small dataset of historical events.</li>
+<li>Use <code>mutate()</code> and the appropriate {lubridate} parsing function to convert the <code>date_str</code> column into a proper Date object. Name the new column <code>actual_date</code>.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>events <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">event =</span> <span class="fu">c</span>(<span class="st">"Apollo 11 Landing"</span>, <span class="st">"First Flight"</span>, <span class="st">"Y2K Bug"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">date_str =</span> <span class="fu">c</span>(<span class="st">"July 20, 1969"</span>, <span class="st">"December 17, 1903"</span>, <span class="st">"January 1, 2000"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>events <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">actual_date =</span> <span class="fu">mdy</span>(date_str)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 3</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   event             date_str          actual_date</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;             &lt;chr&gt;             &lt;date&gt;     </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Apollo 11 Landing July 20, 1969     1969-07-20 </span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 First Flight      December 17, 1903 1903-12-17 </span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Y2K Bug           January 1, 2000   2000-01-01</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="extracting-components" class="level4">
+<h4 class="anchored" data-anchor-id="extracting-components">2) Extracting Components</h4>
+<p>Using the <code>economics</code> dataset (including with {ggplot2}), let’s figure out which month historically has the highest average unemployment.</p>
+<ul>
+<li>Use <code>mutate()</code> and <code>month()</code> to extract the month from the <code>date</code> column.</li>
+<li>Set <code>label = TRUE</code> so you get the actual month label (e.g., “Jan”) instead of numbers.</li>
+<li>Next, <code>summarize()</code> the average of the <code>unemploy</code> column grouped by your new month variable using <code>.by</code>.</li>
+<li>Finally, <code>arrange()</code> the results in descending order to see the top months.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>economics <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obs_month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> obs_month,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_unemploy =</span> <span class="fu">mean</span>(unemploy)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_unemploy))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 12 × 2</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    obs_month avg_unemploy</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;ord&gt;            &lt;dbl&gt;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Jun              7838.</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 May              7800.</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Apr              7799.</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Feb              7789.</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Mar              7787.</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Jan              7780.</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Nov              7770.</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Dec              7760.</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Jul              7736.</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Oct              7735.</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 Aug              7735.</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 Sep              7727.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="calculating-time-spans" class="level4">
+<h4 class="anchored" data-anchor-id="calculating-time-spans">3) Calculating Time Spans</h4>
+<p>Let’s calculate exact lifespans using intervals and durations.</p>
+<ul>
+<li>Run the code below to create a small dataset of early US Presidents.</li>
+<li>Use <code>mutate()</code> and the <code>interval()</code> function to calculate the exact span of time between their <code>born</code> and <code>died</code> dates. Name this column <code>life_span</code>.</li>
+<li>Create a final column called <code>age_years</code> by dividing the <code>life_span</code> interval by <code>years(1)</code> to see their age at death.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>presidents <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"George Washington"</span>, <span class="st">"Abraham Lincoln"</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">born =</span> <span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">"1732-02-22"</span>, <span class="st">"1809-02-12"</span>)),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">died =</span> <span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">"1799-12-14"</span>, <span class="st">"1865-04-15"</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>presidents <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">life_span =</span> <span class="fu">interval</span>(<span class="at">start =</span> born, <span class="at">end =</span> died),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_years =</span> life_span <span class="sc">/</span> <span class="fu">years</span>(<span class="dv">1</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   name            born       died       life_span                      age_years</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;           &lt;date&gt;     &lt;date&gt;     &lt;Interval&gt;                         &lt;dbl&gt;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 George Washing… 1732-02-22 1799-12-14 1732-02-22 UTC--1799-12-14 UTC      67.8</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Abraham Lincoln 1809-02-12 1865-04-15 1809-02-12 UTC--1865-04-15 UTC      56.2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../11/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 11</a>
@@ -324,6 +635,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
+</section>
 </section>
 </section>
 
