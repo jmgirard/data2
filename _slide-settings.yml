@@ -27,3 +27,4 @@ format:
     code-copy: true
     code-line-numbers: false
     controls: true
+    code-annotations: hover

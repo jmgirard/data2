@@ -35,3 +35,358 @@ options(
 
 set_theme(theme_gray(base_size = 24))
 ```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Understand the difference between character strings and factors
+
+- Control the order of categorical data in plots and tables
+
+- Recode, collapse, and "lump" factor levels to simplify messy data
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Creating Factors
+
+## What are Factors? {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Question:** *Why not just use strings for categories?*
+
+-   [Factors]{.b .blue} are used for categorical variables with a fixed and known set of possible values (***levels***)
+-   Each level can also have a nice display ***label***
+-   Unlike strings, factors allow you to control the ***order*** of categories and check for invalid values
+
+::: {.fragment .mt1}
+-   We use the {forcats} package (part of the {tidyverse}) to work with them
+-   Most functions in this package start with `fct_`
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/theater.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Creating Factors
+
+::: {.fsmaller}
+**Question:** *How do we convert raw data into a factor?*
+:::
+
+```{r}
+# Raw data as numbers (where 1=Female, 2=Male and 11 is a typo)
+sex <- c(2, 1, 1, 2, 11)
+```
+
+:::{.fragment}
+```{r}
+# Convert to factor so R knows that only 1 and 2 were valid
+fct_sex <- factor(sex, levels = c(1, 2))
+fct_sex
+```
+:::
+
+:::{.fragment}
+```{r}
+# Each level can be given a string to serve as its "label"
+factor(sex, levels = c(1, 2), labels = c("Female", "Male"))
+```
+:::
+
+## Factors vs. Strings
+
+::: {.fsmaller}
+**Question:** *What happens if we don't specify levels?*
+:::
+
+```{r}
+# Raw data as strings
+birth_months <- c("Jan", "Feb", "Feb", "Jan", "Apr", "Mar", "Apr")
+
+# Default levels = observed values in alphanumeric order
+factor(birth_months)
+```
+
+:::{.fragment}
+```{r}
+# Explicitly define levels and order (including unobserved ones)
+factor(birth_months, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+```
+:::
+
+## A Safer Alternative
+
+::: {.fsmaller}
+**Question:** *Are there better tools for creating factors than base R?*
+
+The {forcats} package provides `fct()`. It is safer than `factor()` because it errors if you include a value not in the levels, and it orders by first appearance.
+:::
+
+```{r}
+#| error: true
+
+# Base R factor() silently creates NAs for typos
+factor(c("Dec", "Apr", "Jam", "Mar"), levels = c("Jan", "Feb", "Mar", "Apr", "Dec"))
+
+# forcats::fct() catches the error for us
+fct(c("Dec", "Apr", "Jam", "Mar"), levels = c("Jan", "Feb", "Mar", "Apr", "Dec"))
+```
+
+# Ordering Levels
+
+## Introducing the GSS Dataset
+
+::: {.fsmaller}
+To explore reordering and modifying factors, we will use the `gss_cat` dataset. This is a sample of data from the General Social Survey.
+:::
+
+```{r}
+#| message: false
+
+library(tidyverse)
+data("gss_cat", package = "forcats")
+glimpse(gss_cat)
+```
+
+## Order by Appearance
+
+::: {.fsmaller}
+**Question:** *Can I order my levels by which appear first in the data?*
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+gss_cat |> 
+  mutate(
+    marital = fct_inorder(marital)
+  ) |> 
+  ggplot(aes(y = marital)) + 
+  geom_bar()
+```
+
+
+## Order by Frequency
+
+::: {.fsmaller}
+**Question:** *How can I order my levels by their number of observations?*
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+gss_cat |> 
+  mutate(
+    marital = fct_infreq(marital)
+  ) |> 
+  ggplot(aes(y = marital)) + 
+  geom_bar()
+```
+
+## Reversing Order
+
+::: {.fsmaller}
+**Question:** *Can I quickly reverse the order of my factors?*
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+gss_cat |> 
+  mutate( 
+    marital = 
+      marital |> 
+      fct_infreq() |> 
+      fct_rev()
+  ) |> 
+  ggplot(aes(y = marital)) + 
+  geom_bar()
+```
+
+## Creating a Summary Table
+
+::: {.fsmaller}
+Let's calculate the average age for each marital status group to play with.
+:::
+
+```{r}
+#| message: false
+
+gss_age <- gss_cat |> 
+  drop_na(age) |> 
+  summarize(
+    .by = marital,
+    mean_age = mean(age)
+  ) |> 
+  print()
+```
+
+## Order by Value
+
+::: {.fsmaller}
+Order by another variable in the dataset
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+# Order by average age
+gss_age |> 
+  mutate(
+    marital = fct_reorder(
+      marital,  # factor to reorder
+      mean_age  # values to order by
+    )
+  ) |> 
+  ggplot(
+    aes(
+      x = mean_age, 
+      y = marital
+    )
+  ) + 
+  geom_col()
+```
+
+## Manual Reordering
+
+::: {.fsmaller}
+Manually bring one or more variables to the front / bottom
+:::
+
+```{r}
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+gss_age |> 
+  mutate(
+    marital = fct_relevel(
+      marital,
+      "No answer", # first
+      "Divorced"   # second
+    )
+  ) |> 
+  ggplot(aes(
+    x = mean_age,
+    y = marital
+  )) + 
+  geom_col()
+```
+
+# Modifying Levels
+
+## Why Modify Levels?
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Sometimes the data you inherit has messy categories
+- You might need to combine small, specific groups into larger, more general ones for analysis
+- Categorical variables with too many levels can cause issues
+- Modifying levels allows us to tidy up before plotting or modeling
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/tools.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Recoding Levels
+
+::: {.fsmaller}
+**Question:** *How do we rename levels to make them clearer?*
+:::
+
+```{r}
+#| warning: false
+#| output-location: column
+
+gss_cat |> 
+  mutate(partyid = fct_recode(partyid,
+    "rep, strong" = "Strong republican",
+    "rep, weak"  = "Not str republican",
+    "ind, rep" = "Ind,near rep",
+    "ind"  = "Independent",
+    "ind, dem" = "Ind,near dem",
+    "dem, weak"  = "Not str democrat",
+    "dem, strong" = "Strong democrat"
+  )) |> 
+  count(partyid) |> 
+  print(n = 10)
+```
+
+## Collapsing Levels
+
+::: {.fsmaller}
+**Question:** *How do we group many small categories into a few large ones?*
+:::
+
+```{r}
+gss_cat |> 
+  mutate(party_simple = fct_collapse(partyid,
+    other = c("No answer", "Don't know", "Other party"),
+    rep   = c("Strong republican", "Not str republican"),
+    ind   = c("Ind,near rep", "Independent", "Ind,near dem"),
+    dem   = c("Not str democrat", "Strong democrat")
+  )) |> 
+  count(party_simple, sort = TRUE)
+```
+
+## Many Small Groups
+
+```{r}
+gss_cat |> ggplot(aes(y = relig)) + geom_bar()
+```
+
+
+## Lumping Small Groups
+
+::: {.fsmaller}
+**Question:** *What if we only care about the most common categories?*
+:::
+
+```{r}
+gss_cat |> 
+  mutate(
+    # Keep the 5 largest religions and lump all others
+    relig_lumped = fct_lump_n(relig, n = 5)
+  ) |> 
+  count(relig_lumped, sort = TRUE)
+```
+
+## Other Ways to Lump
+
+::: {.fsmaller}
+**Question:** *What if I want to lump based on proportions rather than a fixed count?*
+:::
+
+```{r}
+gss_cat |> 
+  mutate(
+    # Keep religions that appear at least 5% of the time
+    relig_prop = fct_lump_prop(relig, prop = 0.05)
+  ) |> 
+  count(relig_prop, sort = TRUE)
+```
