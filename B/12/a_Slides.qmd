@@ -1,0 +1,564 @@
+---
+lecture: "12a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
+
+::: {.my-grey}
+[{{< meta semester >}} |
+{{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+library(tidyverse)
+
+options(
+  tibble.print_max = 6,
+  tibble.print_min = 6
+)
+
+set_theme(theme_gray(base_size = 24))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Understand how R handles strings and special characters
+
+- Combine, separate, and extract parts of text data
+
+- Use regular expressions to detect and replace patterns within strings
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Working with Strings
+
+## Text Data in R {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Question:** *How does R handle text?*
+
+-   Text data is stored as **strings** (character vectors)
+-   We create strings by wrapping text in double quotes (`"as so"`) or single quotes (`'as so'`)
+
+::: {.fragment .mt1}
+-   We will use the \{stringr\} package (part of the \{tidyverse\}). All of its functions start with `str_` and are built specifically to handle messy text
+:::
+
+::: {.fragment .mt1}
+-   We will learn the basics of regular expressions (regex) to search for complex patterns in text
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/text_box.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Creating Strings & Escapes
+
+::: {.fsmaller}
+**Question:** *How do we define text data in R?*
+:::
+
+```{r}
+x <- "We usually create strings by wrapping text in double quotes."
+writeLines(x)
+```
+
+:::{.fragment}
+```{r}
+y <- "Backslashes (\\) \"escape\" special symbols, treating them as characters."
+writeLines(y)
+```
+:::
+:::{.fragment}
+```{r}
+z <- "Backslashes can also create: \nNewlines (\\n) and \ttabs (\\t)"
+writeLines(z)
+```
+:::
+
+## Combining Strings
+
+::: {.fsmaller}
+**Question:** *How do we stick multiple strings together?*
+:::
+
+```{r}
+#| warning: false
+df <- 
+  tibble(
+    first = c("John", "Jane", "Alice"),
+    last = c("Doe", "Smith", "Johnson")
+  ) |> 
+  print()
+```
+
+## Combining Strings
+
+::: {.fsmaller}
+We can use `str_c()` to concatenate two or more vectors of strings.
+:::
+
+```{r}
+df |> 
+  mutate(full_name = str_c(first, " ", last))
+```
+
+## String Interpolation
+
+::: {.fsmaller}
+**Question:** *Is there an easier way to mix variables and text?*
+
+Yes, `str_glue()` lets us insert R variables directly into a string using curly braces `{}`. This is often much easier to read than `str_c()`.
+:::
+
+```{r}
+df |> 
+  mutate(
+    greeting = str_glue("Hello, {first} {last}! Welcome back.")
+  )
+```
+
+## Flattening Strings
+
+::: {.fsmaller}
+**Question:** *How do we collapse a whole column into a single string?*
+
+We can use `str_flatten()` to combine a vector of multiple strings into one single string. We can also specify a separator.
+:::
+
+```{r}
+df |> 
+  summarize(
+    all_names = str_flatten(first, collapse = ", ")
+  )
+```
+
+## Real-World Application
+
+::: {.fsmaller}
+**Question:** *Which carriers operate out of each NYC airport?*
+:::
+
+```{r}
+data("flights", package = "nycflights13")
+flights |> 
+  summarize(
+    .by = origin,                   # For each origin airport...
+    carriers = 
+      carrier |>                    # Find its active carriers
+      unique() |>                   # Remove all duplicates
+      sort() |>                     # Sort them alphanumerically
+      str_flatten(collapse = ", ")  # Flatten them into one string
+  )
+```
+
+# Extracting & Separating
+
+## Subsetting Strings
+
+::: {.fsmaller}
+**Question:** *How do we extract a specific range of characters?*
+:::
+
+```{r}
+# Hex color codes use #RRGGBB for red, green, and blue intensities
+df <- 
+  tibble(
+    hex = c("#FF0000", "#00FF00", "#0000FF")
+  ) |> 
+  print()
+```
+
+## Subsetting Strings
+
+::: {.fsmaller}
+We use `str_sub()`, which takes a `start` and `end` position. We can even use negative numbers to count backward from the end of the string.
+:::
+
+```{r}
+df |> 
+  mutate(
+    red = str_sub(hex, start = 2, end = 3),     # 2 from left to 3 from left 
+    green = str_sub(hex, start = -4, end = -3), # 4 from right to 3 from right
+    blue = str_sub(hex, start = 6, end = -1)    # 6 from left to 1 from right
+  )
+```
+
+## Separating Columns
+
+::: {.fsmaller}
+**Question:** *How do we split one messy column into multiple clean ones?*
+:::
+
+```{r}
+df <- 
+  tibble(
+    id = 1:3,
+    blood_pressure = c("120/80", "135/90", "110/70")
+  ) |> 
+  print()
+```
+
+## Separating Columns
+
+::: {.fsmaller}
+The `separate_wider_delim()` function breaks a column apart based on a specific character delimiter.
+:::
+
+```{r}
+df |> 
+  separate_wider_delim(
+    cols = blood_pressure,              # original/messy col name
+    delim = "/",                        # character to separate on
+    names = c("systolic", "diastolic")  # new col names to create
+  )
+```
+
+## Lengthening Columns
+
+::: {.fsmaller}
+**Question:** *What if a messy column contains multiple observations that should be separate rows?*
+:::
+
+```{r}
+df <- 
+  tibble(
+    name = c("Alice", "Bob"),
+    classes = c("Math, Science", "History, Art, Math")
+  ) |> 
+  print()
+```
+
+## Lengthening Columns
+
+::: {.fsmaller}
+The `separate_longer_delim()` function breaks a column apart and creates a new row for each piece. This is essential for creating tidy data!
+:::
+
+```{r}
+df |> 
+  separate_longer_delim(
+    cols = classes, 
+    delim = ", "
+  )
+```
+
+## Real-World Application
+
+::: {.fsmaller}
+**Question:** *Why is this useful in data science?*
+
+Organizations constantly embed important metadata inside complex ID codes or filenames.
+:::
+
+```{r}
+df <- 
+  tibble(sku = c("US-APP-2023-11", "CA-BAN-2024-01")) |> 
+  print()
+```
+
+## Real-World Application
+
+::: {.fsmaller}
+We can easily break these codes apart to analyze their components, such as finding the country of origin and the product code.
+:::
+
+```{r}
+df |> 
+  separate_wider_delim(
+    cols = sku, 
+    names = c("country", "product", "year", "month"), 
+    delim = "-"
+  )
+```
+
+# Regular Expressions
+
+## Intro to Regex {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Question:** *What if our target isn't a fixed position or a simple delimiter?*
+
+-   [Regular Expressions]{.b .blue} (regex) are a concise language for describing patterns in strings. They are very powerful but can look like gibberish
+
+::: {.fragment .mt1}
+-   Most \{stringr\} functions take in a regex pattern
+-   We will use `str_view()` to preview what our regex is matching. Matches will be surrounded by angle brackets: `<...>`
+-   Then we will learn how to apply them
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/search.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Exact Matching
+
+::: {.fsmaller}
+The simplest regex pattern is just an exact match of characters.
+:::
+
+```{r}
+x <- c("apple", "banana", "pear", "pineapple")
+
+# Show me elements that contain "apple"
+str_view(x, "apple")
+```
+
+## Anchors
+
+::: {.fsmaller}
+**Question:** *What if we only want matches at the start or end of a string?*
+
+We use anchors. `^` matches the start of the string, and `$` matches the end.
+:::
+
+```{r}
+# Show me elements that START with "a"
+str_view(x, "^a")
+
+# Show me elements that END with "e"
+str_view(x, "e$")
+```
+
+## Regex Building Blocks
+
+::: {.fsmaller}
+**Question:** *How do we match flexible patterns instead of exact matches?*
+:::
+
+::: {.fsmaller}
+-   **Wildcards (`.`):** Matches *any* single character
+-   **Character Classes (`[]`):** Matches any *one* of the characters listed
+-   **Shortcuts:** Built-in classes for common patterns
+    + e.g., `\\d` (digits) and `\\s` (spaces)
+-   **Quantifiers:** Control how many times a pattern repeats
+    + `{n}`: matches exactly *n* times
+    + `+`: matches one or more times
+
+:::
+
+## Wildcards
+
+```{r}
+x <- c("sun", "sand", "soon", "July 4", "2026")
+```
+
+:::{.columns .mt1}
+:::{.column}
+```{r}
+# Single Wildcard
+str_view(
+  string = x, 
+  pattern = "s.n"
+)
+```
+:::
+:::{.column .fragment}
+```{r}
+# One or More Wildcards
+str_view(
+  string = x, 
+  pattern = "s.+n"
+)
+```
+:::
+:::
+
+## Shortcuts
+
+```{r}
+x <- c("sun", "sand", "soon", "July 4", "2026")
+```
+
+:::{.columns .mt1}
+:::{.column }
+```{r}
+# Spaces
+str_view(
+  string = x, 
+  pattern = "\\s"
+)
+```
+:::
+:::{.column .fragment}
+```{r}
+# Exactly 4 digits
+str_view(
+  string = x, 
+  pattern = "\\d{4}"
+)
+```
+:::
+:::
+
+## Detecting Patterns
+
+::: {.fsmaller}
+**Question:** *How do we filter a dataset based on text patterns?*
+:::
+
+```{r}
+df <- 
+  tibble(name = c("Ann", "Andy", "Amanda", "Bob", "Cindy")) |> 
+  print()
+```
+
+## Detecting Patterns
+
+::: {.fsmaller}
+We can use `str_detect()` to ask if the pattern was detected
+:::
+
+:::{.columns}
+:::{.column}
+```{r}
+# Is "an" or "An" detected?
+df |> 
+  mutate(
+    match = str_detect(name, "[aA]n")
+  )
+```
+:::
+:::{.column .fragment}
+```{r}
+# Retain row if it is detected
+df |>
+  filter(
+    str_detect(name, "[aA]n")
+  )
+```
+
+:::
+:::
+
+## Replacing Patterns
+
+::: {.fsmaller}
+**Question:** *How do we fix or replace specific text elements?*
+:::
+
+```{r}
+(x <- "We often utilize fancy words when we could utilize simple ones.")
+```
+
+:::{.fragment}
+```{r}
+# Replace the FIRST instance of the pattern only
+str_replace(x, pattern = "utilize", replacement = "use")
+```
+:::
+
+:::{.fragment}
+```{r}
+# Replace all instances of the pattern
+str_replace_all(x, pattern = "utilize", replacement = "use")
+```
+:::
+
+## Removing Patterns
+
+::: {.fsmaller}
+**Question:** *How do we delete parts of a string?*
+:::
+
+```{r}
+(x <- c("(555) 123-4567", "800-555-0199"))
+```
+
+:::{.fragment}
+```{r}
+# Remove any of the following: [...]
+#   Parentheses: ()
+#   Hyphens: \\-
+#   Spaces: \\s
+str_remove_all(x, "[()\\-\\s]")
+```
+:::
+
+## Removing Whitespace
+
+```{r}
+x <- "\t  Sometimes strings have\n   too   much white space "
+writeLines(x)
+```
+
+:::{.fragment}
+```{r}
+# Remove outer (starting and ending) whitespace only
+str_trim(x)
+```
+:::
+
+:::{.fragment}
+```{r}
+# Remove outer whitespace and compress inner whitespace
+str_squish(x)
+```
+:::
+
+## Real-World Application
+
+::: {.fsmaller}
+**Question:** *Why is this useful in data science?*
+
+Data entered by humans in free-text fields is notoriously messy. We can string these tools together to sanitize it.
+:::
+
+```{r}
+df <- 
+  tibble(
+    email = c("jane AT uni DOT edu", "\njohn@gmail.com ", 
+              "educator@khan.org", "SMITH@  college.edu ")
+  ) |> 
+  print()
+```
+
+## Real-World Application
+
+```{r}
+df |> 
+  mutate(
+    clean_email = 
+      email |> 
+      str_squish() |>               # Collapse whitespace
+      str_replace(" AT ", "@") |>   # Replace AT with @
+      str_replace(" DOT ", ".") |>  # Replace DOT with .
+      str_to_lower() |>             # Make all lowercase
+      str_remove_all("\\s"),        # Remove all spaces
+    dotedu = str_detect(clean_email, "\\.edu$")
+  )
+```

@@ -1,0 +1,15 @@
+{
+  "hash": "aba183bcf7a4e55fc53631285de1c4e6",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Week 12: Specialize\"\nexecute:\n  echo: true\n  eval: true\n---\n\n\n\n## [12a] Strings\n\n### Topics\n- Understand how R handles strings and special characters\n- Combine, separate, and extract parts of text data\n- Use regular expressions to detect and replace patterns within strings\n\n### Readings\n- R4DS (2E) Chapter 14: [Strings](https://r4ds.hadley.nz/strings.html){target=\"_blank\"}\n- R4DS (2E) Chapter 15: [Regular Expressions](https://r4ds.hadley.nz/regexps.html){target=\"_blank\"}\n\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"a_Slides.html\" title=\"[12a] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\n\n\n## [12b] Factors\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Chapter 16: [Factors](https://r4ds.hadley.nz/factors.html){target=\"_blank\"}\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"b_Slides.html\" title=\"[12b] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\n\n\n## [12c] Dates\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Chapter 17: [Dates and times](https://r4ds.hadley.nz/datetimes.html){target=\"_blank\"}\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"c_Slides.html\" title=\"[12c] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\n\n\n<!-- Bottom Nav -->\n\n```{=html}\n<div style=\"display: flex; justify-content: space-between; margin-top: 3rem;\">\n  <a href=\"../11/index.html\" class=\"btn btn-outline-primary\" role=\"button\">&laquo;&nbsp;&nbsp;Week 11</a>\n\n  <a href=\"../13/index.html\" class=\"btn btn-primary\" role=\"button\">Week 13&nbsp;&nbsp;&raquo;</a>\n</div>\n```\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

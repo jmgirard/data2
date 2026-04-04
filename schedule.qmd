@@ -12,15 +12,15 @@ toc: false
     a. RStudio / Console
     b. Scripts / Projects
     c. Quarto / Markdown
-- Week 03: [Program I](A/03/index.qmd)
+- Week 03: [Program](A/03/index.qmd)
     a. Assignment / Functions
     b. Arguments / Vectors
     c. Strings / Packages
-- Week 04: [Wrangle I](A/04/index.qmd)
+- Week 04: [Wrangle](A/04/index.qmd)
     a. Tidy Data / Data Files
     b. Rows / Columns
     c. Pipes / Pipelines
-- Week 05: [Visualize I](A/05/index.qmd)
+- Week 05: [Visualize](A/05/index.qmd)
     a. Graphics / Scatterplots
     b. Aesthetics / Layers
     c. Distributions / Relationships
@@ -28,11 +28,11 @@ toc: false
     a. Code Style / Chunks
     b. Table Anatomy / Styling
     c. Plot Labels / Scales
-- Week 07: Collaborate I
+- Week 07: Collaborate
     a. Group Work
     b. Group Work
     c. Group Work
-- Week 08: Present I
+- Week 08: Present
     a. Presentations
     b. Presentations
     c. No Class
@@ -43,30 +43,30 @@ toc: false
     b. No Class
     c. No Class
 - Week 10: [Infer](B/10/index.qmd)
-    a. Compare Groups
-    b. Test Associations
+    a. Comparisons
+    b. Associations
     c. No Class
 - Week 11: [Reshape](B/11/index.qmd)
-    a. Summarize / Group
-    b. Lengthen / Widen
-    c. Link / Join Data
-- Week 12: [Wrangle II](B/12/index.qmd)
-    a. Explicit / Implicit NAs
-    b. Strings / Factors
-    c. Glue / Separate
-- Week 13: [Visualize II](B/13/index.qmd)
-    a. Facets / Positions
-    b. Statistics / Coordinates
-    c. Themes / Layout
-- Week 14: [Program II](B/14/index.qmd)
-    a. Logicals / Conditionals
-    b. Custom Functions / Across
-    c. Many Reads / Many Writes
-- Week 15: Collaborate II
+    a. Groups
+    b. Pivots
+    c. Joins
+- Week 12: [Specialize](B/12/index.qmd)
+    a. Strings
+    b. Factors
+    c. Dates
+- Week 13: [Visualize](B/13/index.qmd)
+    a. Facets
+    b. Coordinates
+    c. Themes
+- Week 14: [Program](B/14/index.qmd)
+    a. Conditionals
+    b. Functions
+    c. Iteration
+- Week 15: Collaborate
     a. Group Work
     b. Group Work
     c. Group Work
-- Week 16: Present II
+- Week 16: Present
     a. Presentations
     b. Presentations
     c. No Class
