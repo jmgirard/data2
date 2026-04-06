@@ -250,14 +250,14 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Get the current date</span></span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-04-04"</code></pre>
+<pre><code>[1] "2026-04-06"</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Get the current date AND time</span></span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-04-04 16:57:43 CDT"</code></pre>
+<pre><code>[1] "2026-04-06 14:13:39 CDT"</code></pre>
 </div>
 </div>
 
@@ -649,7 +649,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We can add periods to a starting date</span></span>
 <span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-04-11"</code></pre>
+<pre><code>[1] "2026-04-13"</code></pre>
 </div>
 </div>
 </div>
@@ -720,7 +720,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <span id="cb60-2"><a aria-hidden="true" tabindex="-1"></a>my_interval <span class="ot">&lt;-</span> <span class="fu">interval</span>(<span class="at">start =</span> <span class="fu">ymd</span>(<span class="st">"1987-05-30"</span>), <span class="at">end =</span> <span class="fu">today</span>())</span>
 <span id="cb60-3"><a aria-hidden="true" tabindex="-1"></a>my_interval</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1987-05-30 UTC--2026-04-04 UTC</code></pre>
+<pre><code>[1] 1987-05-30 UTC--2026-04-06 UTC</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -728,7 +728,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divide the interval by a duration to get a number</span></span>
 <span id="cb62-2"><a aria-hidden="true" tabindex="-1"></a>my_interval <span class="sc">/</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 38.84658</code></pre>
+<pre><code>[1] 38.85205</code></pre>
 </div>
 </div>
 </div>
@@ -742,7 +742,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># How many months has it been?</span></span>
 <span id="cb64-2"><a aria-hidden="true" tabindex="-1"></a>my_interval <span class="sc">/</span> <span class="fu">months</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 466.1613</code></pre>
+<pre><code>[1] 466.2258</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -750,7 +750,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># How many days has it been?</span></span>
 <span id="cb66-2"><a aria-hidden="true" tabindex="-1"></a>my_interval <span class="sc">/</span> <span class="fu">days</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 14189</code></pre>
+<pre><code>[1] 14191</code></pre>
 </div>
 </div>
 </div>
@@ -759,7 +759,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># How many hours has it been?</span></span>
 <span id="cb68-2"><a aria-hidden="true" tabindex="-1"></a>my_interval <span class="sc">/</span> <span class="fu">hours</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 340536</code></pre>
+<pre><code>[1] 340584</code></pre>
 </div>
 </div>
 </div>
