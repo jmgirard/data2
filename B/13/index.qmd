@@ -18,9 +18,9 @@ knitr::opts_chunk$set(collapse = TRUE)
 ## [13a] Positions
 
 ### Topics
-- A
-- B
-- C
+- Create multiple subplots using `facet_wrap()` and `facet_grid()`
+- Use position adjustments to stack, fill, and dodge bar charts
+- Address overplotting in scatterplots using jittering and hex-binning
 
 ### Readings
 - R4DS (2E) Section 9.4: [Facets](https://r4ds.hadley.nz/layers.html#facets){target="_blank"}
@@ -38,7 +38,84 @@ knitr::opts_chunk$set(collapse = TRUE)
 :::
 
 ### Practice
-TBA
+#### 1) Faceting Sleep Patterns
+
+Using the `msleep` dataset (from \{ggplot2\}), let's explore how different types of "vores" (carnivores, herbivores, etc.) sleep.
+
+- Create a scatterplot with `bodywt` on the x-axis and `sleep_total` on the y-axis.
+- Use `facet_wrap()` to create subplots based on the `vore` column.
+- Because mammals have very different weight ranges, set `scales = "free_x"` within the facet function so each subplot has its own x-axis scale.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| message: false
+
+library(tidyverse)
+
+data("msleep", package = "ggplot2")
+
+# We drop NAs in vore to keep the facets clean
+msleep |> 
+  drop_na(vore) |> 
+  ggplot(aes(x = bodywt, y = sleep_total)) +
+  geom_point() +
+  facet_wrap(facets = vars(vore), scales = "free_x")
+```
+
+{{< dstop >}}
+
+#### 2) Comparing Metro Areas Across States
+
+Let's use the `midwest` dataset (from \{ggplot2\}) to see the distribution of counties that are considered "metropolitan" across different states.
+
+- Create a bar chart (`geom_bar`) with `state` on the x-axis.
+- Map the `fill` aesthetic to `inmetro` (using `factor()` to treat it as categorical).
+- Use `position = "fill"` to show the **proportion** (rather than the count) of metro vs. non-metro counties in each state.
+- Update the y label to "proportion" and the fill label to "Is Metro?"
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+data("midwest", package = "ggplot2")
+
+ggplot(midwest, aes(x = state, fill = factor(inmetro))) +
+  geom_bar(position = "fill") +
+  labs(y = "proportion", fill = "Is Metro?")
+```
+
+{{< dstop >}}
+
+#### 3) Handling Overlapping Geyser Data
+
+The `faithful` dataset (from \{datasets\}) contains many overlapping points. Let's practice two different ways to make the data density clearer.
+
+- First, create a standard scatterplot of `eruptions` (x) vs `waiting` (y).
+- Create a second version of the plot that uses jittering to reveal hidden points.
+- Create a third version using `geom_hex()` to bin the points into count-based shapes. *Note: You will need the {hexbin} library installed.*
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| layout-nth: 1
+#| fig-width: 10
+
+library(hexbin)
+
+data("faithful", package = "datasets")
+
+# Version 1: Jittering
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_point(position = "jitter", alpha = 0.5) +
+  labs(title = "Jittered Points")
+
+# Version 2: Hex Binning
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_hex() +
+  labs(title = "Hexagonal Binning")
+```
+
+{{< dstop >}}
 
 ## [13b] Coordinates
 

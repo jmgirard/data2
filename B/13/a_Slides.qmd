@@ -11,8 +11,7 @@ format:
 # [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
 
 ::: {.my-grey}
-[{{< meta semester >}} |
-{{< meta course >}}]{}<br />
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
 [Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
 :::
 
@@ -27,13 +26,14 @@ library(here)
 source(here("_common.R"))
 
 library(tidyverse)
+library(patchwork)
 
 options(
   tibble.print_max = 6,
   tibble.print_min = 6
 )
 
-set_theme(theme_gray(base_size = 24))
+set_theme(theme_gray(base_size = 20))
 ```
 
 ## Roadmap
@@ -41,11 +41,11 @@ set_theme(theme_gray(base_size = 24))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
+- Create multiple subplots using `facet_wrap()` and `facet_grid()`
 
-- B
+- Use position adjustments to stack, fill, and dodge bar charts
 
-- C
+- Address overplotting in scatterplots using jittering and hex-binning
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -54,3 +54,286 @@ set_theme(theme_gray(base_size = 24))
 
 :::
 
+# Faceting
+
+## Faceting {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Faceting** creates multiple subplots
+    -   Each subplot shows a different subset of the data and is excellent for exploring conditional relationships
+
+::: {.fragment .mt1}
+-   There are two main types of faceting:
+    -   **Wrap:** Creates a ribbon of plots
+    -   **Grid:** Creates a matrix of plots
+    
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/grid.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Setup for Faceting
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+data("penguins", package = "datasets")
+# Drop rows with NAs
+penguins2 <- drop_na(penguins) 
+
+# Create a base plot to add to
+p <- 
+  ggplot(
+    penguins2, 
+    aes(x = body_mass, y = flipper_len)
+  ) + 
+  geom_point()
+p
+```
+
+
+## Facet Wrap
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Create a subplot for each species
+p + facet_wrap(facets = vars(species))
+```
+
+## Layout Options
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Control the number of columns and rows to wrap across
+p + facet_wrap(facets = vars(species), ncol = 2, nrow = 2)
+```
+
+## Multiple Variables
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Wrap across combinations of species and sex
+p + facet_wrap(facets = vars(species, sex))
+```
+
+## Freeing Scales
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# While wrapping, give each *subplot* its own scales
+p + facet_wrap(facets = vars(species, sex), scales = "free")
+```
+
+## Facet Grid
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Create a sex-by-species matrix (or grid) of subplots
+p + facet_grid(rows = vars(sex), cols = vars(species))
+```
+
+## Facet Labellers
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Label each facet "strip" using both the variable name and value
+p + facet_grid(rows = vars(sex), cols = vars(species), labeller = label_both)
+```
+
+## Freeing Scales
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# While gridding, give each *row* and each *column* its own scales
+p + facet_grid(rows = vars(sex), cols = vars(species), scales = "free")
+```
+
+# Positions
+
+## Position Adjustments {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   Geoms often overlap with many groups
+-   **Position adjustments** dictate how ggplot2 should handles this overlap
+    -   We can stack items on top of one another
+    -   We can place them side-by-side
+    -   We can stretch them to a common size
+
+::: {.fragment .mt1}
+-   This is useful for bar and column charts
+-   It is critical for aligning text labels
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/stacked.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## The Stacking Default
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# The default for geom_bar is `position = "stack"`
+ggplot(penguins2, aes(x = species, fill = island)) + geom_bar(color = "black")
+```
+
+## Proportional Bars
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# We can use `position = "fill"` to turn them into proportions
+ggplot(penguins, aes(x = species, fill = island)) +  
+  geom_bar(color = "black", position = "fill") + labs(y = "proportion")
+```
+
+## Dodging Bars
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# We can use `position = "dodge"` to put them side-by-side
+ggplot(penguins, aes(x = species, fill = island)) +
+  geom_bar(color = "black", position = "dodge")
+```
+
+## Plotting from Summaries
+
+```{r}
+# To explicitly plot the zeros, we can use a two-step process
+penguins_sum <- 
+  penguins2 |> 
+  count(species, island, .drop = FALSE) |> 
+  print()
+```
+
+## Dodging Columns
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Now we map the y-axis to `n` and use geom_col()
+ggplot(penguins_sum, aes(x = species, y = n, fill = island)) +
+  geom_col(color = "black", position = "dodge")
+```
+
+
+## Overplotting
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Multiple overlapping geoms can lead to "overplotting"
+data("mpg", package = "ggplot2")
+ggplot(mpg, aes(x = displ, y = hwy)) + geom_point(alpha = 0.5)
+```
+
+## Jittering Points
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Jittering is pushing each point slightly in a random direction
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(alpha = 0.5, position = "jitter")
+```
+
+## Jitter Magnitude
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# We can push farther but pushing too far may become misleading
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(alpha = 0.5, position = position_jitter(width = .5, height = .5))
+```
+
+## Extreme Overplotting
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# With lots and lots of points, jittering is unlikely to help
+data("diamonds", package = "ggplot2")
+ggplot(diamonds, aes(x = carat, y = price)) + geom_point(alpha = 0.5)
+```
+
+
+## Binning into Hexes
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# In such cases, we can count points within hexagonal bins
+library(hexbin)
+ggplot(diamonds, aes(x = carat, y = price)) + geom_hex()
+```
+
+
+## Discrete Overplotting
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# With discrete x, we want to jitter horizontally only
+ggplot(mpg, aes(x = drv, y = hwy)) + geom_point()
+```
+
+## Horizontal Jitter
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Set height to 0 to only push left or right
+ggplot(mpg, aes(x = drv, y = hwy)) + 
+  geom_point(position = position_jitter(width = 0.25, height = 0))
+```
+
+## Discrete Overplotting
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+## Beeswarm plots can also handle discrete overplotting well
+library(ggbeeswarm)
+ggplot(mpg, aes(x = drv, y = hwy)) + geom_beeswarm()
+```
