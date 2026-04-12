@@ -91,7 +91,7 @@ ggplot(midwest, aes(x = state, fill = factor(inmetro))) +
 The `faithful` dataset (from \{datasets\}) contains many overlapping points. Let's practice two different ways to make the data density clearer.
 
 - First, create a standard scatterplot of `eruptions` (x) vs `waiting` (y).
-- Create a second version of the plot that uses jittering to reveal hidden points.
+- Create a second version of the plot that uses jittering and alpha-transparency to reveal hidden points.
 - Create a third version using `geom_hex()` to bin the points into count-based shapes. *Note: You will need the {hexbin} library installed.*
 
 {{< dstart summary="Answer key" >}}
@@ -106,13 +106,11 @@ data("faithful", package = "datasets")
 
 # Version 1: Jittering
 ggplot(faithful, aes(x = eruptions, y = waiting)) +
-  geom_point(position = "jitter", alpha = 0.5) +
-  labs(title = "Jittered Points")
+  geom_point(position = "jitter", alpha = 0.5)
 
 # Version 2: Hex Binning
 ggplot(faithful, aes(x = eruptions, y = waiting)) +
-  geom_hex() +
-  labs(title = "Hexagonal Binning")
+  geom_hex()
 ```
 
 {{< dstop >}}
