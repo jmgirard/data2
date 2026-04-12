@@ -1,0 +1,15 @@
+{
+  "hash": "d3946597cf713abb5ae882bf8fa1b9ea",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Week 13: Visualize\"\nexecute:\n  echo: true\n  eval: true\n---\n\n\n\n## [13a] Positions\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Section 9.4: [Facets](https://r4ds.hadley.nz/layers.html#facets){target=\"_blank\"}\n- R4DS (2E) Section 9.6: [Position Adjustments](https://r4ds.hadley.nz/layers.html#position-adjustments){target=\"_blank\"}\n\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"a_Slides.html\" title=\"[13a] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\nTBA\n\n## [13b] Coordinates\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Section 9.5: [Statistical Transformations](https://r4ds.hadley.nz/layers.html#statistical-transformations){target=\"_blank\"}\n- R4DS (2E) Section 9.7: [Coordinate Systems](https://r4ds.hadley.nz/layers.html#coordinate-systems){target=\"_blank\"}\n- EGDA (3E) Chapter 6: [Maps](https://ggplot2-book.org/maps.html){target=\"_blank\"}\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"b_Slides.html\" title=\"[13b] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\nTBA\n\n## [13c] Themes\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Section 11.5: [Themes](https://r4ds.hadley.nz/communication.html#sec-themes){target=\"_blank\"}\n- R4DS (2E) Section 11.6: [Layout](https://r4ds.hadley.nz/communication.html#layout){target=\"_blank\"}\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"c_Slides.html\" title=\"[13c] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\nTBA\n\n<!-- Bottom Nav -->\n\n```{=html}\n<div style=\"display: flex; justify-content: space-between; margin-top: 3rem;\">\n  <a href=\"../12/index.html\" class=\"btn btn-outline-primary\" role=\"button\">&laquo;&nbsp;&nbsp;Week 12</a>\n\n  <a href=\"../14/index.html\" class=\"btn btn-primary\" role=\"button\">Week 14&nbsp;&nbsp;&raquo;</a>\n</div>\n```\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

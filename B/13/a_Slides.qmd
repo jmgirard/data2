@@ -1,0 +1,56 @@
+---
+lecture: "13a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
+
+::: {.my-grey}
+[{{< meta semester >}} |
+{{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/proud_coder_357EDD.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r}
+#| include: false
+#| label: setup
+
+library(here)
+source(here("_common.R"))
+
+library(tidyverse)
+
+options(
+  tibble.print_max = 6,
+  tibble.print_min = 6
+)
+
+set_theme(theme_gray(base_size = 24))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- A
+
+- B
+
+- C
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
