@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 06 Assignment – DATA2</title>
+<title>Week 13: Visualize – DATA2</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -110,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -217,13 +182,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-positions" id="toc-a-positions" class="nav-link active" data-scroll-target="#a-positions">[13a] Positions</a>
+  <ul class="collapse">
+  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
+  </ul></li>
+  <li><a href="#b-coordinates" id="toc-b-coordinates" class="nav-link" data-scroll-target="#b-coordinates">[13b] Coordinates</a>
+  <ul class="collapse">
+  <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
+  <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
+  <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
+  <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
+  </ul></li>
+  <li><a href="#c-themes" id="toc-c-themes" class="nav-link" data-scroll-target="#c-themes">[13c] Themes</a>
+  <ul class="collapse">
+  <li><a href="#topics-2" id="toc-topics-2" class="nav-link" data-scroll-target="#topics-2">Topics</a></li>
+  <li><a href="#readings-2" id="toc-readings-2" class="nav-link" data-scroll-target="#readings-2">Readings</a></li>
+  <li><a href="#slides-2" id="toc-slides-2" class="nav-link" data-scroll-target="#slides-2">Slides</a></li>
+  <li><a href="#practice-2" id="toc-practice-2" class="nav-link" data-scroll-target="#practice-2">Practice</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 06 Assignment</h1>
+<h1 class="title">Week 13: Visualize</h1>
 </div>
 
 
@@ -240,74 +233,104 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><img src="../../img/programming_2780E3.svg" class="img-fluid" width="200"></p>
-<section id="instructions" class="level2">
-<h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
-<p><em>Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable <code>embed-resources</code> using the header below. If your answer involves writing text, then use markdown to write 2–4 sentences per question; if your answer involves running code, then use one or more code chunks. For questions that ask you to fix code, correct any errors (while achieving the stated goal) and include only the working code in your document.</em></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Week 06 Assignment"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">embed-resources:</span><span class="co"> true</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><em>Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any “scratch work” or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).</em></p>
+<section id="a-positions" class="level2">
+<h2 class="anchored" data-anchor-id="a-positions">[13a] Positions</h2>
+<section id="topics" class="level3">
+<h3 class="anchored" data-anchor-id="topics">Topics</h3>
+<ul>
+<li>A</li>
+<li>B</li>
+<li>C</li>
+</ul>
 </section>
-<section id="question-1-code-style" class="level2">
-<h2 class="anchored" data-anchor-id="question-1-code-style">Question 1 (Code Style)</h2>
-<p><strong>Background:</strong> The tidyverse style guide provides recommendations for writing clean, readable, and predictable code.</p>
-<ol type="a">
-<li><p><strong>Conceptual:</strong> According to the style guide discussed in lecture, function arguments generally fall into two categories: “data” arguments and “detail” arguments. How should we treat the names of these arguments differently when writing a function call, and why does this improve readability?</p></li>
-<li><p><strong>Applied:</strong> The code chunk below works, but it violates several style guidelines regarding spacing, line length, and object naming. Rewrite the code to follow the tidyverse style guide.</p></li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Broken Code</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"diamonds"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>My_Big_Diamonds<span class="ot">&lt;-</span>diamonds<span class="sc">|&gt;</span><span class="fu">filter</span>(cut<span class="sc">==</span><span class="st">"Ideal"</span>,carat<span class="sc">&gt;</span><span class="fl">1.5</span>)<span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">price_per_carat=</span>price<span class="sc">/</span>carat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="readings" class="level3">
+<h3 class="anchored" data-anchor-id="readings">Readings</h3>
+<ul>
+<li>R4DS (2E) Section 9.4: <a href="https://r4ds.hadley.nz/layers.html#facets" target="_blank">Facets</a></li>
+<li>R4DS (2E) Section 9.6: <a href="https://r4ds.hadley.nz/layers.html#position-adjustments" target="_blank">Position Adjustments</a></li>
+</ul>
+</section>
+<section id="slides" class="level3">
+<h3 class="anchored" data-anchor-id="slides">Slides</h3>
+<iframe class="slide-deck" src="a_Slides.html" title="[13a] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
-<section id="question-2-chunk-options" class="level2">
-<h2 class="anchored" data-anchor-id="question-2-chunk-options">Question 2 (Chunk Options)</h2>
-<p><strong>Background:</strong> Quarto uses “hash pipes” to control the behavior of code chunks in our rendered documents.</p>
-<ol type="a">
-<li><p><strong>Conceptual:</strong> Explain the difference between the <code>echo: false</code> and <code>eval: false</code> chunk options. Provide a realistic scenario for when you might use each one.</p></li>
-<li><p><strong>Applied:</strong> Write a code chunk that creates a histogram of the <code>carat</code> variable in the <code>diamonds</code> dataset. Use chunk options to ensure that the code itself is hidden in the rendered document, but the plot is still displayed. Additionally, use chunk options to set the figure’s width to 7, height to 5, and provide a descriptive figure caption.</p></li>
-</ol>
+<section id="practice" class="level3">
+<h3 class="anchored" data-anchor-id="practice">Practice</h3>
+<p>TBA</p>
 </section>
-<section id="question-3-table-anatomy" class="level2">
-<h2 class="anchored" data-anchor-id="question-3-table-anatomy">Question 3 (Table Anatomy)</h2>
-<p><strong>Background:</strong> The <code>gt</code> package allows us to build professional display tables step-by-step.</p>
-<ol type="a">
-<li><p><strong>Conceptual:</strong> When initializing a table with the <code>gt()</code> function, what is the purpose of the <code>groupname_col</code> argument? How does utilizing this argument change the structural layout of the resulting table?</p></li>
-<li><p><strong>Applied:</strong> Filter the <code>mpg</code> dataset to only include vehicles made by “honda”. Select the <code>model</code>, <code>year</code>, <code>trans</code>, <code>fl</code>, <code>cty</code>, and <code>hwy</code> columns. Use <code>gt()</code> to create a base table that groups the rows by <code>year</code>. Add a professional title and subtitle, and use <code>cols_label()</code> to rename the columns to be clear and readable for a general audience. Note that you can use <code>?mpg</code> to learn more about the dataset.</p></li>
-</ol>
 </section>
-<section id="question-4-table-styling" class="level2">
-<h2 class="anchored" data-anchor-id="question-4-table-styling">Question 4 (Table Styling)</h2>
-<p><strong>Background:</strong> Once the core structure of a table is set, we can format its values and style its appearance to highlight important information.</p>
-<ol type="a">
-<li><p><strong>Conceptual:</strong> What is the conceptual difference between a formatting function like <code>fmt_number()</code> and a styling function like <code>tab_style()</code> in the <code>gt</code> package?</p></li>
-<li><p><strong>Applied:</strong> Build on your code from Question 3b. Add a spanner label called “Fuel Economy” that arches over your city and highway mileage columns. Then, use an alignment function to center the text in the <code>fl</code>, <code>cty</code>, and <code>hwy</code> columns.</p></li>
-</ol>
+<section id="b-coordinates" class="level2">
+<h2 class="anchored" data-anchor-id="b-coordinates">[13b] Coordinates</h2>
+<section id="topics-1" class="level3">
+<h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
+<ul>
+<li>A</li>
+<li>B</li>
+<li>C</li>
+</ul>
 </section>
-<section id="question-5-plot-labels" class="level2">
-<h2 class="anchored" data-anchor-id="question-5-plot-labels">Question 5 (Plot Labels)</h2>
-<p><strong>Background:</strong> Good plots communicate their takeaways clearly to the audience using descriptive text.</p>
-<ol type="a">
-<li><p><strong>Conceptual:</strong> By default, <code>ggplot2</code> uses dataset variable names for axis and legend titles. Provide two distinct reasons why relying on these default labels is often insufficient or inappropriate for a professional data graphic.</p></li>
-<li><p><strong>Applied:</strong> Create a scatterplot of the <code>penguins</code> dataset showing Flipper Length (<code>flipper_len</code>) on the x-axis and Body Mass (<code>body_mass</code>) on the y-axis. Color the points by the penguin’s <code>species</code>. Add a comprehensive set of labels using <code>labs()</code> to provide a title, subtitle, caption, and professional titles for the x-axis, y-axis, and legend. (As an optional challenge, add a hash pipe to hide the warning about there being missing values.)</p></li>
-</ol>
+<section id="readings-1" class="level3">
+<h3 class="anchored" data-anchor-id="readings-1">Readings</h3>
+<ul>
+<li>R4DS (2E) Section 9.5: <a href="https://r4ds.hadley.nz/layers.html#statistical-transformations" target="_blank">Statistical Transformations</a></li>
+<li>R4DS (2E) Section 9.7: <a href="https://r4ds.hadley.nz/layers.html#coordinate-systems" target="_blank">Coordinate Systems</a></li>
+<li>EGDA (3E) Chapter 6: <a href="https://ggplot2-book.org/maps.html" target="_blank">Maps</a></li>
+</ul>
 </section>
-<section id="question-6-plot-scales" class="level2">
-<h2 class="anchored" data-anchor-id="question-6-plot-scales">Question 6 (Plot Scales)</h2>
-<p><strong>Background:</strong> Scales control exactly how data values are mapped to the visual properties of a plot, including the limits and breaks of axes.</p>
-<ol type="a">
-<li><p><strong>Conceptual:</strong> If you have a continuous numeric variable mapped to the x-axis, what specific aspects of the plot do the <code>limits</code> and <code>breaks</code> arguments inside <code>scale_x_continuous()</code> control?</p></li>
-<li><p><strong>Applied:</strong> Start with the chunk you created in Question 5b. Add a scale function to adjust the x-axis so that it strictly starts at 170 and ends at 240, displaying breaks at every 10 units. Then, add a manual scale function to change the colors of the points. You must provide a custom color value for all three species (“Adelie”, “Chinstrap”, and “Gentoo”).</p></li>
-</ol>
-<hr>
-<p>✅ Done! <em>Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks.</em></p>
+<section id="slides-1" class="level3">
+<h3 class="anchored" data-anchor-id="slides-1">Slides</h3>
+<iframe class="slide-deck" src="b_Slides.html" title="[13b] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
+</div>
+</section>
+<section id="practice-1" class="level3">
+<h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
+<p>TBA</p>
+</section>
+</section>
+<section id="c-themes" class="level2">
+<h2 class="anchored" data-anchor-id="c-themes">[13c] Themes</h2>
+<section id="topics-2" class="level3">
+<h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
+<ul>
+<li>A</li>
+<li>B</li>
+<li>C</li>
+</ul>
+</section>
+<section id="readings-2" class="level3">
+<h3 class="anchored" data-anchor-id="readings-2">Readings</h3>
+<ul>
+<li>R4DS (2E) Section 11.5: <a href="https://r4ds.hadley.nz/communication.html#sec-themes" target="_blank">Themes</a></li>
+<li>R4DS (2E) Section 11.6: <a href="https://r4ds.hadley.nz/communication.html#layout" target="_blank">Layout</a></li>
+</ul>
+</section>
+<section id="slides-2" class="level3">
+<h3 class="anchored" data-anchor-id="slides-2">Slides</h3>
+<iframe class="slide-deck" src="c_Slides.html" title="[13c] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
+</div>
+</section>
+<section id="practice-2" class="level3">
+<h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
+<p>TBA</p>
+<!-- Bottom Nav -->
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../12/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 12</a>
+
+  <a href="../14/index.html" class="btn btn-primary" role="button">Week 14&nbsp;&nbsp;»</a>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
