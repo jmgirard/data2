@@ -11,8 +11,7 @@ format:
 # [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
 
 ::: {.my-grey}
-[{{< meta semester >}} |
-{{< meta course >}}]{}<br />
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
 [Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
 :::
 
@@ -27,13 +26,15 @@ library(here)
 source(here("_common.R"))
 
 library(tidyverse)
+library(maps)
+library(patchwork)
 
 options(
   tibble.print_max = 6,
   tibble.print_min = 6
 )
 
-set_theme(theme_gray(base_size = 24))
+set_theme(theme_gray(base_size = 20))
 ```
 
 ## Roadmap
@@ -41,11 +42,11 @@ set_theme(theme_gray(base_size = 24))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
+- Understand how ggplot2 handles coordinate systems
 
-- B
+- Extract and draw polygon map data in ggplot2
 
-- C
+- Add points, text, and colors to existing maps
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -54,3 +55,405 @@ set_theme(theme_gray(base_size = 24))
 
 :::
 
+# Clipping vs. Zooming
+
+## Original
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Original plot with full data
+p_orig <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 2)
+p_orig
+```
+
+## Clipping
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Using lims drops points outside this range and then RE-FITS the smooth
+p_orig + lims(x = c(5.0, 6.5), y = c(10, 30))
+```
+
+## Zooming
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Using coord limits zooms in WITHOUT re-fitting the smooth
+p_orig + coord_cartesian(xlim = c(5.0, 6.5), ylim = c(10, 30))
+```
+
+# Aspect Ratios
+
+## Freed Aspect Ratio
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Generate the path of a perfect circle
+t <- seq(0, 2*pi, length.out = 100)
+circle <- tibble(x = sin(t), y = cos(t))
+
+# By default, a change of 1 on x and y can be different distances
+ggplot(circle, aes(x, y)) + geom_path()
+```
+
+## Fixed Aspect Ratio
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# An aspect ratio of 1 ensures these changes have the same distance
+ggplot(circle, aes(x, y)) + geom_path() + coord_fixed(ratio = 1)
+```
+
+# Polar Coordinates
+
+## Filled Bar Charts
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+ggplot(penguins, aes(y = 1, fill = sex)) + 
+  geom_bar(position = "fill") + labs(y = "proportion")
+```
+
+## Filled Pie Charts
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+ggplot(penguins, aes(x = 1, fill = sex)) + 
+  geom_bar(position = "fill") +   
+  coord_polar(theta = "y") + 
+  theme_void(base_size = 24)
+```
+# Drawing Maps
+
+## Where Do Maps Come From? {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   To draw a map, we need a dataset of geographic coordinates
+    -   These coordinates define the boundary lines of countries, states, or counties
+-   The `map_data()` function from the `maps` package provides easy access to these datasets
+    -   It returns a data frame of longitude and latitude points
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/globe.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Extracting World Data
+
+```{r}
+# Extract the coordinates for the world map
+world_map <- map_data("world")
+world_map
+```
+
+## Understanding Map Data
+
+- **long** and **lat**: The x and y coordinates of the boundary lines
+- **group**: A unique identifier for each polygon (e.g., a specific island or continuous landmass)
+- **order**: The sequence in which the points should be connected to draw the shape correctly
+- **region**: The name of the geographic area (e.g., country name)
+
+## Drawing Polygons
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# We use geom_polygon() to draw shapes
+# The group aesthetic is critical so R knows which points belong together
+ggplot(
+  world_map, 
+  aes(x = long, y = lat, group = group)
+) +
+  geom_polygon(
+    fill = "lightgray", 
+    color = "white",
+    linewidth = 0.2
+  )
+```
+
+## Fixing the Distortion
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# The previous map looked stretched!
+# coord_quickmap() sets the aspect ratio correctly for maps based on latitude
+ggplot(
+  world_map, 
+  aes(x = long, y = lat, group = group)
+) +
+  geom_polygon(
+    fill = "lightgray", 
+    color = "white",
+    linewidth = 0.2
+  ) +
+  coord_quickmap()
+```
+
+# Regional Maps
+
+## Extracting State Data
+
+```{r}
+# Extract the coordinates for US states
+state_map <- map_data("state")
+state_map
+```
+
+## Drawing the US Map
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+ggplot(
+  state_map, 
+  aes(x = long, y = lat, group = group)
+) +
+  geom_polygon(
+    fill = "steelblue", 
+    color = "black",
+    linewidth = 0.5
+  ) +
+  coord_quickmap()
+```
+
+## Filtering Regions
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# We can use standard dplyr tools to map specific regions
+midwest_map <- 
+  state_map |> 
+  filter(
+    region %in% c("kansas", "missouri", "iowa", "nebraska")
+  )
+
+ggplot(
+  midwest_map, 
+  aes(x = long, y = lat, group = group)
+) +
+  geom_polygon(
+    fill = "palegreen", 
+    color = "black"
+  ) +
+  coord_quickmap()
+```
+
+# Points and Labels
+
+## Overlaying Data {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   Maps are most useful when they provide context for other data
+-   Because maps in ggplot2 are just standard geoms, we can easily layer other geoms on top of them
+    -   `geom_point()` is great for cities, events, or locations
+    -   `geom_text()` or `geom_label()` can identify specific places
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/stacked.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## A City Dataset
+
+```{r}
+# Let's create a small dataset of cities
+cities <- tribble(
+  ~city, ~long, ~lat,
+  "Lawrence", -95.2353, 38.9717,
+  "St. Louis", -90.1994, 38.6270,
+  "Des Moines", -93.6091, 41.5868,
+  "Omaha", -95.9345, 41.2565
+)
+cities
+```
+
+## Preventing Aesthetic Inheritance
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# Best practice: keep the global ggplot() empty and map aesthetics within each geom.
+# This prevents geom_point from looking for a 'group' variable in the cities data!
+p_midwest <- 
+  ggplot() +
+  geom_polygon(
+    data = midwest_map, 
+    aes(x = long, y = lat, group = group),
+    fill = "white", color = "black"
+  ) +
+  coord_quickmap()
+
+p_midwest
+```
+
+
+## Adding Points
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# Now we overlay the points using our cities data
+p_midwest +
+  geom_point(
+    data = cities,
+    aes(x = long, y = lat),
+    color = "red", 
+    size = 4
+  )
+```
+
+## Adding Labels
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# We can nudge the text slightly so it doesn't overlap the dot
+p_midwest +
+  geom_point(
+    data = cities,
+    aes(x = long, y = lat),
+    color = "red", size = 3
+  ) +
+  geom_text(
+    data = cities,
+    aes(x = long, y = lat, label = city),
+    nudge_y = 0.3,
+    fontface = "bold"
+  )
+```
+
+
+# Choropleth Maps
+
+## What is a Choropleth? {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   A **choropleth map** uses color or shading to represent statistical data across geographic regions
+    -   For example, coloring states based on their population density or average temperature
+-   To create one, we must merge our geographic polygon data with our statistical data using a join
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/grid.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Preparing Statistical Data
+
+```{r}
+# We will use the built-in USArrests dataset
+# The map_data region names are lowercase, so our data needs to match!
+arrests <- 
+  USArrests |> 
+  rownames_to_column("region") |> 
+  mutate(region = tolower(region))
+
+arrests
+```
+
+## Joining the Data
+
+```{r}
+# We use left_join() to attach the statistics to the map boundaries
+state_joined <- 
+  state_map |> 
+  left_join(arrests, by = "region")
+
+state_joined
+```
+
+## Creating the Choropleth
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# We map the fill aesthetic to one of our statistical variables
+ggplot(
+  state_joined, 
+  aes(x = long, y = lat, group = group)
+) +
+  geom_polygon(
+    aes(fill = Murder), 
+    color = "white",
+    linewidth = 0.3
+  ) +
+  coord_quickmap()
+```
+
+## Polishing the Map
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# We can use theme_void() to remove the axes and gridlines
+# and scale_fill_viridis_c() for an accessible color palette
+ggplot(
+  state_joined, 
+  aes(x = long, y = lat, group = group)
+) +
+  geom_polygon(
+    aes(fill = Murder), 
+    color = "white",
+    linewidth = 0.3
+  ) +
+  coord_quickmap() +
+  scale_fill_viridis_c(option = "magma") +
+  theme_void() +
+  labs(
+    title = "US Murder Arrest Rates",
+    fill = "Rate per 100k"
+  )
+```
+
+## Summary
+
+-   **Coordinates:** Alter how space is mapped using `coord_fixed()`, `coord_polar()`, and `coord_quickmap()`
+-   **Polygons:** Build basic maps using `map_data()` and `geom_polygon()`, ensuring `group` is mapped properly
+-   **Layers:** Add context to maps by layering `geom_point()` and `geom_text()` from separate data sources
+-   **Choropleths:** Color geographic regions by joining statistical data to spatial boundary data
