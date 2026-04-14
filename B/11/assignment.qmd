@@ -98,7 +98,7 @@ Explain the difference in behavior between an `inner_join()` and a `full_join()`
 
 **b) Applied**
 
-Let's find out which baseball managers won awards in 2015. Load the `Managers` and `AwardsManagers` datasets from the \{Lahman\} package. 
+Let's find out which baseball managers won awards in 2015. Load the `Managers` and `AwardsShareManagers` datasets from the \{Lahman\} package. 
 
 First, perform an `inner_join()` between the two datasets. Use `join_by(playerID, yearID)` to ensure you match the correct person to the correct year. Second, pipe the joined data into a `filter()` to keep only the rows where `yearID == 2015`. Finally, select the `playerID`, `teamID`, `awardID`, and `pointsWon` columns. 
 

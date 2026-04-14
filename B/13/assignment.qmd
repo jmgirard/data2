@@ -1,0 +1,134 @@
+---
+title: "Week 13 Assignment"
+format: 
+  html:
+    css: ../../styles.css
+    toc: false
+---
+
+![](../../img/programming_2780E3.svg){width="200"}
+
+## Instructions
+
+*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2-4 sentences per question; if your answer involves running code, then use one or more code chunks.*
+
+```markdown
+---
+title: "Week 13 Assignment"
+author: "Your Name"
+embed-resources: true
+---
+```
+
+*Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any "scratch work" or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).*
+
+## Question 1 (Faceting Subplots)
+
+**Background:** Faceting allows us to split a single plot into multiple subplots based on the values of one or more categorical variables, which is excellent for exploring conditional relationships.
+
+**a) Conceptual**
+
+What is the main difference between `facet_wrap()` and `facet_grid()` in terms of how they arrange the resulting subplots? 
+
+**b) Applied**
+
+Load the `storms` dataset from \{dplyr\} (which is loaded automatically with the tidyverse). Create a scatterplot with `pressure` on the x-axis and `wind` on the y-axis. Use `facet_wrap()` to create a separate subplot for each level of the `category` variable. Modify the facet labels to include both the variable name and value.
+
+## Question 2 (Position Adjustments in Bar Charts)
+
+**Background:** When plotting bar charts with multiple groups, position adjustments dictate how ggplot2 should handle overlapping elements.
+
+**a) Conceptual**
+
+Explain the visual difference between `position = "stack"`, `position = "dodge"`, and `position = "fill"`. If your primary goal was to compare the raw counts of two groups side-by-side, which position adjustment would you use?
+
+**b) Applied**
+
+Using the `storms` dataset, create a bar chart (`geom_bar()`) with `month` on the x-axis (use `factor(month)` so R treats it as a discrete category). Map the `fill` aesthetic to `status`. Use `position = "fill"` to show the proportion of storm statuses within each month. Update the y-axis label to "proportion".
+
+## Question 3 (Drawing Maps and Overlaying Data)
+
+**Background:** In ggplot2, maps are drawn using polygon data. We can layer other geometries, like points and text, on top of these polygons to provide geographic context to our datasets.
+
+**a) Conceptual**
+
+When drawing map polygons using `geom_polygon()`, why is it essential to map the `group` aesthetic to the `group` variable from the map dataset? What visual error usually occurs if you forget to do this?
+
+**b) Applied**
+
+Run the provided code chunk below to extract the map data for the U.S. West Coast and to create a small dataset of three cities. Create a ggplot that maps the state polygons using `geom_polygon()` with a `"cornsilk"` fill color and `"black"` border. Then, add the cities as points using `geom_point()` (colored red, size 3) and apply `coord_quickmap()` to fix the geographic distortion. 
+
+```{r}
+#| message: false
+
+library(tidyverse)
+library(maps)
+
+# Extract map boundaries for the West Coast
+west_coast <- map_data("state") |> 
+  filter(region %in% c("washington", "oregon", "california"))
+
+# Create a small dataset of cities
+west_cities <- tribble(
+  ~city, ~long, ~lat,
+  "Seattle", -122.3321, 47.6062,
+  "Portland", -122.6784, 45.5152,
+  "San Francisco", -122.4194, 37.7749
+)
+```
+
+## Question 4 (Choropleth Maps)
+
+**Background:** A choropleth map uses color or shading to represent statistical data across geographic regions. To create one, we must merge geographic polygon data with statistical data using a join.
+
+**a) Conceptual**
+
+When creating a choropleth map by joining statistical data to map boundaries, why is it critical that the region names in both datasets match exactly in formatting (e.g., both are completely lowercase)? What happens to a region on the map if its name does not match the statistical data during the join?
+
+**b) Applied**
+
+Read in the "state_income.csv" data file and extract the US state map data from \{maps\}. Use a `left_join()` to combine `state_map` with `state_stats` by their shared `"region"` column. Then, create a ggplot using `geom_polygon()` where the `fill` aesthetic is mapped to the `Income` variable, the `group` aesthetic is mapped to `group`, and the state borders are colored white. Finally, apply `coord_quickmap()`.
+
+## Question 5 (Customizing Plot Themes)
+
+**Background:** The \{ggplot2\} package allows for deep customization of non-data elements (like backgrounds, gridlines, and fonts) through its theming system.
+
+**a) Conceptual**
+
+What is the difference between applying a complete theme (e.g., `theme_minimal()`) and using the `theme()` function? Why does the order in which you add these to your ggplot code matter?
+
+**b) Applied**
+
+Load the `txhousing` dataset from \{ggplot2\} (which contains housing market data for Texas cities). Create a scatterplot with `volume` on the x-axis and `sales` on the y-axis, mapping the `color` aesthetic to `year`. Add a title to the plot using `labs(title = "Texas Housing Sales")`. First, apply the `theme_classic()` complete theme. Then, use the `theme()` function to move the legend to the `"top"` of the plot and use `element_text()` to make the `plot.title` bold.
+
+## Question 6 (Combining Plots with Patchwork)
+
+**Background:** The \{patchwork\} package provides an intuitive syntax for combining multiple individual plots into a single, cohesive layout suitable for publishing or presentations.
+
+**a) Conceptual**
+
+In the context of the \{patchwork\} package, what layout behavior do the `|` and `/` operators produce when placed between two ggplot objects?
+
+**b) Applied**
+
+Run the provided code chunk below to create three simple plots (`p1`, `p2`, `p3`) using the `storms` dataset. Use \{patchwork\} operators to place `p1` and `p2` side-by-side on the top row, and place `p3` spanning the entire row below them. Use `plot_annotation()` to add a master title called "Storm Analysis" to the combined layout.
+
+```{r}
+#| message: false
+
+library(patchwork)
+
+p1 <- ggplot(storms, aes(x = wind)) + 
+  geom_histogram(bins = 20, fill = "steelblue", color = "white")
+
+p2 <- ggplot(storms, aes(x = pressure)) + 
+  geom_histogram(bins = 20, fill = "seagreen", color = "white")
+
+p3 <- ggplot(storms, aes(x = wind, y = pressure)) + 
+  geom_point(alpha = 0.1)
+```
+
+---
+
+✅ Done!
+*Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking "Render" about a missing file, this actually means that there is an error in one of your chunks.*
