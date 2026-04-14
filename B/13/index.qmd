@@ -122,6 +122,10 @@ ggplot(faithful, aes(x = eruptions, y = waiting)) +
 - Add points and text labels to existing maps
 - Join data with map data and make complex maps
 
+### Files
+- [arrests.csv](../../data/arrests.csv){download="arrests.csv"}
+- [state_income.csv](../../data/state_income.csv){download="state_income.csv"}
+
 ### Readings
 - EGDA (3E) Chapter 6: [Maps](https://ggplot2-book.org/maps.html){target="_blank"}
 
