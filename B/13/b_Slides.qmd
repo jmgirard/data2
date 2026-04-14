@@ -42,11 +42,11 @@ set_theme(theme_gray(base_size = 20))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- Understand how ggplot2 handles coordinate systems
-
 - Extract and draw polygon map data in ggplot2
 
-- Add points, text, and colors to existing maps
+- Add points and text labels to existing maps
+
+- Join data with map data and make complex maps
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -55,89 +55,6 @@ set_theme(theme_gray(base_size = 20))
 
 :::
 
-# Clipping vs. Zooming
-
-## Original
-
-```{r}
-#| fig-width: 12
-#| fig-height: 7
-
-# Original plot with full data
-p_orig <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 2)
-p_orig
-```
-
-## Clipping
-
-```{r}
-#| fig-width: 12
-#| fig-height: 7
-
-# Using lims drops points outside this range and then RE-FITS the smooth
-p_orig + lims(x = c(5.0, 6.5), y = c(10, 30))
-```
-
-## Zooming
-
-```{r}
-#| fig-width: 12
-#| fig-height: 7
-
-# Using coord limits zooms in WITHOUT re-fitting the smooth
-p_orig + coord_cartesian(xlim = c(5.0, 6.5), ylim = c(10, 30))
-```
-
-# Aspect Ratios
-
-## Freed Aspect Ratio
-
-```{r}
-#| fig-width: 12
-#| fig-height: 7
-
-# Generate the path of a perfect circle
-t <- seq(0, 2*pi, length.out = 100)
-circle <- tibble(x = sin(t), y = cos(t))
-
-# By default, a change of 1 on x and y can be different distances
-ggplot(circle, aes(x, y)) + geom_path()
-```
-
-## Fixed Aspect Ratio
-
-```{r}
-#| fig-width: 12
-#| fig-height: 7
-
-# An aspect ratio of 1 ensures these changes have the same distance
-ggplot(circle, aes(x, y)) + geom_path() + coord_fixed(ratio = 1)
-```
-
-# Polar Coordinates
-
-## Filled Bar Charts
-
-```{r}
-#| fig-width: 12
-#| fig-height: 7
-
-ggplot(penguins, aes(y = 1, fill = sex)) + 
-  geom_bar(position = "fill") + labs(y = "proportion")
-```
-
-## Filled Pie Charts
-
-```{r}
-#| fig-width: 12
-#| fig-height: 5
-
-ggplot(penguins, aes(x = 1, fill = sex)) + 
-  geom_bar(position = "fill") +   
-  coord_polar(theta = "y") + 
-  theme_void(base_size = 24)
-```
 # Drawing Maps
 
 ## Where Do Maps Come From? {.fsmaller}
@@ -147,8 +64,10 @@ ggplot(penguins, aes(x = 1, fill = sex)) +
 ::: {.column width="60%"}
 -   To draw a map, we need a dataset of geographic coordinates
     -   These coordinates define the boundary lines of countries, states, or counties
--   The `map_data()` function from the `maps` package provides easy access to these datasets
+-   The `map_data()` function from the \{maps\} package provides easy access
     -   It returns a data frame of longitude and latitude points
+-   We will then plot the region shapes using `geom_polygon()`
+    
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -157,12 +76,16 @@ ggplot(penguins, aes(x = 1, fill = sex)) +
 
 :::
 
-## Extracting World Data
+## Extracting State Data
 
 ```{r}
-# Extract the coordinates for the world map
-world_map <- map_data("world")
-world_map
+library(tidyverse)
+library(maps)
+library(sf)
+
+# Extract the coordinates for the kansas map
+kansas <- map_data("county", "kansas") |>
+  as_tibble() |> print(n = 5)
 ```
 
 ## Understanding Map Data
@@ -170,100 +93,62 @@ world_map
 - **long** and **lat**: The x and y coordinates of the boundary lines
 - **group**: A unique identifier for each polygon (e.g., a specific island or continuous landmass)
 - **order**: The sequence in which the points should be connected to draw the shape correctly
-- **region**: The name of the geographic area (e.g., country name)
+- **region**: The name of the geographic area (e.g., state)
+- **subregion:** The name of the area portion (e.g., county)
 
 ## Drawing Polygons
 
 ```{r}
-#| output-location: column
-#| fig-width: 9
-#| fig-height: 7
+#| fig-width: 12
+#| fig-height: 5
 
-# We use geom_polygon() to draw shapes
-# The group aesthetic is critical so R knows which points belong together
-ggplot(
-  world_map, 
-  aes(x = long, y = lat, group = group)
-) +
-  geom_polygon(
-    fill = "lightgray", 
-    color = "white",
-    linewidth = 0.2
-  )
+ggplot(kansas, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", color = "black")
 ```
 
 ## Fixing the Distortion
 
 ```{r}
-#| output-location: column
-#| fig-width: 9
-#| fig-height: 7
+#| fig-width: 12
+#| fig-height: 5
 
-# The previous map looked stretched!
-# coord_quickmap() sets the aspect ratio correctly for maps based on latitude
-ggplot(
-  world_map, 
-  aes(x = long, y = lat, group = group)
-) +
-  geom_polygon(
-    fill = "lightgray", 
-    color = "white",
-    linewidth = 0.2
-  ) +
-  coord_quickmap()
+ggplot(kansas, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", color = "black") + coord_quickmap()
 ```
 
-# Regional Maps
+# Wrangling Map Data
 
-## Extracting State Data
+## Pulling All States
 
 ```{r}
-# Extract the coordinates for US states
-state_map <- map_data("state")
-state_map
+# Extract the coordinates for all US states
+state_map <- map_data("state") |> 
+  as_tibble() |> print(n = 10)
 ```
 
 ## Drawing the US Map
 
 ```{r}
-#| output-location: column
-#| fig-width: 9
-#| fig-height: 7
+#| fig-width: 12
+#| fig-height: 5
 
-ggplot(
-  state_map, 
-  aes(x = long, y = lat, group = group)
-) +
-  geom_polygon(
-    fill = "steelblue", 
-    color = "black",
-    linewidth = 0.5
-  ) +
+ggplot(state_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "steelblue", color = "black", linewidth = 0.5) +
   coord_quickmap()
 ```
 
 ## Filtering Regions
 
 ```{r}
-#| output-location: column
-#| fig-width: 9
-#| fig-height: 7
+#| fig-width: 12
+#| fig-height: 5
 
 # We can use standard dplyr tools to map specific regions
-midwest_map <- 
-  state_map |> 
-  filter(
-    region %in% c("kansas", "missouri", "iowa", "nebraska")
-  )
+midwest_map <- state_map |> 
+  filter(region %in% c("kansas", "missouri", "iowa", "nebraska"))
 
-ggplot(
-  midwest_map, 
-  aes(x = long, y = lat, group = group)
-) +
-  geom_polygon(
-    fill = "palegreen", 
-    color = "black"
-  ) +
+ggplot(midwest_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "wheat", color = "black") +
   coord_quickmap()
 ```
 
@@ -278,10 +163,11 @@ ggplot(
 -   Because maps in ggplot2 are just standard geoms, we can easily layer other geoms on top of them
     -   `geom_point()` is great for cities, events, or locations
     -   `geom_text()` or `geom_label()` can identify specific places
+    
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/stacked.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/translate.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::
@@ -300,24 +186,26 @@ cities <- tribble(
 cities
 ```
 
-## Preventing Aesthetic Inheritance
+## Separating Aesthetics
 
 ```{r}
 #| output-location: column
 #| fig-width: 9
 #| fig-height: 7
 
-# Best practice: keep the global ggplot() empty and map aesthetics within each geom.
-# This prevents geom_point from looking for a 'group' variable in the cities data!
 p_midwest <- 
   ggplot() +
   geom_polygon(
     data = midwest_map, 
-    aes(x = long, y = lat, group = group),
-    fill = "white", color = "black"
+    mapping = aes(
+      x = long, 
+      y = lat, 
+      group = group
+    ),
+    fill = "white", 
+    color = "black"
   ) +
   coord_quickmap()
-
 p_midwest
 ```
 
@@ -329,7 +217,6 @@ p_midwest
 #| fig-width: 9
 #| fig-height: 7
 
-# Now we overlay the points using our cities data
 p_midwest +
   geom_point(
     data = cities,
@@ -346,17 +233,21 @@ p_midwest +
 #| fig-width: 9
 #| fig-height: 7
 
-# We can nudge the text slightly so it doesn't overlap the dot
 p_midwest +
   geom_point(
     data = cities,
     aes(x = long, y = lat),
-    color = "red", size = 3
+    color = "red", 
+    size = 3
   ) +
   geom_text(
     data = cities,
-    aes(x = long, y = lat, label = city),
-    nudge_y = 0.3,
+    aes(
+      x = long, 
+      y = lat, 
+      label = city
+    ),
+    nudge_y = 0.3, # shift up
     fontface = "bold"
   )
 ```
@@ -372,10 +263,11 @@ p_midwest +
 -   A **choropleth map** uses color or shading to represent statistical data across geographic regions
     -   For example, coloring states based on their population density or average temperature
 -   To create one, we must merge our geographic polygon data with our statistical data using a join
+
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/grid.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/crayons.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::
@@ -383,13 +275,10 @@ p_midwest +
 ## Preparing Statistical Data
 
 ```{r}
-# We will use the built-in USArrests dataset
-# The map_data region names are lowercase, so our data needs to match!
-arrests <- 
-  USArrests |> 
-  rownames_to_column("region") |> 
-  mutate(region = tolower(region))
+#| message: false
+#| replace_path: ["../../data/", ""]
 
+arrests <- read_csv("../../data/arrests.csv")
 arrests
 ```
 
@@ -407,32 +296,22 @@ state_joined
 ## Creating the Choropleth
 
 ```{r}
-#| output-location: column
-#| fig-width: 9
-#| fig-height: 7
+#| fig-width: 12
+#| fig-height: 5
 
 # We map the fill aesthetic to one of our statistical variables
-ggplot(
-  state_joined, 
-  aes(x = long, y = lat, group = group)
-) +
-  geom_polygon(
-    aes(fill = Murder), 
-    color = "white",
-    linewidth = 0.3
-  ) +
+ggplot(state_joined, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = Murder), color = "white", linewidth = 0.3) +
   coord_quickmap()
 ```
 
 ## Polishing the Map
 
 ```{r}
-#| output-location: column
-#| fig-width: 9
-#| fig-height: 7
+#| output-location: slide
+#| fig-width: 12
+#| fig-height: 5
 
-# We can use theme_void() to remove the axes and gridlines
-# and scale_fill_viridis_c() for an accessible color palette
 ggplot(
   state_joined, 
   aes(x = long, y = lat, group = group)
@@ -443,8 +322,8 @@ ggplot(
     linewidth = 0.3
   ) +
   coord_quickmap() +
-  scale_fill_viridis_c(option = "magma") +
-  theme_void() +
+  scale_fill_viridis_c(option = "magma") + # use better colors
+  theme_void() + # remove the axes and gridlines
   labs(
     title = "US Murder Arrest Rates",
     fill = "Rate per 100k"

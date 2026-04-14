@@ -115,16 +115,14 @@ ggplot(faithful, aes(x = eruptions, y = waiting)) +
 
 {{< dstop >}}
 
-## [13b] Coordinates
+## [13b] Maps
 
 ### Topics
-- A
-- B
-- C
+- Extract and draw polygon map data in ggplot2
+- Add points and text labels to existing maps
+- Join data with map data and make complex maps
 
 ### Readings
-- R4DS (2E) Section 9.5: [Statistical Transformations](https://r4ds.hadley.nz/layers.html#statistical-transformations){target="_blank"}
-- R4DS (2E) Section 9.7: [Coordinate Systems](https://r4ds.hadley.nz/layers.html#coordinate-systems){target="_blank"}
 - EGDA (3E) Chapter 6: [Maps](https://ggplot2-book.org/maps.html){target="_blank"}
 
 ### Slides
@@ -138,7 +136,107 @@ ggplot(faithful, aes(x = eruptions, y = waiting)) +
 :::
 
 ### Practice
-TBA
+
+#### 1) Mapping the World
+
+Let's practice drawing a map of the entire world using the \{maps\} package.
+
+- Extract the coordinates for the world map using `map_data("world")` and convert it to a tibble.
+- Create a ggplot mapping the `long` (x), `lat` (y), and `group` aesthetics.
+- Add the map polygons using `geom_polygon()`, setting the fill to "lightgreen" and the outline color to "black".
+- Apply `coord_quickmap()` to fix the geographic distortion.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+library(tidyverse)
+library(maps)
+
+# Extract the world map data
+world_map <- map_data("world")
+
+# Draw the map
+ggplot(world_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "lightgreen", color = "black") +
+  coord_quickmap()
+```
+
+{{< dstop >}}
+
+#### 2) Pinpointing Global Cities
+
+Now let's add some points to our world map to represent major global cities. 
+
+- Run the provided code to create a small dataset of three cities.
+- Start with your world map code from the previous question, but move the mapping aesthetics into the `geom_polygon()` layer so they do not conflict with the points.
+- Add a `geom_point()` layer using the new `cities` dataset.
+- Map `long` to x and `lat` to y for the points, and set their color to "red" with a size of 3.
+
+```{r}
+cities <- tribble(
+  ~city, ~long, ~lat,
+  "Tokyo", 139.6917, 35.6895,
+  "London", -0.1276, 51.5072,
+  "New York", -74.0060, 40.7128
+)
+```
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+ggplot() +
+  geom_polygon(
+    data = world_map, 
+    mapping = aes(x = long, y = lat, group = group),
+    fill = "lightgreen", 
+    color = "black"
+  ) +
+  geom_point(
+    data = cities,
+    mapping = aes(x = long, y = lat),
+    color = "red", 
+    size = 3
+  ) +
+  coord_quickmap()
+```
+
+{{< dstop >}}
+
+#### 3) Creating a Global Choropleth
+
+Let's visualize some simulated statistical data across different countries to create a choropleth map.
+
+- Run the provided code to load a small dataset of arbitrary values for five countries.
+- Join the `world_map` dataset with `country_data` using a `left_join()`. Match them by the "region" column.
+- Create a map using `geom_polygon()` where the `fill` aesthetic is mapped to the new `value` column.
+- Set the polygon outline color to "black" with a linewidth of 0.3.
+- Keep `coord_quickmap()` to maintain the correct proportions.
+
+```{r}
+country_data <- tribble(
+  ~region, ~value,
+  "Canada", 10,
+  "Brazil", 25,
+  "Australia", 40,
+  "China", 80,
+  "Algeria", 15
+)
+```
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+# Join the data
+world_joined <- world_map |> 
+  left_join(country_data, by = "region")
+
+# Draw the choropleth
+ggplot(world_joined, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = value), color = "black", linewidth = 0.3) +
+  coord_quickmap()
+```
+
+{{< dstop >}}
 
 ## [13c] Themes
 
