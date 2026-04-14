@@ -11,8 +11,7 @@ format:
 # [Foundations of]{.my-subtitle} <br />[Data Science]{.blue}
 
 ::: {.my-grey}
-[{{< meta semester >}} |
-{{< meta course >}}]{}<br />
+[{{< meta semester >}} | {{< meta course >}}]{}<br />
 [Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
 :::
 
@@ -27,6 +26,7 @@ library(here)
 source(here("_common.R"))
 
 library(tidyverse)
+library(patchwork)
 
 options(
   tibble.print_max = 6,
@@ -41,11 +41,11 @@ set_theme(theme_gray(base_size = 24))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
+- Apply complete themes to rapidly change the look of plots
 
-- B
+- Customize individual theme elements for fine-grained control
 
-- C
+- Combine multiple plots into complex layouts using patchwork
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -54,3 +54,301 @@ set_theme(theme_gray(base_size = 24))
 
 :::
 
+# Themes
+
+## Themes {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- Themes let you control [non-data elements]{.b .blue}
+  - Font size and color
+  - Ticks and gridlines
+  - Legend position
+
+::: {.fragment .mt1}
+- Complete themes change many elements
+  - `theme_*()`
+:::
+
+::: {.fragment .mt1}
+- Individual elements can also be changed
+  - `theme(...)`
+  - `element_*()`
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/pantone.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Setup for Themes
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+library(tidyverse)
+# Create a base plot to add themes to
+p <- 
+  ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_jitter(
+    aes(color = drv, shape = drv),
+    size = 3, alpha = 0.8
+  ) + 
+  labs(
+    x = "Engine displacement (L)",
+    y = "Highway MPG",
+    color = "Drive",
+    shape = "Drive",
+    title = "Fuel Efficiency"
+  )
+
+p
+```
+
+## Classic Theme
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# theme_classic() removes gridlines and gives a clean axis
+p + theme_classic(base_size = 24)
+```
+
+## Black and White Theme
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# theme_bw() adds a border and keeps major gridlines
+p + theme_bw(base_size = 24)
+```
+
+## Minimal Theme
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# theme_minimal() removes the background box for a modern look
+p + theme_minimal(base_size = 24)
+```
+
+## Legend Position
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# Move the legend to the bottom, top, left, or "none"
+p + theme(legend.position = "bottom")
+```
+
+## Legend Coordinates
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# Move the legend inside the plot using relative coordinates (0 to 1)
+p + theme(legend.position = c(0.85, 0.8))
+```
+
+## Text Elements
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# Use element_text() to change font properties
+p + theme(plot.title = element_text(face = "bold", color = "red"))
+```
+
+## Line Elements
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# Use element_line() to modify gridlines and axes
+p + theme(panel.grid.major = element_line(linetype = "dashed", color = "red"))
+```
+
+## Blanking
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+
+# Use element_blank() to remove specific features entirely
+p + theme(panel.grid.minor = element_blank(), axis.ticks.x = element_blank())
+```
+
+## Reusable Themes
+
+```{r}
+#| output-location: column
+#| fig-width: 9
+#| fig-height: 7
+
+# Store your custom theme in an object
+# Then apply it to multiple plots
+my_theme <- 
+  theme_minimal(base_size = 30) +
+  theme(
+    legend.position = "bottom",
+    plot.title = 
+      element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+
+p + my_theme
+```
+
+# Layouts
+
+## Layouts {.smaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+- We may want to combine multiple plots into one
+  - e.g., for communication and publishing
+  - e.g., to combine related "subfigures"
+  - e.g., to create complex figure layouts
+
+::: {.fragment .mt1}
+- To do so, we can use the `{patchwork}` package
+  - This redefines the `+`, `|`, `/` operators
+  - We use these to combine ggplot objects
+  - We can control layout and annotations
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/quilt.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Setup for Patchwork
+
+```{r}
+#| echo: true
+
+# Create example plots to work with
+p1 <- ggplot(mpg, aes(x = displ)) + 
+  geom_histogram(bins = 10, fill = "steelblue", color = "white") + 
+  labs(x = "Engine Displacement", y = NULL)
+
+p2 <- ggplot(mpg, aes(x = hwy)) + 
+  geom_histogram(bins = 10, fill = "seagreen", color = "white") + 
+  labs(x = "Highway MPG", y = NULL)
+
+p3 <- ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(alpha = 0.5) +
+  labs(x = "Engine Displacement", y = "Highway MPG")
+```
+
+## Combining Plots: Basic Addition
+
+```{r}
+#| fig-width: 12
+#| fig-height: 6
+
+# The + operator attempts to lay out the plots logically
+library(patchwork)
+
+p1 + p2
+```
+
+## Controlling the Layout
+
+```{r}
+#| fig-width: 12
+#| fig-height: 6
+
+# Use plot_layout() to explicitly state columns or rows
+p1 + p2 + p3 + plot_layout(ncol = 3)
+```
+
+## Adding Spacers
+
+```{r}
+#| fig-width: 12
+#| fig-height: 6
+
+# Use plot_spacer() to leave empty areas in the grid
+p1 + plot_spacer() + p2 + plot_layout(ncol = 3)
+```
+
+## Side-by-Side
+
+```{r}
+#| fig-width: 12
+#| fig-height: 6
+
+# The | operator explicitly places plots side-by-side
+p1 | p2 | p3
+```
+
+## Above-and-Below
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# The / operator explicitly places plots above and below
+p1 / p3
+```
+
+## Mixing and Matching
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Parentheses determine nesting and grouping
+(p1 | p2) / p3
+```
+
+## Relative Sizes
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# Pass a vector to widths or heights to adjust proportions
+(p1 | p2) / p3 + plot_layout(heights = c(1, 2))
+```
+
+## Overall Annotations
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# plot_annotation() adds a master title, subtitle, or caption
+(p1 | p2) / p3 + 
+  plot_annotation(
+    title = "Vehicle Engine Size and Fuel Economy",
+    caption = "Data from fueleconomy.gov"
+  )
+```
+
+## Automated Tagging
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+# tag_levels automatically labels subfigures (e.g., A, B, C or 1, 2, 3)
+(p1 | p2) / p3 + 
+  plot_annotation(tag_levels = "A")
+```

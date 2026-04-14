@@ -81,7 +81,6 @@ set_theme(theme_gray(base_size = 20))
 ```{r}
 library(tidyverse)
 library(maps)
-library(sf)
 
 # Extract the coordinates for the kansas map
 kansas <- map_data("county", "kansas") |>

@@ -241,9 +241,9 @@ ggplot(world_joined, aes(x = long, y = lat, group = group)) +
 ## [13c] Themes
 
 ### Topics
-- A
-- B
-- C
+- Apply complete themes to rapidly change the look of plots
+- Customize individual theme elements for fine-grained control
+- Combine multiple plots into complex layouts using patchwork
 
 ### Readings
 - R4DS (2E) Section 11.5: [Themes](https://r4ds.hadley.nz/communication.html#sec-themes){target="_blank"}
@@ -260,7 +260,90 @@ ggplot(world_joined, aes(x = long, y = lat, group = group)) +
 :::
 
 ### Practice
-TBA
+
+#### 1) Applying Complete Themes and Moving Legends
+
+Let's practice applying a built-in theme and adjusting the legend position for a cleaner look.
+
+- Run the provided code to create a base plot `p_base` using the `mpg` dataset.
+- Apply the `theme_minimal()` complete theme to `p_base`.
+- Use the `theme()` function to move the legend to the "bottom" of the plot.
+
+```{r}
+library(tidyverse)
+
+p_base <- ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(size = 3) +
+  labs(title = "Engine Size vs. Highway MPG")
+```
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+p_base +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+{{< dstop >}}
+
+#### 2) Customizing Theme Elements
+
+Complete themes are great, but sometimes you need fine-grained control over specific components like text formatting and gridlines.
+
+- Start with the `p_base` plot from the previous question.
+- Use `theme()` and `element_text()` to make the plot title bold (`face = "bold"`).
+- Use `element_blank()` to completely remove the minor gridlines (`panel.grid.minor`).
+- Use `element_line()` to make the major gridlines (`panel.grid.major`) dashed.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+p_base +
+  theme(
+    plot.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(linetype = "dashed")
+  )
+```
+
+{{< dstop >}}
+
+#### 3) Combining Plots with Patchwork
+
+When presenting data, you often need to combine multiple related subfigures into one cohesive layout. 
+
+- Run the provided code to create three simple plots (`p1`, `p2`, `p3`) and load the patchwork library.
+- Use patchwork operators to place `p1` and `p2` side-by-side on the top row, and place `p3` below them. Use parentheses to group the top row.
+- Add an overall `plot_annotation()` with the title "Vehicle Exploration" and automatically tag the subfigures using `tag_levels = "A"`.
+
+```{r}
+library(patchwork)
+
+p1 <- ggplot(mpg, aes(x = class)) + 
+  geom_bar(fill = "steelblue")
+
+p2 <- ggplot(mpg, aes(x = drv)) + 
+  geom_bar(fill = "seagreen")
+
+p3 <- ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point(alpha = 0.5)
+```
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+(p1 | p2) / p3 +
+  plot_annotation(
+    title = "Vehicle Exploration",
+    tag_levels = "A"
+  )
+```
+
+{{< dstop >}}
 
 <!-- Bottom Nav -->
 
