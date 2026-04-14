@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>a) Conceptual</strong></p>
 <p>Explain the difference in behavior between an <code>inner_join()</code> and a <code>full_join()</code> when there are missing matches between the left and right tables.</p>
 <p><strong>b) Applied</strong></p>
-<p>Let’s find out which baseball managers won awards in 2015. Load the <code>Managers</code> and <code>AwardsManagers</code> datasets from the {Lahman} package.</p>
+<p>Let’s find out which baseball managers won awards in 2015. Load the <code>Managers</code> and <code>AwardsShareManagers</code> datasets from the {Lahman} package.</p>
 <p>First, perform an <code>inner_join()</code> between the two datasets. Use <code>join_by(playerID, yearID)</code> to ensure you match the correct person to the correct year. Second, pipe the joined data into a <code>filter()</code> to keep only the rows where <code>yearID == 2015</code>. Finally, select the <code>playerID</code>, <code>teamID</code>, <code>awardID</code>, and <code>pointsWon</code> columns.</p>
 <hr>
 <p>✅ Done! <em>Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that, if any of your code chunks has an error in it, the HTML file will not render properly (this is why removing scratch work is important). If you receive an error message upon clicking “Render” about a missing file, this actually means that there is an error in one of your chunks.</em></p>
