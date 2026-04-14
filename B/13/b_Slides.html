@@ -246,11 +246,10 @@
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the coordinates for the kansas map</span></span>
-<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>kansas <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"county"</span>, <span class="st">"kansas"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the coordinates for the kansas map</span></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>kansas <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"county"</span>, <span class="st">"kansas"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 997 × 6
    long   lat group order region subregion

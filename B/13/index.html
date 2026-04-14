@@ -543,9 +543,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="topics-2" class="level3">
 <h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Apply complete themes to rapidly change the look of plots</li>
+<li>Customize individual theme elements for fine-grained control</li>
+<li>Combine multiple plots into complex layouts using patchwork</li>
 </ul>
 </section>
 <section id="readings-2" class="level3">
@@ -565,7 +565,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-2" class="level3">
 <h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
-<p>TBA</p>
+<section id="applying-complete-themes-and-moving-legends" class="level4">
+<h4 class="anchored" data-anchor-id="applying-complete-themes-and-moving-legends">1) Applying Complete Themes and Moving Legends</h4>
+<p>Let’s practice applying a built-in theme and adjusting the legend position for a cleaner look.</p>
+<ul>
+<li>Run the provided code to create a base plot <code>p_base</code> using the <code>mpg</code> dataset.</li>
+<li>Apply the <code>theme_minimal()</code> complete theme to <code>p_base</code>.</li>
+<li>Use the <code>theme()</code> function to move the legend to the “bottom” of the plot.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p_base <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Engine Size vs. Highway MPG"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p_base <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="customizing-theme-elements" class="level4">
+<h4 class="anchored" data-anchor-id="customizing-theme-elements">2) Customizing Theme Elements</h4>
+<p>Complete themes are great, but sometimes you need fine-grained control over specific components like text formatting and gridlines.</p>
+<ul>
+<li>Start with the <code>p_base</code> plot from the previous question.</li>
+<li>Use <code>theme()</code> and <code>element_text()</code> to make the plot title bold (<code>face = "bold"</code>).</li>
+<li>Use <code>element_blank()</code> to completely remove the minor gridlines (<code>panel.grid.minor</code>).</li>
+<li>Use <code>element_line()</code> to make the major gridlines (<code>panel.grid.major</code>) dashed.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p_base <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">linetype =</span> <span class="st">"dashed"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="combining-plots-with-patchwork" class="level4">
+<h4 class="anchored" data-anchor-id="combining-plots-with-patchwork">3) Combining Plots with Patchwork</h4>
+<p>When presenting data, you often need to combine multiple related subfigures into one cohesive layout.</p>
+<ul>
+<li>Run the provided code to create three simple plots (<code>p1</code>, <code>p2</code>, <code>p3</code>) and load the patchwork library.</li>
+<li>Use patchwork operators to place <code>p1</code> and <code>p2</code> side-by-side on the top row, and place <code>p3</code> below them. Use parentheses to group the top row.</li>
+<li>Add an overall <code>plot_annotation()</code> with the title “Vehicle Exploration” and automatically tag the subfigures using <code>tag_levels = "A"</code>.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv)) <span class="sc">+</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"seagreen"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">|</span> p2) <span class="sc">/</span> p3 <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Vehicle Exploration"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">tag_levels =</span> <span class="st">"A"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../12/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 12</a>
@@ -574,6 +666,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+</section>
 </section>
 </section>
 
