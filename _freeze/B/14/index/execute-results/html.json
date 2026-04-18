@@ -1,0 +1,15 @@
+{
+  "hash": "dd30a5763d63ac55dfb1df0c40b9bf08",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Week 14: Program\"\nexecute:\n  echo: true\n  eval: true\n---\n\n\n\n## [13a] Conditionals\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Chapter 12: [Logical vectors](https://r4ds.hadley.nz/logicals.html){target=\"_blank\"}\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"a_Slides.html\" title=\"[14a] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\n\n\n## [14b] Functions\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Chapter 25: [Functions](https://r4ds.hadley.nz/functions.html){target=\"_blank\"}\n\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"b_Slides.html\" title=\"[14b] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\n\n\n\n## [14c] Iteration\n\n### Topics\n- A\n- B\n- C\n\n### Readings\n- R4DS (2E) Chapter 26: [Iteration](https://r4ds.hadley.nz/iteration.html){target=\"_blank\"}\n\n\n### Slides\n```{=html}\n<iframe class=\"slide-deck\" src=\"c_Slides.html\" title=\"[14c] Slideshow\">\n</iframe>\n```\n\n::: {.fsmaller}\n\\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n:::\n\n### Practice\n\n\n\n<!-- Bottom Nav -->\n\n```{=html}\n<div style=\"display: flex; justify-content: space-between; margin-top: 3rem;\">\n  <a href=\"../12/index.html\" class=\"btn btn-outline-primary\" role=\"button\">&laquo;&nbsp;&nbsp;Week 12</a>\n\n  <a href=\"../14/index.html\" class=\"btn btn-primary\" role=\"button\">Week 14&nbsp;&nbsp;&raquo;</a>\n</div>\n```\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
