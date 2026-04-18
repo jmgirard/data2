@@ -228,21 +228,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
-  <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
   </ul></li>
   <li><a href="#b-functions" id="toc-b-functions" class="nav-link" data-scroll-target="#b-functions">[14b] Functions</a>
   <ul class="collapse">
   <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
   <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
   <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
-  <li><a href="#practice-2" id="toc-practice-2" class="nav-link" data-scroll-target="#practice-2">Practice</a></li>
+  <li><a href="#practice-1" id="toc-practice-1" class="nav-link" data-scroll-target="#practice-1">Practice</a></li>
   </ul></li>
   <li><a href="#c-iteration" id="toc-c-iteration" class="nav-link" data-scroll-target="#c-iteration">[14c] Iteration</a>
   <ul class="collapse">
   <li><a href="#topics-2" id="toc-topics-2" class="nav-link" data-scroll-target="#topics-2">Topics</a></li>
   <li><a href="#readings-2" id="toc-readings-2" class="nav-link" data-scroll-target="#readings-2">Readings</a></li>
   <li><a href="#slides-2" id="toc-slides-2" class="nav-link" data-scroll-target="#slides-2">Slides</a></li>
-  <li><a href="#practice-3" id="toc-practice-3" class="nav-link" data-scroll-target="#practice-3">Practice</a></li>
+  <li><a href="#practice-2" id="toc-practice-2" class="nav-link" data-scroll-target="#practice-2">Practice</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -274,9 +273,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="topics" class="level3">
 <h3 class="anchored" data-anchor-id="topics">Topics</h3>
 <ul>
-<li>Comparisons and Boolean Logic</li>
-<li>Logical and Numeric Summaries</li>
-<li>If-Else and Case-When</li>
+<li>Evaluate comparisons and combine multiple conditions using Boolean logic</li>
+<li>Summarize logical vectors to count occurrences and calculate proportions</li>
+<li>Control data transformations conditionally using <code>if_else()</code> and <code>case_when()</code></li>
 </ul>
 </section>
 <section id="readings" class="level3">
@@ -295,9 +294,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice" class="level3">
 <h3 class="anchored" data-anchor-id="practice">Practice</h3>
-</section>
-<section id="practice-1" class="level3">
-<h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
 <section id="categorizing-city-mileage" class="level4">
 <h4 class="anchored" data-anchor-id="categorizing-city-mileage">1) Categorizing City Mileage</h4>
 <p>Using the <code>mpg</code> dataset (from {ggplot2}), let’s use <code>if_else()</code> to create a new categorical column based on city fuel efficiency.</p>
@@ -418,9 +414,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="topics-1" class="level3">
 <h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Package repetitive code into custom functions using the DRY principle</li>
+<li>Control function behavior using arguments, defaults, and branching logic</li>
+<li>Apply custom vector functions inside tidyverse data pipelines</li>
 </ul>
 </section>
 <section id="readings-1" class="level3">
@@ -437,8 +433,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
-<section id="practice-2" class="level3">
-<h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
+<section id="practice-1" class="level3">
+<h3 class="anchored" data-anchor-id="practice-1">Practice</h3>
+<section id="building-an-outlier-flag" class="level4">
+<h4 class="anchored" data-anchor-id="building-an-outlier-flag">1) Building an Outlier Flag</h4>
+<p>Let’s build a function to identify unusually high values in a dataset. We will start with the basic math.</p>
+<ul>
+<li>Create a custom function named <code>flag_outlier()</code> with a single argument <code>x</code>.</li>
+<li>Inside the function, calculate a cutoff value: the <code>mean()</code> of <code>x</code> plus 2 times the <code>sd()</code> of <code>x</code>. (Be sure to use <code>na.rm = TRUE</code> for both!).</li>
+<li>Return a logical value indicating whether <code>x</code> is greater than your cutoff.</li>
+<li>Test your function on the <code>Ozone</code> column of the <code>airquality</code> dataset (from the {datasets} package).</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"airquality"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>flag_outlier <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> cutoff</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">flag_outlier</span>(airquality<span class="sc">$</span>Ozone)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   [1] FALSE FALSE FALSE FALSE    NA FALSE FALSE FALSE FALSE    NA FALSE FALSE</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [25]    NA    NA    NA FALSE FALSE  TRUE FALSE    NA    NA    NA    NA    NA</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [37]    NA FALSE    NA FALSE FALSE    NA    NA FALSE    NA    NA FALSE FALSE</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [49] FALSE FALSE FALSE    NA    NA    NA    NA    NA    NA    NA    NA    NA</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [61]    NA  TRUE FALSE FALSE    NA FALSE FALSE FALSE FALSE FALSE FALSE    NA</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [73] FALSE FALSE    NA FALSE FALSE FALSE FALSE FALSE FALSE FALSE    NA    NA</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  [97] FALSE FALSE  TRUE FALSE  TRUE    NA    NA FALSE FALSE FALSE    NA FALSE</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [109] FALSE FALSE FALSE FALSE FALSE FALSE    NA FALSE  TRUE FALSE    NA FALSE</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [121]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [145] FALSE FALSE FALSE FALSE FALSE    NA FALSE FALSE FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="adding-customization" class="level4">
+<h4 class="anchored" data-anchor-id="adding-customization">2) Adding Customization</h4>
+<p>Let’s make the function more flexible by allowing the user to decide exactly how extreme an outlier needs to be before it gets flagged.</p>
+<ul>
+<li>Redefine your function and add a second argument called <code>multiplier</code>. Set its default value to <code>2</code>.</li>
+<li>Update your cutoff calculation. Instead of hardcoding a number, multiply the standard deviation by your new <code>multiplier</code> argument.</li>
+<li>Test your upgraded function by passing <code>airquality$Ozone</code> to it and setting the <code>multiplier</code> to <code>3</code>.</li>
+<li>Pipe the result of that test directly into the <code>any()</code> function to quickly check if there are <em>any</em> extreme outliers in the vector.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flag_outlier <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">multiplier =</span> <span class="dv">2</span>) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> (multiplier <span class="sc">*</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> cutoff</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">flag_outlier</span>(airquality<span class="sc">$</span>Ozone, <span class="at">multiplier =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">any</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="functions-in-pipelines" class="level4">
+<h4 class="anchored" data-anchor-id="functions-in-pipelines">3) Functions in Pipelines</h4>
+<p>Because your function takes a vector and returns a logical vector of the exact same length, it drops perfectly into your data wrangling workflows.</p>
+<ul>
+<li>Open a tidyverse pipeline using the <code>airquality</code> dataset.</li>
+<li>Immediately pipe it to the <code>as_tibble()</code> function to make it a tibble.</li>
+<li>Use <code>mutate()</code> to create a new column called <code>is_high_ozone</code> using your <code>flag_outlier()</code> function.</li>
+<li>Use <code>select()</code> to view only the <code>Month</code>, <code>Day</code>, <code>Ozone</code>, and <code>is_high_ozone</code> columns.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>airquality <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_high_ozone =</span> <span class="fu">flag_outlier</span>(Ozone)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Month, Day, Ozone, is_high_ozone)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 153 × 4</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    Month   Day Ozone is_high_ozone</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;lgl&gt;        </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  1     5     1    41 FALSE        </span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  2     5     2    36 FALSE        </span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  3     5     3    12 FALSE        </span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  4     5     4    18 FALSE        </span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  5     5     5    NA NA           </span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  6     5     6    28 FALSE        </span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  7     5     7    23 FALSE        </span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  8     5     8    19 FALSE        </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  9     5     9     8 FALSE        </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10     5    10    NA NA           </span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 143 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
 </section>
 </section>
 <section id="c-iteration" class="level2">
@@ -465,8 +552,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
 </div>
 </section>
-<section id="practice-3" class="level3">
-<h3 class="anchored" data-anchor-id="practice-3">Practice</h3>
+<section id="practice-2" class="level3">
+<h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../12/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 12</a>
