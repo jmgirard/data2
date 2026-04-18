@@ -40,15 +40,15 @@ set_theme(theme_gray(base_size = 20))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- Comparisons and Boolean Logic
+- Evaluate comparisons and combine multiple conditions using Boolean logic
 
-- Logical and Numeric Summaries
+- Summarize logical vectors to count occurrences and calculate proportions
 
-- If-Else and Case-When
+- Control data transformations conditionally using `if_else()` and `case_when()`
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/padlock.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/padlock.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::

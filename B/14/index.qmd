@@ -19,9 +19,9 @@ knitr::opts_chunk$set(collapse = TRUE)
 ## [13a] Conditionals
 
 ### Topics
-- Comparisons and Boolean Logic
-- Logical and Numeric Summaries
-- If-Else and Case-When
+- Evaluate comparisons and combine multiple conditions using Boolean logic
+- Summarize logical vectors to count occurrences and calculate proportions
+- Control data transformations conditionally using `if_else()` and `case_when()`
 
 ### Readings
 - R4DS (2E) Chapter 12: [Logical vectors](https://r4ds.hadley.nz/logicals.html){target="_blank"}
@@ -36,7 +36,6 @@ knitr::opts_chunk$set(collapse = TRUE)
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
-### Practice
 ### Practice
 
 #### 1) Categorizing City Mileage
@@ -125,9 +124,9 @@ starwars |>
 ## [14b] Functions
 
 ### Topics
-- A
-- B
-- C
+- Package repetitive code into custom functions using the DRY principle
+- Control function behavior using arguments, defaults, and branching logic
+- Apply custom vector functions inside tidyverse data pipelines
 
 ### Readings
 - R4DS (2E) Chapter 25: [Functions](https://r4ds.hadley.nz/functions.html){target="_blank"}
@@ -145,7 +144,74 @@ starwars |>
 
 ### Practice
 
+#### 1) Building an Outlier Flag
 
+Let's build a function to identify unusually high values in a dataset. We will start with the basic math.
+
+- Create a custom function named `flag_outlier()` with a single argument `x`.
+- Inside the function, calculate a cutoff value: the `mean()` of `x` plus 2 times the `sd()` of `x`. (Be sure to use `na.rm = TRUE` for both!).
+- Return a logical value indicating whether `x` is greater than your cutoff.
+- Test your function on the `Ozone` column of the `airquality` dataset (from the \{datasets\} package).
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+library(tidyverse)
+data("airquality", package = "datasets")
+
+flag_outlier <- function(x) {
+  cutoff <- mean(x, na.rm = TRUE) + (2 * sd(x, na.rm = TRUE))
+  x > cutoff
+}
+
+flag_outlier(airquality$Ozone)
+```
+
+{{< dstop >}}
+
+#### 2) Adding Customization
+
+Let's make the function more flexible by allowing the user to decide exactly how extreme an outlier needs to be before it gets flagged.
+
+- Redefine your function and add a second argument called `multiplier`. Set its default value to `2`.
+- Update your cutoff calculation. Instead of hardcoding a number, multiply the standard deviation by your new `multiplier` argument.
+- Test your upgraded function by passing `airquality$Ozone` to it and setting the `multiplier` to `3`.
+- Pipe the result of that test directly into the `any()` function to quickly check if there are *any* extreme outliers in the vector.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+flag_outlier <- function(x, multiplier = 2) {
+  
+  cutoff <- mean(x, na.rm = TRUE) + (multiplier * sd(x, na.rm = TRUE))
+  
+  x > cutoff
+}
+
+flag_outlier(airquality$Ozone, multiplier = 3) |> any()
+```
+
+{{< dstop >}}
+
+#### 3) Functions in Pipelines
+
+Because your function takes a vector and returns a logical vector of the exact same length, it drops perfectly into your data wrangling workflows.
+
+- Open a tidyverse pipeline using the `airquality` dataset.
+- Immediately pipe it to the `as_tibble()` function to make it a tibble.
+- Use `mutate()` to create a new column called `is_high_ozone` using your `flag_outlier()` function.
+- Use `select()` to view only the `Month`, `Day`, `Ozone`, and `is_high_ozone` columns. 
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+airquality |> 
+  as_tibble() |> 
+  mutate(is_high_ozone = flag_outlier(Ozone)) |> 
+  select(Month, Day, Ozone, is_high_ozone)
+```
+
+{{< dstop >}}
 
 ## [14c] Iteration
 

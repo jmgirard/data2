@@ -29,11 +29,11 @@ library(tidyverse)
 library(patchwork)
 
 options(
-  tibble.print_max = 6,
-  tibble.print_min = 6
+  tibble.print_max = 5,
+  tibble.print_min = 5
 )
 
-set_theme(theme_gray(base_size = 20))
+set_theme(theme_gray(base_size = 24))
 ```
 
 ## Roadmap
@@ -41,11 +41,11 @@ set_theme(theme_gray(base_size = 20))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
+- Package repetitive code into custom functions using the DRY principle
 
-- B
+- Control function behavior using arguments, defaults, and branching logic
 
-- C
+- Apply custom vector functions inside tidyverse data pipelines
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -54,3 +54,332 @@ set_theme(theme_gray(base_size = 20))
 
 :::
 
+# Why Write Functions?
+
+## The DRY Principle {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   As you code, you may find yourself copying and pasting code over and over.
+-   This violates the **DRY Principle**:<br>
+    *"Don't Repeat Yourself!"*
+-   Repetition increases the chance of errors and makes your code harder to read.
+-   [Functions]{.b .blue} allow us to package code into reusable (and sharable) tools.
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/fn_key.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Repetitive Code Example
+
+```{r}
+#| echo: true
+library(tidyverse)
+data("mpg", package = "ggplot2")
+data("starwars", package = "dplyr")
+
+# We want quick histograms to explore our data
+p1 <- ggplot(mpg, aes(x = hwy)) + geom_histogram()
+p2 <- ggplot(mpg, aes(x = cty)) + geom_histogram()
+p3 <- ggplot(starwars, aes(x = height)) + geom_histogram()
+```
+
+This is a lot of typing just to look at three distributions!
+
+:::{.fragment}
+Could we make a function to do this more efficiently?
+:::
+
+# Anatomy of a Function
+
+## How Functions Work 
+
+:::{.fsmaller}
+A function declaration always requires four core parts:
+
+1.  **Name:** How we will call the function later.
+2.  **Arguments:** The inputs the function expects.
+3.  **Body:** The actual code that does the work.<br>*(This can be ANY valid R code, e.g., wrangling, visualizing, modeling)*
+4.  **Return:** The final output given back to the user.
+:::
+
+``` r
+function_name <- function(arguments) { 
+  # function_body
+  # ...
+  # return_value
+}
+```
+
+## Our First Function
+
+::: {.fsmaller}
+Let's build a function to automate our histogram plotting.<br>
+It will take a single vector of numbers and return a plot.
+:::
+
+```{r}
+gghist <- function(vector) {
+  
+  # 1. Put the vector into a dataframe
+  df <- tibble(x = vector)
+  
+  # 2. Build the plot
+  p <- ggplot(df, aes(x = x)) + geom_histogram()
+  
+  # 3. Return the plot
+  p
+}
+```
+
+## Using Our Function
+
+Now we can generate our plots with less typing!
+
+:::{.columns}
+:::{.column}
+```{r}
+gghist(mpg$hwy)
+```
+:::
+:::{.column}
+```{r}
+gghist(starwars$height)
+```
+:::
+:::
+
+# Arguments & Defaults
+
+## Adding More Arguments
+
+:::{.fsmaller}
+What if we want to change the fill color of our histogram or the text of our<br> x-axis label? We can simply add more arguments and use them in the body.
+:::
+
+```{r}
+gghist_color <- function(vector, fcolor, xlabel) {
+  
+  df <- tibble(x = vector)
+  
+  p <- ggplot(df, aes(x = x)) + 
+    geom_histogram(fill = fcolor) +
+    labs(x = xlabel)
+  
+  p
+}
+```
+
+## Using the Arguments
+
+```{r}
+#| message: false
+
+gghist_color(mpg$hwy, fcolor = "firebrick", xlabel = "Highway MPG")
+```
+
+
+## The Missing Argument Error {.fsmaller}
+
+If we use our new function but forget to provide the new arguments, R will throw an error because it doesn't know what color/label to use.
+
+```{r}
+#| echo: true
+#| error: true
+gghist_color(mpg$hwy)
+```
+
+We can fix this by setting **default argument values**.
+
+## Setting Defaults
+
+::: {.fsmaller}
+We define defaults in the `function()` declaration. The default will only be used if the argument is missing. The user can still overwrite the defaults!
+:::
+
+```{r}
+gghist_safe <- function(vector, fcolor = "black", xlabel = "Variable") {
+  
+  df <- tibble(x = vector)
+  
+  p <- ggplot(df, aes(x = x)) + 
+    geom_histogram(fill = fcolor) +
+    labs(x = xlabel)
+  
+  p
+}
+```
+
+## Using the Defaults
+
+:::{.columns}
+:::{.column}
+```{r}
+# Provide neither arg
+gghist_safe(mpg$hwy)
+```
+:::
+:::{.column}
+```{r}
+# Provide one only arg
+gghist_safe(mpg$hwy, fcolor = "blue")
+```
+
+:::
+:::
+
+# Validation and<br> Control Flow
+
+## Designing for Safety
+
+::: {.fsmaller}
+When sharing functions, the user may not provide the correct data type.<br>
+Let's make a simple function to "center" a variable by subtracting its mean.
+:::
+
+```{r}
+center_var <- function(x) {
+  x - mean(x, na.rm = TRUE)
+}
+center_var(c(8, 10, 12))
+```
+
+```{r}
+#| error: true
+
+center_var(c("apple", "banana", "cherry"))
+```
+
+::: {.fsmaller}
+Our function gives an error message, but it is not a very helpful one...
+
+Luckily, we can modify our function to do better!
+:::
+
+## Input Validation
+
+:::{.fsmaller}
+We can use an `if()` statement at the very beginning of our function to check the input. If the input is wrong, we use `stop()` to print an error message.
+:::
+
+```{r}
+#| error: true
+
+center_var_safe <- function(x) {
+  
+  if (!is.numeric(x)) {
+    stop("The input vector 'x' must be numeric.")
+  }
+  
+  x - mean(x, na.rm = TRUE)
+}
+
+center_var_safe(c("apple", "banana", "cherry"))
+```
+
+## Adding Logical Controls 
+
+:::{.fsmaller}
+We can add logical arguments (`TRUE` or `FALSE`) to give users control over how the function operates. Let's add a `robust` argument to our centering function.
+:::
+
+``` r
+center_var_adv <- function(x, robust = FALSE) {
+  
+  if (!is.numeric(x)) { stop("Input 'x' must be numeric.") }
+  if (!is.logical(robust)) { stop("Input 'robust' must be logical.")}
+  
+  # But how do we use the robust argument?
+  # - we want to subtract the mean if robust is FALSE (default)
+  # - we want to subtract the median if robust is TRUE
+}
+```
+
+## Branching Logic
+
+:::{.fsmaller}
+We can use an `if` and `else` block to create two branches in our function.<br>
+The code will do different things based on the `robust` argument's value.
+:::
+
+```{r}
+center_var_adv <- function(x, robust = FALSE) {
+  
+  if (!is.numeric(x)) { stop("Input 'x' must be numeric.") }
+  if (!is.logical(robust)) { stop("Input 'robust' must be logical.")}
+  
+  if (robust == TRUE) {
+    # The robust branch uses the median
+    centered <- x - median(x, na.rm = TRUE)
+  } else {
+    # The standard branch uses the mean
+    centered <- x - mean(x, na.rm = TRUE)
+  }
+  
+  centered
+}
+```
+
+## Using the Branching Function
+
+::: {.fsmaller}
+Because the mean is highly sensitive to outliers, our `robust` argument provides a very helpful alternative path!
+:::
+
+```{r}
+my_data <- c(1, 2, 3, 4, 100) # Notice the outlier
+```
+
+```{r}
+# Standard centering is greatly influenced by the outlier
+center_var_adv(my_data, robust = FALSE)
+
+# Robust centering is not influenced by the outlier
+center_var_adv(my_data, robust = TRUE)
+```
+
+# Functions in Pipelines
+
+## The Payoff in mutate()
+
+::: {.fsmaller}
+Because our `center_var_adv()` function takes a vector and returns a vector of the same length, it drops perfectly into our tidyverse pipelines.
+:::
+
+```{r}
+mpg |> 
+  select(manufacturer, model, hwy) |> 
+  mutate(
+    hwy_cent = center_var_adv(hwy),
+    hwy_rob = center_var_adv(hwy, robust = TRUE)
+  )
+```
+
+## Prepping for Iteration
+
+::: {.fsmaller}
+You can build any mathematical transformation you need and apply it the same way.
+For example, a common task is standardization (z-scoring):
+:::
+
+```{r}
+standardize <- function(x) {
+  (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)
+}
+mpg |> 
+  select(manufacturer, model, cty) |> 
+  mutate(cty_z = standardize(cty))
+```
+
+## Summary {.fsmaller}
+
+-   **Limitless Potential:** Functions can package *any* valid R code or workflow. 
+-   **Reduce Repetition:** They apply the DRY principle.
+-   **Structure:** They require a name, arguments, a body, and a return value.
+-   **Arguments & Logic:** You can set default values and use `if`/`else` to branch function behavior.
+-   **Validation:** Use `if()` and `stop()` to ensure the correct data is provided.
+-   **Functions in Pipelines:** Custom functions that return vectors drop seamlessly into `mutate()` and prepare us for iteration.
