@@ -29,11 +29,17 @@ library(tidyverse)
 library(patchwork)
 
 options(
-  tibble.print_max = 6,
-  tibble.print_min = 6
+  tibble.print_max = 5,
+  tibble.print_min = 5
 )
 
 set_theme(theme_gray(base_size = 20))
+
+if(!dir.exists("data")) dir.create("data")
+set.seed(2023)
+write_csv(tibble(day = 1:30, mood = round(rnorm(30, 5, 1))), "data/pid_001.csv")
+write_csv(tibble(day = 1:30, mood = round(rnorm(30, 4, 1))), "data/pid_002.csv")
+write_csv(tibble(day = 1:30, mood = round(rnorm(30, 4, 2))), "data/pid_003.csv")
 ```
 
 ## Roadmap
@@ -41,11 +47,13 @@ set_theme(theme_gray(base_size = 20))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
+- Iterate functions across multiple columns using `across()`
 
-- B
+- Write quick, on-the-fly functions
 
-- C
+- Apply functions to vectors using `map()` and `map2()`
+
+- Iterate for side effects using `walk()`
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -54,3 +62,329 @@ set_theme(theme_gray(base_size = 20))
 
 :::
 
+# Iterating Over Columns
+
+## The Repetition Problem
+
+::: {.fsmaller}
+We often need to apply the exact same function to many different columns. Doing this manually requires a lot of repetitive, error-prone typing.
+:::
+
+```{r}
+library(tidyverse)
+data("mpg", package = "ggplot2")
+
+# Calculating the mean for multiple columns manually
+mpg |> 
+  summarize(
+    cty_mean = mean(cty),
+    hwy_mean = mean(hwy),
+    displ_mean = mean(displ)
+  )
+```
+
+## Introducing across()
+
+::: {.fsmaller}
+The `across()` function solves this by allowing us to apply the same transformation to multiple columns simultaneously. It takes two primary arguments: `.cols` (which columns) and `.fns` (what function).
+:::
+
+```{r}
+# This does the exact same thing, but much more efficiently
+mpg |> 
+  summarize(
+    across(.cols = c(cty, hwy, displ), .fns = mean)
+  )
+```
+
+## Selecting Columns Smartly
+
+::: {.fsmaller}
+We can use tidy-select helpers (like `where()`, `starts_with()`, or `contains()`) inside of `across()` to target specific types of columns.
+:::
+
+```{r}
+# Apply the mean function to all numeric columns at once
+mpg |> 
+  summarize(
+    across(.cols = where(is.numeric), .fns = mean)
+  )
+```
+
+## Custom Functions Work Too
+
+::: {.fsmaller}
+Importantly, `across()` works perfectly with custom functions! It also drops right into `mutate()` just as easily as `summarize()`.
+:::
+
+```{r}
+# Our standardization function from Lecture 14b
+standardize <- function(x) { (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE) }
+
+mpg |> 
+  mutate(across(.cols = c(cty, hwy), .fns = standardize)) |> 
+  select(manufacturer, cty, hwy)
+```
+
+# Anonymous Functions
+
+## The Need for Quick Functions
+
+::: {.fsmaller}
+Sometimes we need to apply a simple operation across many columns, but it feels overkill to create and save a custom, named function for it.
+:::
+
+```{r}
+# Do we really need to save this just to use it once?
+multiply_by_two <- function(x) { x * 2 }
+
+mpg |> 
+  mutate(across(c(cty, hwy), multiply_by_two)) |> 
+  select(manufacturer, cty, hwy)
+```
+
+## The \(x) Syntax
+
+::: {.fsmaller}
+R allows us to write **anonymous functions** (functions without a name) directly inside our pipelines using the `\(x)` syntax. This simply tells R: *"I am about to write a temporary function that takes a single argument that we can call x."*
+:::
+
+```{r}
+# This code does the exact same thing, but inline!
+mpg |> 
+  mutate(across(c(cty, hwy), \(x) x * 2)) |> 
+  select(manufacturer, cty, hwy)
+```
+
+## Passing Arguments
+
+::: {.fsmaller}
+One of the biggest advantage of anonymous functions is how easily they let us pass additional arguments to the function we are iterating (e.g., na.rm).
+:::
+
+:::{.columns}
+:::{.column}
+```{r}
+# How to pass na.rm = TRUE to mean()?
+starwars |> 
+  summarize(
+    across(
+      .cols = c(mass, height), 
+      .fns = mean
+    )
+  )
+```
+:::
+:::{.column .fragment}
+```{r}
+# With an anonymous function!
+starwars |> 
+  summarize(
+    across(
+      .cols = c(mass, height), 
+      .fns = \(x) mean(x, na.rm = TRUE)
+    )
+  )
+```
+:::
+:::
+
+# Iterating Over Vectors
+
+## Two Ways to Iterate {.fsmaller}
+
+- We use `across()` to iterate over columns, but what about vectors?
+- **The Traditional Approach: Loops**
+    + Many programmers use *loops* to manually micro-manage iteration (e.g., creating empty containers, filling them, and tracking exact positions).
+- **The Tidyverse Approach: \{purrr\}**
+    + We will use [functional programming]{.b .blue} to "delegate" the boring work 
+    + **Simplicity:** Provide just the vector and the function.
+    + **Automation:** Automatically tracks positions and stores results.
+    + **Readability:** Integrates cleanly into pipelines.
+
+## How map() Works
+
+::: {.fsmaller}
+The core function `map()` takes a vector (`.x`) and a function (`.f`). It applies the function to each item in the vector. Let's see what it returns.
+:::
+
+```{r}
+sample_sizes <- c(2, 4, 3)
+
+# Generate a set of random numbers for each sample size
+map(.x = sample_sizes, .f = rnorm)
+```
+
+## Wait, What is a List?
+
+::: {.fsmaller}
+Notice that `map()` returned something that looks a bit different: a **list**. 
+
+Unlike standard vectors where every element must be the exact same data type (e.g., all numbers), lists are "super vectors" that can store *anything*.
+:::
+
+```{r}
+list("Hello World", c(100, 5.3), tibble(x = 1:2, y = c("a", "b")))
+```
+
+## Type-Specific Maps
+
+::: {.fsmaller}
+Lists are incredibly powerful, but they can be clunky if your data is all the same type. If we know what kind of output our function will produce, we can use a type-specific `map_*()` function to get a vector back instead of a list.
+:::
+
+```{r}
+# Breaking names into individual words returns a list
+name_list <- str_split(c("Luke Skywalker", "Han", "Jar Jar Binks"), pattern = " ")
+
+# Use map_dbl to apply length() to each item in the list
+map_dbl(.x = name_list, .f = length)
+```
+
+# Multiple Inputs
+
+## When One Vector Isn't Enough
+
+::: {.fsmaller}
+Sometimes your custom function requires two arguments, and you have two separate vectors that you want to step through simultaneously. 
+:::
+
+```{r}
+# We have a vector of first names and a vector of last names
+first_names <- c("Luke", "Leia", "Han")
+last_names <- c("Skywalker", "Organa", "Solo")
+```
+
+## Introducing map2()
+
+::: {.fsmaller}
+The `map2()` function takes two vectors (`.x` and `.y`) and maps over them in parallel. Both vectors must be the exact same length.
+:::
+
+```{r}
+# map2_chr returns a character vector
+map2_chr(
+  .x = first_names,
+  .y = last_names,
+  .f = \(first, last) str_glue("{first} {last}")
+)
+```
+
+
+# Iterating Over Files
+
+## Reading Multiple Files
+
+::: {.fsmaller}
+A classic iteration problem is having a folder full of data files (e.g., one per participant) that you need to combine. First, we need to generate a character vector of the file paths using `list.files()`.
+:::
+
+```{r}
+# Find all CSV files in our data folder
+my_files <- list.files(
+  path = "data",
+  pattern = ".csv",
+  full.names = TRUE
+)
+
+my_files
+```
+
+## Combining with read_csv()
+
+::: {.fsmaller}
+Fortunately, `read_csv()` is already built to handle iteration. If we pass it a vector of file paths, it will read them all and row-bind them into a single data frame. 
+
+By using the `id` argument, we can create a new column that tells us which file each row came from.
+:::
+
+```{r}
+# Read and combine all files automatically
+alldata <- read_csv(my_files, id = "file", show_col_types = FALSE)
+
+glimpse(alldata)
+```
+
+## Cleaning the ID Column
+
+::: {.fsmaller}
+We can use standard string manipulation to clean up the file paths and extract just the participant ID.
+:::
+
+```{r}
+clean_data <- alldata |> 
+  mutate(
+    pid = str_remove(file, "data/pid_"),
+    pid = str_remove(pid, ".csv")
+  ) |> 
+  select(pid, day, mood)
+
+glimpse(clean_data)
+```
+
+# Iterating for Side Effects
+
+## Functions that Do Things
+
+::: {.fsmaller}
+Sometimes we iterate not to return data, but to cause a side effect. Examples include saving plots to disk or printing messages to the console. 
+
+Let's write a function that takes a file path, reads the data, and builds a plot.
+:::
+
+```{r}
+make_mood_plot <- function(filepath) {
+  
+  df <- read_csv(filepath, show_col_types = FALSE)
+  pid <- str_remove(filepath, "data/pid_") |> str_remove(".csv")
+  
+  p <- ggplot(df, aes(x = day, y = mood)) +
+    geom_line() +
+    geom_point() +
+    labs(title = str_glue("Mood time series for Participant {pid}"))
+  
+  p
+}
+```
+
+## Testing Our Function
+
+::: {.fsmaller}
+Before iterating, we should always test our custom function on a single input to ensure it works correctly.
+:::
+
+```{r}
+# Test on the first file in our vector
+make_mood_plot(my_files[1])
+```
+
+## The walk() Function
+
+::: {.fsmaller}
+If we used `map()` to save plots, it would print a long list of console output that we do not need. The `walk()` function works exactly like `map()`, but it executes silently. It is designed specifically for side effects.
+:::
+
+```{r}
+#| eval: false
+
+# Let's modify our function to save the plot instead of returning it
+save_mood_plot <- function(filepath) {
+  
+  p <- make_mood_plot(filepath)
+  pid <- str_remove(filepath, "data/pid_") |> str_remove(".csv")
+  image_file <- str_glue("data/{pid}_mood.png")
+  
+  ggsave(filename = image_file, plot = p, width = 6, height = 4)
+}
+
+# Apply the function silently to all files
+walk(.x = my_files, .f = save_mood_plot)
+```
+
+## Summary {.fsmaller}
+
+-   **Column Iteration:** Use `across()` to apply functions to multiple columns at once.
+-   **Anonymous Functions:** Use `\(x)` to create quick, unnamed functions inline.
+-   **Vector Iteration:** Use `map()` to apply a function to every item in a list or vector. Use `map2()` for multiple vectors.
+-   **File Iteration:** You can pass a vector of file paths directly to `read_csv()`.
+-   **Side Effects:** Use `walk()` instead of `map()` when your function performs an action rather than returning data.
