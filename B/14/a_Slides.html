@@ -32,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -145,16 +209,405 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><p>A</p></li>
-<li><p>B</p></li>
-<li><p>C</p></li>
+<li><p>Comparisons and Boolean Logic</p></li>
+<li><p>Logical and Numeric Summaries</p></li>
+<li><p>If-Else and Case-When</p></li>
 </ul>
 </div><div class="column tc pv4" style="width:40%;">
-<p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+<p><lord-icon src="../../icons/padlock.json" colors="secondary:#2a76dd" trigger="loop" delay="5000" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Comparisons &amp;<br> Boolean Logic</h1>
 
 </section>
+<section class="slide level2 fsmaller">
+<h2>Logical Vectors</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>Before we can build conditional statements, we need to understand <strong>logicals</strong></li>
+<li>Logicals have three possible values:
+<ul>
+<li><code>TRUE</code></li>
+<li><code>FALSE</code></li>
+<li><code>NA</code> (missing)</li>
+</ul></li>
+<li>We rarely type these by hand. Instead, we generate them using comparisons.</li>
+</ul>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/check.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Relational Operators</h2>
+<p>Numerical only comparisons:</p>
+<ul>
+<li><code>x &gt; 1</code> (is x greater than 1?)</li>
+<li><code>x &gt;= 1</code> (is x greater than or equal to 1?)</li>
+<li><code>x &lt; 1</code> (is x less than 1?)</li>
+<li><code>x &lt;= 1</code> (is x less than or equal to 1?)</li>
+</ul>
+<p>Numerical or character comparisons:</p>
+<ul>
+<li><code>x == 1</code> (is x equal to 1?)</li>
+<li><code>x != 1</code> (is x not equal to 1?)</li>
+<li><code>x %in% c(1, 2, 3)</code> (is x equal to 1, 2, or 3?)</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Comparisons in Action</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mpg"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create a logical vector asking: is highway mpg greater than 30?</span></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">good_mileage =</span> hwy <span class="sc">&gt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(manufacturer, model, year, trans, hwy, good_mileage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 6
+  manufacturer model  year trans        hwy good_mileage
+  &lt;chr&gt;        &lt;chr&gt; &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;lgl&gt;       
+1 audi         a4     1999 auto(l5)      29 FALSE       
+2 audi         a4     1999 manual(m5)    29 FALSE       
+3 audi         a4     2008 manual(m6)    31 TRUE        
+4 audi         a4     2008 auto(av)      30 FALSE       
+5 audi         a4     1999 auto(l5)      26 FALSE       
+6 audi         a4     1999 manual(m5)    26 FALSE       
+# ℹ 228 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Boolean Algebra</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>We can test multiple conditions at once</li>
+<li><strong>Boolean algebra</strong> allows us to combine multiple logical vectors
+<ul>
+<li><code>&amp;</code> (AND):<br>TRUE only if <strong>both</strong> conditions are TRUE</li>
+<li><code>|</code> (OR):<br>TRUE if <strong>at least one</strong> condition is TRUE</li>
+<li><code>!</code> (NOT):<br>Inverts the logical (TRUE <span class="math inline">\(\leftrightarrow\)</span> FALSE)</li>
+</ul></li>
+</ul>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/venn.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Boolean Algebra in Action</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Find cars that have great highway mileage AND are compact</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(hwy <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">&amp;</span> class <span class="sc">==</span> <span class="st">"compact"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(manufacturer, model, year, trans, hwy, class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 6
+  manufacturer model         year trans        hwy class  
+  &lt;chr&gt;        &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  
+1 audi         a4            2008 manual(m6)    31 compact
+2 toyota       camry solara  2008 manual(m5)    31 compact
+3 toyota       camry solara  2008 auto(s5)      31 compact
+4 toyota       corolla       1999 auto(l4)      33 compact
+5 toyota       corolla       1999 manual(m5)    35 compact
+6 toyota       corolla       2008 manual(m5)    37 compact
+# ℹ 2 more rows</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Logical Summaries</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Summarizing Logicals</h2>
+<ul>
+<li>Logical vectors are essentially numbers under the hood
+<ul>
+<li><code>TRUE</code> becomes <code>1</code> and <code>FALSE</code> becomes <code>0</code></li>
+</ul></li>
+<li>This allows us to easily use numeric summary functions on them:
+<ul>
+<li><code>sum()</code> tells us the <strong>count</strong> of <code>TRUE</code> values</li>
+<li><code>mean()</code> tells us the <strong>proportion</strong> of <code>TRUE</code> values</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_efficient =</span> <span class="fu">sum</span>(hwy <span class="sc">&gt;</span> <span class="dv">30</span>),</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">p_efficient =</span> <span class="fu">mean</span>(hwy <span class="sc">&gt;</span> <span class="dv">30</span>)</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  n_efficient p_efficient
+        &lt;int&gt;       &lt;dbl&gt;
+1          22      0.0940</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>any() and all()</h2>
+<ul>
+<li>Does a condition exist at all? Does it apply universally?</li>
+<li><code>any()</code> returns <code>TRUE</code> if <strong>at least one</strong> value is <code>TRUE</code></li>
+<li><code>all()</code> returns <code>TRUE</code> if <strong>every</strong> value is <code>TRUE</code></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> drv,</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">any_efficient =</span> <span class="fu">any</span>(hwy <span class="sc">&gt;</span> <span class="dv">30</span>),</span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">all_efficient =</span> <span class="fu">all</span>(hwy <span class="sc">&gt;</span> <span class="dv">30</span>)</span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  drv   any_efficient all_efficient
+  &lt;chr&gt; &lt;lgl&gt;         &lt;lgl&gt;        
+1 f     TRUE          FALSE        
+2 4     FALSE         FALSE        
+3 r     FALSE         FALSE        </code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>If-Else</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>What is Control Flow?</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><strong>Control Flow</strong> allows for conditional outcomes, i.e., the output changes depending on the input</li>
+<li>Think of it like a fork in the road. You ask a question (a condition), and depending on the answer, you take a different path.</li>
+<li>The tidyverse provides <code>if_else()</code> for two-way forks and <code>case_when()</code> for many</li>
+</ul>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/branch.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>The if_else() Function</h2>
+<div class="fsmaller">
+<p>The <code>if_else()</code> function takes three main arguments:</p>
+<ol type="1">
+<li><code>condition</code>: A logical test (e.g., <code>x &gt; 10</code>)</li>
+<li><code>true</code>: The output if the condition is <code>TRUE</code></li>
+<li><code>false</code>: The output if the condition is <code>FALSE</code></li>
+</ol>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">if_else</span>(</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">condition =</span> x <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">true =</span> <span class="st">"large"</span>,</span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">false =</span> <span class="st">"small"</span></span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "small"</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Vectorized if_else()</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># if_else() is vectorized, meaning it works on an entire series of data at once</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">16</span>, <span class="dv">3</span>, <span class="dv">20</span>)</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">if_else</span>(x <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">"large"</span>, <span class="st">"small"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "small" "large" "small" "large"</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Creating our Site Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let's create a dataset of site temperatures</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>sitetemps <span class="ot">&lt;-</span> </span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">site =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">temp =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">2.1</span>, <span class="fl">38.6</span>, <span class="fl">4.6</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">37.6</span>)</span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+   site  temp
+  &lt;dbl&gt; &lt;dbl&gt;
+1     2  -2.1
+2     1  38.6
+3     2   4.6
+4     3  -0.2
+5     1  37.6</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Using in a pipeline</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assign a temperature metric based on the site number</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>sitetemps <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">metric =</span> <span class="fu">if_else</span>(</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">condition =</span> site <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">true =</span> <span class="st">"F"</span>,</span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">false =</span> <span class="st">"C"</span></span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+   site  temp metric
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+1     2  -2.1 C     
+2     1  38.6 F     
+3     2   4.6 C     
+4     3  -0.2 C     
+5     1  37.6 F     </code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Case-When</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Handling Complex Logic</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li><code>if_else()</code> is great for binary choices</li>
+<li>But what if we have three, four, or ten different possibilities?</li>
+<li>Nesting <code>if_else()</code> statements inside each other gets messy quickly.</li>
+<li><code>case_when()</code> is designed specifically for complex, multi-condition logic.</li>
+</ul>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/branches.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>The case_when() Function</h2>
+<div class="fsmaller">
+<ul>
+<li><code>case_when()</code> evaluates a sequence of formulas</li>
+<li>The left side of the <code>~</code> is the condition</li>
+<li>The right side of the <code>~</code> is the output</li>
+<li>It evaluates from top to bottom.</li>
+<li>The first <code>TRUE</code> condition wins!</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">16</span>, <span class="dv">3</span>)</span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"large"</span>,</span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> <span class="dv">5</span>  <span class="sc">~</span> <span class="st">"medium"</span>,</span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"small"</span></span>
+<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "medium" "large"  "small" </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The .default Argument</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We can use `.default` to catch anything that doesn't match our specific rules</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">16</span>, <span class="dv">3</span>)</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"large"</span>,</span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> <span class="dv">5</span>  <span class="sc">~</span> <span class="st">"medium"</span>,</span>
+<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="st">"small"</span></span>
+<span id="cb19-8"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "medium" "large"  "small" </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Pitfall: Ordering Matters!</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>)</span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Watch what happens if we put the broader condition first:</span></span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> <span class="dv">5</span>  <span class="sc">~</span> <span class="st">"medium"</span>, </span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"large"</span>,   <span class="co"># 15 is &gt; 10, but it already triggered "medium"!</span></span>
+<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="st">"small"</span></span>
+<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "medium"</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Using in a pipeline</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning nations based on multiple site codes</span></span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>sitetemps <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">nation =</span> <span class="fu">case_when</span>(</span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a>      site <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"US"</span>,</span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a>      site <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"DE"</span>,</span>
+<span id="cb23-7"><a aria-hidden="true" tabindex="-1"></a>      site <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"FR"</span>,</span>
+<span id="cb23-8"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> <span class="st">"Unknown"</span></span>
+<span id="cb23-9"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-10"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+   site  temp nation
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+1     2  -2.1 DE    
+2     1  38.6 US    
+3     2   4.6 DE    
+4     3  -0.2 FR    
+5     1  37.6 US    </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Complex Transformations</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>sitetemps <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">metric =</span> <span class="fu">if_else</span>(site <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"F"</span>, <span class="st">"C"</span>),</span>
+<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">temp_c =</span> <span class="fu">if_else</span>(metric <span class="sc">==</span> <span class="st">"F"</span>, (temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> (<span class="dv">5</span> <span class="sc">/</span> <span class="dv">9</span>), temp),</span>
+<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="fu">case_when</span>(</span>
+<span id="cb25-6"><a aria-hidden="true" tabindex="-1"></a>      temp_c <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"solid"</span>,</span>
+<span id="cb25-7"><a aria-hidden="true" tabindex="-1"></a>      temp_c <span class="sc">&lt;</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"liquid"</span>,</span>
+<span id="cb25-8"><a aria-hidden="true" tabindex="-1"></a>      temp_c <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"gas"</span></span>
+<span id="cb25-9"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-10"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+   site  temp metric temp_c state 
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; 
+1     2  -2.1 C       -2.1  solid 
+2     1  38.6 F        3.67 liquid
+3     2   4.6 C        4.6  liquid
+4     3  -0.2 C       -0.2  solid 
+5     1  37.6 F        3.11 liquid</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Summary</h2>
+<ul>
+<li><strong>Comparisons:</strong> Evaluate relationships using <code>&gt;</code>, <code>&lt;</code>, <code>==</code>, and <code>!=</code></li>
+<li><strong>Boolean Algebra:</strong> Combine conditions using <code>&amp;</code>, <code>|</code>, and <code>!</code></li>
+<li><strong>Summaries:</strong> Use <code>sum()</code> to count TRUEs, <code>mean()</code> for proportions, and <code>any()</code>/<code>all()</code> for group-level checks</li>
+<li><strong>Control Flow:</strong> Handle two-way branches seamlessly with <code>if_else()</code></li>
+<li><strong>Complex Cases:</strong> Manage multiple condition mapping safely with <code>case_when()</code></li>
+</ul>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
