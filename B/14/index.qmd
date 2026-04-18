@@ -10,6 +10,7 @@ execute:
 #| label: setup
 
 library(here)
+library(tidyverse)
 source(here("_common.R"))
 
 knitr::opts_chunk$set(collapse = TRUE)
@@ -18,9 +19,9 @@ knitr::opts_chunk$set(collapse = TRUE)
 ## [13a] Conditionals
 
 ### Topics
-- A
-- B
-- C
+- Comparisons and Boolean Logic
+- Logical and Numeric Summaries
+- If-Else and Case-When
 
 ### Readings
 - R4DS (2E) Chapter 12: [Logical vectors](https://r4ds.hadley.nz/logicals.html){target="_blank"}
@@ -36,7 +37,90 @@ knitr::opts_chunk$set(collapse = TRUE)
 :::
 
 ### Practice
+### Practice
 
+#### 1) Categorizing City Mileage
+
+Using the `mpg` dataset (from \{ggplot2\}), let's use `if_else()` to create a new categorical column based on city fuel efficiency.
+
+- Use `mutate()` and `if_else()` to create a new column called `efficiency`.
+- If `cty` is greater than or equal to 20, label it "High". Otherwise, label it "Low".
+- Select the `manufacturer`, `model`, `cty`, and `efficiency` columns to view your results.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+library(tidyverse)
+data("mpg", package = "ggplot2")
+
+mpg |> 
+  mutate(
+    efficiency = if_else(
+      condition = cty >= 20, 
+      true = "High", 
+      false = "Low"
+    )
+  ) |> 
+  select(manufacturer, model, cty, efficiency)
+```
+
+{{< dstop >}}
+
+#### 2) Sleep Summaries
+
+Let's use the `msleep` dataset (from \{ggplot2\}) to practice summarizing logical conditions across groups.
+
+- Use `summarize()` to calculate two new metrics.
+- First, calculate the proportion of animals that sleep more than 12 hours (`sleep_total > 12`) and name it `prop_heavy_sleepers`.
+- Second, check if *any* animal in the group has a body weight greater than 500 (`bodywt > 500`) and name it `any_giants`.
+- Group the summary by the `vore` column using the `.by` argument.
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+library(tidyverse)
+data("msleep", package = "ggplot2")
+
+msleep |> 
+  summarize(
+    prop_heavy_sleepers = mean(sleep_total > 12),
+    any_giants = any(bodywt > 500),
+    .by = vore
+  )
+```
+
+{{< dstop >}}
+
+#### 3) Sizing Up Starwars Characters
+
+The `starwars` dataset (from \{dplyr\}) contains physical attributes of characters. Let's practice handling multiple conditions using `case_when()`.
+
+- Use `mutate()` and `case_when()` to create a new column called `size_category` based on the `mass` column.
+- If `mass` is less than 50, label it "Light".
+- If `mass` is less than 100, label it "Medium".
+- If `mass` is 100 or greater, label it "Heavy".
+- Use the `.default` argument to label any remaining cases (like missing values) as "Unknown".
+- Select the `name`, `mass`, and `size_category` columns to verify your logic worked correctly. *Note: Remember that `case_when()` evaluates from top to bottom!*
+
+{{< dstart summary="Answer key" >}}
+
+```{r}
+library(tidyverse)
+data("starwars", package = "dplyr")
+
+starwars |> 
+  mutate(
+    size_category = case_when(
+      mass < 50 ~ "Light",
+      mass < 100 ~ "Medium",
+      mass >= 100 ~ "Heavy",
+      .default = "Unknown"
+    )
+  ) |> 
+  select(name, mass, size_category)
+```
+
+{{< dstop >}}
 
 ## [14b] Functions
 

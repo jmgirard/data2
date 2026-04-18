@@ -26,7 +26,6 @@ library(here)
 source(here("_common.R"))
 
 library(tidyverse)
-library(patchwork)
 
 options(
   tibble.print_max = 6,
@@ -41,16 +40,305 @@ set_theme(theme_gray(base_size = 20))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-- A
+- Comparisons and Boolean Logic
 
-- B
+- Logical and Numeric Summaries
 
-- C
+- If-Else and Case-When
 :::
 
 ::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/padlock.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
 :::
 
 :::
 
+# Comparisons &<br> Boolean Logic
+
+## Logical Vectors {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   Before we can build conditional statements, we need to understand **logicals**
+-   Logicals have three possible values:
+    -   `TRUE`
+    -   `FALSE`
+    -   `NA` (missing)
+-   We rarely type these by hand. Instead, we generate them using comparisons.
+
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/check.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Relational Operators {.fsmaller}
+
+Numerical only comparisons:
+
+-   `x > 1` (is x greater than 1?)
+-   `x >= 1` (is x greater than or equal to 1?)
+-   `x < 1` (is x less than 1?)
+-   `x <= 1` (is x less than or equal to 1?)
+
+Numerical or character comparisons:
+
+-   `x == 1` (is x equal to 1?)
+-   `x != 1` (is x not equal to 1?)
+-   `x %in% c(1, 2, 3)` (is x equal to 1, 2, or 3?)
+
+## Comparisons in Action
+
+```{r}
+#| echo: true
+library(tidyverse)
+data("mpg", package = "ggplot2")
+
+# Create a logical vector asking: is highway mpg greater than 30?
+mpg |> 
+  mutate(good_mileage = hwy > 30) |> 
+  select(manufacturer, model, year, trans, hwy, good_mileage)
+```
+
+## Boolean Algebra {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   We can test multiple conditions at once
+-   **Boolean algebra** allows us to combine multiple logical vectors
+    -   `&` (AND):<br>TRUE only if **both** conditions are TRUE
+    -   `|` (OR):<br>TRUE if **at least one** condition is TRUE
+    -   `!` (NOT):<br>Inverts the logical (TRUE $\leftrightarrow$ FALSE)
+
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/venn.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Boolean Algebra in Action
+
+```{r}
+#| echo: true
+# Find cars that have great highway mileage AND are compact
+mpg |> 
+  filter(hwy > 30 & class == "compact") |> 
+  select(manufacturer, model, year, trans, hwy, class)
+```
+
+# Logical Summaries
+
+## Summarizing Logicals {.fsmaller}
+
+-   Logical vectors are essentially numbers under the hood
+    -   `TRUE` becomes `1` and `FALSE` becomes `0`
+-   This allows us to easily use numeric summary functions on them:
+    -   `sum()` tells us the **count** of `TRUE` values
+    -   `mean()` tells us the **proportion** of `TRUE` values
+
+```{r}
+mpg |> 
+  summarize(
+    n_efficient = sum(hwy > 30),
+    p_efficient = mean(hwy > 30)
+  )
+```
+
+## any() and all() {.fsmaller}
+
+-   Does a condition exist at all? Does it apply universally?
+-   `any()` returns `TRUE` if **at least one** value is `TRUE`
+-   `all()` returns `TRUE` if **every** value is `TRUE`
+
+```{r}
+mpg |> 
+  summarize(
+    .by = drv,
+    any_efficient = any(hwy > 30),
+    all_efficient = all(hwy > 30)
+  )
+```
+
+# If-Else
+
+## What is Control Flow? {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   **Control Flow** allows for conditional outcomes, i.e., the output changes depending on the input
+-   Think of it like a fork in the road. You ask a question (a condition), and depending on the answer, you take a different path.
+-   The tidyverse provides `if_else()` for two-way forks and `case_when()` for many
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/branch.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## The if_else() Function
+
+:::{.fsmaller}
+The `if_else()` function takes three main arguments:
+
+1.  `condition`: A logical test (e.g., `x > 10`)
+2.  `true`: The output if the condition is `TRUE`
+3.  `false`: The output if the condition is `FALSE`
+:::
+
+```{r}
+x <- 6
+if_else(
+  condition = x > 10,
+  true = "large",
+  false = "small"
+)
+```
+
+## Vectorized if_else()
+
+```{r}
+#| echo: true
+# if_else() is vectorized, meaning it works on an entire series of data at once
+x <- c(6, 16, 3, 20)
+
+if_else(x > 10, "large", "small")
+```
+
+## Creating our Site Data
+
+```{r}
+#| echo: true
+# Let's create a dataset of site temperatures
+sitetemps <- 
+  tibble(
+    site = c(2, 1, 2, 3, 1),
+    temp = c(-2.1, 38.6, 4.6, -0.2, 37.6)
+  ) |> 
+  print()
+```
+
+
+## Using in a pipeline
+
+```{r}
+#| echo: true
+# Let's assign a temperature metric based on the site number
+sitetemps |> 
+  mutate(
+    metric = if_else(
+      condition = site == 1,
+      true = "F",
+      false = "C"
+    )
+  )
+```
+
+# Case-When
+
+## Handling Complex Logic {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+-   `if_else()` is great for binary choices
+-   But what if we have three, four, or ten different possibilities?
+-   Nesting `if_else()` statements inside each other gets messy quickly.
+-   `case_when()` is designed specifically for complex, multi-condition logic.
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/branches.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## The case_when() Function 
+
+:::{.fsmaller}
+-   `case_when()` evaluates a sequence of formulas
+-   The left side of the `~` is the condition
+-   The right side of the `~` is the output
+-   It evaluates from top to bottom.
+-   The first `TRUE` condition wins!
+:::
+
+```{r}
+x <- c(6, 16, 3)
+case_when(
+  x > 10 ~ "large",
+  x > 5  ~ "medium",
+  x <= 5 ~ "small"
+)
+```
+
+## The .default Argument
+
+```{r}
+# We can use `.default` to catch anything that doesn't match our specific rules
+x <- c(6, 16, 3)
+
+case_when(
+  x > 10 ~ "large",
+  x > 5  ~ "medium",
+  .default = "small"
+)
+```
+
+## Pitfall: Ordering Matters!
+
+```{r}
+x <- c(15)
+
+# Watch what happens if we put the broader condition first:
+case_when(
+  x > 5  ~ "medium", 
+  x > 10 ~ "large",   # 15 is > 10, but it already triggered "medium"!
+  .default = "small"
+)
+```
+
+## Using in a pipeline
+
+```{r}
+# Assigning nations based on multiple site codes
+sitetemps |> 
+  mutate(
+    nation = case_when(
+      site == 1 ~ "US",
+      site == 2 ~ "DE",
+      site == 3 ~ "FR",
+      .default = "Unknown"
+    )
+  )
+```
+
+## Complex Transformations
+
+```{r}
+sitetemps |> 
+  mutate(
+    metric = if_else(site == 1, "F", "C"),
+    temp_c = if_else(metric == "F", (temp - 32) * (5 / 9), temp),
+    state = case_when(
+      temp_c < 0 ~ "solid",
+      temp_c < 100 ~ "liquid",
+      temp_c >= 100 ~ "gas"
+    )
+  )
+```
+
+## Summary {.fsmaller}
+
+-   **Comparisons:** Evaluate relationships using `>`, `<`, `==`, and `!=`
+-   **Boolean Algebra:** Combine conditions using `&`, `|`, and `!`
+-   **Summaries:** Use `sum()` to count TRUEs, `mean()` for proportions, and `any()`/`all()` for group-level checks
+-   **Control Flow:** Handle two-way branches seamlessly with `if_else()`
+-   **Complex Cases:** Manage multiple condition mapping safely with `case_when()`
