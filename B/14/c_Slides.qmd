@@ -49,11 +49,9 @@ write_csv(tibble(day = 1:30, mood = round(rnorm(30, 4, 2))), "data/pid_003.csv")
 ::: {.column width="60%"}
 - Iterate functions across multiple columns using `across()`
 
-- Write quick, on-the-fly functions
+- Use list objects to store complex, mixed-type data
 
-- Apply functions to vectors using `map()` and `map2()`
-
-- Iterate for side effects using `walk()`
+- Efficiently apply functions to vectors using `map()`
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -136,10 +134,10 @@ Sometimes we need to apply a simple operation across many columns, but it feels 
 
 ```{r}
 # Do we really need to save this just to use it once?
-multiply_by_two <- function(x) { x * 2 }
+multiply_by_ten <- function(x) { x * 10 }
 
 mpg |> 
-  mutate(across(c(cty, hwy), multiply_by_two)) |> 
+  mutate(across(c(cty, hwy), multiply_by_ten)) |> 
   select(manufacturer, cty, hwy)
 ```
 
@@ -152,7 +150,7 @@ R allows us to write **anonymous functions** (functions without a name) directly
 ```{r}
 # This code does the exact same thing, but inline!
 mpg |> 
-  mutate(across(c(cty, hwy), \(x) x * 2)) |> 
+  mutate(across(c(cty, hwy), \(x) x * 10)) |> 
   select(manufacturer, cty, hwy)
 ```
 
@@ -189,6 +187,89 @@ starwars |>
 :::
 :::
 
+# Understanding Lists
+
+## The Limits of Standard Vectors
+
+::: {.fsmaller}
+- We know how to store data in standard, atomic vectors using `c()`.
+- **The limitation:** Every item in a vector must be the same data type.
+    + If you mix multiple types, `c()` converts them to be the same.
+- **The solution:** A [list]{.b .blue} is a special "super vector" that can hold *anything*.
+
+:::
+
+:::{.columns}
+:::{.column}
+```{r}
+# logicals < *numbers* < characters
+c(0, 1, 0, TRUE, FALSE)
+# logicals < numbers < *characters*
+c(42.1, "Hello World", TRUE)
+```
+:::
+:::{.column .fragment}
+```{r}
+list(42.1, "Hello World", TRUE)
+```
+:::
+:::
+
+## Lists Can Store Anything
+
+```{r}
+wow <- list(
+  tibble(x = 1:2, y = c("a", "b")),
+  ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
+)
+```
+
+:::{.columns}
+:::{.column}
+```{r}
+wow[[1]]
+```
+
+:::
+:::{.column}
+```{r}
+wow[[2]]
+```
+
+:::
+:::
+
+
+## Naming List Elements
+
+:::{.columns}
+:::{.column}
+```{r}
+# Set names during creation
+my_list <- 
+  list(
+    myNumbers = c(1, 2, 3),
+    myLetters = c("x", "y")
+  ) |> 
+  print()
+```
+:::
+:::{.column}
+```{r}
+# Set names after creation
+my_list <- 
+  list(
+    c(1, 2, 3),
+    c("x", "y")
+  ) |> 
+  set_names(
+    c("myNumbers", "myLetters")
+  ) |> 
+  print()
+```
+:::
+:::
+
 # Iterating Over Vectors
 
 ## Two Ways to Iterate {.fsmaller}
@@ -202,189 +283,158 @@ starwars |>
     + **Automation:** Automatically tracks positions and stores results.
     + **Readability:** Integrates cleanly into pipelines.
 
-## How map() Works
+## How map() Works 
 
-::: {.fsmaller}
-The core function `map()` takes a vector (`.x`) and a function (`.f`). It applies the function to each item in the vector. Let's see what it returns.
+:::{.fsmaller}
+- The core function `map()` takes a vector (`.x`) and a function (`.f`)
+- **Toy Example:** Generating samples of different sizes
+    + `runif(n)` generates `n` random numbers between 0 and 1
+
 :::
 
 ```{r}
-sample_sizes <- c(2, 4, 3)
-
-# Generate a set of random numbers for each sample size
-map(.x = sample_sizes, .f = rnorm)
+# Generate a sample of random numbers for each sample size
+my_samples <- map(.x = c(2, 4, 3), .f = runif)
+my_samples
 ```
 
-## Wait, What is a List?
+## Type-Specific Maps 
+:::{.fsmaller}
+- If the output is all one type, we can simplify it with a **type-specific map**
+    + e.g., `map_dbl()` returns a numeric vector
+    + e.g., `map_chr()` returns a character vector
+- **Example:** Finding the maximum value in each of our random samples
 
-::: {.fsmaller}
-Notice that `map()` returned something that looks a bit different: a **list**. 
-
-Unlike standard vectors where every element must be the exact same data type (e.g., all numbers), lists are "super vectors" that can store *anything*.
 :::
 
+:::{.columns}
+:::{.column}
 ```{r}
-list("Hello World", c(100, 5.3), tibble(x = 1:2, y = c("a", "b")))
+# Keep output as a list
+map(.x = my_samples, .f = max)
 ```
-
-## Type-Specific Maps
-
-::: {.fsmaller}
-Lists are incredibly powerful, but they can be clunky if your data is all the same type. If we know what kind of output our function will produce, we can use a type-specific `map_*()` function to get a vector back instead of a list.
 :::
-
+:::{.column}
 ```{r}
-# Breaking names into individual words returns a list
-name_list <- str_split(c("Luke Skywalker", "Han", "Jar Jar Binks"), pattern = " ")
-
-# Use map_dbl to apply length() to each item in the list
-map_dbl(.x = name_list, .f = length)
+# Simplify to a numeric vector
+map_dbl(.x = my_samples, .f = max)
 ```
+:::
+:::
 
-# Multiple Inputs
+## Step 1: Finding Our Files 
+:::{.fsmaller}
+- The real power of `map()` is working with complex data structures like files.
+- **The Scenario:** You have a folder full of CSV files to combine.
+- First, we need to locate them using `list.files()`
+    + `path`: Which folder to look in
+    + `pattern`: What regex pattern to look for (ends in ".csv")
+    + `full.names`: Keep this `TRUE` so R knows exactly where the file is
 
-## When One Vector Isn't Enough
-
-::: {.fsmaller}
-Sometimes your custom function requires two arguments, and you have two separate vectors that you want to step through simultaneously. 
 :::
 
 ```{r}
-# We have a vector of first names and a vector of last names
-first_names <- c("Luke", "Leia", "Han")
-last_names <- c("Skywalker", "Organa", "Solo")
-```
-
-## Introducing map2()
-
-::: {.fsmaller}
-The `map2()` function takes two vectors (`.x` and `.y`) and maps over them in parallel. Both vectors must be the exact same length.
-:::
-
-```{r}
-# map2_chr returns a character vector
-map2_chr(
-  .x = first_names,
-  .y = last_names,
-  .f = \(first, last) str_glue("{first} {last}")
-)
-```
-
-
-# Iterating Over Files
-
-## Reading Multiple Files
-
-::: {.fsmaller}
-A classic iteration problem is having a folder full of data files (e.g., one per participant) that you need to combine. First, we need to generate a character vector of the file paths using `list.files()`.
-:::
-
-```{r}
-# Find all CSV files in our data folder
-my_files <- list.files(
-  path = "data",
-  pattern = ".csv",
-  full.names = TRUE
-)
-
+# This outputs a simple character vector of file paths
+my_files <- list.files(path = "data", pattern = "\\.csv$", full.names = TRUE)
 my_files
 ```
 
-## Combining with read_csv()
-
-::: {.fsmaller}
-Fortunately, `read_csv()` is already built to handle iteration. If we pass it a vector of file paths, it will read them all and row-bind them into a single data frame. 
-
-By using the `id` argument, we can create a new column that tells us which file each row came from.
+## Step 2: Reading Files into a List 
+:::{.fsmaller}
+- Now we have a character vector of file paths. 
+- We can use `map()` to apply the `read_csv()` function to every path.
+- Since `map()` always returns a list, we will get a list where each item is a complete data frame.
 :::
 
 ```{r}
-# Read and combine all files automatically
-alldata <- read_csv(my_files, id = "file", show_col_types = FALSE)
+#| message: false
 
-glimpse(alldata)
+list_of_dfs <- 
+  # read each file as a tibble into a list object
+  map(.x = my_files, .f = read_csv) |> 
+  # set the name of each element to be its file path
+  set_names(my_files)
 ```
 
-## Cleaning the ID Column
-
-::: {.fsmaller}
-We can use standard string manipulation to clean up the file paths and extract just the participant ID.
-:::
+## Previewing the List
 
 ```{r}
-clean_data <- alldata |> 
-  mutate(
-    pid = str_remove(file, "data/pid_"),
-    pid = str_remove(pid, ".csv")
-  ) |> 
-  select(pid, day, mood)
-
-glimpse(clean_data)
+list_of_dfs
 ```
 
-# Iterating for Side Effects
 
-## Functions that Do Things
+## Step 3: Binding the Data 
 
-::: {.fsmaller}
-Sometimes we iterate not to return data, but to cause a side effect. Examples include saving plots to disk or printing messages to the console. 
-
-Let's write a function that takes a file path, reads the data, and builds a plot.
+:::{.fsmaller}
+- We have our data, but a list of data frames is difficult to analyze
+- We want one combined data frame
+- `list_rbind()` will stacks them row-by-row
+    + The `names_to` argument creates a helpful ID column so we know where each row came from.
+    
 :::
 
 ```{r}
-make_mood_plot <- function(filepath) {
-  
-  df <- read_csv(filepath, show_col_types = FALSE)
-  pid <- str_remove(filepath, "data/pid_") |> str_remove(".csv")
-  
-  p <- ggplot(df, aes(x = day, y = mood)) +
-    geom_line() +
-    geom_point() +
-    labs(title = str_glue("Mood time series for Participant {pid}"))
-  
-  p
+alldata <- list_rbind(list_of_dfs, names_to = "file")
+```
+
+## Previewing the Combined Data
+
+```{r}
+# One 90-row tibble instead of three 30-row tibbles
+alldata
+```
+
+## Using the Combined Data
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+
+alldata |> 
+  ggplot(aes(x = day, y = mood, color = file, group = file)) +
+  geom_line() + geom_point() +
+  theme(legend.position = "top")
+```
+
+
+## Iterating for Side Effects
+
+```{r}
+# Create function to read in data, create a plot, and save it
+create_plot <- function(file) {
+  # Read in the data from current file
+  current_data <- read_csv(file)
+  # Create plot of the current data
+  current_plot <- ggplot(current_data, aes(x = day, y = mood)) +
+    geom_line() + geom_point() + labs(title = file)
+  # Save the plot to a png image file
+  ggsave(filename = str_glue("{file}.png"), plot = current_plot,
+    width = 7, height = 5, units = "in")
+  # Return the plot object
+  current_plot
 }
 ```
 
-## Testing Our Function
-
-::: {.fsmaller}
-Before iterating, we should always test our custom function on a single input to ensure it works correctly.
-:::
-
 ```{r}
-# Test on the first file in our vector
-make_mood_plot(my_files[1])
+#| message: false
+
+# Apply this function to each of my_files
+p <- map(.x = my_files, .f = create_plot)
 ```
 
-## The walk() Function
-
-::: {.fsmaller}
-If we used `map()` to save plots, it would print a long list of console output that we do not need. The `walk()` function works exactly like `map()`, but it executes silently. It is designed specifically for side effects.
-:::
+## Verifying it worked
 
 ```{r}
-#| eval: false
+#| fig-width: 12
+#| fig-height: 4
 
-# Let's modify our function to save the plot instead of returning it
-save_mood_plot <- function(filepath) {
-  
-  p <- make_mood_plot(filepath)
-  pid <- str_remove(filepath, "data/pid_") |> str_remove(".csv")
-  image_file <- str_glue("data/{pid}_mood.png")
-  
-  ggsave(filename = image_file, plot = p, width = 6, height = 4)
-}
-
-# Apply the function silently to all files
-walk(.x = my_files, .f = save_mood_plot)
+library(patchwork)
+p[[1]] + p[[2]] + p[[3]]
 ```
 
-## Summary {.fsmaller}
+```{r}
+list.files(path = "data", pattern = "\\.png$", full.names = TRUE)
+```
 
--   **Column Iteration:** Use `across()` to apply functions to multiple columns at once.
--   **Anonymous Functions:** Use `\(x)` to create quick, unnamed functions inline.
--   **Vector Iteration:** Use `map()` to apply a function to every item in a list or vector. Use `map2()` for multiple vectors.
--   **File Iteration:** You can pass a vector of file paths directly to `read_csv()`.
--   **Side Effects:** Use `walk()` instead of `map()` when your function performs an action rather than returning data.
+
+

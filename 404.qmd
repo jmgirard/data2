@@ -21,6 +21,6 @@ Below, I will track my progress updating this website week-by-week.
 - [x] Week 11
 - [x] Week 12
 - [x] Week 13
-- [ ] Week 14
+- [x] Week 14
 :::
 :::
