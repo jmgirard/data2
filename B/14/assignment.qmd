@@ -1,0 +1,120 @@
+---
+title: "Week 14 Assignment"
+format: 
+  html:
+    css: ../../styles.css
+    toc: false
+---
+
+![](../../img/programming_2780E3.svg){width="200"}
+
+## Instructions
+
+*Create a new Quarto document (HTML format), clear out the boilerplate code/text, and use this document to store your answers to each of the six questions below. Be sure to enable `embed-resources` using the header below. If your answer involves writing text, then use markdown to write 2-4 sentences per question; if your answer involves running code, then use one or more code chunks.*
+
+```markdown
+---
+title: "Week 14 Assignment"
+author: "Your Name"
+embed-resources: true
+---
+```
+
+*Please clearly mark which part of your document is answering which question (e.g., using markdown headings) and remove any "scratch work" or failed attempts from your document before submitting it. Finally, note that many essay-style questions will require you to read between the lines and use your imagination (as opposed to just looking up the answer in the lecture).*
+
+## Question 1 (Boolean Logic & Summaries)
+
+**Background:** Logical vectors are the foundation of control flow and data filtering. Understanding how R translates these logical values internally allows us to quickly summarize conditions across our data.
+
+**a) Conceptual**
+
+Explain how R treats logical values (`TRUE` and `FALSE`) internally when they are passed into mathematical functions like `sum()` and `mean()`. If you execute `mean(x > 5)`, what does the resulting number actually tell you about the vector `x`?
+
+**b) Applied**
+
+Load the `diamonds` dataset from \{ggplot2\}. Use `summarize()` to calculate two new metrics:
+
+1.  The total count of diamonds that have a `price` greater than 5000 AND a `carat` greater than 1.0 (name it `count_premium`).
+2.  The proportion of diamonds that meet those same two conditions (name it `prop_premium`).
+
+For both parts, use the `.by` argument to group your summary by the `cut` variable.
+
+## Question 2 (Complex Control Flow)
+
+**Background:** While `if_else()` handles simple binary forks, real-world data often requires categorizing items into many different buckets. The `case_when()` function is designed to handle this complex logic safely.
+
+**a) Conceptual**
+
+Why does the order of conditions matter in a `case_when()` statement? What happens if you place a very broad condition at the top of the function and a very specific condition below it?
+
+**b) Applied**
+
+Using the `mpg` dataset from \{ggplot2\}, create a new categorical column called `vehicle_size`. Use `mutate()` and `case_when()` with the following rules based on the `class` column:
+
+- If `class` is "2seater", "subcompact", or "compact", label it "Small".
+- If `class` is "midsize", label it "Medium".
+- If `class` is "suv", "minivan", or "pickup", label it "Large".
+- Use the `.default` argument to label anything else as "Other".
+
+Select the `manufacturer`, `model`, `class`, and `vehicle_size` columns to view your results.
+
+## Question 3 (Writing Functions)
+
+**Background:** Copying and pasting code is prone to errors. Writing custom functions allows us to abstract our code, making it reusable, readable, and easier to maintain.
+
+**a) Conceptual**
+
+What is the DRY principle in programming? Briefly describe the four core parts required to construct a valid custom function in R.
+
+**b) Applied**
+
+Write a custom function named `rescale_01` that takes a single numeric vector argument `x`. Inside the body of the function, subtract the minimum value of `x` from `x`, and then divide that result by the difference between the maximum of `x` and the minimum of `x`. (Be sure to use `na.rm = TRUE` inside your `min()` and `max()` functions). Test your function by passing the vector `c(10, 15, 20)` to it.
+
+## Question 4 (Function Arguments & Safety)
+
+**Background:** Good functions are both flexible and safe. We can add additional arguments to give users control, and we can use validation checks to prevent the function from failing mysteriously.
+
+**a) Conceptual**
+
+Why is it beneficial to set default values for your function arguments? How can you use an `if()` statement along with `stop()` to validate user inputs before the function attempts to run its main code?
+
+**b) Applied**
+
+Let's upgrade the `rescale_01` function you just wrote to make it safer and more flexible. 
+
+First, make it safe: add an `if()` statement at the very beginning of the function body that checks if the input `x` is numeric (`!is.numeric()`). If it is not numeric, use `stop()` to halt the function and print a helpful error message.
+
+Second, make it flexible: add a second argument to your function called `invert` and set its default value to `FALSE`. Keep your original rescaling math, but add an `if/else` block at the end of the function. If `invert` is `TRUE`, the function should return `1` minus the rescaled values (which flips the scale). Otherwise, it should return the standard rescaled values.
+
+Test your upgraded function by passing the vector `c(10, 15, 20)` and setting `invert = TRUE`. Also, verify your error message works by passing the vector `c("a", "b", "c")`. Note that, to include an error in your Quarto document, that chunk needs to have `#| error: true` at the top (revisit lecture [06a] if you forget how to use chunk options).
+
+## Question 5 (Column Iteration)
+
+**Background:** Data sets often have many columns that require the exact same transformation. The `across()` function pairs with `mutate()` and `summarize()` to automate this repetition.
+
+**a) Conceptual**
+
+What is the primary advantage of using `across()` instead of writing out individual transformations for each column? Additionally, what is an anonymous function, and what syntax do we use to create one inline?
+
+**b) Applied**
+
+Load the `diamonds` dataset. Use `mutate()` and `across()` to round the values of the `x`, `y`, and `z` columns to 1 decimal place. Use the inline anonymous function syntax `\(val)` to pass the data to the `round()` function. Select the `carat`, `x`, `y`, and `z` columns to verify your changes.
+
+## Question 6 (Lists and Vector Iteration)
+
+**Background:** Standard vectors are rigid, but lists can store a mix of any R objects. The `map()` family of functions allows us to iterate cleanly over lists or vectors without writing clunky loops.
+
+**a) Conceptual**
+
+What is the key limitation of standard atomic vectors (like those created with `c()`) that lists solve? Why does the core `map()` function always return a list by default, and how can you force \{purrr\} to return a specific atomic vector type instead?
+
+**b) Applied**
+
+The `starwars` dataset (from \{dplyr\}) contains a column called `films`. This column is special because it is actually a *list* where each element contains a character vector of the movies that specific Star Wars character appeared in. 
+
+Start a pipeline using `starwars` and use `mutate()` to add a new column called `nfilms` that contains the number of films each character has appeared in. To do so, you will need to use the `map_int()` function to apply the `length` function to each element of `films`. This will efficiently count how many films each character appeared in and return a clean integer vector of the results. Finally, select the `name` and `nfilms` columns and print the reduced tibble.
+
+---
+
+✅ Done!
+*Please save and then render your document to an HTML file. Check it over to make sure it is complete (and rendered properly) and then upload this file to Canvas by the deadline listed on the syllabus. Note that if any of your code chunks has an error in it, the HTML file will not render properly. If you receive an error message upon clicking "Render" about a missing file, this usually means there is an error in one of your chunks.*
