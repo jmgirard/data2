@@ -533,9 +533,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="topics-2" class="level3">
 <h3 class="anchored" data-anchor-id="topics-2">Topics</h3>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Iterate functions across multiple columns using <code>across()</code></li>
+<li>Use list objects to store complex, mixed-type data</li>
+<li>Efficiently apply functions to vectors using <code>map()</code></li>
 </ul>
 </section>
 <section id="readings-2" class="level3">
@@ -554,6 +554,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="practice-2" class="level3">
 <h3 class="anchored" data-anchor-id="practice-2">Practice</h3>
+<section id="summarizing-multiple-columns" class="level4">
+<h4 class="anchored" data-anchor-id="summarizing-multiple-columns">1) Summarizing Multiple Columns</h4>
+<p>We can use iteration to apply the same summary function to many columns at once without repetitive typing. Let’s use the <code>iris</code> dataset (from {datasets}) to find the median of all numeric columns for each species.</p>
+<ul>
+<li>Use the appropriate summarizing and iteration functions to calculate the median for all numeric columns automatically.</li>
+<li>Group your summary by the <code>Species</code> column.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"iris"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> Species,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), <span class="at">.fns =</span> median)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     setosa          5.0         3.4         1.50         0.2</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 versicolor          5.9         2.8         4.35         1.3</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  virginica          6.5         3.0         5.55         2.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="inline-operations-with-anonymous-functions" class="level4">
+<h4 class="anchored" data-anchor-id="inline-operations-with-anonymous-functions">2) Inline Operations with Anonymous Functions</h4>
+<p>Anonymous functions let us apply custom mathematical transformations without having to formally save and name a new function. Let’s use the <code>penguins</code> dataset (from {datasets})to convert several measurements from millimeters to centimeters.</p>
+<ul>
+<li>Use the appropriate mutation and iteration functions to target the <code>bill_len</code>, <code>bill_dep</code>, and <code>flipper_len</code> columns.</li>
+<li>Apply an anonymous function to these columns that divides their values by 10.</li>
+<li>Select your modified columns along with the <code>species</code> column to view the results.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">c</span>(bill_len, bill_dep, flipper_len),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">.fns =</span> \(x) x <span class="sc">/</span> <span class="dv">10</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, bill_len, bill_dep, flipper_len)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 344 × 4</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="do">##    species bill_len bill_dep flipper_len</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Adelie      3.91     1.87        18.1</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Adelie      3.95     1.74        18.6</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Adelie      4.03     1.8         19.5</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Adelie     NA       NA           NA  </span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Adelie      3.67     1.93        19.3</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Adelie      3.93     2.06        19  </span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Adelie      3.89     1.78        18.1</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Adelie      3.92     1.96        19.5</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Adelie      3.41     1.81        19.3</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Adelie      4.2      2.02        19  </span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 334 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
+</section>
+<section id="iterating-over-lists-of-complex-objects" class="level4">
+<h4 class="anchored" data-anchor-id="iterating-over-lists-of-complex-objects">3) Iterating over Lists of Complex Objects</h4>
+<p>While <code>across()</code> is the best tool for iterating over columns inside a single dataset, <code>map()</code> shines when working with lists of complex objects like multiple data frames. Let’s practice by doing a quick sanity check on the size of several built-in datasets at once.</p>
+<ul>
+<li>Create a list named <code>my_datasets</code> containing the <code>mtcars</code>, <code>iris</code>, and <code>ToothGrowth</code> datasets (all from {datasets}).</li>
+<li>Use the <code>set_names()</code> function to name the elements of your list “mtcars”, “iris”, and “ToothGrowth” so your final output is easily readable.</li>
+<li>Use <code>map_int()</code> to iterate over your list and return an integer vector.</li>
+<li>Set the <code>.f</code> argument to the <code>nrow</code> function to extract the number of rows for each dataset.</li>
+</ul>
+<p></p><p></p><details><summary>Answer key</summary><blockquote class="blockquote"><p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>, <span class="st">"iris"</span>, <span class="st">"ToothGrowth"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>my_datasets <span class="ot">&lt;-</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(mtcars, iris, ToothGrowth) <span class="sc">|&gt;</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">"mtcars"</span>, <span class="st">"iris"</span>, <span class="st">"ToothGrowth"</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">map_int</span>(<span class="at">.x =</span> my_datasets, <span class="at">.f =</span> nrow)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      mtcars        iris ToothGrowth </span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">##          32         150          60</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p></p></blockquote></details><p></p><p></p>
 <!-- Bottom Nav -->
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../12/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 12</a>
@@ -562,6 +648,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+</section>
 </section>
 </section>
 

@@ -32,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -145,16 +209,572 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li><p>A</p></li>
-<li><p>B</p></li>
-<li><p>C</p></li>
+<li><p>Iterate functions across multiple columns using <code>across()</code></p></li>
+<li><p>Use list objects to store complex, mixed-type data</p></li>
+<li><p>Efficiently apply functions to vectors using <code>map()</code></p></li>
 </ul>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Iterating Over Columns</h1>
 
 </section>
+<section class="slide level2">
+<h2>The Repetition Problem</h2>
+<div class="fsmaller">
+<p>We often need to apply the exact same function to many different columns. Doing this manually requires a lot of repetitive, error-prone typing.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mpg"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the mean for multiple columns manually</span></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cty_mean =</span> <span class="fu">mean</span>(cty),</span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">hwy_mean =</span> <span class="fu">mean</span>(hwy),</span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">displ_mean =</span> <span class="fu">mean</span>(displ)</span>
+<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  cty_mean hwy_mean displ_mean
+     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+1     16.9     23.4       3.47</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Introducing across()</h2>
+<div class="fsmaller">
+<p>The <code>across()</code> function solves this by allowing us to apply the same transformation to multiple columns simultaneously. It takes two primary arguments: <code>.cols</code> (which columns) and <code>.fns</code> (what function).</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This does the exact same thing, but much more efficiently</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(cty, hwy, displ), <span class="at">.fns =</span> mean)</span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+    cty   hwy displ
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  16.9  23.4  3.47</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Selecting Columns Smartly</h2>
+<div class="fsmaller">
+<p>We can use tidy-select helpers (like <code>where()</code>, <code>starts_with()</code>, or <code>contains()</code>) inside of <code>across()</code> to target specific types of columns.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the mean function to all numeric columns at once</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), <span class="at">.fns =</span> mean)</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  displ  year   cyl   cty   hwy
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  3.47 2004.  5.89  16.9  23.4</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Custom Functions Work Too</h2>
+<div class="fsmaller">
+<p>Importantly, <code>across()</code> works perfectly with custom functions! It also drops right into <code>mutate()</code> just as easily as <code>summarize()</code>.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Our standardization function from Lecture 14b</span></span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>standardize <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { (x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) }</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(cty, hwy), <span class="at">.fns =</span> standardize)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(manufacturer, cty, hwy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 3
+  manufacturer    cty   hwy
+  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+1 audi          0.268 0.934
+2 audi          0.973 0.934
+3 audi          0.738 1.27 
+4 audi          0.973 1.10 
+5 audi         -0.202 0.430
+# ℹ 229 more rows</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Anonymous Functions</h1>
+
+</section>
+<section class="slide level2">
+<h2>The Need for Quick Functions</h2>
+<div class="fsmaller">
+<p>Sometimes we need to apply a simple operation across many columns, but it feels overkill to create and save a custom, named function for it.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Do we really need to save this just to use it once?</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>multiply_by_ten <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { x <span class="sc">*</span> <span class="dv">10</span> }</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(cty, hwy), multiply_by_ten)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(manufacturer, cty, hwy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 3
+  manufacturer   cty   hwy
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+1 audi           180   290
+2 audi           210   290
+3 audi           200   310
+4 audi           210   300
+5 audi           160   260
+# ℹ 229 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The (x) Syntax</h2>
+<div class="fsmaller">
+<p>R allows us to write <strong>anonymous functions</strong> (functions without a name) directly inside our pipelines using the <code>\(x)</code> syntax. This simply tells R: <em>“I am about to write a temporary function that takes a single argument that we can call x.”</em></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This code does the exact same thing, but inline!</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(cty, hwy), \(x) x <span class="sc">*</span> <span class="dv">10</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(manufacturer, cty, hwy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 3
+  manufacturer   cty   hwy
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+1 audi           180   290
+2 audi           210   290
+3 audi           200   310
+4 audi           210   300
+5 audi           160   260
+# ℹ 229 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Passing Arguments</h2>
+<div class="fsmaller">
+<p>One of the biggest advantage of anonymous functions is how easily they let us pass additional arguments to the function we are iterating (e.g., na.rm).</p>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># How to pass na.rm = TRUE to mean()?</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">c</span>(mass, height), </span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">.fns =</span> mean</span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+   mass height
+  &lt;dbl&gt;  &lt;dbl&gt;
+1    NA     NA</code></pre>
+</div>
+</div>
+</div><div class="column fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># With an anonymous function!</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">c</span>(mass, height), </span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">.fns =</span> \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+   mass height
+  &lt;dbl&gt;  &lt;dbl&gt;
+1  97.3   175.</code></pre>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Understanding Lists</h1>
+
+</section>
+<section class="slide level2">
+<h2>The Limits of Standard Vectors</h2>
+<div class="fsmaller">
+<ul>
+<li>We know how to store data in standard, atomic vectors using <code>c()</code>.</li>
+<li><strong>The limitation:</strong> Every item in a vector must be the same data type.
+<ul>
+<li>If you mix multiple types, <code>c()</code> converts them to be the same.</li>
+</ul></li>
+<li><strong>The solution:</strong> A <span class="b blue">list</span> is a special “super vector” that can hold <em>anything</em>.</li>
+</ul>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># logicals &lt; *numbers* &lt; characters</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 1 0 1 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># logicals &lt; numbers &lt; *characters*</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fl">42.1</span>, <span class="st">"Hello World"</span>, <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "42.1"        "Hello World" "TRUE"       </code></pre>
+</div>
+</div>
+</div><div class="column fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="fl">42.1</span>, <span class="st">"Hello World"</span>, <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 42.1
+
+[[2]]
+[1] "Hello World"
+
+[[3]]
+[1] TRUE</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Lists Can Store Anything</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>wow <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>)),</span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>wow[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+      x y    
+  &lt;int&gt; &lt;chr&gt;
+1     1 a    
+2     2 b    </code></pre>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>wow[[<span class="dv">2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Naming List Elements</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set names during creation</span></span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> </span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">myNumbers =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">myLetters =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>)</span>
+<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$myNumbers
+[1] 1 2 3
+
+$myLetters
+[1] "x" "y"</code></pre>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set names after creation</span></span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> </span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>)</span>
+<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb29-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(</span>
+<span id="cb29-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"myNumbers"</span>, <span class="st">"myLetters"</span>)</span>
+<span id="cb29-9"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb29-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$myNumbers
+[1] 1 2 3
+
+$myLetters
+[1] "x" "y"</code></pre>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Iterating Over Vectors</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Two Ways to Iterate</h2>
+<ul>
+<li>We use <code>across()</code> to iterate over columns, but what about vectors?</li>
+<li><strong>The Traditional Approach: Loops</strong>
+<ul>
+<li>Many programmers use <em>loops</em> to manually micro-manage iteration (e.g., creating empty containers, filling them, and tracking exact positions).</li>
+</ul></li>
+<li><strong>The Tidyverse Approach: {purrr}</strong>
+<ul>
+<li>We will use <span class="b blue">functional programming</span> to “delegate” the boring work</li>
+<li><strong>Simplicity:</strong> Provide just the vector and the function.</li>
+<li><strong>Automation:</strong> Automatically tracks positions and stores results.</li>
+<li><strong>Readability:</strong> Integrates cleanly into pipelines.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>How map() Works</h2>
+<div class="fsmaller">
+<ul>
+<li>The core function <code>map()</code> takes a vector (<code>.x</code>) and a function (<code>.f</code>)</li>
+<li><strong>Toy Example:</strong> Generating samples of different sizes
+<ul>
+<li><code>runif(n)</code> generates <code>n</code> random numbers between 0 and 1</li>
+</ul></li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a sample of random numbers for each sample size</span></span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>my_samples <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="at">.x =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>), <span class="at">.f =</span> runif)</span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>my_samples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 0.08239532 0.35262510
+
+[[2]]
+[1] 0.6659183 0.5287297 0.3844625 0.8534727
+
+[[3]]
+[1] 0.9886961 0.8799051 0.1221085</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Type-Specific Maps</h2>
+<div class="fsmaller">
+<ul>
+<li>If the output is all one type, we can simplify it with a <strong>type-specific map</strong>
+<ul>
+<li>e.g., <code>map_dbl()</code> returns a numeric vector</li>
+<li>e.g., <code>map_chr()</code> returns a character vector</li>
+</ul></li>
+<li><strong>Example:</strong> Finding the maximum value in each of our random samples</li>
+</ul>
+</div>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Keep output as a list</span></span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="at">.x =</span> my_samples, <span class="at">.f =</span> max)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 0.3526251
+
+[[2]]
+[1] 0.8534727
+
+[[3]]
+[1] 0.9886961</code></pre>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Simplify to a numeric vector</span></span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="at">.x =</span> my_samples, <span class="at">.f =</span> max)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3526251 0.8534727 0.9886961</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Step 1: Finding Our Files</h2>
+<div class="fsmaller">
+<ul>
+<li>The real power of <code>map()</code> is working with complex data structures like files.</li>
+<li><strong>The Scenario:</strong> You have a folder full of CSV files to combine.</li>
+<li>First, we need to locate them using <code>list.files()</code>
+<ul>
+<li><code>path</code>: Which folder to look in</li>
+<li><code>pattern</code>: What regex pattern to look for (ends in “.csv”)</li>
+<li><code>full.names</code>: Keep this <code>TRUE</code> so R knows exactly where the file is</li>
+</ul></li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This outputs a simple character vector of file paths</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>my_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"data"</span>, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.csv$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>my_files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data/pid_001.csv" "data/pid_002.csv" "data/pid_003.csv"</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Step 2: Reading Files into a List</h2>
+<div class="fsmaller">
+<ul>
+<li>Now we have a character vector of file paths.</li>
+<li>We can use <code>map()</code> to apply the <code>read_csv()</code> function to every path.</li>
+<li>Since <code>map()</code> always returns a list, we will get a list where each item is a complete data frame.</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a>list_of_dfs <span class="ot">&lt;-</span> </span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># read each file as a tibble into a list object</span></span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="at">.x =</span> my_files, <span class="at">.f =</span> read_csv) <span class="sc">|&gt;</span> </span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># set the name of each element to be its file path</span></span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(my_files)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Previewing the List</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a>list_of_dfs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`data/pid_001.csv`
+# A tibble: 30 × 2
+    day  mood
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1     5
+2     2     4
+3     3     3
+4     4     5
+5     5     4
+# ℹ 25 more rows
+
+$`data/pid_002.csv`
+# A tibble: 30 × 2
+    day  mood
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1     4
+2     2     5
+3     3     3
+4     4     4
+5     5     3
+# ℹ 25 more rows
+
+$`data/pid_003.csv`
+# A tibble: 30 × 2
+    day  mood
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1     6
+2     2     3
+3     3     0
+4     4     2
+5     5     6
+# ℹ 25 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Step 3: Binding the Data</h2>
+<div class="fsmaller">
+<ul>
+<li>We have our data, but a list of data frames is difficult to analyze</li>
+<li>We want one combined data frame</li>
+<li><code>list_rbind()</code> will stacks them row-by-row
+<ul>
+<li>The <code>names_to</code> argument creates a helpful ID column so we know where each row came from.</li>
+</ul></li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">list_rbind</span>(list_of_dfs, <span class="at">names_to =</span> <span class="st">"file"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Previewing the Combined Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># One 90-row tibble instead of three 30-row tibbles</span></span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>alldata</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 90 × 3
+  file               day  mood
+  &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;
+1 data/pid_001.csv     1     5
+2 data/pid_001.csv     2     4
+3 data/pid_001.csv     3     3
+4 data/pid_001.csv     4     5
+5 data/pid_001.csv     5     4
+# ℹ 85 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Using the Combined Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>alldata <span class="sc">|&gt;</span> </span>
+<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">y =</span> mood, <span class="at">color =</span> file, <span class="at">group =</span> file)) <span class="sc">+</span></span>
+<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="1152" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Iterating for Side Effects</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create function to read in data, create a plot, and save it</span></span>
+<span id="cb46-2"><a aria-hidden="true" tabindex="-1"></a>create_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(file) {</span>
+<span id="cb46-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Read in the data from current file</span></span>
+<span id="cb46-4"><a aria-hidden="true" tabindex="-1"></a>  current_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(file)</span>
+<span id="cb46-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create plot of the current data</span></span>
+<span id="cb46-6"><a aria-hidden="true" tabindex="-1"></a>  current_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(current_data, <span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">y =</span> mood)) <span class="sc">+</span></span>
+<span id="cb46-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> file)</span>
+<span id="cb46-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save the plot to a png image file</span></span>
+<span id="cb46-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">str_glue</span>(<span class="st">"{file}.png"</span>), <span class="at">plot =</span> current_plot,</span>
+<span id="cb46-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">units =</span> <span class="st">"in"</span>)</span>
+<span id="cb46-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the plot object</span></span>
+<span id="cb46-12"><a aria-hidden="true" tabindex="-1"></a>  current_plot</span>
+<span id="cb46-13"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Apply this function to each of my_files</span></span>
+<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="at">.x =</span> my_files, <span class="at">.f =</span> create_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Verifying it worked</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb48-2"><a aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]] <span class="sc">+</span> p[[<span class="dv">2</span>]] <span class="sc">+</span> p[[<span class="dv">3</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="c_Slides_files/figure-revealjs/unnamed-chunk-27-1.png" width="1152" class="r-stretch"><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"data"</span>, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.png$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data/pid_001.csv.png" "data/pid_002.csv.png" "data/pid_003.csv.png"</code></pre>
+</div>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
