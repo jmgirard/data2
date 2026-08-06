@@ -65,7 +65,7 @@ source(here("_common.R"))
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/spreadsheet.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/spreadsheet.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
@@ -94,7 +94,7 @@ source(here("_common.R"))
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/light_bulb.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/light_bulb.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
