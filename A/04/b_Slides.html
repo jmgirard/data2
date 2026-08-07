@@ -219,7 +219,7 @@
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Basic wrangling verbs</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -259,7 +259,7 @@
 <p><lord-icon src="../../icons/wrench.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Important: Saving changes</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -317,7 +317,7 @@ $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&g
 <h1>Rows</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Row-focused verbs</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -583,7 +583,7 @@ $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&g
 <h1>Columns</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Column-focused verbs</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -710,7 +710,7 @@ $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&g
 # ℹ 79 more rows</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>See also: <code>starts_with()</code>, <code>contains()</code>, <code>matches()</code>, and <code>where()</code></p>
 </div>
 </section></section>
@@ -815,7 +815,7 @@ $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&g
 #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Can also use <code>.after</code> and position numbers, e.g., <code>.after = 1</code></p>
 </div>
 
@@ -1276,7 +1276,7 @@ $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&g
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

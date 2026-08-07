@@ -225,7 +225,7 @@
 <h1>EDA vs.&nbsp;Inference</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The Trap of the Sample</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -255,7 +255,7 @@
 <p><lord-icon src="../../icons/search.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Populations vs.&nbsp;Samples</h2>
 <ul>
 <li>The <span class="b blue">Population</span> is the entire group we want to understand
@@ -274,7 +274,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Parameters vs.&nbsp;Statistics</h2>
 <ul>
 <li>A <span class="b blue">Parameter</span> is the “true” number in the population
@@ -306,7 +306,7 @@
 <h2>Mapping the Connections</h2>
 
 <img data-src="../../img/inference.png" width="800" class="r-stretch"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Why Compare Groups?</h2>
 <p>Comparing groups is a fundamental tool in Data Science. It allows us to move from simply describing data to evaluating impact and making decisions.</p>
 <div class="fragment mt1">
@@ -337,7 +337,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The Logic of Hypothesis Testing</h2>
 <p>Every statistical test we will learn uses the same underlying logic</p>
 <div class="fragment mt1">
@@ -373,7 +373,7 @@
 <h1>Group Designs</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>How is the Data Structured?</h2>
 <p>Before running any tests, R needs to know how the groups are related.</p>
 <div class="fragment mt1">
@@ -409,7 +409,7 @@
 <h1>The Statistical Engine</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The Logic of ANOVA</h2>
 <ul>
 <li>We will use a statistical model called <strong>ANOVA</strong> (Analysis of Variance)
@@ -435,7 +435,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Understanding the <em>p</em>-value</h2>
 <ul>
 <li>When we run our ANOVA, it outputs a <strong>p-value</strong> (probability value)
@@ -470,7 +470,7 @@
 <h1>Two Independent Groups</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>1. Preparing the Data</h2>
 <p>We will use the <code>penguins</code> dataset to compare body mass between Males and Females.</p>
 <div class="fragment mt1">
@@ -504,7 +504,7 @@ $ body_mass &lt;int&gt; 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3200, 3800, 44
 
 </div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>3. The Omnibus Test</h2>
 <p>The <code>aov_ez()</code> function tells us if there are any differences between our groups. Since there are only two groups here, this is mathematically identical to an independent t-test.</p>
 <div class="fragment mt1">
@@ -530,7 +530,7 @@ Anova Table (Type 3 tests)</code></pre>
 <p><strong>Interpretation:</strong> The significant result (<em>p</em> &lt; .001) means the effect of sex is statistically significant. This provides strong evidence to suggest that, in the broader <em>population</em>, the true average body mass differs between male and female penguins.</p>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>4. Mean Estimates</h2>
 <p>We use <code>estimate_means()</code> to guess what the group means are in the population</p>
 <p>We can also plot those model-based estimates (and, optionally, the sample data)</p>
@@ -571,7 +571,7 @@ Predictors averaged: id</code></pre>
 <h1>Three Independent Groups</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>1. Preparing the Data</h2>
 <p>What if we have more than two groups? We use the exact same functions. Let’s start by looking at our <code>penguins</code> data again. We will use the <code>species</code> variable to illustrate this, as there are 3 species represented in this sample.</p>
 <div class="fragment mt1">
@@ -605,7 +605,7 @@ $ body_mass &lt;int&gt; 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3475, 4250, 33
 
 </div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>3. The Omnibus Test</h2>
 <p>Now we swap <code>between = "sex"</code> to <code>between = "species"</code>.</p>
 <div class="fragment mt1">
@@ -631,7 +631,7 @@ Anova Table (Type 3 tests)</code></pre>
 <p><strong>Interpretation:</strong> The significant result (<em>p</em> &lt; .001) suggests that the true average body mass in the <em>population</em> is not identical across all three species. This gives us evidence that species is related to mass, though we cannot yet say which specific ones differ.</p>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>4. Estimating Means</h2>
 <div class="columns">
 <div class="column">
@@ -664,7 +664,7 @@ Predictors averaged: id</code></pre>
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>5. Contrasting Groups</h2>
 <p>The <code>estimate_contrasts()</code> function automatically tests all pairs and adjusts the <em>p</em>-values to protect us from false positives (due to multiple tests).</p>
 <div class="fragment mt1">
@@ -693,7 +693,7 @@ p-value adjustment method: Holm (1979)</code></pre>
 <h1>Three Dependent Groups</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>1. Preparing the Data</h2>
 <p>When testing the same subjects multiple times, the data must be in a long format. We will use the <code>ChickWeight</code> dataset to see if chicks gained weight between Days 0, 10, and 20.</p>
 <div class="fragment mt1">
@@ -727,7 +727,7 @@ $ weight &lt;dbl&gt; 42, 93, 199, 40, 103, 209, 43, 99, 198, 42, 87, 160, 41, 10
 
 </div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>3. The Omnibus Test</h2>
 <p>To tell R to run a dependent test, swap the <code>between</code> argument for <code>within</code></p>
 <div class="cell">
@@ -750,7 +750,7 @@ Anova Table (Type 3 tests)</code></pre>
 </div>
 <p><strong>Interpretation:</strong> The significant <em>p</em>-value (<em>p</em> &lt; .001) indicates that the true average weight of the <em>population</em> likely does not stay constant across these three time points. This points to a broader growth trend beyond just our specific sample.</p>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>4. Estimating Means</h2>
 <div class="columns">
 <div class="column">
@@ -783,7 +783,7 @@ Predictors averaged: Chick</code></pre>
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>5. Contrasting Groups</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(fit3, <span class="at">p_adjust =</span> <span class="st">"holm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1261,7 +1261,7 @@ p-value adjustment method: Holm (1979)</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

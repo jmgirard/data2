@@ -225,7 +225,7 @@
 <h1>Table Anatomy</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The gt Package</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -253,7 +253,7 @@
 <h2>Parts of a Table</h2>
 
 <img data-src="../../img/gt_parts_of_a_table.svg" class="r-stretch"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Building Blocks</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -2975,7 +2975,7 @@ Configuration
 <h1>Table Styling</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Formatting and Styling</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -5714,7 +5714,7 @@ Configuration
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

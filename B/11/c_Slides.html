@@ -229,7 +229,7 @@
 <h1>Relational Data</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Relational Data</h2>
 <ul>
 <li>A set of inter-related tables is called a <em>relational database</em> (RDB)</li>
@@ -345,7 +345,7 @@
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Relational Data</h2>
 <ul>
 <li>To <strong>join</strong> the tables into one unified dataset, we need to know their connections</li>
@@ -431,7 +431,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Keys</h2>
 <div class="columns pv4">
 <div class="column tc" style="width:50%;">
@@ -455,7 +455,7 @@
 <p><img data-src="../../img/keys.png"></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs60">
 <h2>Complex Databases</h2>
 <ul>
 <li>Let’s try to guess the connections for the {nycflights13} package’s tables</li>
@@ -472,7 +472,7 @@
 <h1>Basic Join Types</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Basic Join Types</h2>
 <ul>
 <li>The basic joins handle non-overlapping or missing observations differently</li>
@@ -564,7 +564,7 @@
 <p><img data-src="../../img/joins.png"></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Left Join</h2>
 <div>
 <ul>
@@ -701,7 +701,7 @@
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Right Join</h2>
 <div>
 <ul>
@@ -838,7 +838,7 @@
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Inner Join</h2>
 <div>
 <ul>
@@ -970,7 +970,7 @@
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Full Join</h2>
 <div>
 <ul>
@@ -1117,7 +1117,7 @@
 <h1>Tidyverse Joins</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Tidyverse Joins</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -1145,7 +1145,7 @@
 </section>
 <section class="slide level2">
 <h2>Preparing our Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Let’s examine a subset of columns from <code>flights</code>.</p>
 </div>
 <div class="cell">
@@ -1170,7 +1170,7 @@
 </section>
 <section class="slide level2">
 <h2>The Airlines Dataset</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Before we join, let’s look at the <code>airlines</code> dataset.</p>
 </div>
 <div class="cell">
@@ -1192,7 +1192,7 @@
 </section>
 <section class="slide level2">
 <h2>Left Join in R</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>What is the full name of the airline carrier for each flight?</em></p>
 <p>A left join is perfect for looking up and adding reference information to our primary dataset. Notice that the number of rows remains exactly the same.</p>
 </div>
@@ -1214,7 +1214,7 @@
 </section>
 <section class="slide level2">
 <h2>The Airports Dataset</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Next, let’s select a few columns from <code>airports</code>.</p>
 </div>
 <div class="cell">
@@ -1239,7 +1239,7 @@
 </section>
 <section class="slide level2">
 <h2>Joining by Different Names</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>If the key variables are named differently across datasets, we provide <code>by</code> with the <code>join_by()</code> function. The order should match <code>first == second</code>.</p>
 </div>
 <div class="cell">
@@ -1260,7 +1260,7 @@
 </section>
 <section class="slide level2">
 <h2>Duplicate Column Names</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We now have the name.x (origin) and name.y (dest)…</p>
 </div>
 <div class="cell">
@@ -1282,7 +1282,7 @@
 </section>
 <section class="slide level2">
 <h2>Changing the Suffixes</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can replace “.x” and “.y” using <code>suffix</code> in the second join.</p>
 </div>
 <div class="cell">
@@ -1305,7 +1305,7 @@
 </section>
 <section class="slide level2">
 <h2>The Planes Dataset</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Finally, let’s select a few columns from <code>planes</code>.</p>
 </div>
 <div class="cell">
@@ -1330,7 +1330,7 @@
 </section>
 <section class="slide level2">
 <h2>Missing Matches</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>If <code>flights2</code> has a key that does not exist in the right dataset, the joined variables become <code>NA</code>. Let’s look at plane “N3ALAA” to see this in action.</p>
 </div>
 <div class="cell">
@@ -1352,7 +1352,7 @@
 </section>
 <section class="slide level2">
 <h2>Inner Join in R</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Which flights were flown by planes that we have registry data for?</em></p>
 <p>To only return rows that have a match in both tables, use inner join. Our row count will decrease because it drops flights with missing plane data.</p>
 </div>
@@ -1374,7 +1374,7 @@
 </section>
 <section class="slide level2">
 <h2>Right Join in R</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Which airports in our data received zero flights from NYC in 2013?</em></p>
 <p>A right join is useful when we want to keep all observations from a reference table on the right without breaking the flow of our code.</p>
 </div>
@@ -1398,7 +1398,7 @@
 </section>
 <section class="slide level2">
 <h2>Full Join in R</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Overall, how many flights went to unlisted airports, and how many listed airports received zero flights?</em></p>
 <p>A full join keeps <em>all</em> rows from both tables. By joining flights with airports, we can audit the overlaps and missing matches across our entire database.</p>
 </div>
@@ -1876,7 +1876,7 @@
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

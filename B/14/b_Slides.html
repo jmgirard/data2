@@ -225,7 +225,7 @@
 <h1>Why Write Functions?</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The DRY Principle</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -263,7 +263,7 @@
 </section>
 <section class="slide level2">
 <h2>How Functions Work</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>A function declaration always requires four core parts:</p>
 <ol type="1">
 <li><strong>Name:</strong> How we will call the function later.</li>
@@ -280,7 +280,7 @@
 </section>
 <section class="slide level2">
 <h2>Our First Function</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Let’s build a function to automate our histogram plotting.<br> It will take a single vector of numbers and return a plot.</p>
 </div>
 <div class="cell">
@@ -332,7 +332,7 @@
 </section>
 <section class="slide level2">
 <h2>Adding More Arguments</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>What if we want to change the fill color of our histogram or the text of our<br> x-axis label? We can simply add more arguments and use them in the body.</p>
 </div>
 <div class="cell">
@@ -355,7 +355,7 @@
 
 </div>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Missing Argument Error</h2>
 <p>If we use our new function but forget to provide the new arguments, R will throw an error because it doesn’t know what color/label to use.</p>
 <div class="cell">
@@ -369,7 +369,7 @@
 </section>
 <section class="slide level2">
 <h2>Setting Defaults</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We define defaults in the <code>function()</code> declaration. The default will only be used if the argument is missing. The user can still overwrite the defaults!</p>
 </div>
 <div class="cell">
@@ -421,7 +421,7 @@
 </section>
 <section class="slide level2">
 <h2>Designing for Safety</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>When sharing functions, the user may not provide the correct data type.<br> Let’s make a simple function to “center” a variable by subtracting its mean.</p>
 </div>
 <div class="cell">
@@ -440,14 +440,14 @@
 ! non-numeric argument to binary operator</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Our function gives an error message, but it is not a very helpful one…</p>
 <p>Luckily, we can modify our function to do better!</p>
 </div>
 </section>
 <section class="slide level2">
 <h2>Input Validation</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can use an <code>if()</code> statement at the very beginning of our function to check the input. If the input is wrong, we use <code>stop()</code> to print an error message.</p>
 </div>
 <div class="cell">
@@ -469,7 +469,7 @@
 </section>
 <section class="slide level2">
 <h2>Adding Logical Controls</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can add logical arguments (<code>TRUE</code> or <code>FALSE</code>) to give users control over how the function operates. Let’s add a <code>robust</code> argument to our centering function.</p>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>center_var_adv <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">robust =</span> <span class="cn">FALSE</span>) {</span>
@@ -484,7 +484,7 @@
 </section>
 <section class="slide level2">
 <h2>Branching Logic</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can use an <code>if</code> and <code>else</code> block to create two branches in our function.<br> The code will do different things based on the <code>robust</code> argument’s value.</p>
 </div>
 <div class="cell">
@@ -507,7 +507,7 @@
 </section>
 <section class="slide level2">
 <h2>Using the Branching Function</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Because the mean is highly sensitive to outliers, our <code>robust</code> argument provides a very helpful alternative path!</p>
 </div>
 <div class="cell">
@@ -533,7 +533,7 @@
 </section>
 <section class="slide level2">
 <h2>The Payoff in mutate()</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Because our <code>center_var_adv()</code> function takes a vector and returns a vector of the same length, it drops perfectly into our tidyverse pipelines.</p>
 </div>
 <div class="cell">
@@ -558,7 +558,7 @@
 </section>
 <section class="slide level2">
 <h2>Prepping for Iteration</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>You can build any mathematical transformation you need and apply it the same way. For example, a common task is standardization (z-scoring):</p>
 </div>
 <div class="cell">
@@ -581,7 +581,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Summary</h2>
 <ul>
 <li><strong>Limitless Potential:</strong> Functions can package <em>any</em> valid R code or workflow.</li>
@@ -1049,7 +1049,7 @@
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

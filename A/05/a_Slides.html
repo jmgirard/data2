@@ -224,7 +224,7 @@
 <h1>Principles</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>What is a graphic?</h2>
 <div class="pv4 tc">
 <p><img data-src="../../img/graphics.png"></p>
@@ -233,7 +233,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Describing Graphics</h2>
 <div class="pv4 tc">
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
@@ -251,7 +251,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Describing Graphics</h2>
 <div class="pv4 tc">
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
@@ -269,7 +269,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The Grammar of Graphics</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -298,7 +298,7 @@
 <p><lord-icon src="../../icons/painter.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Data</h2>
 <div class="tc tibbledisp">
 <div class="cell">
@@ -326,7 +326,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70 figfit">
 <h2>Aesthetic Mappings</h2>
 <div class="pv4 tc">
 <p><img data-src="../../img/aes.png"></p>
@@ -335,7 +335,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70 figfit">
 <h2>Scales</h2>
 <div class="pv4 tc">
 <div class="quarto-layout-panel" data-layout-ncol="2">
@@ -353,7 +353,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Geometric Objects</h2>
 <div class="pv4 tc">
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
@@ -376,7 +376,7 @@
 <h1>Scatterplots</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>ggplot2 Basics</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -501,7 +501,7 @@
 <h1>Saving Graphics</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Saving Graphics</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -1036,7 +1036,7 @@
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

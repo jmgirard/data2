@@ -225,7 +225,7 @@
 <h1>Pivot Longer</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Pivot Longer</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -252,7 +252,7 @@
 </section>
 <section class="slide level2">
 <h2>Preparing the Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>First, let’s simulate a dataset in wide format.</p>
 </div>
 <div class="cell">
@@ -279,7 +279,7 @@
 </section>
 <section class="slide level2">
 <h2>The Problem with Wide Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we plot the trend of grades across tests for each student?</em></p>
 </div>
 <div class="cell">
@@ -330,7 +330,7 @@ $ test3   &lt;dbl&gt; 81, 77, 77, 83, 75, 70, 84, 73, 80, 73</code></pre>
 </section>
 <section class="slide level2">
 <h2>Plotting Long Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now that we have the data in long format, plotting is easy!</p>
 </div>
 <div class="cell columns column-output-location">
@@ -380,9 +380,9 @@ $ test3   &lt;dbl&gt; 81, 77, 77, 83, 75, 70, 84, 73, 80, 73</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Numeric Column Names</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Datasets with numeric columns names can cause issues…</p>
 </div>
 <div class="cell">
@@ -449,7 +449,7 @@ $ test3   &lt;dbl&gt; 81, 77, 77, 83, 75, 70, 84, 73, 80, 73</code></pre>
 <h1>Pivot Wider</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Pivot Wider</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -475,7 +475,7 @@ $ test3   &lt;dbl&gt; 81, 77, 77, 83, 75, 70, 84, 73, 80, 73</code></pre>
 </section>
 <section class="slide level2">
 <h2>Preparing the Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>First, let’s simulate a dataset in long format.</p>
 </div>
 <div class="cell">
@@ -502,7 +502,7 @@ $ test3   &lt;dbl&gt; 81, 77, 77, 83, 75, 70, 84, 73, 80, 73</code></pre>
 </section>
 <section class="slide level2">
 <h2>The Problem with Long Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Does daily mood correlate with daily sleep?</em></p>
 </div>
 <div class="cell">
@@ -551,7 +551,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </section>
 <section class="slide level2">
 <h2>Plotting Wide Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now that we have the data in wide format, plotting is easy!</p>
 </div>
 <div class="cell columns column-output-location">
@@ -576,7 +576,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </section>
 <section class="slide level2">
 <h2>Numerical Column Names</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Sometimes pivoting leaves you with column names that are just numbers.</p>
 </div>
 <div class="cell">
@@ -600,7 +600,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </section>
 <section class="slide level2">
 <h2>Avoiding Such Columns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can use <code>names_prefix</code> to make them clearer and easier to work with.</p>
 </div>
 <div class="cell">
@@ -623,9 +623,9 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Pivoting Multiple Columns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can also create new columns by combining categories. Here, we generate new column names based on combinations of the <code>day</code> and <code>scale</code> columns.</p>
 </div>
 <div class="cell">
@@ -651,7 +651,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </section>
 <section class="slide level2">
 <h2>Why Pivot Multiple Columns?</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>This extreme wide format collapses every observation for a single participant onto a single row. This makes calculating change scores across time easy!</p>
 </div>
 <div class="cell">
@@ -676,7 +676,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </section>
 <section class="slide level2">
 <h2>Data with Duplicate Identifiers</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Let’s create a dataset where two participants share the same first name.</p>
 </div>
 <div class="cell">
@@ -702,7 +702,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </section>
 <section class="slide level2">
 <h2>The Duplicate Row Problem</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Pivoting assumes it can uniquely identify every observation. Because we have two “John” observations, it jams them both into a list.</p>
 </div>
 <div class="cell">
@@ -724,7 +724,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
 </section>
 <section class="slide level2">
 <h2>Resolving Duplicate Rows</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We fix this by ensuring our rows are uniquely identified before we pivot (e.g., by adding the last name initials to distinguish “John A” from “John Z”).</p>
 </div>
 <div class="cell">
@@ -1203,7 +1203,7 @@ $ score       &lt;dbl&gt; 1.1, -0.5, -0.7, -0.5, -1.6, -1.2, -2.2, -1.3, -0.3, -
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

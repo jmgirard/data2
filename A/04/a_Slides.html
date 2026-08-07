@@ -224,7 +224,7 @@
 <h1>Principles</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Tidy Data Principles</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -249,7 +249,7 @@
 <p><lord-icon src="../../icons/spreadsheet.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Other Data Advice</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -287,7 +287,7 @@
 <p><lord-icon src="../../icons/light_bulb.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Tidying Example 1</h2>
 <div class="columns pv4">
 <div class="column" style="width:45%;">
@@ -420,7 +420,7 @@ Dom
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Tidying Example 2</h2>
 <div class="columns pv4">
 <div class="column" style="width:45%;">
@@ -589,7 +589,7 @@ Dom
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Tidying Example 3</h2>
 <div class="columns pv4">
 <div class="column" style="width:45%;">
@@ -782,7 +782,7 @@ China
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Tidying Example 4</h2>
 <div class="columns pv4">
 <div class="column" style="width:45%;">
@@ -938,7 +938,7 @@ B+
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs60">
 <h2>Tidying Example 5</h2>
 <div class="columns pv4">
 <div class="column" style="width:45%;">
@@ -1112,7 +1112,7 @@ B
 <h1>Data Files</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Data Files</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -1145,7 +1145,7 @@ B
 <p><lord-icon src="../../icons/freight_ship.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Tibbles</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -1722,7 +1722,7 @@ $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

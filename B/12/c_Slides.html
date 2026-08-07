@@ -225,7 +225,7 @@
 <h1>Creating Dates &amp; Times</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>What are Dates and Times?</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -246,7 +246,7 @@
 </section>
 <section class="slide level2">
 <h2>Current Date and Time</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How can I get the current date or time in R?</em></p>
 </div>
 <div class="cell">
@@ -269,7 +269,7 @@
 </div></aside></section>
 <section class="slide level2">
 <h2>Parsing Dates from Strings</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do I convert a character string into a proper Date object?</em></p>
 <p>We can build them from strings using the matching {lubridate} function.</p>
 </div>
@@ -301,7 +301,7 @@
 </section>
 <section class="slide level2">
 <h2>Parsing Date-Times</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>What if my string also includes the time?</em></p>
 </div>
 <div class="cell">
@@ -328,7 +328,7 @@
 </div></aside></section>
 <section class="slide level2">
 <h2>Building from Components</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Sometimes your data has the date components spread across multiple columns. We will use the <code>flights</code> dataset to see this in action.</p>
 </div>
 <div class="cell">
@@ -353,7 +353,7 @@
 </section>
 <section class="slide level2">
 <h2>Making Dates and Date-Times</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do I combine separate columns into one date variable?</em></p>
 </div>
 <div class="cell">
@@ -383,7 +383,7 @@
 </section>
 <section class="slide level2">
 <h2>Pulling out Pieces</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do I get just the month or day out of a date-time?</em></p>
 </div>
 <div class="cell">
@@ -409,7 +409,7 @@
 </section>
 <section class="slide level2">
 <h2>Getting Labels</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Can I get the actual name of the month or weekday?</em></p>
 <p>Yes, set <code>label = TRUE</code> to return a factor instead of a number.</p>
 </div>
@@ -434,7 +434,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Visualizing Weekdays</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Extracting components is incredibly useful for summaries and plots.</p>
 </div>
 <div class="cell columns column-output-location">
@@ -485,7 +485,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Rounding Dates</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How can I group dates together by week or month?</em></p>
 </div>
 <div class="cell">
@@ -516,7 +516,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Visualizing Rounded Dates</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Rounding dates allows us to aggregate and plot data over time. Notice that the x-axis includes the year, which is redundant since it’s always 2013!</p>
 </div>
 <div class="cell columns column-output-location">
@@ -542,7 +542,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Formatting Date Axes</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How can I format the date labels on a plot’s axis?</em></p>
 <p>Use <code>scale_x_date()</code> with the <code>date_labels</code> argument. You can use special <code>%</code> codes to format the dates (e.g., <code>%b</code> for abbreviated month names).</p>
 </div>
@@ -570,7 +570,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Common Date Formats</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>When formatting dates for plots or parsing tricky strings, you will use special <code>%</code> codes to represent different calendar components.</p>
 <table class="caption-top">
 <thead>
@@ -622,7 +622,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Three Types of Time Spans</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>When doing math with time, R provides three different classes of time spans. Picking the right one depends on what you are trying to calculate.</p>
 <ol type="1">
 <li><strong>Periods</strong>: Represent “human” units of time like weeks and months.</li>
@@ -633,7 +633,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Periods</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Periods use human logic, e.g., if you add one month to Jan 15, you get Feb 15th</p>
 </div>
 <div class="cell">
@@ -659,7 +659,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Durations</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Durations use strict math. They are always tracked in exact seconds. A duration year is exactly 365.25 days of seconds.</p>
 </div>
 <div class="cell">
@@ -685,7 +685,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>The DST Trap</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Why do we need both Periods and Durations?</em></p>
 <p>Because human clocks are messy! Consider Daylight Saving Time.</p>
 </div>
@@ -714,7 +714,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Intervals</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do I calculate the exact time span between two dates?</em></p>
 <p>An <code>interval</code> represents a span of time between two specific points. R handles all the complex leaps and bounds of the calendar for you.</p>
 </div>
@@ -738,7 +738,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Interval Math</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>You can divide an interval by different units depending on what you want.</p>
 </div>
 <div class="cell">
@@ -769,7 +769,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 </section>
 <section class="slide level2">
 <h2>Dealing with Just Times</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>What if I just have a time, not a date?</em></p>
 <p>The {hms} package is great for parsing and doing math with standalone times.</p>
 </div>
@@ -1253,7 +1253,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

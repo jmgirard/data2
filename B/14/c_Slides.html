@@ -227,7 +227,7 @@
 </section>
 <section class="slide level2">
 <h2>The Repetition Problem</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We often need to apply the exact same function to many different columns. Doing this manually requires a lot of repetitive, error-prone typing.</p>
 </div>
 <div class="cell">
@@ -251,7 +251,7 @@
 </section>
 <section class="slide level2">
 <h2>Introducing across()</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>The <code>across()</code> function solves this by allowing us to apply the same transformation to multiple columns simultaneously. It takes two primary arguments: <code>.cols</code> (which columns) and <code>.fns</code> (what function).</p>
 </div>
 <div class="cell">
@@ -270,7 +270,7 @@
 </section>
 <section class="slide level2">
 <h2>Selecting Columns Smartly</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can use tidy-select helpers (like <code>where()</code>, <code>starts_with()</code>, or <code>contains()</code>) inside of <code>across()</code> to target specific types of columns.</p>
 </div>
 <div class="cell">
@@ -289,7 +289,7 @@
 </section>
 <section class="slide level2">
 <h2>Custom Functions Work Too</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Importantly, <code>across()</code> works perfectly with custom functions! It also drops right into <code>mutate()</code> just as easily as <code>summarize()</code>.</p>
 </div>
 <div class="cell">
@@ -319,7 +319,7 @@
 </section>
 <section class="slide level2">
 <h2>The Need for Quick Functions</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Sometimes we need to apply a simple operation across many columns, but it feels overkill to create and save a custom, named function for it.</p>
 </div>
 <div class="cell">
@@ -344,7 +344,7 @@
 </section>
 <section class="slide level2">
 <h2>The (x) Syntax</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>R allows us to write <strong>anonymous functions</strong> (functions without a name) directly inside our pipelines using the <code>\(x)</code> syntax. This simply tells R: <em>“I am about to write a temporary function that takes a single argument that we can call x.”</em></p>
 </div>
 <div class="cell">
@@ -367,7 +367,7 @@
 </section>
 <section class="slide level2">
 <h2>Passing Arguments</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>One of the biggest advantage of anonymous functions is how easily they let us pass additional arguments to the function we are iterating (e.g., na.rm).</p>
 </div>
 <div class="columns">
@@ -414,7 +414,7 @@
 </section>
 <section class="slide level2">
 <h2>The Limits of Standard Vectors</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>We know how to store data in standard, atomic vectors using <code>c()</code>.</li>
 <li><strong>The limitation:</strong> Every item in a vector must be the same data type.
@@ -534,7 +534,7 @@ $myLetters
 <h1>Iterating Over Vectors</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Two Ways to Iterate</h2>
 <ul>
 <li>We use <code>across()</code> to iterate over columns, but what about vectors?</li>
@@ -553,7 +553,7 @@ $myLetters
 </section>
 <section class="slide level2">
 <h2>How map() Works</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>The core function <code>map()</code> takes a vector (<code>.x</code>) and a function (<code>.f</code>)</li>
 <li><strong>Toy Example:</strong> Generating samples of different sizes
@@ -580,7 +580,7 @@ $myLetters
 </section>
 <section class="slide level2">
 <h2>Type-Specific Maps</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>If the output is all one type, we can simplify it with a <strong>type-specific map</strong>
 <ul>
@@ -618,7 +618,7 @@ $myLetters
 </section>
 <section class="slide level2">
 <h2>Step 1: Finding Our Files</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>The real power of <code>map()</code> is working with complex data structures like files.</li>
 <li><strong>The Scenario:</strong> You have a folder full of CSV files to combine.</li>
@@ -641,7 +641,7 @@ $myLetters
 </section>
 <section class="slide level2">
 <h2>Step 2: Reading Files into a List</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>Now we have a character vector of file paths.</li>
 <li>We can use <code>map()</code> to apply the <code>read_csv()</code> function to every path.</li>
@@ -698,7 +698,7 @@ $`data/pid_003.csv`
 </section>
 <section class="slide level2">
 <h2>Step 3: Binding the Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>We have our data, but a list of data frames is difficult to analyze</li>
 <li>We want one combined data frame</li>
@@ -1233,7 +1233,7 @@ $`data/pid_003.csv`
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

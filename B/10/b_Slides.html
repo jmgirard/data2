@@ -219,7 +219,7 @@
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Moving Beyond Groups</h2>
 <p>Last lecture, we compared a continuous variable across different categories</p>
 <div class="fragment mt1">
@@ -246,7 +246,7 @@
 <h1>Correlations</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Interpreting Correlations</h2>
 <ul>
 <li><p>A correlation (parameter = <span class="math inline">\(\rho\)</span>, statistic = <span class="math inline">\(r\)</span>) quantifies the <strong>direction</strong> and <strong>strength</strong> of the <em>linear</em> relationship between two variables (how closely the points form a straight line)</p></li>
@@ -322,7 +322,7 @@ p-value adjustment method: Holm (1979)
 Observations: 342</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Interpretation:</strong> The correlation (<span class="math inline">\(r\)</span>) is 0.87. The significant result (<em>p</em> &lt; .001) provides evidence that flipper length and body mass are positively associated in the population: penguins with more (or less) body mass tend to have longer (or shorter) flippers.</p>
 </div>
 </section>
@@ -367,7 +367,7 @@ flipper_len |   0.87*** |             |
 p-value adjustment method: Holm (1979)</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Interpretation:</strong> The function automatically tests every possible pair of variables and provides adjusted <span class="math inline">\(p\)</span>-values for each relationship.</p>
 </div>
 </section>
@@ -383,7 +383,7 @@ p-value adjustment method: Holm (1979)</code></pre>
 <h1>Two Categorical Variables</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Understanding Chi-Square</h2>
 <p>The <strong>Chi-Square <span class="math inline">\((\chi^2)\)</span> Test of Independence</strong> looks at categorical relationships</p>
 <div class="fragment mt1">
@@ -443,7 +443,7 @@ $ island  &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Tor
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>3. Cross-Tabulation</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Before we can test these variables, we need to count how many penguins fall into each combination of categories. We use the <code>xtabs()</code> function for this</p>
 <p>The syntax uses a one-sided formula <code>~ variable1 + variable2</code></p>
 </div>
@@ -458,12 +458,12 @@ species     Biscoe Dream Torgersen
   Gentoo       124     0         0</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Note:</strong> All Gentoo penguins were observed on Biscoe, and all Chinstrap penguins were observed on Dream This suggests a very strong association!</p>
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>4. The Logic of Chi-Square</h2>
 <p>How does a Chi-Square test actually work?</p>
 <ul>
@@ -477,7 +477,7 @@ species     Biscoe Dream Torgersen
 </section>
 <section class="slide level2">
 <h2>5. Expected Frequencies</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>R can calculate those “Expected” numbers for us, and we can compare them</p>
 </div>
 <div class="columns">
@@ -504,13 +504,13 @@ species       Biscoe    Dream Torgersen
 </div>
 </div>
 </div></div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Note:</strong> These tables are very different! If there were no association, we would expect to find about 45 Gentoo on Dream. But in our sample, we found 0</p>
 </div>
 </section>
 <section class="slide level2">
 <h2>6. The Chi-Square Test</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now we look at the formal test results using <code>model_parameters()</code></p>
 </div>
 <div class="cell">
@@ -523,7 +523,7 @@ Chi2(4) |      p
 299.55  | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Interpretation:</strong> The highly significant result (<em>p</em> &lt; .001) means the distribution of species is dependent on the island. We have strong evidence that this geographic sorting exists in the broader population.</p>
 </div>
 </section></section>
@@ -532,7 +532,7 @@ Chi2(4) |      p
 <h1>Wrap-Up</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Choosing the Right Test</h2>
 <p>You now have three primary tools for testing basic bivariate relationships<br><br></p>
 <table class="caption-top">
@@ -1024,7 +1024,7 @@ Chi2(4) |      p
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

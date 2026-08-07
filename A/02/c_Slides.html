@@ -224,7 +224,7 @@
 <h1>Quarto</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Communicating with R</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -257,7 +257,7 @@
 <p><lord-icon src="../../icons/converse.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Quarto</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -283,7 +283,7 @@
 <p><lord-icon src="../../icons/poetry.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Create an Quarto Document</h2>
 <ul>
 <li>Open the “File” menu in RStudio</li>
@@ -297,7 +297,7 @@
 <li>Note that the file extension is .qmd</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Render the boilerplate content</h2>
 <ul>
 <li>To see how it works, read the boilerplate content</li>
@@ -308,7 +308,7 @@
 <li>It includes all the formatted text, code, and R results</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Remove the boilerplate content</h2>
 <ul>
 <li>The top part of the document is called the “Header”</li>
@@ -318,7 +318,7 @@
 <li>Add <code>embed-resources: true</code> to the Header for assignments!</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Add an R Chunk</h2>
 <ul>
 <li>Option 1: Click the green box with C and a plus sign icon (top-right)</li>
@@ -326,7 +326,7 @@
 <li>Option 3: Type out ```{r} then new line and ``` yourself</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Adding code to the chunk</h2>
 <ul>
 <li>Anything you put inside the “fences” (i.e., ```) will be treated as R code</li>
@@ -363,7 +363,7 @@
 <p><lord-icon src="../../icons/text_box.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Formatting</h2>
 <table class="caption-top">
 <colgroup>
@@ -396,7 +396,7 @@
 </tbody>
 </table>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Headings</h2>
 <table class="caption-top">
 <colgroup>
@@ -439,7 +439,7 @@
 }
 </style>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Links and Images</h2>
 <table class="caption-top">
 <thead>
@@ -469,7 +469,7 @@
 </tbody>
 </table>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Unordered Lists</h2>
 <div class="vtop">
 <table class="caption-top" style="width:97%;">
@@ -504,7 +504,7 @@
 </table>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Ordered Lists</h2>
 <div class="vtop">
 <table class="caption-top" style="width:97%;">
@@ -920,7 +920,7 @@
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

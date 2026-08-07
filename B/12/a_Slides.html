@@ -225,7 +225,7 @@
 <h1>Working with Strings</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Text Data in R</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -250,7 +250,7 @@
 </section>
 <section class="slide level2">
 <h2>Creating Strings &amp; Escapes</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we define text data in R?</em></p>
 </div>
 <div class="cell">
@@ -282,7 +282,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Combining Strings</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we stick multiple strings together?</em></p>
 </div>
 <div class="cell">
@@ -304,7 +304,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Combining Strings</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How can we flexibly combine strings?</em></p>
 <p>Yes, <code>str_glue()</code> lets us insert R variables directly into a string using curly braces <code>{}</code>. This is often much easier to read than <code>str_c()</code>.</p>
 </div>
@@ -325,7 +325,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Flattening Strings</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we collapse a whole column into a single string?</em></p>
 <p>We can use <code>str_flatten()</code> to combine a vector of multiple strings into one single string. We can also specify a separator.</p>
 </div>
@@ -344,7 +344,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Real-World Application</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Which carriers operate out of each NYC airport?</em></p>
 </div>
 <div class="cell">
@@ -375,7 +375,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Subsetting Strings</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we extract a specific range of characters?</em></p>
 </div>
 <div class="cell">
@@ -397,7 +397,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Subsetting Strings</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We use <code>str_sub()</code>, which takes a <code>start</code> and <code>end</code> position. We can even use negative numbers to count backward from the end of the string.</p>
 </div>
 <div class="cell">
@@ -419,7 +419,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Separating Columns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we split one messy column into multiple clean ones?</em></p>
 </div>
 <div class="cell">
@@ -460,7 +460,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Lengthening Columns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Can we separate into rows instead of columns?</em></p>
 </div>
 <div class="cell">
@@ -501,7 +501,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Real-World Application</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Why is this useful in data science?</em></p>
 </div>
 <div class="cell">
@@ -530,7 +530,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 <h1>Regular Expressions</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Intro to Regex</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -551,7 +551,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Exact Matching</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>The simplest regex pattern is just an exact match of characters.</p>
 </div>
 <div class="cell">
@@ -567,7 +567,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Anchors</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>What if we only want matches at the start or end of a string?</em></p>
 <p>We use anchors. <code>^</code> matches the start of the string, and <code>$</code> matches the end.</p>
 </div>
@@ -587,10 +587,10 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Regex Building Blocks</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we match flexible patterns instead of exact matches?</em></p>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><strong>Wildcards (<code>.</code>):</strong> Matches <em>any</em> single character</li>
 <li><strong>Character Classes (<code>[]</code>):</strong> Matches any <em>one</em> of the characters listed</li>
@@ -606,7 +606,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Examples</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sun"</span>, <span class="st">"sand"</span>, <span class="st">"soon"</span>, <span class="st">"July 4"</span>, <span class="st">"2026"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -667,7 +667,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Detecting Patterns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we filter a dataset based on text patterns?</em></p>
 </div>
 <div class="cell">
@@ -688,7 +688,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Detecting Patterns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can use <code>str_detect()</code> to ask if the pattern was detected</p>
 </div>
 <div class="columns">
@@ -730,7 +730,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Replacing Patterns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we fix or replace specific text elements?</em></p>
 </div>
 <div class="cell">
@@ -760,7 +760,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Removing Patterns</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How do we delete parts of a string?</em></p>
 </div>
 <div class="cell">
@@ -813,7 +813,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Real-World Application</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Why is this useful in data science?</em></p>
 <p>Data entered by humans in free-text fields is notoriously messy. We can string these tools together to sanitize it.</p>
 </div>
@@ -1317,7 +1317,7 @@ Newlines (\n) and   tabs (\t)</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

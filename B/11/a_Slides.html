@@ -225,7 +225,7 @@
 <h1>Basic Summarize</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Summarize</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -260,7 +260,7 @@
 </section>
 <section class="slide level2">
 <h2>Preparing the Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>First, let’s create a small example dataset of sales to practice with.</p>
 </div>
 <div class="cell">
@@ -286,7 +286,7 @@
 </section>
 <section class="slide level2">
 <h2>Overall Averages</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>What is the average transaction size and value?</em></p>
 <p>We can use <code>summarize()</code> to calculate the mean quantity and revenue across all observations in the dataset.</p>
 </div>
@@ -306,7 +306,7 @@
 </section>
 <section class="slide level2">
 <h2>The summary() Pitfall</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><span class="b dark-red">Warning:</span> Be careful not to accidentally use base R’s <code>summary()</code> function when you mean to use <code>dplyr::summarize()</code>. It will ignore your arguments!</p>
 </div>
 <div class="cell">
@@ -328,7 +328,7 @@
 </section>
 <section class="slide level2">
 <h2>Counting Functions</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How much data do we actually have?</em></p>
 <p>We can use special functions like <code>n()</code> to count total rows, and <code>n_distinct()</code> to count unique values.</p>
 </div>
@@ -352,7 +352,7 @@
 <h1>Grouped Summarize</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Grouped Summarize</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -379,7 +379,7 @@
 </section>
 <section class="slide level2">
 <h2>Summarizing by One Group</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Which store is performing better?</em></p>
 <p>Let’s see how the sales perform on a per-store basis by adding <code>.by</code>.</p>
 </div>
@@ -404,7 +404,7 @@
 </section>
 <section class="slide level2">
 <h2>Summarizing by Multiple Groups</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>How much did each customer purchase at each store?</em></p>
 <p>Now let’s group by customer and store combinations.</p>
 </div>
@@ -430,7 +430,7 @@
 </section>
 <section class="slide level2">
 <h2>Real-World Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Let’s apply these concepts to a larger, more realistic dataset.</p>
 </div>
 <div class="cell">
@@ -454,7 +454,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 </section>
 <section class="slide level2">
 <h2>Average Delay by Carrier</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>What is the average departure delay for each airline carrier?</em></p>
 </div>
 <div class="cell">
@@ -482,7 +482,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 <h1>Slice</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The Slice Functions</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -508,7 +508,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 </section>
 <section class="slide level2">
 <h2>Best Average Performance</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Which 3 carriers have the lowest average departure delay?</em></p>
 <p>We can calculate the summary and then slice the results to get our answer.</p>
 </div>
@@ -531,7 +531,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 </section>
 <section class="slide level2">
 <h2>Peak Volume</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Which 2 dates had the most NYC flights (in 2013)?</em></p>
 </div>
 <div class="cell">
@@ -555,7 +555,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 <h1>Grouped Slice</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Grouping inside Slice</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -578,7 +578,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 </section>
 <section class="slide level2">
 <h2>The Worst Flights per Carrier</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>What was the single most delayed flight for each airline?</em></p>
 </div>
 <div class="cell">
@@ -607,7 +607,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 <h1>Grouped Mutate</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Grouped Mutate</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -628,7 +628,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
 </section>
 <section class="slide level2">
 <h2>Comparing to Group Means</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Question:</strong> <em>Was this specific flight worse than the carrier’s usual performance?</em></p>
 </div>
 <div class="cell">
@@ -1109,7 +1109,7 @@ $ dep_delay &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1,
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

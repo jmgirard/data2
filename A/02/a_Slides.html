@@ -238,7 +238,7 @@
 <p><lord-icon src="../../icons/muscle.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Common Data Science Languages</h2>
 <h4>General Purpose</h4>
 <ul>
@@ -269,7 +269,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The R Ecosystem</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -307,7 +307,7 @@
 <p><lord-icon src="../../icons/car.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Installing R</h2>
 <div class="columns pv4">
 <div class="column pr4" style="width:50%;">
@@ -338,7 +338,7 @@
 <aside><div>
 <p><em>Note.</em> You will need to repeat this process every time a new version of R is released (every 4–5 months).</p>
 </div></aside></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Installing RStudio</h2>
 <div class="columns pv4">
 <div class="column pr4" style="width:50%;">
@@ -368,7 +368,7 @@
 <aside><div>
 <p><em>Note.</em> You will need to repeat this process every time a new version of RStudio is released (every 2–4 months).</p>
 </div></aside></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>RStudio Window</h2>
 <p><img data-src="../../img/rstudio.png"></p>
 
@@ -380,7 +380,7 @@
 <h1>Console</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>R will Grant your Wishes</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -408,7 +408,7 @@
 <p><lord-icon src="../../icons/genie.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Communicating with R</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -1019,7 +1019,7 @@
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/data2\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
