@@ -47,7 +47,7 @@ source(here("_common.R"))
 
 :::
 
-## Basic wrangling verbs {.smaller}
+## Basic wrangling verbs {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -71,7 +71,7 @@ source(here("_common.R"))
 :::
 :::
 
-## Important: Saving changes {.smaller}
+## Important: Saving changes {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -107,7 +107,7 @@ glimpse(starwars)
 
 # Rows
 
-## Row-focused verbs {.smaller}
+## Row-focused verbs {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -208,7 +208,7 @@ distinct(starwars, species, sex)
 
 # Columns
 
-## Column-focused verbs {.smaller}
+## Column-focused verbs {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -266,7 +266,7 @@ select(starwars, height:gender)
 select(starwars, ends_with("color"))
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 See also: `starts_with()`, `contains()`, `matches()`, and `where()`
 :::
 
@@ -302,6 +302,6 @@ rename(starwars, planet = homeworld)
 relocate(starwars, species, .before = name)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 Can also use `.after` and position numbers, e.g., `.after = 1`
 :::

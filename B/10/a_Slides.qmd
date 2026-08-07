@@ -52,7 +52,7 @@ set_theme(theme_gray(base_size = 30))
 
 # EDA vs. Inference
 
-## The Trap of the Sample {.smaller}
+## The Trap of the Sample {.fs70}
 
 ::: {.columns .pv4}
 
@@ -79,7 +79,7 @@ set_theme(theme_gray(base_size = 30))
 
 :::
 
-## Populations vs. Samples {.smaller}
+## Populations vs. Samples {.fs70}
 
 - The [Population]{.b .blue} is the entire group we want to understand
     + *e.g., All penguins in Antarctica*
@@ -92,7 +92,7 @@ set_theme(theme_gray(base_size = 30))
     
 :::
 
-## Parameters vs. Statistics {.smaller}
+## Parameters vs. Statistics {.fs70}
 
 - A [Parameter]{.b .blue} is the "true" number in the population
     + *e.g., the real average body mass of all penguins in Antarctica*
@@ -116,7 +116,7 @@ set_theme(theme_gray(base_size = 30))
 
 ![](../../img/inference.png){width="800"}
 
-## Why Compare Groups? {.smaller}
+## Why Compare Groups? {.fs70}
 
 Comparing groups is a fundamental tool in Data Science. It allows us to move from simply describing data to evaluating impact and making decisions.
 
@@ -141,7 +141,7 @@ Comparing groups is a fundamental tool in Data Science. It allows us to move fro
     
 :::
 
-## The Logic of Hypothesis Testing {.smaller}
+## The Logic of Hypothesis Testing {.fs70}
 
 Every statistical test we will learn uses the same underlying logic
 
@@ -168,7 +168,7 @@ Every statistical test we will learn uses the same underlying logic
 
 # Group Designs
 
-## How is the Data Structured? {.smaller}
+## How is the Data Structured? {.fs70}
 
 Before running any tests, R needs to know how the groups are related.
 
@@ -199,7 +199,7 @@ library(marginaleffects) # needed by easystats
 
 # The Statistical Engine
 
-## The Logic of ANOVA {.smaller}
+## The Logic of ANOVA {.fs70}
 
 - We will use a statistical model called **ANOVA** (Analysis of Variance)
     + It works for comparing two groups or comparing multiple groups
@@ -217,7 +217,7 @@ library(marginaleffects) # needed by easystats
     
 :::
 
-## Understanding the *p*-value {.smaller}
+## Understanding the *p*-value {.fs70}
 
 - When we run our ANOVA, it outputs a **p-value** (probability value)
     + It measures how "surprised" we should be by our sample data if there were actually *no real differences* in the population
@@ -240,7 +240,7 @@ library(marginaleffects) # needed by easystats
 
 # Two Independent Groups
 
-## 1. Preparing the Data {.smaller}
+## 1. Preparing the Data {.fs70}
 
 We will use the `penguins` dataset to compare body mass between Males and Females.
 
@@ -269,7 +269,7 @@ glimpse(dat1)
 ggplot(dat1, aes(x = sex, y = body_mass, fill = sex)) + geom_boxplot()
 ```
 
-## 3. The Omnibus Test {.smaller}
+## 3. The Omnibus Test {.fs70}
 
 The `aov_ez()` function tells us if there are any differences between our groups. Since there are only two groups here, this is mathematically identical to an independent t-test.
 
@@ -287,7 +287,7 @@ model_parameters(fit1)
 **Interpretation:** The significant result (*p* < .001) means the effect of sex is statistically significant. This provides strong evidence to suggest that, in the broader *population*, the true average body mass differs between male and female penguins.
 :::
 
-## 4. Mean Estimates {.smaller}
+## 4. Mean Estimates {.fs70}
 
 We use `estimate_means()` to guess what the group means are in the population
 
@@ -310,7 +310,7 @@ plot(means1, show_data = TRUE)
 
 # Three Independent Groups
 
-## 1. Preparing the Data {.smaller}
+## 1. Preparing the Data {.fs70}
 
 What if we have more than two groups? We use the exact same functions. Let's start by looking at our `penguins` data again. We will use the `species` variable to illustrate this, as there are 3 species represented in this sample.
 
@@ -337,7 +337,7 @@ glimpse(dat2)
 ggplot(dat2, aes(x = species, y = body_mass, fill = species)) + geom_boxplot()
 ```
 
-## 3. The Omnibus Test {.smaller}
+## 3. The Omnibus Test {.fs70}
 
 Now we swap `between = "sex"` to `between = "species"`.
 
@@ -355,7 +355,7 @@ model_parameters(fit2)
 **Interpretation:** The significant result (*p* < .001) suggests that the true average body mass in the *population* is not identical across all three species. This gives us evidence that species is related to mass, though we cannot yet say which specific ones differ.
 :::
 
-## 4. Estimating Means {.smaller}
+## 4. Estimating Means {.fs70}
 
 ::: {.columns}
 ::: {.column}
@@ -370,7 +370,7 @@ plot(means2, show_data = TRUE)
 :::
 :::
 
-## 5. Contrasting Groups {.smaller}
+## 5. Contrasting Groups {.fs70}
 
 The `estimate_contrasts()` function automatically tests all pairs and adjusts the *p*-values to protect us from false positives (due to multiple tests).
 
@@ -384,7 +384,7 @@ estimate_contrasts(fit2, p_adjust = "holm")
 
 # Three Dependent Groups
 
-## 1. Preparing the Data {.smaller}
+## 1. Preparing the Data {.fs70}
 
 When testing the same subjects multiple times, the data must be in a long format. We will use the `ChickWeight` dataset to see if chicks gained weight between Days 0, 10, and 20.
 
@@ -411,7 +411,7 @@ ggplot(dat3, aes(x = Time, y = weight, group = Chick)) +
   geom_line(alpha = 0.5)
 ```
 
-## 3. The Omnibus Test {.smaller}
+## 3. The Omnibus Test {.fs70}
 
 To tell R to run a dependent test, swap the `between` argument for `within`
 
@@ -432,7 +432,7 @@ model_parameters(fit3)
 **Interpretation:** The significant *p*-value (*p* < .001) indicates that the true average weight of the *population* likely does not stay constant across these three time points. This points to a broader growth trend beyond just our specific sample.
 
 
-## 4. Estimating Means {.smaller}
+## 4. Estimating Means {.fs70}
 
 ::: {.columns}
 ::: {.column}
@@ -447,7 +447,7 @@ plot(means3, show_data = TRUE)
 :::
 :::
 
-## 5. Contrasting Groups {.smaller}
+## 5. Contrasting Groups {.fs70}
 
 ```{r}
 estimate_contrasts(fit3, p_adjust = "holm")

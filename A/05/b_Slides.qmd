@@ -60,7 +60,7 @@ glimpse(mpg)
 
 # Layering
 
-## Layering {.smaller}
+## Layering {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -149,7 +149,7 @@ ggplot(economics, aes(x = date, y = unemploy)) +
 
 # Aesthetics
 
-## Aesthetics {.smaller}
+## Aesthetics {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -253,7 +253,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = drv, color = drv)) +
   geom_point()
 ```
 
-## Other Useful Aesthetics {.smaller}
+## Other Useful Aesthetics {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="50%"}
@@ -317,7 +317,7 @@ ggplot(economics, aes(x = date, y = unemploy)) +
 
 # Grouping
 
-## Implicit vs. Explicit Grouping {.smaller}
+## Implicit vs. Explicit Grouping {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}

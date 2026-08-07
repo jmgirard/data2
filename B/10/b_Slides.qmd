@@ -53,7 +53,7 @@ rsim <- function(r) {
 
 :::
 
-## Moving Beyond Groups {.smaller}
+## Moving Beyond Groups {.fs70}
 
 Last lecture, we compared a continuous variable across different categories
 
@@ -73,7 +73,7 @@ Last lecture, we compared a continuous variable across different categories
 
 # Correlations
 
-## Interpreting Correlations {.smaller}
+## Interpreting Correlations {.fs70}
 
 - A correlation (parameter = $\rho$, statistic = $r$) quantifies the **direction** and **strength** of the *linear* relationship between two variables (how closely the points form a straight line)
     
@@ -249,7 +249,7 @@ ggplot(dat1, aes(x = flipper_len, y = body_mass)) +
 res1 <- correlation(dat1) |> print()
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Interpretation:** The correlation ($r$) is 0.87. The significant result (*p* < .001) provides evidence that flipper length and body mass are positively associated in the population: penguins with more (or less) body mass tend to have longer (or shorter) flippers.
 :::
 
@@ -270,7 +270,7 @@ res2 <- correlation(dat2, p_adjust = "holm") |> print()
 mat2 <- summary(res2) |> print()
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Interpretation:** The function automatically tests every possible pair of variables and provides adjusted $p$-values for each relationship.
 :::
 
@@ -282,7 +282,7 @@ plot(mat2)
 
 # Two Categorical Variables
 
-## Understanding Chi-Square {.smaller}
+## Understanding Chi-Square {.fs70}
 
 The **Chi-Square $(\chi^2)$ Test of Independence** looks at categorical relationships
 
@@ -327,7 +327,7 @@ ggplot(dat3, aes(x = island, fill = species)) +
 
 ## 3. Cross-Tabulation
 
-::: {.fsmaller}
+::: {.fs80}
 Before we can test these variables, we need to count how many penguins fall into each combination of categories. We use the `xtabs()` function for this
 
 The syntax uses a one-sided formula `~ variable1 + variable2`
@@ -338,12 +338,12 @@ The syntax uses a one-sided formula `~ variable1 + variable2`
 tab3 <- dat3 |> table() |> print()
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 **Note:** All Gentoo penguins were observed on Biscoe, and all Chinstrap penguins were observed on Dream This suggests a very strong association!
 :::
 :::
 
-## 4. The Logic of Chi-Square {.smaller}
+## 4. The Logic of Chi-Square {.fs70}
 
 How does a Chi-Square test actually work?
 
@@ -358,7 +358,7 @@ res3 <- chisq.test(tab3)
 
 ## 5. Expected Frequencies
 
-::: {.fsmaller}
+::: {.fs80}
 R can calculate those "Expected" numbers for us, and we can compare them
 :::
 
@@ -376,13 +376,13 @@ res3$expected
 :::
 :::
 
-::: {.fsmaller}
+::: {.fs80}
 **Note:** These tables are very different! If there were no association, we would expect to find about 45 Gentoo on Dream. But in our sample, we found 0
 :::
 
 ## 6. The Chi-Square Test
 
-:::{.fsmaller}
+:::{.fs80}
 Now we look at the formal test results using `model_parameters()`
 :::
 
@@ -390,13 +390,13 @@ Now we look at the formal test results using `model_parameters()`
 model_parameters(res3)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Interpretation:** The highly significant result (*p* < .001) means the distribution of species is dependent on the island. We have strong evidence that this geographic sorting exists in the broader population.
 :::
 
 # Wrap-Up
 
-## Choosing the Right Test {.smaller}
+## Choosing the Right Test {.fs70}
 
 You now have three primary tools for testing basic bivariate relationships<br><br>
 

@@ -61,7 +61,7 @@ glimpse(starwars)
 
 # The Pipe
 
-## The Pipe Operator {.smaller}
+## The Pipe Operator {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -81,7 +81,7 @@ glimpse(starwars)
 :::
 :::
 
-## RStudio Setup & Shortcuts {.smaller}
+## RStudio Setup & Shortcuts {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -191,7 +191,7 @@ x
 
 # Pipelines
 
-## Building Pipelines {.smaller}
+## Building Pipelines {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}

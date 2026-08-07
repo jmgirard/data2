@@ -58,7 +58,7 @@ set_theme(theme_gray(base_size = 24))
 
 # Relational Data
 
-## Relational Data {.smaller}
+## Relational Data {.fs70}
 
 - A set of inter-related tables is called a *relational database* (RDB)
 
@@ -126,7 +126,7 @@ kable(movies) |>
 
 :::
 
-## Relational Data {.smaller}
+## Relational Data {.fs70}
 
 - To **join** the tables into one unified dataset, we need to know their connections
 
@@ -141,7 +141,7 @@ right_join(users, ratings, by = c("user" = "user")) |>
   kable_styling(bootstrap_options = "striped")
 ```
 
-## Keys {.smaller}
+## Keys {.fs70}
 
 ::: {.columns .pv4}
 
@@ -164,7 +164,7 @@ right_join(users, ratings, by = c("user" = "user")) |>
 
 :::
 
-## Complex Databases {.smaller}
+## Complex Databases {.fs60}
 
 - Let's try to guess the connections for the {nycflights13} package's tables
 
@@ -186,7 +186,7 @@ right_join(users, ratings, by = c("user" = "user")) |>
 
 # Basic Join Types
 
-## Basic Join Types {.smaller}
+## Basic Join Types {.fs70}
 
 - The basic joins handle non-overlapping or missing observations differently
 
@@ -246,7 +246,7 @@ kable(avg_ratings_mini)
 
 :::
 
-## Left Join {.smaller}
+## Left Join {.fs70}
 
 ::: {}
 - Left join includes all rows in the [left] table; those missing in the [right] table get NA
@@ -292,7 +292,7 @@ kable(df, "html") |>
 
 :::
 
-## Right Join {.smaller}
+## Right Join {.fs70}
 
 ::: {}
 - Right join includes all rows in the [right] table; those missing in the [left] table get NA
@@ -338,7 +338,7 @@ kable(df, "html") |>
 
 :::
 
-## Inner Join {.smaller}
+## Inner Join {.fs70}
 
 ::: {}
 - Inner join includes only rows present in both the [left] and [right] tables; no new NAs
@@ -383,7 +383,7 @@ kable(df, "html")
 
 :::
 
-## Full Join {.smaller}
+## Full Join {.fs70}
 
 ::: {}
 - Full join includes all rows in either the [left] or [right] table; missing values become NAs
@@ -432,7 +432,7 @@ kable(df, "html") |>
 
 # Tidyverse Joins
 
-## Tidyverse Joins {.smaller}
+## Tidyverse Joins {.fs70}
 
 ::: {.columns .pv4}
 
@@ -460,7 +460,7 @@ kable(df, "html") |>
 
 ## Preparing our Data
 
-::: {.fsmaller}
+::: {.fs80}
 Let's examine a subset of columns from `flights`.
 :::
 
@@ -476,7 +476,7 @@ flights2 <-
 
 ## The Airlines Dataset
 
-::: {.fsmaller}
+::: {.fs80}
 Before we join, let's look at the `airlines` dataset.
 :::
 
@@ -489,7 +489,7 @@ airlines
 
 ## Left Join in R
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What is the full name of the airline carrier for each flight?*
 
 A left join is perfect for looking up and adding reference information to our primary dataset. Notice that the number of rows remains exactly the same.
@@ -503,7 +503,7 @@ flights2 |>
 
 ## The Airports Dataset
 
-::: {.fsmaller}
+::: {.fs80}
 Next, let's select a few columns from `airports`.
 :::
 
@@ -519,7 +519,7 @@ airports2 <-
 
 ## Joining by Different Names
 
-::: {.fsmaller}
+::: {.fs80}
 If the key variables are named differently across datasets, we provide `by` with the `join_by()` function. The order should match `first == second`.
 :::
 
@@ -531,7 +531,7 @@ flights2 |>
 
 ## Duplicate Column Names
 
-::: {.fsmaller}
+::: {.fs80}
 We now have the name.x (origin) and name.y (dest)...
 :::
 
@@ -543,7 +543,7 @@ flights2 |>
 
 ## Changing the Suffixes
 
-::: {.fsmaller}
+::: {.fs80}
 We can replace ".x" and ".y" using `suffix` in the second join.
 :::
 
@@ -556,7 +556,7 @@ flights2 |>
 
 ## The Planes Dataset
 
-::: {.fsmaller}
+::: {.fs80}
 Finally, let's select a few columns from `planes`.
 :::
 
@@ -571,7 +571,7 @@ planes2 <-
 
 ## Missing Matches
 
-::: {.fsmaller}
+::: {.fs80}
 If `flights2` has a key that does not exist in the right dataset, the joined variables become `NA`. Let's look at plane "N3ALAA" to see this in action.
 :::
 
@@ -583,7 +583,7 @@ flights2 |>
 
 ## Inner Join in R
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Which flights were flown by planes that we have registry data for?*
 
 To only return rows that have a match in both tables, use inner join. Our row count will decrease because it drops flights with missing plane data.
@@ -596,7 +596,7 @@ flights2 |>
 
 ## Right Join in R
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Which airports in our data received zero flights from NYC in 2013?*
 
 A right join is useful when we want to keep all observations from a reference table on the right without breaking the flow of our code. 
@@ -611,7 +611,7 @@ flights2 |>
 
 ## Full Join in R
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Overall, how many flights went to unlisted airports, and how many listed airports received zero flights?*
 
 A full join keeps *all* rows from both tables. By joining flights with airports, we can audit the overlaps and missing matches across our entire database.

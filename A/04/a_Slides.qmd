@@ -44,7 +44,7 @@ source(here("_common.R"))
 
 # Principles
 
-## Tidy Data Principles {.smaller}
+## Tidy Data Principles {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -70,7 +70,7 @@ source(here("_common.R"))
 :::
 
 
-## Other Data Advice {.smaller}
+## Other Data Advice {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -99,7 +99,7 @@ source(here("_common.R"))
 :::
 
 
-## Tidying Example 1 {.smaller}
+## Tidying Example 1 {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="45%"}
@@ -178,7 +178,7 @@ source(here("_common.R"))
 :::
 
 
-## Tidying Example 2 {.smaller}
+## Tidying Example 2 {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="45%"}
@@ -279,7 +279,7 @@ source(here("_common.R"))
 :::
 
 
-## Tidying Example 3 {.smaller}
+## Tidying Example 3 {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="45%"}
@@ -386,7 +386,7 @@ source(here("_common.R"))
 :::
 
 
-## Tidying Example 4 {.smaller}
+## Tidying Example 4 {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="45%"}
@@ -477,7 +477,7 @@ source(here("_common.R"))
 :::
 
 
-## Tidying Example 5 {.smaller}
+## Tidying Example 5 {.fs60}
 
 ::: {.columns .pv4}
 ::: {.column width="45%"}
@@ -582,7 +582,7 @@ source(here("_common.R"))
 
 # Data Files
 
-## Data Files {.smaller}
+## Data Files {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -610,7 +610,7 @@ source(here("_common.R"))
 :::
 :::
 
-## Tibbles {.smaller}
+## Tibbles {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}

@@ -56,7 +56,7 @@ set_theme(theme_gray(base_size = 24))
 
 # Creating Dates & Times
 
-## What are Dates and Times? {.smaller}
+## What are Dates and Times? {.fs70}
 
 ::: {.columns .pv4}
 
@@ -80,7 +80,7 @@ set_theme(theme_gray(base_size = 24))
 
 ## Current Date and Time
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How can I get the current date or time in R?*
 :::
 
@@ -100,7 +100,7 @@ now()
 
 ## Parsing Dates from Strings
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do I convert a character string into a proper Date object?*
 
 We can build them from strings using the matching {lubridate} function.
@@ -127,7 +127,7 @@ dmy("06-Apr-2026")
 
 ## Parsing Date-Times
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What if my string also includes the time?*
 :::
 
@@ -149,7 +149,7 @@ ymd_hms("2026-04-06 16:00:42", tz = "US/Central") # fully explicit
 
 ## Building from Components
 
-::: {.fsmaller}
+::: {.fs80}
 Sometimes your data has the date components spread across multiple columns. We will use the `flights` dataset to see this in action.
 :::
 
@@ -165,7 +165,7 @@ flights_dt <- flights |>
 
 ## Making Dates and Date-Times
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do I combine separate columns into one date variable?*
 :::
 
@@ -182,7 +182,7 @@ flights_dt <- flights_dt |>
 
 ## Pulling out Pieces
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do I get just the month or day out of a date-time?*
 :::
 
@@ -201,7 +201,7 @@ mday(my_datetime) # Day of the month
 
 ## Getting Labels
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Can I get the actual name of the month or weekday?*
 
 Yes, set `label = TRUE` to return a factor instead of a number.
@@ -221,7 +221,7 @@ wday(my_datetime, label = TRUE)
 
 ## Visualizing Weekdays
 
-::: {.fsmaller}
+::: {.fs80}
 Extracting components is incredibly useful for summaries and plots.
 :::
 
@@ -256,7 +256,7 @@ flights_dt |>
 
 ## Rounding Dates
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How can I group dates together by week or month?*
 :::
 
@@ -281,7 +281,7 @@ ceiling_date(my_datetime, unit = "year")
 
 ## Visualizing Rounded Dates
 
-::: {.fsmaller}
+::: {.fs80}
 Rounding dates allows us to aggregate and plot data over time. Notice that the x-axis includes the year, which is redundant since it's always 2013!
 :::
 
@@ -303,7 +303,7 @@ flights_dt |>
 
 ## Formatting Date Axes
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How can I format the date labels on a plot's axis?*
 
 Use `scale_x_date()` with the `date_labels` argument. You can use special `%` codes to format the dates (e.g., `%b` for abbreviated month names).
@@ -328,7 +328,7 @@ flights_dt |>
 
 ## Common Date Formats
 
-::: {.fsmaller}
+::: {.fs80}
 When formatting dates for plots or parsing tricky strings, you will use special `%` codes to represent different calendar components. 
 
 | Code | Meaning | Example |
@@ -347,7 +347,7 @@ When formatting dates for plots or parsing tricky strings, you will use special 
 
 ## Three Types of Time Spans
 
-::: {.fsmaller}
+::: {.fs80}
 When doing math with time, R provides three different classes of time spans. Picking the right one depends on what you are trying to calculate.
 
 1.  **Periods**: Represent "human" units of time like weeks and months.
@@ -358,7 +358,7 @@ When doing math with time, R provides three different classes of time spans. Pic
 
 ## Periods
 
-::: {.fsmaller}
+::: {.fs80}
 Periods use human logic, e.g., if you add one month to Jan 15, you get Feb 15th
 :::
 
@@ -377,7 +377,7 @@ today() + days(7)
 
 ## Durations
 
-::: {.fsmaller}
+::: {.fs80}
 Durations use strict math. They are always tracked in exact seconds. A duration year is exactly 365.25 days of seconds.
 :::
 
@@ -396,7 +396,7 @@ dyears(1)
 
 ## The DST Trap
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Why do we need both Periods and Durations?*
 
 Because human clocks are messy! Consider Daylight Saving Time.
@@ -423,7 +423,7 @@ one_am + ddays(1)
 
 ## Intervals
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do I calculate the exact time span between two dates?*
 
 An `interval` represents a span of time between two specific points. R handles all the complex leaps and bounds of the calendar for you.
@@ -444,7 +444,7 @@ my_interval / years(1)
 
 ## Interval Math
 
-::: {.fsmaller}
+::: {.fs80}
 You can divide an interval by different units depending on what you want.
 :::
 
@@ -469,7 +469,7 @@ my_interval / hours(1)
 
 ## Dealing with Just Times
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What if I just have a time, not a date?*
 
 The {hms} package is great for parsing and doing math with standalone times.

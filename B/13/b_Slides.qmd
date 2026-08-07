@@ -57,7 +57,7 @@ set_theme(theme_gray(base_size = 20))
 
 # Drawing Maps
 
-## Where Do Maps Come From? {.fsmaller}
+## Where Do Maps Come From? {.fs80}
 
 ::: {.columns .pv4}
 
@@ -153,7 +153,7 @@ ggplot(midwest_map, aes(x = long, y = lat, group = group)) +
 
 # Points and Labels
 
-## Overlaying Data {.fsmaller}
+## Overlaying Data {.fs80}
 
 ::: {.columns .pv4}
 
@@ -254,7 +254,7 @@ p_midwest +
 
 # Choropleth Maps
 
-## What is a Choropleth? {.fsmaller}
+## What is a Choropleth? {.fs80}
 
 ::: {.columns .pv4}
 

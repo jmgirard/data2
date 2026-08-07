@@ -36,7 +36,7 @@ format:
 
 # Quarto
 
-## Communicating with R {.smaller}
+## Communicating with R {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -62,7 +62,7 @@ format:
 :::
 :::
 
-## Quarto {.smaller}
+## Quarto {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -86,7 +86,7 @@ format:
 :::
 :::
 
-## Create an Quarto Document {.smaller}
+## Create an Quarto Document {.fs70}
   - Open the "File" menu in RStudio
   - Select the "New File" option
   - Select the "Quarto Document..." option
@@ -97,7 +97,7 @@ format:
   - Give it a name like "Lecture 02c" (or whatever)
   - Note that the file extension is .qmd
 
-## Render the boilerplate content {.smaller}
+## Render the boilerplate content {.fs70}
   - To see how it works, read the boilerplate content
   - Now click the "Render" button to create the output file
   - A preview of the output will appear in the Viewer tab
@@ -105,19 +105,19 @@ format:
   - We can share this .html file with others
   - It includes all the formatted text, code, and R results
 
-## Remove the boilerplate content {.smaller}
+## Remove the boilerplate content {.fs70}
   - The top part of the document is called the "Header"
   - You can change the title but keep it in quotes
   - Highlight and delete everything below the header
   - In the future, you can click "Create Empty Document"
   - Add `embed-resources: true` to the Header for assignments!
     
-## Add an R Chunk {.smaller}
+## Add an R Chunk {.fs70}
   - Option 1: Click the green box with C and a plus sign icon (top-right)
   - Option 2: Ctrl+Alt+I (Win) or Cmd+Option+I (Mac)
   - Option 3: Type out \`\`\`\{r\} then new line and \`\`\` yourself
     
-## Adding code to the chunk {.smaller}
+## Adding code to the chunk {.fs70}
   - Anything you put inside the "fences" (i.e., \`\`\`) will be treated as R code
   - The chunk operates like a mini console
   - Try doing some calculations in the chunk and hit the green arrow
@@ -149,7 +149,7 @@ format:
 :::
 :::
 
-## Formatting {.fsmaller}
+## Formatting {.fs80}
 
 +-----------------------------------------+-----------------------------------------+
 | Markdown                                | Output                                  |
@@ -171,7 +171,7 @@ format:
 | ```                                     |                                         |
 +-----------------------------------------+-----------------------------------------+
 
-## Headings {.fsmaller}
+## Headings {.fs80}
 
 +------------------+-----------------------------------+
 | Markdown         | Output                            |
@@ -208,7 +208,7 @@ format:
 </style>
 ```
 
-## Links and Images {.fsmaller}
+## Links and Images {.fs80}
     
 +------------------------------------------+------------------------------------------+
 | Markdown                                 | Output                                   |
@@ -226,7 +226,7 @@ format:
 | ```                                      |                                          |
 +------------------------------------------+------------------------------------------+
     
-## Unordered Lists {.fsmaller}
+## Unordered Lists {.fs80}
 
 :::{.vtop}
 +-----------------------------------+---------------------------------+
@@ -241,7 +241,7 @@ format:
 +-----------------------------------+---------------------------------+
 :::
 
-## Ordered Lists {.fsmaller}
+## Ordered Lists {.fs80}
 
 :::{.vtop}
 +-----------------------------------+---------------------------------+

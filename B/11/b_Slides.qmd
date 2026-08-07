@@ -58,7 +58,7 @@ set.seed(1234)
 
 # Pivot Longer
 
-## Pivot Longer {.smaller}
+## Pivot Longer {.fs70}
 
 ::: {.columns .pv4}
 
@@ -84,7 +84,7 @@ set.seed(1234)
 
 ## Preparing the Data
 
-::: {.fsmaller}
+::: {.fs80}
 First, let's simulate a dataset in wide format.
 :::
 
@@ -100,7 +100,7 @@ gradebook
 
 ## The Problem with Wide Data
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we plot the trend of grades across tests for each student?*
 :::
 
@@ -140,7 +140,7 @@ gradebook2
 
 ## Plotting Long Data
 
-::: {.fsmaller}
+::: {.fs80}
 Now that we have the data in long format, plotting is easy!
 :::
 
@@ -174,9 +174,9 @@ gradebook |>
   )
 ```
 
-## Numeric Column Names
+## Numeric Column Names {.fs90}
 
-:::{.fsmaller}
+:::{.fs80}
 Datasets with numeric columns names can cause issues...
 :::
 
@@ -212,7 +212,7 @@ table4a |>
 
 # Pivot Wider
 
-## Pivot Wider {.smaller}
+## Pivot Wider {.fs70}
 
 ::: {.columns .pv4}
 
@@ -237,7 +237,7 @@ table4a |>
 
 ## Preparing the Data
 
-::: {.fsmaller}
+::: {.fs80}
 First, let's simulate a dataset in long format.
 :::
 
@@ -253,7 +253,7 @@ diary_data
 
 ## The Problem with Long Data
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Does daily mood correlate with daily sleep?*
 :::
 
@@ -291,7 +291,7 @@ diary_data |>
 
 ## Plotting Wide Data
 
-::: {.fsmaller}
+::: {.fs80}
 Now that we have the data in wide format, plotting is easy!
 :::
 
@@ -312,7 +312,7 @@ diary_data |>
 
 ## Numerical Column Names
 
-::: {.fsmaller}
+::: {.fs80}
 Sometimes pivoting leaves you with column names that are just numbers.
 :::
 
@@ -326,7 +326,7 @@ diary_data |>
 
 ## Avoiding Such Columns
 
-::: {.fsmaller}
+::: {.fs80}
 We can use `names_prefix` to make them clearer and easier to work with.
 :::
 
@@ -339,9 +339,9 @@ diary_data |>
   )
 ```
 
-## Pivoting Multiple Columns
+## Pivoting Multiple Columns {.fs90}
 
-::: {.fsmaller}
+::: {.fs80}
 We can also create new columns by combining categories. Here, we generate new column names based on combinations of the `day` and `scale` columns.
 :::
 
@@ -357,7 +357,7 @@ diary_data |>
 
 ## Why Pivot Multiple Columns?
 
-::: {.fsmaller}
+::: {.fs80}
 This extreme wide format collapses every observation for a single participant onto a single row. This makes calculating change scores across time easy!
 :::
 
@@ -375,7 +375,7 @@ diary_data |>
 
 ## Data with Duplicate Identifiers
 
-::: {.fsmaller}
+::: {.fs80}
 Let's create a dataset where two participants share the same first name.
 :::
 
@@ -390,7 +390,7 @@ records
 
 ## The Duplicate Row Problem
 
-::: {.fsmaller}
+::: {.fs80}
 Pivoting assumes it can uniquely identify every observation. Because we have two "John" observations, it jams them both into a list.
 :::
 
@@ -404,7 +404,7 @@ records |>
 
 ## Resolving Duplicate Rows
 
-::: {.fsmaller}
+::: {.fs80}
 We fix this by ensuring our rows are uniquely identified before we pivot (e.g., by adding the last name initials to distinguish "John A" from "John Z").
 :::
 

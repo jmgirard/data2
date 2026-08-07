@@ -55,7 +55,7 @@ set_theme(theme_gray(base_size = 24))
 
 # Basic Summarize
 
-## Summarize {.smaller}
+## Summarize {.fs70}
 
 ::: {.columns .pv4}
 
@@ -86,7 +86,7 @@ set_theme(theme_gray(base_size = 24))
 
 ## Preparing the Data
 
-::: {.fsmaller}
+::: {.fs80}
 First, let's create a small example dataset of sales to practice with.
 :::
 
@@ -103,7 +103,7 @@ sales
 
 ## Overall Averages
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What is the average transaction size and value?*
 
 We can use `summarize()` to calculate the mean quantity and revenue across all observations in the dataset.
@@ -119,7 +119,7 @@ sales |>
 
 ## The summary() Pitfall
 
-::: {.fsmaller}
+::: {.fs80}
 [Warning:]{.b .dark-red} Be careful not to accidentally use base R's `summary()` function when you mean to use `dplyr::summarize()`. It will ignore your arguments!
 :::
 
@@ -133,7 +133,7 @@ sales |>
 
 ## Counting Functions
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How much data do we actually have?*
 
 We can use special functions like `n()` to count total rows, and `n_distinct()` to count unique values.
@@ -150,7 +150,7 @@ sales |>
 
 # Grouped Summarize
 
-## Grouped Summarize {.smaller}
+## Grouped Summarize {.fs70}
 
 ::: {.columns .pv4}
 
@@ -176,7 +176,7 @@ sales |>
 
 ## Summarizing by One Group
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Which store is performing better?*
 
 Let's see how the sales perform on a per-store basis by adding `.by`.
@@ -196,7 +196,7 @@ sales |>
 
 ## Summarizing by Multiple Groups
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How much did each customer purchase at each store?*
 
 Now let's group by customer and store combinations.
@@ -214,7 +214,7 @@ sales |>
 
 ## Real-World Data
 
-::: {.fsmaller}
+::: {.fs80}
 Let's apply these concepts to a larger, more realistic dataset.
 :::
 
@@ -230,7 +230,7 @@ glimpse(delays)
 
 ## Average Delay by Carrier
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What is the average departure delay for each airline carrier?*
 :::
 
@@ -244,7 +244,7 @@ delays |>
 
 # Slice 
 
-## The Slice Functions {.smaller}
+## The Slice Functions {.fs70}
 
 ::: {.columns .pv4}
 
@@ -272,7 +272,7 @@ We often want to extract specific rows.
 
 ## Best Average Performance
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Which 3 carriers have the lowest average departure delay?*
 
 We can calculate the summary and then slice the results to get our answer.
@@ -289,7 +289,7 @@ delays |>
 
 ## Peak Volume
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Which 2 dates had the most NYC flights (in 2013)?*
 :::
 
@@ -304,7 +304,7 @@ delays |>
 
 # Grouped Slice
 
-## Grouping inside Slice {.smaller}
+## Grouping inside Slice {.fs70}
 
 ::: {.columns .pv4}
 
@@ -328,7 +328,7 @@ delays |>
 
 ## The Worst Flights per Carrier
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What was the single most delayed flight for each airline?*
 :::
 
@@ -343,7 +343,7 @@ delays |>
 
 # Grouped Mutate
 
-## Grouped Mutate {.smaller}
+## Grouped Mutate {.fs70}
 
 ::: {.columns .pv4}
 
@@ -367,7 +367,7 @@ delays |>
 
 ## Comparing to Group Means
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Was this specific flight worse than the carrier's usual performance?*
 :::
 

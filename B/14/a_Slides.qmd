@@ -55,7 +55,7 @@ set_theme(theme_gray(base_size = 20))
 
 # Comparisons &<br> Boolean Logic
 
-## Logical Vectors {.fsmaller}
+## Logical Vectors {.fs80}
 
 ::: {.columns .pv4}
 
@@ -75,7 +75,7 @@ set_theme(theme_gray(base_size = 20))
 
 :::
 
-## Relational Operators {.fsmaller}
+## Relational Operators {.fs80}
 
 Numerical only comparisons:
 
@@ -103,7 +103,7 @@ mpg |>
   select(manufacturer, model, year, trans, hwy, good_mileage)
 ```
 
-## Boolean Algebra {.fsmaller}
+## Boolean Algebra {.fs80}
 
 ::: {.columns .pv4}
 
@@ -134,7 +134,7 @@ mpg |>
 
 # Logical Summaries
 
-## Summarizing Logicals {.fsmaller}
+## Summarizing Logicals {.fs80}
 
 -   Logical vectors are essentially numbers under the hood
     -   `TRUE` becomes `1` and `FALSE` becomes `0`
@@ -150,7 +150,7 @@ mpg |>
   )
 ```
 
-## any() and all() {.fsmaller}
+## any() and all() {.fs80}
 
 -   Does a condition exist at all? Does it apply universally?
 -   `any()` returns `TRUE` if **at least one** value is `TRUE`
@@ -167,7 +167,7 @@ mpg |>
 
 # If-Else
 
-## What is Control Flow? {.fsmaller}
+## What is Control Flow? {.fs80}
 
 ::: {.columns .pv4}
 
@@ -185,7 +185,7 @@ mpg |>
 
 ## The if_else() Function
 
-:::{.fsmaller}
+:::{.fs80}
 The `if_else()` function takes three main arguments:
 
 1.  `condition`: A logical test (e.g., `x > 10`)
@@ -243,7 +243,7 @@ sitetemps |>
 
 # Case-When
 
-## Handling Complex Logic {.fsmaller}
+## Handling Complex Logic {.fs80}
 
 ::: {.columns .pv4}
 
@@ -262,7 +262,7 @@ sitetemps |>
 
 ## The case_when() Function 
 
-:::{.fsmaller}
+:::{.fs80}
 -   `case_when()` evaluates a sequence of formulas
 -   The left side of the `~` is the condition
 -   The right side of the `~` is the output
@@ -335,7 +335,7 @@ sitetemps |>
   )
 ```
 
-## Summary {.fsmaller}
+## Summary {.fs80}
 
 -   **Comparisons:** Evaluate relationships using `>`, `<`, `==`, and `!=`
 -   **Boolean Algebra:** Combine conditions using `&`, `|`, and `!`

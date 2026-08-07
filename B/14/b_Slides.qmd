@@ -56,7 +56,7 @@ set_theme(theme_gray(base_size = 24))
 
 # Why Write Functions?
 
-## The DRY Principle {.fsmaller}
+## The DRY Principle {.fs80}
 
 ::: {.columns .pv4}
 
@@ -98,7 +98,7 @@ Could we make a function to do this more efficiently?
 
 ## How Functions Work 
 
-:::{.fsmaller}
+:::{.fs80}
 A function declaration always requires four core parts:
 
 1.  **Name:** How we will call the function later.
@@ -117,7 +117,7 @@ function_name <- function(arguments) {
 
 ## Our First Function
 
-::: {.fsmaller}
+::: {.fs80}
 Let's build a function to automate our histogram plotting.<br>
 It will take a single vector of numbers and return a plot.
 :::
@@ -157,7 +157,7 @@ gghist(starwars$height)
 
 ## Adding More Arguments
 
-:::{.fsmaller}
+:::{.fs80}
 What if we want to change the fill color of our histogram or the text of our<br> x-axis label? We can simply add more arguments and use them in the body.
 :::
 
@@ -183,7 +183,7 @@ gghist_color(mpg$hwy, fcolor = "firebrick", xlabel = "Highway MPG")
 ```
 
 
-## The Missing Argument Error {.fsmaller}
+## The Missing Argument Error {.fs80}
 
 If we use our new function but forget to provide the new arguments, R will throw an error because it doesn't know what color/label to use.
 
@@ -197,7 +197,7 @@ We can fix this by setting **default argument values**.
 
 ## Setting Defaults
 
-::: {.fsmaller}
+::: {.fs80}
 We define defaults in the `function()` declaration. The default will only be used if the argument is missing. The user can still overwrite the defaults!
 :::
 
@@ -236,7 +236,7 @@ gghist_safe(mpg$hwy, fcolor = "blue")
 
 ## Designing for Safety
 
-::: {.fsmaller}
+::: {.fs80}
 When sharing functions, the user may not provide the correct data type.<br>
 Let's make a simple function to "center" a variable by subtracting its mean.
 :::
@@ -254,7 +254,7 @@ center_var(c(8, 10, 12))
 center_var(c("apple", "banana", "cherry"))
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 Our function gives an error message, but it is not a very helpful one...
 
 Luckily, we can modify our function to do better!
@@ -262,7 +262,7 @@ Luckily, we can modify our function to do better!
 
 ## Input Validation
 
-:::{.fsmaller}
+:::{.fs80}
 We can use an `if()` statement at the very beginning of our function to check the input. If the input is wrong, we use `stop()` to print an error message.
 :::
 
@@ -283,7 +283,7 @@ center_var_safe(c("apple", "banana", "cherry"))
 
 ## Adding Logical Controls 
 
-:::{.fsmaller}
+:::{.fs80}
 We can add logical arguments (`TRUE` or `FALSE`) to give users control over how the function operates. Let's add a `robust` argument to our centering function.
 :::
 
@@ -301,7 +301,7 @@ center_var_adv <- function(x, robust = FALSE) {
 
 ## Branching Logic
 
-:::{.fsmaller}
+:::{.fs80}
 We can use an `if` and `else` block to create two branches in our function.<br>
 The code will do different things based on the `robust` argument's value.
 :::
@@ -326,7 +326,7 @@ center_var_adv <- function(x, robust = FALSE) {
 
 ## Using the Branching Function
 
-::: {.fsmaller}
+::: {.fs80}
 Because the mean is highly sensitive to outliers, our `robust` argument provides a very helpful alternative path!
 :::
 
@@ -346,7 +346,7 @@ center_var_adv(my_data, robust = TRUE)
 
 ## The Payoff in mutate()
 
-::: {.fsmaller}
+::: {.fs80}
 Because our `center_var_adv()` function takes a vector and returns a vector of the same length, it drops perfectly into our tidyverse pipelines.
 :::
 
@@ -361,7 +361,7 @@ mpg |>
 
 ## Prepping for Iteration
 
-::: {.fsmaller}
+::: {.fs80}
 You can build any mathematical transformation you need and apply it the same way.
 For example, a common task is standardization (z-scoring):
 :::
@@ -375,7 +375,7 @@ mpg |>
   mutate(cty_z = standardize(cty))
 ```
 
-## Summary {.fsmaller}
+## Summary {.fs80}
 
 -   **Limitless Potential:** Functions can package *any* valid R code or workflow. 
 -   **Reduce Repetition:** They apply the DRY principle.

@@ -36,7 +36,7 @@ format:
 
 # Strings
 
-## Strings {.smaller}
+## Strings {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -122,13 +122,13 @@ nchar(dyes)
 toupper(dyes)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 We will learn more string functions in Unit B
 :::
 
 # Packages
 
-## Packages {.smaller}
+## Packages {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}

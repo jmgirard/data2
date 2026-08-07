@@ -36,7 +36,7 @@ format:
 
 # Scripts
 
-## Communicating with R {.smaller}
+## Communicating with R {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -133,7 +133,7 @@ format:
 
 # Projects
 
-## File Management {.smaller}
+## File Management {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -164,7 +164,7 @@ format:
 :::
 
 
-## Create a new Project {.fsmaller}
+## Create a new Project {.fs80}
 
 - Open the "File" menu in RStudio
 - Select the "New Project..." option
@@ -173,7 +173,7 @@ format:
 - Name the directory "PSYC 399" or "Data2" (or whatever)
 - Browse to where to create your Project folder
 
-## Create a new File {.fsmaller}
+## Create a new File {.fs80}
 
 - Explore the Files tab in the Extras pane
 - Create a New File (e.g., a script) as an example
@@ -183,7 +183,7 @@ format:
 - Close the script with the "x" icon
 - Reopen the script from the Files tab
 
-## Close and Open Projects {.fsmaller}
+## Close and Open Projects {.fs80}
 
 - Open the "File" menu in RStudio
 - Select the "Close Project" option

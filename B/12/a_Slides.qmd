@@ -56,7 +56,7 @@ set_theme(theme_gray(base_size = 24))
 
 # Working with Strings
 
-## Text Data in R {.smaller}
+## Text Data in R {.fs70}
 
 ::: {.columns .pv4}
 
@@ -83,7 +83,7 @@ set_theme(theme_gray(base_size = 24))
 
 ## Creating Strings & Escapes
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we define text data in R?*
 :::
 
@@ -107,7 +107,7 @@ writeLines(z)
 
 ## Combining Strings
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we stick multiple strings together?*
 :::
 
@@ -123,7 +123,7 @@ df <-
 
 ## Combining Strings
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How can we flexibly combine strings?*
 
 Yes, `str_glue()` lets us insert R variables directly into a string using curly braces `{}`. This is often much easier to read than `str_c()`.
@@ -138,7 +138,7 @@ df |>
 
 ## Flattening Strings
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we collapse a whole column into a single string?*
 
 We can use `str_flatten()` to combine a vector of multiple strings into one single string. We can also specify a separator.
@@ -153,7 +153,7 @@ df |>
 
 ## Real-World Application
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Which carriers operate out of each NYC airport?*
 :::
 
@@ -174,7 +174,7 @@ flights |>
 
 ## Subsetting Strings
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we extract a specific range of characters?*
 :::
 
@@ -189,7 +189,7 @@ df <-
 
 ## Subsetting Strings
 
-::: {.fsmaller}
+::: {.fs80}
 We use `str_sub()`, which takes a `start` and `end` position. We can even use negative numbers to count backward from the end of the string.
 :::
 
@@ -204,7 +204,7 @@ df |>
 
 ## Separating Columns
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we split one messy column into multiple clean ones?*
 :::
 
@@ -230,7 +230,7 @@ df |>
 
 ## Lengthening Columns
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Can we separate into rows instead of columns?*
 :::
 
@@ -255,7 +255,7 @@ df |>
 
 ## Real-World Application
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Why is this useful in data science?*
 :::
 
@@ -276,7 +276,7 @@ df |>
 
 # Regular Expressions
 
-## Intro to Regex {.smaller}
+## Intro to Regex {.fs70}
 
 ::: {.columns .pv4}
 
@@ -300,7 +300,7 @@ df |>
 
 ## Exact Matching
 
-::: {.fsmaller}
+::: {.fs80}
 The simplest regex pattern is just an exact match of characters.
 :::
 
@@ -313,7 +313,7 @@ str_view(x, "apple")
 
 ## Anchors
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What if we only want matches at the start or end of a string?*
 
 We use anchors. `^` matches the start of the string, and `$` matches the end.
@@ -329,11 +329,11 @@ str_view(x, "e$")
 
 ## Regex Building Blocks
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we match flexible patterns instead of exact matches?*
 :::
 
-::: {.fsmaller}
+::: {.fs80}
 -   **Wildcards (`.`):** Matches *any* single character
 -   **Character Classes (`[]`):** Matches any *one* of the characters listed
 -   **Shortcuts:** Built-in classes for common patterns
@@ -344,7 +344,7 @@ str_view(x, "e$")
 
 :::
 
-## Examples
+## Examples {.fs90}
 
 ```{r}
 x <- c("sun", "sand", "soon", "July 4", "2026")
@@ -393,7 +393,7 @@ str_view(
 
 ## Detecting Patterns
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we filter a dataset based on text patterns?*
 :::
 
@@ -405,7 +405,7 @@ df <-
 
 ## Detecting Patterns
 
-::: {.fsmaller}
+::: {.fs80}
 We can use `str_detect()` to ask if the pattern was detected
 :::
 
@@ -433,7 +433,7 @@ df |>
 
 ## Replacing Patterns
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we fix or replace specific text elements?*
 :::
 
@@ -457,7 +457,7 @@ str_replace_all(x, pattern = "utilize", replacement = "use")
 
 ## Removing Patterns
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we delete parts of a string?*
 :::
 
@@ -498,7 +498,7 @@ str_squish(x)
 
 ## Real-World Application
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Why is this useful in data science?*
 
 Data entered by humans in free-text fields is notoriously messy. We can string these tools together to sanitize it.

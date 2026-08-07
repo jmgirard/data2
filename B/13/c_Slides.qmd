@@ -56,7 +56,7 @@ set_theme(theme_gray(base_size = 24))
 
 # Themes
 
-## Themes {.smaller}
+## Themes {.fs70}
 
 ::: {.columns .pv4}
 
@@ -213,7 +213,7 @@ p + my_theme
 
 # Layouts
 
-## Layouts {.smaller}
+## Layouts {.fs70}
 
 ::: {.columns .pv4}
 

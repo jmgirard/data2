@@ -48,7 +48,7 @@ set_theme(theme_gray(base_size = 30))
 
 # Code Style
 
-## Code Style {.smaller}
+## Code Style {.fs70}
 
 ::: {.columns .pv4}
 
@@ -82,7 +82,7 @@ set_theme(theme_gray(base_size = 30))
 
 :::
 
-## File Names {.smaller}
+## File Names {.fs70}
 
 - File names should be [meaningful]{.b .blue} and [clear]{.b .blue}
 
@@ -109,7 +109,7 @@ set_theme(theme_gray(base_size = 30))
   
 :::
 
-## Sectioning and Comments {.smaller}
+## Sectioning and Comments {.fs70}
 
 - Use [sections and subsections]{.b .blue} to give the file internal structure
 
@@ -117,7 +117,7 @@ set_theme(theme_gray(base_size = 30))
 
 - Use [comments to explain]{.b .blue} the "why" (not the "what" or "how")
 
-## Object Naming {.smaller}
+## Object Naming {.fs70}
 
 - Object names should use a **single** and [consistent style]{.b .blue}
   - [`countydata` and `plot_county`]{.danger}
@@ -138,7 +138,7 @@ set_theme(theme_gray(base_size = 30))
 :::
 
 
-## Spacing {.smaller}
+## Spacing {.fs70}
 
 - Put spaces [around most operators]{.b .blue} (arithmetic, relational, and logical)
   - [`1/2+3*4-5`]{.danger} ➔  `1 / 2 + 3 * 4 - 5`
@@ -160,7 +160,7 @@ set_theme(theme_gray(base_size = 30))
 :::
 
 
-## Argument Specification {.smaller}
+## Argument Specification {.fs70}
 
 - Function arguments usually either provide [data]{.b .green} or customize [details]{.b .blue}
   - e.g., the `round()` function has two arguments:
@@ -187,7 +187,7 @@ set_theme(theme_gray(base_size = 30))
 
 ## Line Length and Indents
 
-:::{.fsmaller}
+:::{.fs80}
 - Strive to limit your code to just **80 characters per line**
   - *Tools > Global Options > Code > Display > Show Margin (Column=80)*
 
@@ -214,7 +214,7 @@ do_something_very_complicated(
 
 ## Pipes and Pipelines
 
-:::{.fsmaller}
+:::{.fs80}
 - Line break and [indent after assignment]{.b .blue}
 
 - Follow each pipe with a [line break]{.b .blue}
@@ -241,7 +241,7 @@ x <-
 
 # Chunk Options
 
-## Chunk Options {.smaller}
+## Chunk Options {.fs70}
 
 ::: {.columns .pv4}
 
@@ -275,7 +275,7 @@ x <-
 
 ## Hash Pipe Rules
 
-:::{.fsmaller}
+:::{.fs80}
 - Hash pipes must be the [very first lines]{.b .blue} inside the chunk.
 - You can [combine options]{.b .green} by putting each on a new line.
 
@@ -425,7 +425,7 @@ summary(mtcars$mpg)
 
 ## Collapse
 
-:::{.fsmaller}
+:::{.fs80}
 By default, Quarto puts your code and its output into [separate blocks]{.b .blue}.
 
 We can use the *collapse* option to [merge them]{.b .green} into a single, compact block.
@@ -446,7 +446,7 @@ summary(mtcars$mpg)
 ```
 
 
-## Label {.fsmaller}
+## Label {.fs80}
 
 We can give each code chunk a unique name using the *label* option.
 

@@ -49,7 +49,7 @@ set_theme(theme_gray(base_size = 30))
 
 # Principles
 
-## What is a graphic? {.smaller}
+## What is a graphic? {.fs70}
 
 ::: {.pv4 .tc}
 ![](../../img/graphics.png)
@@ -59,7 +59,7 @@ A [data visualization]{.b .blue} expresses [data]{.b .green} through [visual aes
 :::
 :::
 
-## Describing Graphics {.smaller}
+## Describing Graphics {.fs70}
 
 ::: {.pv4 .tc}
 
@@ -87,7 +87,7 @@ Some simple graphics are [easy to describe]{.b .green} and may even have [ready 
 :::
 :::
 
-## Describing Graphics {.smaller}
+## Describing Graphics {.fs70}
 
 ::: {.pv4 .tc}
 
@@ -130,7 +130,7 @@ A [grammar of graphics]{.b .blue} will help us describe more [complex]{.b .green
 :::
 :::
 
-## The Grammar of Graphics {.smaller}
+## The Grammar of Graphics {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -154,7 +154,7 @@ A [grammar of graphics]{.b .blue} will help us describe more [complex]{.b .green
 :::
 :::
 
-## Data {.smaller}
+## Data {.fs70}
 
 ::: {.tc .tibbledisp}
 
@@ -170,7 +170,7 @@ Graphics require [data]{.b .blue} (e.g., tibbles), which describe [observations]
 :::
 :::
 
-## Aesthetic Mappings {.smaller}
+## Aesthetic Mappings {.fs70 .figfit}
 
 ::: {.pv4 .tc}
 
@@ -181,7 +181,7 @@ Graphics require [aesthetic mappings]{.b .blue}, which connect [data *variables*
 :::
 :::
 
-## Scales {.smaller}
+## Scales {.fs70 .figfit}
 
 ::: {.pv4 .tc}
 
@@ -196,7 +196,7 @@ Graphics require [scales]{.b .blue}, which connect specific [data *values*]{.b .
 :::
 :::
 
-## Geometric Objects {.smaller}
+## Geometric Objects {.fs70}
 
 ::: {.pv4 .tc}
 
@@ -224,7 +224,7 @@ Graphics require [geometric objects]{.b .blue} (geoms), which [represent the obs
 
 # Scatterplots
 
-## ggplot2 Basics {.smaller}
+## ggplot2 Basics {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -328,7 +328,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
 
 # Saving Graphics
 
-## Saving Graphics {.smaller}
+## Saving Graphics {.fs70}
 
 ::: {.columns .pv4}
 

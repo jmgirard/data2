@@ -18,7 +18,7 @@ title: "Week 02: Start"
 </iframe>
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
@@ -80,7 +80,7 @@ Change the `x` to an asterisk `*` because asterisk `*` is the multiplication ope
 </iframe>
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
@@ -131,7 +131,7 @@ If you haven't already, create an RStudio Project for this entire course. Name i
 </iframe>
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 

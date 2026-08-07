@@ -58,7 +58,7 @@ format:
 :::
 
 
-## Common Data Science Languages {.smaller}
+## Common Data Science Languages {.fs70}
 
 #### General Purpose
 
@@ -83,7 +83,7 @@ format:
 :::
 
 
-## The R Ecosystem {.smaller}
+## The R Ecosystem {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -112,7 +112,7 @@ format:
 :::
 
 
-## Installing R {.smaller}
+## Installing R {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column .pr4 width="50%"}
@@ -146,7 +146,7 @@ format:
 :::
 
 
-## Installing RStudio {.smaller}
+## Installing RStudio {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column .pr4 width="50%"}
@@ -179,7 +179,7 @@ format:
 :::
 
 
-## RStudio Window {.smaller}
+## RStudio Window {.fs70}
 
 ![](../../img/rstudio.png)
 
@@ -191,7 +191,7 @@ format:
 
 # Console
 
-## R will Grant your Wishes {.smaller}
+## R will Grant your Wishes {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -218,7 +218,7 @@ format:
 :::
 
 
-## Communicating with R {.smaller}
+## Communicating with R {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}

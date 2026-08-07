@@ -60,7 +60,7 @@ glimpse(penguins)
 
 # Distributions
 
-## Visualizing Distributions {.smaller}
+## Visualizing Distributions {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -199,7 +199,7 @@ penguins |> ggplot(aes(x = body_mass)) + geom_histogram()
 :::
 :::
 
-## Histogram Bins
+## Histogram Bins {.fs90 .figfit}
 
 :::{.columns}
 :::{.column}
@@ -229,7 +229,7 @@ penguins |>
 :::
 :::
 
-## Histogram Binwidth
+## Histogram Binwidth {.fs90 .figfit}
 
 :::{.columns}
 :::{.column}
@@ -261,7 +261,7 @@ penguins |>
 
 # Relationships
 
-## Visualizing Relationships {.smaller}
+## Visualizing Relationships {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -284,7 +284,7 @@ penguins |>
 :::
 :::
 
-## Common Strategies {.fsmaller}
+## Common Strategies {.fs80}
 
 - **[Two Continuous]{.blue} $\rightarrow$ [Point]{.green}**
     + Use two positional axes, possibly a smoother

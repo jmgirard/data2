@@ -56,7 +56,7 @@ set_theme(theme_gray(base_size = 24))
 
 # Creating Factors
 
-## What are Factors? {.smaller}
+## What are Factors? {.fs70}
 
 ::: {.columns .pv4}
 
@@ -81,7 +81,7 @@ set_theme(theme_gray(base_size = 24))
 
 ## Creating Factors
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we convert raw data into a factor?*
 :::
 
@@ -107,7 +107,7 @@ factor(sex, levels = c(1, 2), labels = c("Female", "Male"))
 
 ## Factors vs. Strings
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What happens if we don't specify levels?*
 :::
 
@@ -129,7 +129,7 @@ factor(birth_months, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
 
 ## A Safer Alternative
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Are there better tools for creating factors than base R?*
 
 The {forcats} package provides `fct()`. It is safer than `factor()` because it errors if you include a value not in the levels, and it orders by first appearance.
@@ -149,7 +149,7 @@ fct(c("Dec", "Apr", "Jam", "Mar"), levels = c("Jan", "Feb", "Mar", "Apr", "Dec")
 
 ## Introducing the GSS Dataset
 
-::: {.fsmaller}
+::: {.fs80}
 To explore reordering and modifying factors, we will use the `gss_cat` dataset. This is a sample of data from the General Social Survey.
 :::
 
@@ -163,7 +163,7 @@ glimpse(gss_cat)
 
 ## Order by Appearance
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Can I order my levels by which appear first in the data?*
 :::
 
@@ -183,7 +183,7 @@ gss_cat |>
 
 ## Order by Frequency
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How can I order my levels by their number of observations?*
 :::
 
@@ -202,7 +202,7 @@ gss_cat |>
 
 ## Reversing Order
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *Can I quickly reverse the order of my factors?*
 :::
 
@@ -224,7 +224,7 @@ gss_cat |>
 
 ## Creating a Summary Table
 
-::: {.fsmaller}
+::: {.fs80}
 Let's calculate the average age for each marital status group to play with.
 :::
 
@@ -242,7 +242,7 @@ gss_age <- gss_cat |>
 
 ## Order by Value
 
-::: {.fsmaller}
+::: {.fs80}
 Order by another variable in the dataset
 :::
 
@@ -270,7 +270,7 @@ gss_age |>
 
 ## Manual Reordering
 
-::: {.fsmaller}
+::: {.fs80}
 Manually bring one or more variables to the front / bottom
 :::
 
@@ -315,7 +315,7 @@ gss_age |>
 
 ## Recoding Levels
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we rename levels to make them clearer?*
 :::
 
@@ -339,7 +339,7 @@ gss_cat |>
 
 ## Collapsing Levels
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *How do we group many small categories into a few large ones?*
 :::
 
@@ -363,7 +363,7 @@ gss_cat |> ggplot(aes(y = relig)) + geom_bar()
 
 ## Lumping Small Groups
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What if we only care about the most common categories?*
 :::
 
@@ -378,7 +378,7 @@ gss_cat |>
 
 ## Other Ways to Lump
 
-::: {.fsmaller}
+::: {.fs80}
 **Question:** *What if I want to lump based on proportions rather than a fixed count?*
 :::
 

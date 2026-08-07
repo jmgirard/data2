@@ -36,7 +36,7 @@ format:
 
 # Assignment
 
-## Assignment {.smaller}
+## Assignment {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -65,7 +65,7 @@ format:
 :::
 :::
 
-## Naming {.smaller}
+## Naming {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -170,7 +170,7 @@ age_time2
 
 # Functions
 
-## Functions {.smaller}
+## Functions {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -257,7 +257,7 @@ cos(1)
 tan(1)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 Note: there are corresponding `asin()`, `acos()`, and `atan()` functions.
 :::
 

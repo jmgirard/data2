@@ -48,7 +48,7 @@ set_theme(theme_gray(base_size = 20))
 
 # Labels
 
-## Labels {.smaller}
+## Labels {.fs70}
 
 ::: {.columns .pv4}
 
@@ -142,7 +142,7 @@ p4
 
 # Scales
 
-## Scales {.smaller}
+## Scales {.fs70}
 
 ::: {.columns .pv4}
 

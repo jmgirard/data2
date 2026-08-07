@@ -50,7 +50,7 @@ set_theme(theme_gray(base_size = 30))
 
 # Table Anatomy
 
-## The gt Package {.smaller}
+## The gt Package {.fs70}
 
 ::: {.columns .pv4}
 
@@ -77,7 +77,7 @@ set_theme(theme_gray(base_size = 30))
 
 ![](../../img/gt_parts_of_a_table.svg)
 
-## Building Blocks {.smaller}
+## Building Blocks {.fs70}
 
 ::: {.columns .pv4}
 
@@ -202,7 +202,7 @@ table5
 
 # Table Styling
 
-## Formatting and Styling {.smaller}
+## Formatting and Styling {.fs70}
 
 ::: {.columns .pv4}
 

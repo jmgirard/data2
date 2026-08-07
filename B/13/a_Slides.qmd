@@ -56,7 +56,7 @@ set_theme(theme_gray(base_size = 20))
 
 # Faceting
 
-## Faceting {.fsmaller}
+## Faceting {.fs80}
 
 ::: {.columns .pv4}
 
@@ -172,7 +172,7 @@ p + facet_grid(rows = vars(sex), cols = vars(species), scales = "free")
 
 # Positions
 
-## Position Adjustments {.fsmaller}
+## Position Adjustments {.fs80}
 
 ::: {.columns .pv4}
 

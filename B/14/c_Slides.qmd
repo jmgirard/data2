@@ -64,7 +64,7 @@ write_csv(tibble(day = 1:30, mood = round(rnorm(30, 4, 2))), "data/pid_003.csv")
 
 ## The Repetition Problem
 
-::: {.fsmaller}
+::: {.fs80}
 We often need to apply the exact same function to many different columns. Doing this manually requires a lot of repetitive, error-prone typing.
 :::
 
@@ -83,7 +83,7 @@ mpg |>
 
 ## Introducing across()
 
-::: {.fsmaller}
+::: {.fs80}
 The `across()` function solves this by allowing us to apply the same transformation to multiple columns simultaneously. It takes two primary arguments: `.cols` (which columns) and `.fns` (what function).
 :::
 
@@ -97,7 +97,7 @@ mpg |>
 
 ## Selecting Columns Smartly
 
-::: {.fsmaller}
+::: {.fs80}
 We can use tidy-select helpers (like `where()`, `starts_with()`, or `contains()`) inside of `across()` to target specific types of columns.
 :::
 
@@ -111,7 +111,7 @@ mpg |>
 
 ## Custom Functions Work Too
 
-::: {.fsmaller}
+::: {.fs80}
 Importantly, `across()` works perfectly with custom functions! It also drops right into `mutate()` just as easily as `summarize()`.
 :::
 
@@ -128,7 +128,7 @@ mpg |>
 
 ## The Need for Quick Functions
 
-::: {.fsmaller}
+::: {.fs80}
 Sometimes we need to apply a simple operation across many columns, but it feels overkill to create and save a custom, named function for it.
 :::
 
@@ -143,7 +143,7 @@ mpg |>
 
 ## The \(x) Syntax
 
-::: {.fsmaller}
+::: {.fs80}
 R allows us to write **anonymous functions** (functions without a name) directly inside our pipelines using the `\(x)` syntax. This simply tells R: *"I am about to write a temporary function that takes a single argument that we can call x."*
 :::
 
@@ -156,7 +156,7 @@ mpg |>
 
 ## Passing Arguments
 
-::: {.fsmaller}
+::: {.fs80}
 One of the biggest advantage of anonymous functions is how easily they let us pass additional arguments to the function we are iterating (e.g., na.rm).
 :::
 
@@ -191,7 +191,7 @@ starwars |>
 
 ## The Limits of Standard Vectors
 
-::: {.fsmaller}
+::: {.fs80}
 - We know how to store data in standard, atomic vectors using `c()`.
 - **The limitation:** Every item in a vector must be the same data type.
     + If you mix multiple types, `c()` converts them to be the same.
@@ -272,7 +272,7 @@ my_list <-
 
 # Iterating Over Vectors
 
-## Two Ways to Iterate {.fsmaller}
+## Two Ways to Iterate {.fs80}
 
 - We use `across()` to iterate over columns, but what about vectors?
 - **The Traditional Approach: Loops**
@@ -285,7 +285,7 @@ my_list <-
 
 ## How map() Works 
 
-:::{.fsmaller}
+:::{.fs80}
 - The core function `map()` takes a vector (`.x`) and a function (`.f`)
 - **Toy Example:** Generating samples of different sizes
     + `runif(n)` generates `n` random numbers between 0 and 1
@@ -299,7 +299,7 @@ my_samples
 ```
 
 ## Type-Specific Maps 
-:::{.fsmaller}
+:::{.fs80}
 - If the output is all one type, we can simplify it with a **type-specific map**
     + e.g., `map_dbl()` returns a numeric vector
     + e.g., `map_chr()` returns a character vector
@@ -323,7 +323,7 @@ map_dbl(.x = my_samples, .f = max)
 :::
 
 ## Step 1: Finding Our Files 
-:::{.fsmaller}
+:::{.fs80}
 - The real power of `map()` is working with complex data structures like files.
 - **The Scenario:** You have a folder full of CSV files to combine.
 - First, we need to locate them using `list.files()`
@@ -340,7 +340,7 @@ my_files
 ```
 
 ## Step 2: Reading Files into a List 
-:::{.fsmaller}
+:::{.fs80}
 - Now we have a character vector of file paths. 
 - We can use `map()` to apply the `read_csv()` function to every path.
 - Since `map()` always returns a list, we will get a list where each item is a complete data frame.
@@ -365,7 +365,7 @@ list_of_dfs
 
 ## Step 3: Binding the Data 
 
-:::{.fsmaller}
+:::{.fs80}
 - We have our data, but a list of data frames is difficult to analyze
 - We want one combined data frame
 - `list_rbind()` will stacks them row-by-row

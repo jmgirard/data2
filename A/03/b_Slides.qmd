@@ -36,7 +36,7 @@ format:
 
 # Arguments
 
-## Arguments {.smaller}
+## Arguments {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -114,7 +114,7 @@ rnorm(n = 1, mean = 100, sd = 15)
 
 # Vectors
 
-## Vectors {.smaller}
+## Vectors {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -198,7 +198,7 @@ z <- x - y
 z
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 Note that, for this to work, both vectors need the same number of elements
 :::
 
@@ -236,6 +236,6 @@ sum(x)
 mean(x)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 Others include: `prod()`, `min()`, `max()`, `sd()`, `median()`, and `mad()`
 :::
