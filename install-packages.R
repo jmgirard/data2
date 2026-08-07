@@ -10,6 +10,14 @@
 # cannot change the live site until a page is deliberately re-rendered, and
 # publishing needs no R at all.
 
+# install.packages() needs an explicit mirror when R runs non-interactively:
+# the default "repos" option is the unresolved placeholder "@CRAN@", which
+# prompts for a mirror in RStudio but errors under Rscript.
+repos <- getOption("repos")
+if (is.null(repos[["CRAN"]]) || repos[["CRAN"]] == "@CRAN@") {
+  options(repos = c(CRAN = "https://cloud.r-project.org"))
+}
+
 cran_packages <- c(
   # Core -- these two account for the large majority of usage
   "tidyverse",      # includes dplyr, ggplot2, tidyr, tibble, readr, stringr, ...
