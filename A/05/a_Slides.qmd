@@ -52,7 +52,107 @@ set_theme(theme_gray(base_size = 30))
 ## What is a graphic? {.fs70}
 
 ::: {.pv4 .tc}
-![](../../img/graphics.png)
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4.4
+
+# Top row: four real data visualizations. Bottom row: four abstract images that
+# borrow each one's *form* without encoding any data. The pairing is the point --
+# looking like a graphic is not the same as being one -- so the columns line up
+# deliberately: scatter/dots, donut/rings, choropleth/patches, network/wash.
+set.seed(20260807)
+blank <- theme_void() + theme(legend.position = "none",
+                              plot.margin = margin(2, 2, 2, 2))
+
+# -- 1. scatter ---------------------------------------------------------------
+# Colour by x and put y on a log scale: mapping colour to the exponential y left
+# almost every point at the dark end of the viridis ramp.
+sc <- tibble(x = rgamma(400, 2, 2)) |> mutate(y = exp(x) * runif(400, .6, 1.4) * 300)
+p1 <- ggplot(sc, aes(x, y, colour = x)) +
+  geom_point(size = 1.5, alpha = .9) +
+  scale_y_log10() + scale_colour_viridis_c() + blank
+
+# -- 2. donut -----------------------------------------------------------------
+dn <- tibble(cat = LETTERS[1:8], val = c(11, 7.4, 6.4, 5.1, 5, 4.7, 4, 3.8)) |>
+  mutate(f = val / sum(val), ymax = cumsum(f), ymin = lag(ymax, default = 0))
+p2 <- ggplot(dn, aes(ymin = ymin, ymax = ymax, xmin = 3, xmax = 4, fill = cat)) +
+  geom_rect(colour = "white", linewidth = .4) +
+  coord_polar(theta = "y") + xlim(1.4, 4) +
+  scale_fill_brewer(palette = "Set2") + blank
+
+# -- 3. choropleth ------------------------------------------------------------
+states <- map_data("state")
+fills <- tibble(region = unique(states$region), v = runif(length(unique(states$region))))
+p3 <- ggplot(left_join(states, fills, by = "region"),
+             aes(long, lat, group = group, fill = v)) +
+  geom_polygon(colour = "white", linewidth = .12) +
+  coord_quickmap() + scale_fill_viridis_c() + blank
+
+# -- 4. network ---------------------------------------------------------------
+nd <- tibble(id = 1:70, x = rnorm(70), y = rnorm(70))
+eg <- tibble(a = sample(70, 130, TRUE), b = sample(70, 130, TRUE)) |>
+  filter(a != b) |>
+  left_join(nd, by = c("a" = "id")) |> rename(x1 = x, y1 = y) |>
+  left_join(nd, by = c("b" = "id")) |> rename(x2 = x, y2 = y)
+p4 <- ggplot() +
+  geom_segment(data = eg, aes(x1, y1, xend = x2, yend = y2),
+               colour = "#9DC3E6", linewidth = .25, alpha = .6) +
+  geom_point(data = nd, aes(x, y), colour = "#2E75B6",
+             size = 2.4, alpha = .85) + blank
+
+# -- 5. dot painting (the form of a scatter, encoding nothing) ----------------
+pal <- c("#E4572E", "#29335C", "#F3A712", "#0197F6", "#3F7D20", "#D64550", "#8A4FFF")
+dots <- tibble(x = runif(220), y = runif(220), r = runif(220, .6, 2.2),
+               k = sample(pal, 220, TRUE))
+p5 <- ggplot(dots, aes(x, y, size = r, colour = k)) +
+  geom_point(alpha = .85) + scale_colour_identity() + scale_size_identity() +
+  blank + theme(panel.background = element_rect(fill = "#EDEDE9", colour = NA))
+
+# -- 6. concentric arcs (the form of a donut) ---------------------------------
+arcs <- tibble(r = seq(1, 7, by = .55)) |>
+  mutate(start = runif(n(), 0, .7), end = start + runif(n(), .35, .95),
+         k = sample(pal, n(), TRUE))
+p6 <- ggplot(arcs) +
+  geom_rect(aes(xmin = r, xmax = r + .38, ymin = start, ymax = end, fill = k)) +
+  coord_polar(theta = "y") + xlim(0, 8) + ylim(0, 1) +
+  scale_fill_identity() + blank
+
+# -- 7. irregular patches (the form of a map) ---------------------------------
+# Centres on a jittered grid with gently wavy edges, so the patches abut like map
+# regions. Free-floating strongly lobed blobs read as flowers, not territory.
+spec <- expand_grid(gx = 1:5, gy = 1:4) |>
+  mutate(g = row_number(),
+         cx = gx + runif(n(), -.16, .16), cy = gy + runif(n(), -.16, .16),
+         lobes = sample(2:4, n(), TRUE), phase = runif(n(), 0, 2 * pi),
+         k = sample(pal, n(), TRUE))
+patches <- spec |>
+  reframe(
+    a = seq(0, 2 * pi, length.out = 60),
+    x = cx + (.62 + .13 * sin(a * lobes + phase)) * cos(a),
+    y = cy + (.62 + .13 * sin(a * lobes + phase)) * sin(a),
+    .by = c(g, k)
+  )
+p7 <- ggplot(patches, aes(x, y, group = g, fill = k)) +
+  geom_polygon(colour = "white", linewidth = .3, alpha = .9) +
+  scale_fill_identity() + coord_equal() + blank
+
+# -- 8. watercolour wash (the form of a network) ------------------------------
+wn <- tibble(x = runif(26), y = runif(26), s = runif(26, 6, 22)) |>
+  mutate(id = row_number())
+wl <- tibble(a = sample(26, 34, TRUE), b = sample(26, 34, TRUE)) |>
+  filter(a != b) |>
+  left_join(wn, by = c("a" = "id")) |> rename(x1 = x, y1 = y) |>
+  left_join(wn, by = c("b" = "id")) |> rename(x2 = x, y2 = y)
+p8 <- ggplot() +
+  geom_segment(data = wl, aes(x1, y1, xend = x2, yend = y2),
+               colour = "#6B705C", linewidth = .3, alpha = .7) +
+  geom_point(data = wn, aes(x, y, size = s),
+             colour = "#7FB3B3", alpha = .55) +
+  scale_size_identity() + blank
+
+(p1 | p2 | p3 | p4) / (p5 | p6 | p7 | p8)
+```
 
 ::: {.fragment}
 A [data visualization]{.b .blue} expresses [data]{.b .green} through [visual aesthetics]{.b .green}.
@@ -174,7 +274,60 @@ Graphics require [data]{.b .blue} (e.g., tibbles), which describe [observations]
 
 ::: {.pv4 .tc}
 
-![](../../img/aes.png)
+```{r}
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.1
+
+# The six aesthetics ggplot lets you map a variable onto. Each panel shows the
+# aesthetic varying on its own, with nothing mapped -- the point is the vocabulary,
+# not a dataset. theme_void() resets base_size, so sizes here are set explicitly.
+pane <- function(ttl) {
+  list(theme_void(base_size = 20),
+       theme(plot.title = element_text(size = 20, hjust = 0, margin = margin(b = 6)),
+             plot.margin = margin(6, 12, 6, 12),
+             legend.position = "none"))
+}
+
+p_pos <- ggplot(tibble(x = c(-1, 0), y = c(0, -1), xe = c(1, 0), ye = c(0, 1))) +
+  geom_segment(aes(x, y, xend = xe, yend = ye), linewidth = .7,
+               arrow = arrow(length = unit(.22, "cm"), type = "closed")) +
+  annotate("text", x = 1.02, y = -.22, label = "x", size = 6) +
+  annotate("text", x = -.22, y = 1.02, label = "y", size = 6) +
+  coord_equal(xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3)) +
+  labs(title = "position") + pane()
+
+# No coord_equal on these two: every point sits at y = 0, so the data y-range is
+# zero and a fixed aspect ratio stretches the panel to a sliver. Set limits instead.
+p_shape <- ggplot(tibble(x = 1:4, s = c(21, 22, 23, 24)), aes(x, 0, shape = s)) +
+  geom_point(size = 11, fill = "grey72", stroke = .7) +
+  scale_shape_identity() +
+  scale_x_continuous(limits = c(.4, 4.6)) +
+  scale_y_continuous(limits = c(-1, 1)) +
+  labs(title = "shape") + pane()
+
+p_size <- ggplot(tibble(x = 1:4, s = c(4, 7, 10, 13)), aes(x, 0, size = s)) +
+  geom_point(shape = 21, fill = "grey72", stroke = .7) +
+  scale_size_identity() +
+  scale_x_continuous(limits = c(.4, 4.6)) +
+  scale_y_continuous(limits = c(-1, 1)) +
+  labs(title = "size") + pane()
+
+p_col <- ggplot(tibble(x = 1:4, k = c("#E08E0B", "#4FA3E3", "#12946B", "#EFDC33")),
+                aes(x, 0, fill = k)) +
+  geom_tile(width = .85, height = 1.8) + scale_fill_identity() +
+  labs(title = "color") + pane()
+
+p_lw <- ggplot(tibble(y = 4:1, w = c(.5, 1.2, 2.1, 3.2))) +
+  geom_segment(aes(x = 0, xend = 1, y = y, yend = y, linewidth = w)) +
+  scale_linewidth_identity() + labs(title = "line width") + pane()
+
+p_lt <- ggplot(tibble(y = 4:1, t = c("solid", "dashed", "dotted", "dotdash"))) +
+  geom_segment(aes(x = 0, xend = 1, y = y, yend = y, linetype = t), linewidth = .8) +
+  scale_linetype_identity() + labs(title = "line type") + pane()
+
+(p_pos | p_shape | p_size) / (p_col | p_lw | p_lt)
+```
 
 ::: {}
 Graphics require [aesthetic mappings]{.b .blue}, which connect [data *variables*]{.b .green} to [visual *qualities*]{.b .green}.
@@ -344,7 +497,47 @@ ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
 -   [Vector]{.b .blue} ([pdf]{.b}, svg, wmf, eps): Scalability
 :::
 
-![](../../img/formats.png)
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 2.3
+
+# The same shape stored both ways: on the left as a fixed grid of pixels, on the
+# right as the outline itself. Zooming in on the left finds the squares; zooming
+# in on the right just re-evaluates the curve, which is the whole argument for
+# vector formats.
+outline <- function(n = 400) {
+  a <- seq(0, 2 * pi, length.out = n)
+  r <- 1 + .28 * sin(3 * a) + .16 * cos(2 * a)
+  tibble(a = a, x = r * cos(a), y = r * sin(a))
+}
+inside <- function(x, y) {
+  a <- atan2(y, x)
+  sqrt(x^2 + y^2) <= 1 + .28 * sin(3 * a) + .16 * cos(2 * a)
+}
+
+px <- expand_grid(x = seq(-1.4, 1.4, length.out = 15),
+                  y = seq(-1.4, 1.4, length.out = 15)) |>
+  filter(inside(x, y))
+
+shell <- theme_void(base_size = 18) +
+  theme(plot.title = element_text(size = 18, hjust = .5, margin = margin(b = 4)),
+        plot.margin = margin(4, 8, 4, 8))
+
+p_raster <- ggplot(px, aes(x, y)) +
+  geom_tile(width = .2, height = .2, fill = "grey25", colour = "white",
+            linewidth = .3) +
+  coord_equal(xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5)) +
+  labs(title = "Raster") + shell
+
+p_vector <- ggplot(outline(), aes(x, y)) +
+  geom_polygon(fill = "grey25") +
+  geom_point(data = outline(19), colour = "#0197F6", size = 1.4) +
+  coord_equal(xlim = c(-1.5, 1.5), ylim = c(-1.5, 1.5)) +
+  labs(title = "Vector") + shell
+
+p_raster | p_vector
+```
 
 :::
 :::

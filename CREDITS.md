@@ -62,35 +62,69 @@ Note on the stock-sourced composite: Vecteezy's free tier requires attribution f
 assets. If the original downloads can be identified it is worth confirming whether a credit
 line is owed; the composite itself is original work.
 
-### ⚠️ Unresolved — provenance not yet confirmed
+### Redrawn from R4DS (1st ed.) figures — own work
 
-These seven images **are published on the live site** and their sources could not be
-established from the repository alone. Every one carries a `Software: Greenshot` PNG tag,
-meaning it was captured from the screen — which is equally consistent with capturing one's
-own work (as `position.png` and the `p_raster_*` files demonstrably are) and with
-capturing someone else's, so the metadata does not settle the question either way.
+Recalled by Jeffrey Girard, 2026-08-07. These were drawn by hand as deliberately simplified
+versions of figures in the Relational Data chapter of *R for Data Science* (1st ed.), whose
+originals were judged too complex for a lecture slide.
 
-| File | Used in | What it shows | Note |
+| File | Used in | Shows |
+|---|---|---|
+| `keys.png` | B/11c | `users` / `movies` / `ratings`, with primary and composite keys marked |
+| `flights1.png` | B/11c | The four `nycflights13` tables as plain column lists |
+| `flights2.png` | B/11c | The same four tables with keys highlighted and linked |
+
+These are original drawings, not copies. The underlying content — the table and column names
+of a public dataset, and the fact that certain columns are keys — is factual, and facts are
+not copyrightable; only a particular rendering would be. R4DS is NoDerivatives, which is
+worth being aware of, but redrawing the *information* in a visibly different style is not
+the kind of derivative that licence restricts. Compare `relational.png` in the unpublished
+list below, which **is** an R4DS figure and is reproduced rather than redrawn.
+
+### Replaced by original R figures (2026-08-07)
+
+Four images were built, wholly or partly, from other people's work whose sources had not
+been recorded — so they could not be attributed, because there was nothing to attribute them
+to. Rather than publish material of unknown provenance, all four were regenerated as R code
+in the decks that use them and the files deleted. They are now original work owed to nobody,
+and they inherit each deck's theme instead of being frozen bitmaps.
+
+| Was | Now drawn in | Origin as recalled | Why replaced rather than attributed |
 |---|---|---|---|
-| `aes.png` | A/05a | Six labelled aesthetics: position, shape, size, colour, line width, line type | Clean vector-style diagram; could be hand-drawn or from a textbook |
-| `formats.png` | A/05a | Raster vs. vector, illustrated with a magnifier over a brush stroke | Serif labels; a common illustration style on graphics-tutorial sites |
-| `graphics.png` | A/05a | An eight-panel montage of data visualisations (scatter, donut, choropleth, network, dot painting, radial chart, elephant silhouette, watercolour network) | A composite — but the **constituent panels** appear to be other people's work, which is the concern here |
-| `joins.png` | B/11c | Four Venn diagrams labelled Left / Right / Inner / Full Join | The generic SQL-join Venn illustration, which exists in many versions |
-| `keys.png` | B/11c | An entity diagram of `users` / `movies` / `ratings` with key icons | Same serif-and-key drawing style as the two below |
-| `flights1.png` | B/11c | `airlines` / `airports` / `flights` / `planes` column lists | Same style; the underlying data is `nycflights13` |
-| `flights2.png` | B/11c | The same four tables with primary and foreign keys highlighted | Same style |
+| `graphics.png` | `A/05/a_Slides.qmd` | Assembled from Google Images results — top row real data visualisations, bottom row stock artwork of similar form | Eight panels, eight unknown authors. A montage does not launder its components' licences |
+| `aes.png` | `A/05/a_Slides.qmd` | Collated from screenshots of R4DS, the ggplot2 book, or ggplot2 vignettes | A collage of screenshots is a *derivative*, which R4DS's NoDerivatives term does not permit — attribution alone would not have cured it |
+| `formats.png` | `A/05/a_Slides.qmd` | Found via Google Images; the "Raster"/"Vector" labels may have been added afterwards | No identifiable source, so no licence to check |
+| `joins.png` | `B/11/c_Slides.qmd` | Probably R4DS | Attribution was possible in principle but the figure is four Venn diagrams, trivially generated |
 
-`keys.png`, `flights1.png` and `flights2.png` are clearly three figures by one author from
-one source; identifying any one of them resolves all three.
+The replacements are not merely substitutes:
 
-`graphics.png` deserves the closest look. It is a montage, so the assembly is original, but
-several panels are recognisably photographs, artworks, or published charts by other people,
-and a montage does not launder the components' licences.
+- The new **`aes`** figure draws the six aesthetics — position, shape, size, colour, line
+  width, line type — as six ggplot panels, so the slide now demonstrates the vocabulary in
+  the very system being taught.
+- The new **`formats`** figure renders one shape twice: as a coarse grid of tiles, and as
+  the smooth outline with its control points marked. The contrast it is teaching is now
+  literally what is on screen.
+- The new **`joins`** figure computes each shaded region as an exact polygon from circle
+  arcs, so the edges stay crisp at any size.
+- The new **`graphics`** montage is arranged in *pairs*: each real visualisation in the top
+  row sits directly above an abstract image that borrows its form but encodes nothing —
+  scatter/dots, donut/rings, choropleth/patches, network/wash. The original montage put real
+  charts in one row and art in the other without pairing them, so the new version makes the
+  slide's point ("a data visualization expresses *data* through visual aesthetics") more
+  sharply than the image it replaces.
 
-**Until these are identified, the safe options are:** confirm them as your own work,
-attribute them to the source, or replace them — the same three choices that were applied to
-the six borrowed figures in `psyc790`, where redrawing in ggplot removed the question
-entirely.
+On fair use, since it was raised for `formats.png` and applies equally to the others:
+non-profit educational use is the strongest of the four statutory factors, and for a small
+illustration used to teach a concept it is a real argument, not a fig leaf. Two caveats
+belong on the record. Fair use is a defence assessed case by case, not a status a file can
+be verified as having — so unlike a licence, it cannot be *confirmed* in advance. And the
+classroom-display exemption in §110(1) covers face-to-face teaching, whereas this site is
+published on the open web, which is the weaker footing; a stock illustration's market is
+precisely the licensing of it. None of that made the original assessment unreasonable. It
+means the question stayed open in a way an original figure closes.
+
+Note that the deleted files remain in this repository's **git history**; only the working
+tree and the published site no longer carry them.
 
 ### Tracked but not published
 

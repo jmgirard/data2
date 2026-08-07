@@ -240,7 +240,48 @@ kable(avg_ratings_mini)
 
 ::: {.column width="35%"}
 
-![](../../img/joins.png)
+```{r}
+#| echo: false
+#| fig-width: 3.4
+#| fig-height: 4.45
+
+# Which rows survive each join, as the shaded part of two overlapping circles.
+# The shaded regions are built as exact polygons from circle arcs rather than by
+# rasterizing a grid, so the edges stay crisp at any display size.
+cxl <- -2.30; cxr <- -1.20          # circle centres; radius is 1
+th <- acos((cxr - cxl) / 2)         # half-angle subtended by the intersection
+arc <- function(cx, from, to, n = 150) {
+  a <- seq(from, to, length.out = n)
+  tibble(x = cx + cos(a), y = sin(a))
+}
+
+regions <- list(
+  "Left Join"  = arc(cxl, 0, 2 * pi),
+  "Right Join" = arc(cxr, 0, 2 * pi),
+  "Inner Join" = bind_rows(arc(cxl, -th, th), arc(cxr, pi - th, pi + th)),
+  "Full Join"  = bind_rows(arc(cxl, th, 2 * pi - th),
+                           arc(cxr, pi + th, 3 * pi - th))
+)
+labs4 <- names(regions)
+drop <- function(k) -(k - 1) * 2.2   # vertical offset of each row
+
+shaded <- imap(regions, \(d, nm) mutate(d, k = match(nm, labs4))) |>
+  bind_rows() |> mutate(y = y + drop(k))
+rings <- map(1:4, \(k) bind_rows(
+    mutate(arc(cxl, 0, 2 * pi), grp = paste0(k, "L")),
+    mutate(arc(cxr, 0, 2 * pi), grp = paste0(k, "R"))
+  ) |> mutate(y = y + drop(k))) |> list_rbind()
+tags <- tibble(lab = labs4, x = 0.1, y = drop(1:4))
+
+ggplot() +
+  geom_polygon(data = shaded, aes(x, y, group = k), fill = "grey72") +
+  geom_path(data = rings, aes(x, y, group = grp), linewidth = .55) +
+  # size 6.8mm lands the labels at ~26px on the 1050px canvas, against 28px body
+  # text; the figure displays at half its natural size in this 35% column.
+  geom_text(data = tags, aes(x, y, label = lab), hjust = 0, size = 6.8) +
+  coord_equal(xlim = c(-3.45, 3.35), ylim = c(-7.75, 1.15), expand = FALSE) +
+  theme_void()
+```
 
 :::
 
