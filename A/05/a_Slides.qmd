@@ -56,24 +56,22 @@ set_theme(theme_gray(base_size = 30))
 ::: {.tc}
 ```{r}
 #| echo: false
-#| fig-width: 12
-#| fig-height: 2.5
+#| include: false
 
-# The top row of this slide is four real visualizations of real data; the bottom
-# row (four public-domain paintings, in the markup below) borrows each one's form
-# while encoding nothing. The columns are paired deliberately -- bubbles, rings,
-# patches, node-and-link -- because the contrast is the point the slide makes.
+# Panels are built here and printed one per cell below, so Quarto's layout-ncol=4
+# places all eight items -- four charts, four paintings -- on a single grid with
+# equal widths and aligned columns. Every cell is 1.2:1, matching the artworks.
 library(nycflights13)
 blank <- theme_void() + theme(legend.position = "none",
-                              plot.margin = margin(2, 3, 2, 3))
+                              plot.margin = margin(1, 1, 1, 1))
 
-# -- 1. scatter: fuel economy against engine size ----------------------------
+# -- scatter: fuel economy against engine size -------------------------------
 p1 <- ggplot(mpg, aes(displ, hwy, colour = cty)) +
   geom_point(size = 1.9, alpha = .85,
              position = position_jitter(.06, .3, seed = 1)) +
   scale_colour_viridis_c() + blank
 
-# -- 2. donut: how the same cars divide into classes -------------------------
+# -- donut: how the same cars divide into classes ---------------------------
 dn <- count(mpg, class) |>
   mutate(f = n / sum(n), ymax = cumsum(f), ymin = lag(ymax, default = 0))
 p2 <- ggplot(dn, aes(ymin = ymin, ymax = ymax, xmin = 3, xmax = 4, fill = class)) +
@@ -81,14 +79,14 @@ p2 <- ggplot(dn, aes(ymin = ymin, ymax = ymax, xmin = 3, xmax = 4, fill = class)
   coord_polar(theta = "y") + xlim(1.4, 4) +
   scale_fill_brewer(palette = "Set2") + blank
 
-# -- 3. choropleth: murder arrests per 100,000, by state ---------------------
+# -- choropleth: murder arrests per 100,000, by state -----------------------
 arrests <- tibble(region = tolower(rownames(USArrests)), murder = USArrests$Murder)
 p3 <- ggplot(left_join(map_data("state"), arrests, by = "region"),
              aes(long, lat, group = group, fill = murder)) +
   geom_polygon(colour = "white", linewidth = .12) +
   coord_quickmap() + scale_fill_viridis_c() + blank
 
-# -- 4. network: 2013 flights out of the three NYC airports ------------------
+# -- network: 2013 flights out of the three NYC airports --------------------
 pos <- select(airports, faa, lat, lon)
 routes <- count(flights, origin, dest) |>
   left_join(pos, by = c("origin" = "faa")) |> rename(y1 = lat, x1 = lon) |>
@@ -100,11 +98,37 @@ p4 <- ggplot() +
   geom_point(data = distinct(routes, dest, x2, y2), aes(x2, y2),
              colour = "#1F4E79", size = 1.5) +
   scale_linewidth(range = c(.15, 1.1)) + coord_quickmap() + blank
-
-p1 | p2 | p3 | p4
 ```
 
 ::: {layout-ncol=4}
+```{r}
+#| echo: false
+#| fig-width: 3
+#| fig-height: 2.5
+p1
+```
+
+```{r}
+#| echo: false
+#| fig-width: 3
+#| fig-height: 2.5
+p2
+```
+
+```{r}
+#| echo: false
+#| fig-width: 3
+#| fig-height: 2.5
+p3
+```
+
+```{r}
+#| echo: false
+#| fig-width: 3
+#| fig-height: 2.5
+p4
+```
+
 ![](../../img/art_circles_kandinsky.jpg)
 
 ![](../../img/art_disc_delaunay.jpg)
