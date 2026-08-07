@@ -8,3 +8,7 @@
 /.quarto/
 /_site/
 .positai
+
+# renv was dropped in favour of install-packages.R; the local library may
+# remain on disk and must not be committed.
+/renv/
