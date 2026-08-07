@@ -226,8 +226,63 @@
 </section>
 <section class="slide level2 fs70">
 <h2>What is a graphic?</h2>
-<div class="pv4 tc">
-<p><img data-src="../../img/graphics.png"></p>
+<!-- no .pv4 here: this slide carries two full rows of figures, and 4rem of
+     vertical padding is what pushed it 50px past the canvas. -->
+<div class="tc">
+<div class="quarto-layout-panel" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-2-1.png" width="288"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="288"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="288"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="288"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<p><img data-src="../../img/art_circles_kandinsky.jpg"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<p><img data-src="../../img/art_disc_delaunay.jpg"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<p><img data-src="../../img/art_patches_klee.jpg"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<p><img data-src="../../img/art_network_kandinsky.jpg"></p>
+</div>
+</div>
+</div>
 <div class="fragment">
 <p>A <span class="b blue">data visualization</span> expresses <span class="b green">data</span> through <span class="b green">visual aesthetics</span>.</p>
 </div>
@@ -329,7 +384,15 @@
 <section class="slide level2 fs70 figfit">
 <h2>Aesthetic Mappings</h2>
 <div class="pv4 tc">
-<p><img data-src="../../img/aes.png"></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
 <div>
 <p>Graphics require <span class="b blue">aesthetic mappings</span>, which connect <span class="b green">data <em>variables</em></span> to <span class="b green">visual <em>qualities</em></span>.</p>
 </div>
@@ -430,7 +493,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="672"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -456,7 +519,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-2-1.png" width="672"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -483,7 +546,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="672"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -495,7 +558,7 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section></section>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section class="title-slide slide level1 center">
 <h1>Saving Graphics</h1>
@@ -520,7 +583,15 @@
 <li><span class="b blue">Vector</span> (<span class="b">pdf</span>, svg, wmf, eps): Scalability</li>
 </ul>
 </div>
-<p><img data-src="../../img/formats.png"></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/polaroid.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
