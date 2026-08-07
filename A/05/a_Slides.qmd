@@ -51,108 +51,68 @@ set_theme(theme_gray(base_size = 30))
 
 ## What is a graphic? {.fs70}
 
-::: {.pv4 .tc}
+<!-- no .pv4 here: this slide carries two full rows of figures, and 4rem of
+     vertical padding is what pushed it 50px past the canvas. -->
+::: {.tc}
 ```{r}
 #| echo: false
 #| fig-width: 12
-#| fig-height: 4.4
+#| fig-height: 2.5
 
-# Top row: four real data visualizations. Bottom row: four abstract images that
-# borrow each one's *form* without encoding any data. The pairing is the point --
-# looking like a graphic is not the same as being one -- so the columns line up
-# deliberately: scatter/dots, donut/rings, choropleth/patches, network/wash.
-set.seed(20260807)
+# The top row of this slide is four real visualizations of real data; the bottom
+# row (four public-domain paintings, in the markup below) borrows each one's form
+# while encoding nothing. The columns are paired deliberately -- bubbles, rings,
+# patches, node-and-link -- because the contrast is the point the slide makes.
+library(nycflights13)
 blank <- theme_void() + theme(legend.position = "none",
-                              plot.margin = margin(2, 2, 2, 2))
+                              plot.margin = margin(2, 3, 2, 3))
 
-# -- 1. scatter ---------------------------------------------------------------
-# Colour by x and put y on a log scale: mapping colour to the exponential y left
-# almost every point at the dark end of the viridis ramp.
-sc <- tibble(x = rgamma(400, 2, 2)) |> mutate(y = exp(x) * runif(400, .6, 1.4) * 300)
-p1 <- ggplot(sc, aes(x, y, colour = x)) +
-  geom_point(size = 1.5, alpha = .9) +
-  scale_y_log10() + scale_colour_viridis_c() + blank
+# -- 1. scatter: fuel economy against engine size ----------------------------
+p1 <- ggplot(mpg, aes(displ, hwy, colour = cty)) +
+  geom_point(size = 1.9, alpha = .85,
+             position = position_jitter(.06, .3, seed = 1)) +
+  scale_colour_viridis_c() + blank
 
-# -- 2. donut -----------------------------------------------------------------
-dn <- tibble(cat = LETTERS[1:8], val = c(11, 7.4, 6.4, 5.1, 5, 4.7, 4, 3.8)) |>
-  mutate(f = val / sum(val), ymax = cumsum(f), ymin = lag(ymax, default = 0))
-p2 <- ggplot(dn, aes(ymin = ymin, ymax = ymax, xmin = 3, xmax = 4, fill = cat)) +
+# -- 2. donut: how the same cars divide into classes -------------------------
+dn <- count(mpg, class) |>
+  mutate(f = n / sum(n), ymax = cumsum(f), ymin = lag(ymax, default = 0))
+p2 <- ggplot(dn, aes(ymin = ymin, ymax = ymax, xmin = 3, xmax = 4, fill = class)) +
   geom_rect(colour = "white", linewidth = .4) +
   coord_polar(theta = "y") + xlim(1.4, 4) +
   scale_fill_brewer(palette = "Set2") + blank
 
-# -- 3. choropleth ------------------------------------------------------------
-states <- map_data("state")
-fills <- tibble(region = unique(states$region), v = runif(length(unique(states$region))))
-p3 <- ggplot(left_join(states, fills, by = "region"),
-             aes(long, lat, group = group, fill = v)) +
+# -- 3. choropleth: murder arrests per 100,000, by state ---------------------
+arrests <- tibble(region = tolower(rownames(USArrests)), murder = USArrests$Murder)
+p3 <- ggplot(left_join(map_data("state"), arrests, by = "region"),
+             aes(long, lat, group = group, fill = murder)) +
   geom_polygon(colour = "white", linewidth = .12) +
   coord_quickmap() + scale_fill_viridis_c() + blank
 
-# -- 4. network ---------------------------------------------------------------
-nd <- tibble(id = 1:70, x = rnorm(70), y = rnorm(70))
-eg <- tibble(a = sample(70, 130, TRUE), b = sample(70, 130, TRUE)) |>
-  filter(a != b) |>
-  left_join(nd, by = c("a" = "id")) |> rename(x1 = x, y1 = y) |>
-  left_join(nd, by = c("b" = "id")) |> rename(x2 = x, y2 = y)
+# -- 4. network: 2013 flights out of the three NYC airports ------------------
+pos <- select(airports, faa, lat, lon)
+routes <- count(flights, origin, dest) |>
+  left_join(pos, by = c("origin" = "faa")) |> rename(y1 = lat, x1 = lon) |>
+  left_join(pos, by = c("dest" = "faa")) |> rename(y2 = lat, x2 = lon) |>
+  filter(!is.na(x2), between(x2, -126, -67), between(y2, 25, 49))
 p4 <- ggplot() +
-  geom_segment(data = eg, aes(x1, y1, xend = x2, yend = y2),
-               colour = "#9DC3E6", linewidth = .25, alpha = .6) +
-  geom_point(data = nd, aes(x, y), colour = "#2E75B6",
-             size = 2.4, alpha = .85) + blank
+  geom_segment(data = routes, aes(x1, y1, xend = x2, yend = y2, linewidth = n),
+               colour = "#2E75B6", alpha = .3) +
+  geom_point(data = distinct(routes, dest, x2, y2), aes(x2, y2),
+             colour = "#1F4E79", size = 1.5) +
+  scale_linewidth(range = c(.15, 1.1)) + coord_quickmap() + blank
 
-# -- 5. dot painting (the form of a scatter, encoding nothing) ----------------
-pal <- c("#E4572E", "#29335C", "#F3A712", "#0197F6", "#3F7D20", "#D64550", "#8A4FFF")
-dots <- tibble(x = runif(220), y = runif(220), r = runif(220, .6, 2.2),
-               k = sample(pal, 220, TRUE))
-p5 <- ggplot(dots, aes(x, y, size = r, colour = k)) +
-  geom_point(alpha = .85) + scale_colour_identity() + scale_size_identity() +
-  blank + theme(panel.background = element_rect(fill = "#EDEDE9", colour = NA))
-
-# -- 6. concentric arcs (the form of a donut) ---------------------------------
-arcs <- tibble(r = seq(1, 7, by = .55)) |>
-  mutate(start = runif(n(), 0, .7), end = start + runif(n(), .35, .95),
-         k = sample(pal, n(), TRUE))
-p6 <- ggplot(arcs) +
-  geom_rect(aes(xmin = r, xmax = r + .38, ymin = start, ymax = end, fill = k)) +
-  coord_polar(theta = "y") + xlim(0, 8) + ylim(0, 1) +
-  scale_fill_identity() + blank
-
-# -- 7. irregular patches (the form of a map) ---------------------------------
-# Centres on a jittered grid with gently wavy edges, so the patches abut like map
-# regions. Free-floating strongly lobed blobs read as flowers, not territory.
-spec <- expand_grid(gx = 1:5, gy = 1:4) |>
-  mutate(g = row_number(),
-         cx = gx + runif(n(), -.16, .16), cy = gy + runif(n(), -.16, .16),
-         lobes = sample(2:4, n(), TRUE), phase = runif(n(), 0, 2 * pi),
-         k = sample(pal, n(), TRUE))
-patches <- spec |>
-  reframe(
-    a = seq(0, 2 * pi, length.out = 60),
-    x = cx + (.62 + .13 * sin(a * lobes + phase)) * cos(a),
-    y = cy + (.62 + .13 * sin(a * lobes + phase)) * sin(a),
-    .by = c(g, k)
-  )
-p7 <- ggplot(patches, aes(x, y, group = g, fill = k)) +
-  geom_polygon(colour = "white", linewidth = .3, alpha = .9) +
-  scale_fill_identity() + coord_equal() + blank
-
-# -- 8. watercolour wash (the form of a network) ------------------------------
-wn <- tibble(x = runif(26), y = runif(26), s = runif(26, 6, 22)) |>
-  mutate(id = row_number())
-wl <- tibble(a = sample(26, 34, TRUE), b = sample(26, 34, TRUE)) |>
-  filter(a != b) |>
-  left_join(wn, by = c("a" = "id")) |> rename(x1 = x, y1 = y) |>
-  left_join(wn, by = c("b" = "id")) |> rename(x2 = x, y2 = y)
-p8 <- ggplot() +
-  geom_segment(data = wl, aes(x1, y1, xend = x2, yend = y2),
-               colour = "#6B705C", linewidth = .3, alpha = .7) +
-  geom_point(data = wn, aes(x, y, size = s),
-             colour = "#7FB3B3", alpha = .55) +
-  scale_size_identity() + blank
-
-(p1 | p2 | p3 | p4) / (p5 | p6 | p7 | p8)
+p1 | p2 | p3 | p4
 ```
+
+::: {layout-ncol=4}
+![](../../img/art_circles_kandinsky.jpg)
+
+![](../../img/art_disc_delaunay.jpg)
+
+![](../../img/art_patches_klee.jpg)
+
+![](../../img/art_network_kandinsky.jpg)
+:::
 
 ::: {.fragment}
 A [data visualization]{.b .blue} expresses [data]{.b .green} through [visual aesthetics]{.b .green}.

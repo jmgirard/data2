@@ -34,6 +34,28 @@ free use without attribution. Files: `programming_2780E3.svg`, `proud_coder_357E
 for non-commercial use, but must not be cropped, recoloured, or otherwise altered. Both
 are used here unmodified.
 
+### Public-domain paintings
+
+Added 2026-08-07 for the bottom row of the "What is a graphic?" slide in A/05a. Each one
+echoes the *form* of the data visualisation directly above it while encoding no data at
+all — which is the contrast the slide is built on. All four are in the public domain: their
+painters died in 1940–1944, so copyright expired across the EU between 2011 and 2015, and
+each work was published before 1931, placing it in the US public domain as well. No
+attribution is legally required; it is given because crediting an artist is right.
+
+| File | Pairs with | Work | Source |
+|---|---|---|---|
+| `art_circles_kandinsky.jpg` | scatter | Wassily Kandinsky (1866–1944), *Several Circles* (1926), Solomon R. Guggenheim Museum | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1926_-_Several_Circles,_Gugg_0910_25.jpg) — public domain |
+| `art_disc_delaunay.jpg` | donut | Robert Delaunay (1885–1941), *Premier Disque* (1913), private collection | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Robert_Delaunay,_1913,_Premier_Disque,_134_cm,_52.7_inches,_Private_collection.jpg) — public domain |
+| `art_patches_klee.jpg` | choropleth | Paul Klee (1879–1940), *Castle and Sun* (*Burg und Sonne*, 1928), private collection | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Burg_und_Sonne_-_Klee.jpg) — public domain |
+| `art_network_kandinsky.jpg` | network | Wassily Kandinsky, *Composition 8* (1923), Solomon R. Guggenheim Museum | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kandinsky_-_Composition_8,_July_1923.jpg) — CC0 |
+
+All four were downloaded at roughly 900–1200px and padded with white to a common 1.2 aspect
+ratio so the slide's four-column layout renders an even row. `art_network_kandinsky.jpg` was
+additionally cropped to remove the picture frame and gallery wall visible in the photograph.
+Public-domain status permits these changes; they are noted for the record, and the images
+are otherwise unaltered.
+
 ### Software screenshots
 
 Screenshots of software interfaces taken by Jeffrey Girard while preparing the course.
@@ -85,13 +107,21 @@ list below, which **is** an R4DS figure and is reproduced rather than redrawn.
 
 Four images were built, wholly or partly, from other people's work whose sources had not
 been recorded — so they could not be attributed, because there was nothing to attribute them
-to. Rather than publish material of unknown provenance, all four were regenerated as R code
-in the decks that use them and the files deleted. They are now original work owed to nobody,
-and they inherit each deck's theme instead of being frozen bitmaps.
+to. Rather than publish material of unknown provenance, all four were replaced and the files
+deleted.
+
+Three of the four — `aes`, `formats`, `joins` — are now R code in the decks that use them:
+original work owed to nobody, inheriting each deck's theme instead of being frozen bitmaps.
+
+The fourth, `graphics.png`, is a **hybrid**. Its top row is R code plotting real datasets;
+its bottom row is four public-domain paintings, credited in full under *Public-domain
+paintings* above. So that slide is not wholly original — but every element on it is now
+either generated here or traceable to a named artist and a licence, which is precisely what
+the original montage was not.
 
 | Was | Now drawn in | Origin as recalled | Why replaced rather than attributed |
 |---|---|---|---|
-| `graphics.png` | `A/05/a_Slides.qmd` | Assembled from Google Images results — top row real data visualisations, bottom row stock artwork of similar form | Eight panels, eight unknown authors. A montage does not launder its components' licences |
+| `graphics.png` | `A/05/a_Slides.qmd` (top row) + four public-domain paintings (bottom row, credited above) | Assembled from Google Images results — top row real data visualisations, bottom row stock artwork of similar form | Eight panels, eight unknown authors. A montage does not launder its components' licences |
 | `aes.png` | `A/05/a_Slides.qmd` | Collated from screenshots of R4DS, the ggplot2 book, or ggplot2 vignettes | A collage of screenshots is a *derivative*, which R4DS's NoDerivatives term does not permit — attribution alone would not have cured it |
 | `formats.png` | `A/05/a_Slides.qmd` | Found via Google Images; the "Raster"/"Vector" labels may have been added afterwards | No identifiable source, so no licence to check |
 | `joins.png` | `B/11/c_Slides.qmd` | Probably R4DS | Attribution was possible in principle but the figure is four Venn diagrams, trivially generated |
@@ -106,12 +136,24 @@ The replacements are not merely substitutes:
   literally what is on screen.
 - The new **`joins`** figure computes each shaded region as an exact polygon from circle
   arcs, so the edges stay crisp at any size.
-- The new **`graphics`** montage is arranged in *pairs*: each real visualisation in the top
-  row sits directly above an abstract image that borrows its form but encodes nothing —
-  scatter/dots, donut/rings, choropleth/patches, network/wash. The original montage put real
-  charts in one row and art in the other without pairing them, so the new version makes the
-  slide's point ("a data visualization expresses *data* through visual aesthetics") more
-  sharply than the image it replaces.
+- The new **`graphics`** montage is arranged in *column pairs*, so each real visualisation
+  sits directly above a painting that borrows its form while encoding nothing:
+
+  | Top row (real data) | Bottom row (art) |
+  |---|---|
+  | `mpg` — highway economy against engine size | Kandinsky, *Several Circles* — a field of circles varying in size and colour |
+  | `mpg` — how the same cars divide into classes | Delaunay, *Premier Disque* — concentric rings cut into sectors |
+  | `USArrests` — murder arrests per 100,000 by state | Klee, *Castle and Sun* — a mosaic of coloured patches |
+  | `nycflights13` — 2013 routes out of the three NYC airports | Kandinsky, *Composition 8* — circles joined by lines across a plane |
+
+  Two things changed from the first attempt at this rebuild. The top row originally plotted
+  *simulated* data — `rgamma` noise dressed up as a scatter — which is not a data
+  visualisation in any sense the slide means; it now plots real datasets the course actually
+  uses. And the bottom row was procedurally generated noise, which is not art either; it is
+  now four actual paintings. The original montage put charts in one row and art in the other
+  without pairing them, so aligning the columns makes the slide's point ("a data
+  visualization expresses *data* through visual aesthetics") more sharply than the image it
+  replaces.
 
 On fair use, since it was raised for `formats.png` and applies equally to the others:
 non-profit educational use is the strongest of the four statutory factors, and for a small
